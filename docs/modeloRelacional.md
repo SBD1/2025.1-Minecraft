@@ -8,7 +8,7 @@ Além disso, o modelo permite a manipulação eficiente das informações por me
 
 # Modelo relacional
 
-![alt text](imagens/Modelo%20Relacional%20-%20Minecraft%201.0.png)
+![alt text](Imagens/Modelo%20Relacional%20-%20Minecraft%201.0.png)
 
 # Versões
 
