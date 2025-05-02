@@ -1,15 +1,13 @@
-site_name: AdvogaAI
+site_name: Minecraft
 theme:
   #name: dracula
   name: material
 nav:
   - Início: inicio.md
-  - Visão de Produto e Projeto: 
-      -  Cenário Atual do Cliente e do Negócio: produto.md
-      - Solução Proposta: solucao.md
+  - Módulo 1: 
+      -  Diagrama Entidade-Relacionamento: der.md
+      - Modelo Relacional: modeloRelacional.md
       - Estratégias de Engenharia de Software: estrategia.md
-      - Cronograma: cronograma.md
-      - Interação entre Equipe e Cliente: equipecliente.md
+      - Dicionário de Dados: dicionario.md
   - Entregas:
       - Unidade 1: unidade1.md
-  - Nomeclaturas: naming.md
