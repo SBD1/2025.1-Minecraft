@@ -4,10 +4,9 @@ theme:
   name: material
 nav:
   - Início: inicio.md
-  - Módulo 1: 
-      -  Diagrama Entidade-Relacionamento: der.md
+  - Módulo 1:
+      - Diagrama Entidade-Relacionamento: der.md
       - Modelo Relacional: modeloRelacional.md
-      - Estratégias de Engenharia de Software: estrategia.md
       - Dicionário de Dados: dicionario.md
   - Entregas:
       - Unidade 1: unidade1.md
