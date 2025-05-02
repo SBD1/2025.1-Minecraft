@@ -8,8 +8,10 @@ Além disso, o modelo permite a manipulação eficiente das informações por me
 
 # Modelo relacional
 
+![alt text](imagens/Modelo%20Relacional%20-%20Minecraft%201.0.png)
+
 # Versões
 
-| Data       | Versão  | Descrição                           | Autor                                                             | Revisão                                                            |
-| ---------- | ------- | ----------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ |
-| 01/05/2025 | **1.0** | Versão inicial do Modelo Relacional | Yan Guimarães Nathan Vitor Valério João Zarbiélli Karolina Vieira | Yan Guimarães Nathan Batista Vitor Valério João Zarbiélli Karolina |
+| Data       | Versão  | Descrição                                                                                                                                                                                                       | Autor                                                             | Revisão                                                            |
+| ---------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------ |
+| 01/05/2025 | **1.0** | [Versão inicial do Modelo Relacional](https://lucid.app/lucidchart/366cda06-9d4a-4320-9434-30fc51c337a8/edit?viewport_loc=-375%2C-49%2C3314%2C1888%2C0_0&invitationId=inv_4ad17689-91d4-4a56-81e5-5159f6be629c) | Yan Guimarães Nathan Vitor Valério João Zarbiélli Karolina Vieira | Yan Guimarães Nathan Batista Vitor Valério João Zarbiélli Karolina |

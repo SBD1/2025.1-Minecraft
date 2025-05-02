@@ -8,6 +8,8 @@ Além disso, os relacionamentos entre as entidades são representados por linhas
 
 # Diagrama
 
+![alt text](imagens/der1.0.png)
+
 # Versões
 
 | Data       | Versão  | Descrição          | Autor                                                             | Revisão                                                            |
