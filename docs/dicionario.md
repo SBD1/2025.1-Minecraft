@@ -1,10 +1,21 @@
-# Histórico de Versões
+# Dicionário de dados
 
-| Data       | Versão | Alteração                            | Autor                                                                              |
-| ---------- | ------ | ------------------------------------ | ---------------------------------------------------------------------------------- |
-| 02/05/2025 | 1.0    | Criação do Dicionário de Dados       | Todos             |
+## Introdução
 
-# Dicionário de Dados
+Um **dicionário de dados** é um recurso fundamental em projetos de banco de dados, pois descreve detalhadamente os elementos que compõem o sistema, como tabelas, campos, tipos de dados e restrições. Ele funciona como uma espécie de manual técnico que **centraliza informações** sobre os dados, garantindo consistência, padronização e melhor comunicação entre os envolvidos no projeto. Além disso, o dicionário de dados **facilita a documentação**, uma vez que registra os significados, formatos e possíveis valores de cada atributo. Com isso, ele não apenas **apoia o desenvolvimento** e a manutenção do sistema, mas também **favorece a integração** entre equipes de desenvolvimento, análise e usuários finais, promovendo clareza e evitando ambiguidades no uso dos dados.
+
+O dicionário de dados deste projeto é composto pelas seguintes colunas:
+
+- **Atributo**: Nome do campo ou característica que representa uma informação específica armazenada na base de dados.
+- **Obrigatoriedade**: Indica se o preenchimento do atributo é obrigatório ou opcional dentro do sistema.
+- **Tipo**: Define o formato do dado, como texto (string), número inteiro (int), decimal, data, entre outros.
+- **Tamanho**: Indica a capacidade máxima ou o número de caracteres que o dado pode conter.
+- **Descrição**: Explica detalhadamente o significado do atributo ou entidade e seu papel dentro do contexto do jogo.
+- **Exemplo**: Fornece um valor ilustrativo para ajudar a entender como o atributo é utilizado na prática.
+
+
+
+# Dicionário de dados
 
 ## Entidade: Entidade  
 #### Descrição: Representa qualquer ser do jogo (jogador, mob, vilão ou criatura).
@@ -108,7 +119,8 @@
 | tipo_estrutura | Obrigatório     | varchar  | 50      | Tipo da estrutura                | Vila              |
 | prob_geração   | Obrigatório     | decimal  | 5,2     | Probabilidade de ser gerada      | 0.25              |
 
-## Entidade: Encantamento  
+## Entidade: Encantamento
+
 #### Descrição: Melhorias mágicas aplicáveis a itens ou jogadores.
 
 | Atributo                         | Obrigatoriedade | Tipo     | Tamanho | Descrição                                 | Exemplo           |
@@ -150,3 +162,11 @@
 | ----------- | --------------- | ---- | ------- | ----------------------- | ------- |
 | id_entidade | Obrigatório     | int  | 4       | FK para Entidade        | 8       |
 | fome        | Obrigatório     | int  | 4       | Nível de fome do lobo   | 12      |
+
+
+
+
+# Versões
+| Data       | Versão | Descrição                          | Autor                    | Revisão|
+|------------|--------|------------------------------------|--------------------------|----|
+| 01/05/2025 | **1.0** | Versão inicial do Dicionário de dados | Yan Guimarães Nathan Vitor Valério João Zarbiélli Karolina Vieira  | Yan Guimarães Nathan Batista Vitor Valério João Zarbiélli Karolina |
