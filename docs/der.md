@@ -7,7 +7,7 @@ O **Diagrama Entidade-Relacionamento (DER)** é uma representação gráfica uti
 Além disso, os relacionamentos entre as entidades são representados por linhas e símbolos que indicam como os dados se associam entre si, evidenciando cardinalidades, como "um para muitos" ou "muitos para muitos". Com isso, é possível compreender de forma clara as dependências e conexões entre os elementos do banco de dados, favorecendo tanto a criação quanto a manutenção de estruturas coerentes e funcionais.
 
 # Diagrama
-
+![alt text](imagens/der1.0.png)
 
 # Versões
 | Data       | Versão | Descrição                          | Autor                    | Revisão|
