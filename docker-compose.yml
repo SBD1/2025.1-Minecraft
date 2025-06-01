@@ -1,16 +1,41 @@
-version: "3.8"
-
+version: '3.8'
 services:
-  postgres:
-    image: postgres:13
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile.db
+    container_name: 2025_1_Minecraft
     environment:
-      POSTGRES_USER: minecraft
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: minecraft
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    volumes:
+      - ./db/ddl.sql:/docker-entrypoint-initdb.d/1_ddl.sql
+      - ./db/trigger_SP.sql:/docker-entrypoint-initdb.d/2_trigger_SP.sql
+      - ./db/dml.sql:/docker-entrypoint-initdb.d/3_dml.sql
+      - ./db/dml_inst.sql:/docker-entrypoint-initdb.d/4_dml_inst.sql
+      - ./db/create_user.sql:/docker-entrypoint-initdb.d/5_create_user.sql
+      - db_data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    container_name: python_app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:password@db:5432/2025_1_Minecraft
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    # command: >
+    #   sh -c './wait-for-it.sh db:5432 -- python main.py'
 
 volumes:
-  postgres-data:
+  db_data:
