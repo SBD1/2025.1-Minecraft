@@ -18,4 +18,4 @@ RUN pip install --upgrade pip \
 
 COPY . .
 
-CMD ["bash"]
+CMD ["python", "app.py"]
