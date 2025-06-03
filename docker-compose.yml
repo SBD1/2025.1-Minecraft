@@ -33,7 +33,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - .:/app
     # command: >
     #   sh -c './wait-for-it.sh db:5432 -- python main.py'
 
