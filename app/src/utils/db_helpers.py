@@ -71,6 +71,39 @@ def check_tables_exist():
         print(f"✗ Erro ao verificar tabelas: {str(e)}")
         return False
 
+def check_map_with_1000_chunks():
+    """Verifica se o mapa com 1000 chunks já foi criado"""
+    try:
+        conn = connection_db()
+        cursor = conn.cursor()
+        
+        # Verifica se existem pelo menos 1000 chunks no mapa de dia
+        cursor.execute("""
+            SELECT COUNT(*) FROM chunk 
+            WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Dia'
+        """)
+        day_chunks = cursor.fetchone()[0]
+        
+        # Verifica se existem pelo menos 1000 chunks no mapa de noite
+        cursor.execute("""
+            SELECT COUNT(*) FROM chunk 
+            WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Noite'
+        """)
+        night_chunks = cursor.fetchone()[0]
+        
+        cursor.close()
+        conn.close()
+        
+        if day_chunks >= 1000 and night_chunks >= 1000:
+            print(f"✓ Mapa com 1000 chunks já existe (Dia: {day_chunks}, Noite: {night_chunks})")
+            return True
+        else:
+            print(f"⚠ Mapa com 1000 chunks não encontrado (Dia: {day_chunks}, Noite: {night_chunks})")
+            return False
+    except Exception as e:
+        print(f"✗ Erro ao verificar mapa com 1000 chunks: {str(e)}")
+        return False
+
 def check_data_seeded():
     """Verifica se os dados iniciais (seed) já foram inseridos"""
     try:
@@ -108,6 +141,7 @@ def initialize_database():
     base_path = "/app/db"
     
     ddl_path = os.path.join(base_path, "ddl.sql")
+    dml_1000_chunks_path = os.path.join(base_path, "dml_1000_chunks.sql")
     dml_path = os.path.join(base_path, "dml.sql")
     
     try:
@@ -123,15 +157,30 @@ def initialize_database():
             conn.close()
             return False
         
-        # Executa DML (inserção dos dados iniciais)
-        if os.path.exists(dml_path):
-            if not execute_sql_file(conn, dml_path):
+        # Tenta executar o script com 1000 chunks primeiro
+        if os.path.exists(dml_1000_chunks_path):
+            print("🗺️ Executando script com mapa de 1000 chunks...")
+            if not execute_sql_file(conn, dml_1000_chunks_path):
+                print("⚠ Erro ao executar script de 1000 chunks, tentando script básico...")
+                # Se falhar, tenta o script básico
+                if os.path.exists(dml_path):
+                    if not execute_sql_file(conn, dml_path):
+                        conn.close()
+                        return False
+                else:
+                    print(f"✗ Arquivo DML básico não encontrado: {dml_path}")
+                    conn.close()
+                    return False
+        else:
+            # Se não existir o script de 1000 chunks, usa o básico
+            if os.path.exists(dml_path):
+                if not execute_sql_file(conn, dml_path):
+                    conn.close()
+                    return False
+            else:
+                print(f"✗ Arquivo DML não encontrado: {dml_path}")
                 conn.close()
                 return False
-        else:
-            print(f"✗ Arquivo DML não encontrado: {dml_path}")
-            conn.close()
-            return False
         
         conn.close()
         print("Banco de dados inicializado com sucesso!")
@@ -156,8 +205,11 @@ def setup_database():
     # 3. Verifica se os dados iniciais existem
     data_exists = check_data_seeded()
     
-    # 4. Se tabelas não existem ou dados não existem, inicializa o banco
-    if not tables_exist or not data_exists:
+    # 4. Verifica se o mapa com 1000 chunks existe
+    map_1000_exists = check_map_with_1000_chunks()
+    
+    # 5. Se tabelas não existem, dados não existem, ou mapa não tem 1000 chunks, inicializa o banco
+    if not tables_exist or not data_exists or not map_1000_exists:
         print("🔄 Inicializando estrutura e dados do banco...")
         if not initialize_database():
             print("❌ Falha na inicialização do banco de dados.")
