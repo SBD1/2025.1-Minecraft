@@ -585,4 +585,324 @@ Para mais informações:
 
 * :doc:`api_reference` - Documentação da API
 * :doc:`development` - Guia de desenvolvimento
+* :doc:`contributing` - Como contribuir
+
+Sistema de Jogo
+---------------
+
+Visão Geral
+-----------
+
+O Minecraft Legends implementa um sistema de jogo baseado em chunks e biomas, onde os personagens podem se mover entre diferentes áreas do mapa.
+
+Localização dos Personagens
+---------------------------
+
+Sistema de Chunks
+^^^^^^^^^^^^^^^^
+
+* Cada personagem está localizado em um **chunk específico**
+* Os chunks são numerados de 1 a 2000 (1000 para dia + 1000 para noite)
+* A localização é persistida no banco de dados via `id_chunk_atual`
+
+Biomas Disponíveis
+^^^^^^^^^^^^^^^^^
+
+* **🏜️ Deserto**: Área central do mapa (~8% da área total)
+* **🌊 Oceano**: Bordas do mapa (~10% da área)
+* **🌴 Selva**: Interior do mapa (~41% da área)
+* **🌲 Floresta**: Interior do mapa (~41% da área)
+
+Turnos
+^^^^^^
+
+* **☀️ Dia**: Chunks 1-1000
+* **🌙 Noite**: Chunks 1001-2000
+
+Inicialização de Personagens
+---------------------------
+
+Novos Personagens
+^^^^^^^^^^^^^^^^
+
+* **Localização inicial**: Deserto (chunk 364)
+* **Vida máxima**: 100
+* **Força inicial**: 10
+* **XP inicial**: 0
+
+Personagens Existentes
+^^^^^^^^^^^^^^^^^^^^
+
+* **Carregam** a localização onde estavam por último
+* **Se não tiverem localização**: São colocados no deserto automaticamente
+
+Sistema de Movimento
+-------------------
+
+Chunks Adjacentes
+^^^^^^^^^^^^^^^^
+
+O sistema calcula chunks adjacentes baseado em:
+
+.. code-block:: sql
+
+   -- Movimento horizontal e vertical
+   numero_chunk IN (
+       %s - 1, %s + 1,  -- Horizontal
+       %s - 32, %s + 32  -- Vertical (mapa 32x32)
+   )
+
+Lógica de Movimento
+^^^^^^^^^^^^^^^^^
+
+1. **Verifica chunks adjacentes** no mesmo turno
+2. **Exibe opções disponíveis** com bioma e chunk ID
+3. **Move o personagem** para o chunk selecionado
+4. **Atualiza sessão e banco** simultaneamente
+
+Interface de Jogo
+----------------
+
+Tela Principal
+^^^^^^^^^^^^
+
+.. code-block:: text
+
+   ╔══════════════════════════════════════════════════╗
+   ║         🟩 MINECRAFT - FGA - 2025/1              ║
+   ║              Python Edition                      ║
+   ╚══════════════════════════════════════════════════╝
+
+   ============================================================
+   🎮 JOGANDO COM: TestePlayer
+   ============================================================
+   🏜️ BIOMA: Deserto
+   ☀️ TURNO: Dia
+   📍 CHUNK: 364
+   ============================================================
+   ❤️  Vida: 100/100
+   ⭐ XP: 0 | 💪 Força: 10
+
+   🚶 OPÇÕES DE MOVIMENTO:
+   ----------------------------------------
+   1. 🌲 Floresta (Chunk 363)
+   2. 🏜️ Deserto (Chunk 365)
+   3. 🌲 Floresta (Chunk 332)
+   4. 🏜️ Deserto (Chunk 396)
+
+   🎮 OPÇÕES DO JOGO:
+   1-4. Mover para direção
+   5. 💾 Salvar progresso
+   6. 📊 Ver status detalhado
+   7. 🔙 Voltar ao menu principal
+
+Opções de Movimento
+^^^^^^^^^^^^^^^^^^
+
+* **1-4**: Mover para chunks adjacentes
+* **5**: Salvar progresso atual
+* **6**: Ver status detalhado do personagem
+* **7**: Voltar ao menu principal
+
+Sistema de Sessão
+----------------
+
+PlayerSession
+^^^^^^^^^^^^
+
+.. code-block:: python
+
+   @dataclass
+   class PlayerSession:
+       id_jogador: int
+       nome: str
+       vida_max: int
+       vida_atual: int
+       xp: int
+       forca: int
+       id_chunk_atual: Optional[int] = None
+       chunk_bioma: Optional[str] = None
+       chunk_mapa_nome: Optional[str] = None
+       chunk_mapa_turno: Optional[str] = None
+
+Gerenciamento de Estado
+^^^^^^^^^^^^^^^^^^^^^^
+
+* **Carregamento**: Dados completos do banco + chunk atual
+* **Movimento**: Atualização simultânea de sessão e banco
+* **Persistência**: Salvamento automático ao sair do jogo
+
+Funções de Movimento
+-------------------
+
+get_adjacent_chunks()
+^^^^^^^^^^^^^^^^^^^^
+
+Busca chunks adjacentes ao chunk atual:
+
+.. code-block:: python
+
+   def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, str]]:
+       """Retorna os chunks adjacentes ao chunk atual"""
+       # Retorna lista de tuplas (chunk_id, bioma)
+
+move_player_to_chunk()
+^^^^^^^^^^^^^^^^^^^^^
+
+Move o personagem para um novo chunk:
+
+.. code-block:: python
+
+   def move_player_to_chunk(chunk_id: int) -> bool:
+       """Move o personagem atual para um novo chunk"""
+       # Atualiza tanto a sessão quanto o banco de dados
+
+ensure_player_location()
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Garante que o personagem tem localização válida:
+
+.. code-block:: python
+
+   def ensure_player_location() -> bool:
+       """Garante que o personagem atual tem uma localização válida"""
+       # Se não tiver, coloca no deserto
+
+Queries de Movimento
+-------------------
+
+Buscar Chunks Adjacentes
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   SELECT numero_chunk, id_bioma
+   FROM chunk 
+   WHERE id_mapa_turno = 'Dia' 
+   AND numero_chunk IN (
+       364 - 1, 364 + 1,  -- Horizontal
+       364 - 32, 364 + 32  -- Vertical
+   )
+   ORDER BY numero_chunk;
+
+Mover Personagem
+^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   UPDATE jogador 
+   SET id_chunk_atual = %s
+   WHERE id_jogador = %s;
+
+Buscar Chunk de Deserto
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   SELECT numero_chunk
+   FROM chunk 
+   WHERE id_bioma = 'Deserto' AND id_mapa_turno = 'Dia'
+   LIMIT 1;
+
+Exemplos de Uso
+--------------
+
+Criar Personagem no Deserto
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   # Criar personagem (automaticamente no deserto)
+   new_player = create_new_player("Aventureiro", 100, 10)
+   
+   # Verificar localização
+   print(f"Localização: {new_player.chunk_bioma}")
+   # Saída: Localização: Deserto
+
+Mover Personagem
+^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   # Buscar chunks adjacentes
+   adjacent = get_adjacent_chunks(364, 'Dia')
+   # Resultado: [(363, 'Floresta'), (365, 'Deserto'), ...]
+   
+   # Mover para floresta
+   success = move_player_to_chunk(363)
+   if success:
+       print("Movido para Floresta!")
+
+Verificar Localização
+^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Verificar onde está um personagem
+   SELECT 
+       j.nome, j.id_chunk_atual,
+       c.id_bioma, c.id_mapa_turno
+   FROM jogador j
+   LEFT JOIN chunk c ON j.id_chunk_atual = c.numero_chunk
+   WHERE j.nome = 'TestePlayer';
+
+Monitoramento de Jogo
+--------------------
+
+Verificar Movimento
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Histórico de localizações (se implementado)
+   SELECT 
+       j.nome, j.id_chunk_atual,
+       c.id_bioma, c.id_mapa_turno
+   FROM jogador j
+   LEFT JOIN chunk c ON j.id_chunk_atual = c.numero_chunk
+   ORDER BY j.nome;
+
+Estatísticas de Biomas
+^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Personagens por bioma
+   SELECT 
+       c.id_bioma, COUNT(*) as personagens
+   FROM jogador j
+   JOIN chunk c ON j.id_chunk_atual = c.numero_chunk
+   GROUP BY c.id_bioma
+   ORDER BY personagens DESC;
+
+Performance
+-----------
+
+Otimizações de Movimento
+^^^^^^^^^^^^^^^^^^^^^^^
+
+* **JOIN otimizado** para carregar dados do chunk
+* **Índices** em `numero_chunk` e `id_mapa_turno`
+* **Sessão em memória** para evitar queries desnecessárias
+* **Atualização em lote** de sessão e banco
+
+Monitoramento de Performance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Verificar performance de busca de chunks adjacentes
+   EXPLAIN ANALYZE 
+   SELECT numero_chunk, id_bioma
+   FROM chunk 
+   WHERE id_mapa_turno = 'Dia' 
+   AND numero_chunk IN (364-1, 364+1, 364-32, 364+32);
+
+Próximos Passos
+---------------
+
+Para mais informações:
+
+* :doc:`api_reference` - Documentação da API
+* :doc:`development` - Guia de desenvolvimento
 * :doc:`contributing` - Como contribuir 

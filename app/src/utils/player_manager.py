@@ -4,7 +4,7 @@ Mantém dados essenciais do personagem em memória para otimizar performance
 """
 
 from dataclasses import dataclass
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List, Tuple
 from src.utils.db_helpers import connection_db
 from colorama import Fore
 
@@ -196,6 +196,7 @@ def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Option
     try:
         with connection_db() as conn:
             with conn.cursor() as cursor:
+                # Para novos personagens, começar no deserto (chunk 1)
                 cursor.execute("""
                     INSERT INTO jogador (nome, vida_max, vida_atual, xp, forca, id_chunk_atual)
                     VALUES (%s, %s, %s, 0, %s, 1)
@@ -404,4 +405,120 @@ def display_players_grid(players_data: list) -> None:
         
         # Espaçamento entre linhas de tabelas
         if i + tables_per_line < len(player_sessions):
-            print()  # Linha vazia entre grupos 
+            print()  # Linha vazia entre grupos
+
+
+def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, str]]:
+    """
+    Retorna os chunks adjacentes ao chunk atual
+    Retorna lista de tuplas (chunk_id, bioma)
+    """
+    try:
+        with connection_db() as conn:
+            with conn.cursor() as cursor:
+                # Busca chunks adjacentes no mesmo turno
+                cursor.execute("""
+                    SELECT numero_chunk, id_bioma
+                    FROM chunk 
+                    WHERE id_mapa_turno = %s 
+                    AND numero_chunk IN (
+                        %s - 1, %s + 1,  -- Horizontal
+                        %s - 32, %s + 32  -- Vertical (assumindo mapa 32x32)
+                    )
+                    ORDER BY numero_chunk
+                """, (turno, chunk_id, chunk_id, chunk_id, chunk_id))
+                
+                return cursor.fetchall()
+    except Exception as e:
+        print(f"❌ Erro ao buscar chunks adjacentes: {str(e)}")
+        return []
+
+
+def move_player_to_chunk(chunk_id: int) -> bool:
+    """
+    Move o personagem atual para um novo chunk
+    Atualiza tanto a sessão quanto o banco de dados
+    """
+    global current_player
+    if not current_player:
+        print("❌ Nenhum personagem ativo")
+        return False
+    
+    try:
+        with connection_db() as conn:
+            with conn.cursor() as cursor:
+                # Verifica se o chunk existe e obtém seus dados
+                cursor.execute("""
+                    SELECT id_bioma, id_mapa_nome, id_mapa_turno
+                    FROM chunk 
+                    WHERE numero_chunk = %s
+                """, (chunk_id,))
+                
+                chunk_data = cursor.fetchone()
+                if not chunk_data:
+                    print(f"❌ Chunk {chunk_id} não encontrado!")
+                    return False
+                
+                # Atualiza o banco de dados
+                cursor.execute("""
+                    UPDATE jogador 
+                    SET id_chunk_atual = %s
+                    WHERE id_jogador = %s
+                """, (chunk_id, current_player.id_jogador))
+                
+                # Atualiza a sessão
+                current_player.id_chunk_atual = chunk_id
+                current_player.chunk_bioma = chunk_data[0]
+                current_player.chunk_mapa_nome = chunk_data[1]
+                current_player.chunk_mapa_turno = chunk_data[2]
+                
+                conn.commit()
+                print(f"✅ Movido para {chunk_data[0]}!")
+                return True
+                
+    except Exception as e:
+        print(f"❌ Erro ao mover personagem: {str(e)}")
+        return False
+
+
+def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
+    """
+    Retorna o ID de um chunk de deserto no turno especificado
+    """
+    try:
+        with connection_db() as conn:
+            with conn.cursor() as cursor:
+                cursor.execute("""
+                    SELECT numero_chunk
+                    FROM chunk 
+                    WHERE id_bioma = 'Deserto' AND id_mapa_turno = %s
+                    LIMIT 1
+                """, (turno,))
+                
+                result = cursor.fetchone()
+                return result[0] if result else None
+                
+    except Exception as e:
+        print(f"❌ Erro ao buscar chunk de deserto: {str(e)}")
+        return None
+
+
+def ensure_player_location() -> bool:
+    """
+    Garante que o personagem atual tem uma localização válida
+    Se não tiver, coloca no deserto
+    """
+    global current_player
+    if not current_player:
+        return False
+    
+    # Se o personagem não tem localização, coloca no deserto
+    if not current_player.id_chunk_atual:
+        desert_chunk = get_desert_chunk('Dia')
+        if desert_chunk:
+            return move_player_to_chunk(desert_chunk)
+        else:
+            print("❌ Não foi possível encontrar um chunk de deserto!")
+            return False
+    
+    return True 
