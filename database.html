@@ -136,6 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_map_with_1000_chunks"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
@@ -224,12 +225,26 @@
 <li class="toctree-l2"><a class="reference internal" href="#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dml-com-1000-chunks">DML com 1000 Chunks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sistema-de-verificacao-automatica">Sistema de Verificação Automática</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verificacao-de-tabelas">Verificação de Tabelas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacao-de-dados-iniciais">Verificação de Dados Iniciais</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificacao-do-mapa-com-1000-chunks">Verificação do Mapa com 1000 Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logica-de-inicializacao">Lógica de Inicialização</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-do-mapa-de-1000-chunks">Estrutura do Mapa de 1000 Chunks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#distribuicao-dos-biomas">Distribuição dos Biomas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#geracao-automatica">Geração Automática</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#dados-iniciais">Dados Iniciais</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#biomas">Biomas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mapas">Mapas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#chunks">Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chunks-basico-4-chunks">Chunks (Básico - 4 chunks)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chunks-completo-2000-chunks">Chunks (Completo - 2000 chunks)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#personagens-de-exemplo">Personagens de Exemplo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inventarios-de-exemplo">Inventários de Exemplo</a></li>
 </ul>
@@ -239,6 +254,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#verificar-nome-unico">Verificar Nome Único</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-mapa-com-1000-chunks">Verificar Mapa com 1000 Chunks</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#backup-e-restauracao">Backup e Restauração</a><ul>
@@ -250,6 +266,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#monitoramento">Monitoramento</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verificar-status">Verificar Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#verificar-tabelas">Verificar Tabelas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-mapa-completo">Verificar Mapa Completo</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a><ul>
@@ -613,10 +630,103 @@
 <ul class="simple">
 <li><p>Inserção de biomas</p></li>
 <li><p>Inserção de mapas</p></li>
-<li><p>Inserção de chunks</p></li>
+<li><p>Inserção de chunks básicos (4 chunks)</p></li>
 <li><p>Inserção de personagens de exemplo</p></li>
 <li><p>Inserção de inventários de exemplo</p></li>
 </ul>
+</section>
+<section id="dml-com-1000-chunks">
+<h3>DML com 1000 Chunks<a class="headerlink" href="#dml-com-1000-chunks" title="Link to this heading"></a></h3>
+<p>Arquivo: <code class="docutils literal notranslate"><span class="pre">db/dml_1000_chunks.sql</span></code></p>
+<ul class="simple">
+<li><p>Inserção de biomas</p></li>
+<li><p>Inserção de mapas</p></li>
+<li><p><strong>Geração automática de 2000 chunks</strong> (1000 para dia + 1000 para noite)</p></li>
+<li><p>Distribuição inteligente dos biomas:
+* <strong>Oceano</strong>: Bordas do mapa (~10% da área)
+* <strong>Deserto</strong>: Centro do mapa (~8% da área total, ~20% da área útil)
+* <strong>Selva e Floresta</strong>: Resto do mapa em padrão xadrez (~82% da área)</p></li>
+<li><p>Inserção de personagens de exemplo</p></li>
+<li><p>Inserção de inventários de exemplo</p></li>
+</ul>
+</section>
+</section>
+<section id="sistema-de-verificacao-automatica">
+<h2>Sistema de Verificação Automática<a class="headerlink" href="#sistema-de-verificacao-automatica" title="Link to this heading"></a></h2>
+<p>O sistema agora inclui verificações automáticas durante a inicialização:</p>
+<section id="verificacao-de-tabelas">
+<h3>Verificação de Tabelas<a class="headerlink" href="#verificacao-de-tabelas" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">check_tables_exist</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se as tabelas principais existem no banco&quot;&quot;&quot;</span>
+    <span class="n">required_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bioma&#39;</span><span class="p">,</span> <span class="s1">&#39;mapa&#39;</span><span class="p">,</span> <span class="s1">&#39;chunk&#39;</span><span class="p">,</span> <span class="s1">&#39;jogador&#39;</span><span class="p">,</span> <span class="s1">&#39;inventario&#39;</span><span class="p">]</span>
+    <span class="c1"># Verifica cada tabela individualmente</span>
+</pre></div>
+</div>
+</section>
+<section id="verificacao-de-dados-iniciais">
+<h3>Verificação de Dados Iniciais<a class="headerlink" href="#verificacao-de-dados-iniciais" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">check_data_seeded</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se os dados iniciais (seed) já foram inseridos&quot;&quot;&quot;</span>
+    <span class="c1"># Verifica contagem de biomas, mapas e chunks</span>
+</pre></div>
+</div>
+</section>
+<section id="verificacao-do-mapa-com-1000-chunks">
+<h3>Verificação do Mapa com 1000 Chunks<a class="headerlink" href="#verificacao-do-mapa-com-1000-chunks" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">check_map_with_1000_chunks</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se o mapa com 1000 chunks já foi criado&quot;&quot;&quot;</span>
+    <span class="c1"># Verifica se existem pelo menos 1000 chunks em cada turno</span>
+</pre></div>
+</div>
+</section>
+<section id="logica-de-inicializacao">
+<h3>Lógica de Inicialização<a class="headerlink" href="#logica-de-inicializacao" title="Link to this heading"></a></h3>
+<p>O sistema segue esta ordem de prioridade:</p>
+<ol class="arabic simple">
+<li><p><strong>Verifica conexão</strong> com o banco de dados</p></li>
+<li><p><strong>Verifica existência</strong> das tabelas</p></li>
+<li><p><strong>Verifica dados iniciais</strong> (biomas, mapas, chunks básicos)</p></li>
+<li><p><strong>Verifica mapa com 1000 chunks</strong> (dia e noite)</p></li>
+<li><p><strong>Inicializa se necessário</strong>:
+- Tenta executar <code class="docutils literal notranslate"><span class="pre">dml_1000_chunks.sql</span></code> primeiro
+- Se falhar, executa <code class="docutils literal notranslate"><span class="pre">dml.sql</span></code> como fallback</p></li>
+</ol>
+</section>
+</section>
+<section id="estrutura-do-mapa-de-1000-chunks">
+<h2>Estrutura do Mapa de 1000 Chunks<a class="headerlink" href="#estrutura-do-mapa-de-1000-chunks" title="Link to this heading"></a></h2>
+<section id="distribuicao-dos-biomas">
+<h3>Distribuição dos Biomas<a class="headerlink" href="#distribuicao-dos-biomas" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Oceano  Oceano  Oceano  Oceano  Oceano
+Oceano  Selva   Floresta Selva   Oceano
+Oceano  Floresta Deserto Floresta Oceano
+Oceano  Selva   Deserto  Selva   Oceano
+Oceano  Oceano  Oceano  Oceano  Oceano
+</pre></div>
+</div>
+<p><strong>Estatísticas típicas:</strong>
+* <strong>Total de chunks</strong>: 2000 (1000 dia + 1000 noite)
+* <strong>Deserto</strong>: ~82 chunks (área 9x9 no centro)
+* <strong>Oceano</strong>: ~97 chunks (bordas)
+* <strong>Selva</strong>: ~409 chunks (padrão xadrez)
+* <strong>Floresta</strong>: ~410 chunks (padrão xadrez)</p>
+</section>
+<section id="geracao-automatica">
+<h3>Geração Automática<a class="headerlink" href="#geracao-automatica" title="Link to this heading"></a></h3>
+<p>O script usa PL/pgSQL para gerar chunks automaticamente:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DO</span><span class="w"> </span><span class="err">$$</span>
+<span class="k">DECLARE</span>
+<span class="w">    </span><span class="n">chunk_id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">map_size</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<span class="w">    </span><span class="n">center_start</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span>
+<span class="w">    </span><span class="n">center_end</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Gera chunks para dia e noite</span>
+<span class="w">    </span><span class="c1">-- Aplica lógica de distribuição de biomas</span>
+<span class="k">END</span>
+<span class="err">$$</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">plpgsql</span><span class="p">;</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="dados-iniciais">
@@ -639,8 +749,8 @@
 </pre></div>
 </div>
 </section>
-<section id="chunks">
-<h3>Chunks<a class="headerlink" href="#chunks" title="Link to this heading"></a></h3>
+<section id="chunks-basico-4-chunks">
+<h3>Chunks (Básico - 4 chunks)<a class="headerlink" href="#chunks-basico-4-chunks" title="Link to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">Id_bioma</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Oceano&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
@@ -649,11 +759,21 @@
 </pre></div>
 </div>
 </section>
+<section id="chunks-completo-2000-chunks">
+<h3>Chunks (Completo - 2000 chunks)<a class="headerlink" href="#chunks-completo-2000-chunks" title="Link to this heading"></a></h3>
+<p>Gerados automaticamente pelo script <code class="docutils literal notranslate"><span class="pre">dml_1000_chunks.sql</span></code>:</p>
+<ul class="simple">
+<li><p><strong>Chunks 1-1000</strong>: Mapa de dia</p></li>
+<li><p><strong>Chunks 1001-2000</strong>: Mapa de noite</p></li>
+<li><p><strong>Distribuição</strong>: Oceano nas bordas, deserto no centro, selva/floresta alternando</p></li>
+</ul>
+</section>
 <section id="personagens-de-exemplo">
 <h3>Personagens de Exemplo<a class="headerlink" href="#personagens-de-exemplo" title="Link to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_atual</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">Id_Chunk_Atual</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player2&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player2&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player3&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -661,7 +781,8 @@
 <h3>Inventários de Exemplo<a class="headerlink" href="#inventarios-de-exemplo" title="Link to this heading"></a></h3>
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">,</span><span class="w"> </span><span class="n">Instancia_Item</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaduraEquipada</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaEquipada</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
 <span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 101, &quot;quantidade&quot;: 5}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Capacete de Ferro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Espada de Diamante&#39;</span><span class="p">),</span>
-<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 201, &quot;quantidade&quot;: 1}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Armadura de Couro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Arco Longo&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 201, &quot;quantidade&quot;: 1}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Armadura de Couro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Arco Longo&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 301, &quot;quantidade&quot;: 3}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Armadura de Ouro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Machado de Pedra&#39;</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
@@ -699,6 +820,25 @@
 <div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">jogador</span>
 <span class="k">SET</span><span class="w"> </span><span class="n">vida_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">id_jogador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="verificar-mapa-com-1000-chunks">
+<h3>Verificar Mapa com 1000 Chunks<a class="headerlink" href="#verificar-mapa-com-1000-chunks" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Verificar chunks do mapa de dia</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_nome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Verificar chunks do mapa de noite</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_nome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Verificar distribuição de biomas</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">quantidade</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_bioma</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">quantidade</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>
@@ -764,6 +904,24 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </pre></div>
 </div>
 </section>
+<section id="verificar-mapa-completo">
+<h3>Verificar Mapa Completo<a class="headerlink" href="#verificar-mapa-completo" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Verificar total de chunks</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_chunks</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span><span class="p">;</span>
+
+<span class="c1">-- Verificar chunks por turno</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">chunks</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="p">;</span>
+
+<span class="c1">-- Verificar distribuição de biomas</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">quantidade</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">id_bioma</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">quantidade</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
 </section>
 <section id="performance">
 <h2>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h2>
@@ -774,6 +932,7 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <li><p><strong>JOINs otimizados</strong> com LEFT JOIN</p></li>
 <li><p><strong>Queries preparadas</strong> com parâmetros</p></li>
 <li><p><strong>Conexões gerenciadas</strong> com context managers</p></li>
+<li><p><strong>Verificações automáticas</strong> de integridade</p></li>
 </ul>
 </section>
 <section id="monitoramento-de-performance">
@@ -784,6 +943,9 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 <span class="c1">-- Verificar tamanho das tabelas</span>
 <span class="k">SELECT</span><span class="w"> </span><span class="n">schemaname</span><span class="p">,</span><span class="w"> </span><span class="n">tablename</span><span class="p">,</span><span class="w"> </span><span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_total_relation_size</span><span class="p">(</span><span class="n">schemaname</span><span class="o">||</span><span class="s1">&#39;.&#39;</span><span class="o">||</span><span class="n">tablename</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">pg_tables</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">schemaname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;public&#39;</span><span class="p">;</span>
+
+<span class="c1">-- Verificar performance de queries no mapa</span>
+<span class="k">EXPLAIN</span><span class="w"> </span><span class="k">ANALYZE</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">;</span>
 </pre></div>
 </div>
 </section>

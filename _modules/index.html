@@ -133,6 +133,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.check_map_with_1000_chunks"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
@@ -221,12 +222,26 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#dml-com-1000-chunks">DML com 1000 Chunks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html#sistema-de-verificacao-automatica">Sistema de Verificação Automática</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#verificacao-de-tabelas">Verificação de Tabelas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#verificacao-de-dados-iniciais">Verificação de Dados Iniciais</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#verificacao-do-mapa-com-1000-chunks">Verificação do Mapa com 1000 Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#logica-de-inicializacao">Lógica de Inicialização</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../database.html#estrutura-do-mapa-de-1000-chunks">Estrutura do Mapa de 1000 Chunks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#distribuicao-dos-biomas">Distribuição dos Biomas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#geracao-automatica">Geração Automática</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../database.html#dados-iniciais">Dados Iniciais</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#biomas">Biomas</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#mapas">Mapas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../database.html#chunks">Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#chunks-basico-4-chunks">Chunks (Básico - 4 chunks)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#chunks-completo-2000-chunks">Chunks (Completo - 2000 chunks)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#personagens-de-exemplo">Personagens de Exemplo</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#inventarios-de-exemplo">Inventários de Exemplo</a></li>
 </ul>
@@ -236,6 +251,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../database.html#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#verificar-nome-unico">Verificar Nome Único</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#verificar-mapa-com-1000-chunks">Verificar Mapa com 1000 Chunks</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../database.html#backup-e-restauracao">Backup e Restauração</a><ul>
@@ -247,6 +263,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../database.html#monitoramento">Monitoramento</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#verificar-status">Verificar Status</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../database.html#verificar-tabelas">Verificar Tabelas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../database.html#verificar-mapa-completo">Verificar Mapa Completo</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../database.html#performance">Performance</a><ul>

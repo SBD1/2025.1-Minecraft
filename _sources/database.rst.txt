@@ -232,9 +232,110 @@ Arquivo: ``db/dml.sql``
 
 * Inserção de biomas
 * Inserção de mapas
-* Inserção de chunks
+* Inserção de chunks básicos (4 chunks)
 * Inserção de personagens de exemplo
 * Inserção de inventários de exemplo
+
+DML com 1000 Chunks
+^^^^^^^^^^^^^^^^^^^
+
+Arquivo: ``db/dml_1000_chunks.sql``
+
+* Inserção de biomas
+* Inserção de mapas
+* **Geração automática de 2000 chunks** (1000 para dia + 1000 para noite)
+* Distribuição inteligente dos biomas:
+  * **Oceano**: Bordas do mapa (~10% da área)
+  * **Deserto**: Centro do mapa (~8% da área total, ~20% da área útil)
+  * **Selva e Floresta**: Resto do mapa em padrão xadrez (~82% da área)
+* Inserção de personagens de exemplo
+* Inserção de inventários de exemplo
+
+Sistema de Verificação Automática
+--------------------------------
+
+O sistema agora inclui verificações automáticas durante a inicialização:
+
+Verificação de Tabelas
+^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   def check_tables_exist():
+       """Verifica se as tabelas principais existem no banco"""
+       required_tables = ['bioma', 'mapa', 'chunk', 'jogador', 'inventario']
+       # Verifica cada tabela individualmente
+
+Verificação de Dados Iniciais
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   def check_data_seeded():
+       """Verifica se os dados iniciais (seed) já foram inseridos"""
+       # Verifica contagem de biomas, mapas e chunks
+
+Verificação do Mapa com 1000 Chunks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   def check_map_with_1000_chunks():
+       """Verifica se o mapa com 1000 chunks já foi criado"""
+       # Verifica se existem pelo menos 1000 chunks em cada turno
+
+Lógica de Inicialização
+^^^^^^^^^^^^^^^^^^^^^^^
+
+O sistema segue esta ordem de prioridade:
+
+1. **Verifica conexão** com o banco de dados
+2. **Verifica existência** das tabelas
+3. **Verifica dados iniciais** (biomas, mapas, chunks básicos)
+4. **Verifica mapa com 1000 chunks** (dia e noite)
+5. **Inicializa se necessário**:
+   - Tenta executar ``dml_1000_chunks.sql`` primeiro
+   - Se falhar, executa ``dml.sql`` como fallback
+
+Estrutura do Mapa de 1000 Chunks
+--------------------------------
+
+Distribuição dos Biomas
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: text
+
+   Oceano  Oceano  Oceano  Oceano  Oceano
+   Oceano  Selva   Floresta Selva   Oceano
+   Oceano  Floresta Deserto Floresta Oceano
+   Oceano  Selva   Deserto  Selva   Oceano
+   Oceano  Oceano  Oceano  Oceano  Oceano
+
+**Estatísticas típicas:**
+* **Total de chunks**: 2000 (1000 dia + 1000 noite)
+* **Deserto**: ~82 chunks (área 9x9 no centro)
+* **Oceano**: ~97 chunks (bordas)
+* **Selva**: ~409 chunks (padrão xadrez)
+* **Floresta**: ~410 chunks (padrão xadrez)
+
+Geração Automática
+^^^^^^^^^^^^^^^^^
+
+O script usa PL/pgSQL para gerar chunks automaticamente:
+
+.. code-block:: sql
+
+   DO $$
+   DECLARE
+       chunk_id INTEGER := 1;
+       map_size INTEGER := 32;
+       center_start INTEGER := 12;
+       center_end INTEGER := 20;
+   BEGIN
+       -- Gera chunks para dia e noite
+       -- Aplica lógica de distribuição de biomas
+   END
+   $$ LANGUAGE plpgsql;
 
 Dados Iniciais
 --------------
@@ -259,8 +360,8 @@ Mapas
        ('Mapa_Principal', 'Dia'),
        ('Mapa_Principal', 'Noite');
 
-Chunks
-^^^^^^
+Chunks (Básico - 4 chunks)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: sql
 
@@ -270,6 +371,15 @@ Chunks
        (3, 'Selva', 'Mapa_Principal', 'Noite'),
        (4, 'Floresta', 'Mapa_Principal', 'Noite');
 
+Chunks (Completo - 2000 chunks)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Gerados automaticamente pelo script ``dml_1000_chunks.sql``:
+
+* **Chunks 1-1000**: Mapa de dia
+* **Chunks 1001-2000**: Mapa de noite
+* **Distribuição**: Oceano nas bordas, deserto no centro, selva/floresta alternando
+
 Personagens de Exemplo
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -277,7 +387,8 @@ Personagens de Exemplo
 
    INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual) VALUES
        ('Player1', 100, 100, 0, 10, 1),
-       ('Player2', 120, 120, 50, 12, 2);
+       ('Player2', 120, 120, 50, 12, 2),
+       ('Player3', 110, 110, 25, 11, 3);
 
 Inventários de Exemplo
 ^^^^^^^^^^^^^^^^^^^^^
@@ -286,7 +397,8 @@ Inventários de Exemplo
 
    INSERT INTO Inventario (id_jogador, id_inventario, Instancia_Item, ArmaduraEquipada, ArmaEquipada) VALUES
        (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
-       (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo');
+       (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo'),
+       (3, 1, '{"item_id": 301, "quantidade": 3}', 'Armadura de Ouro', 'Machado de Pedra');
 
 Queries Comuns
 --------------
@@ -328,6 +440,26 @@ Atualizar Dados do Personagem
    UPDATE jogador 
    SET vida_atual = %s, xp = %s, forca = %s, id_chunk_atual = %s
    WHERE id_jogador = %s;
+
+Verificar Mapa com 1000 Chunks
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Verificar chunks do mapa de dia
+   SELECT COUNT(*) FROM chunk 
+   WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Dia';
+   
+   -- Verificar chunks do mapa de noite
+   SELECT COUNT(*) FROM chunk 
+   WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Noite';
+   
+   -- Verificar distribuição de biomas
+   SELECT id_bioma, COUNT(*) as quantidade 
+   FROM chunk 
+   WHERE id_mapa_turno = 'Dia' 
+   GROUP BY id_bioma 
+   ORDER BY quantidade DESC;
 
 Backup e Restauração
 -------------------
@@ -400,6 +532,25 @@ Verificar Tabelas
    SELECT COUNT(*) FROM chunk;
    SELECT COUNT(*) FROM bioma;
 
+Verificar Mapa Completo
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: sql
+
+   -- Verificar total de chunks
+   SELECT COUNT(*) as total_chunks FROM chunk;
+   
+   -- Verificar chunks por turno
+   SELECT id_mapa_turno, COUNT(*) as chunks 
+   FROM chunk 
+   GROUP BY id_mapa_turno;
+   
+   -- Verificar distribuição de biomas
+   SELECT id_bioma, COUNT(*) as quantidade 
+   FROM chunk 
+   GROUP BY id_bioma 
+   ORDER BY quantidade DESC;
+
 Performance
 -----------
 
@@ -410,6 +561,7 @@ Otimizações Implementadas
 * **JOINs otimizados** com LEFT JOIN
 * **Queries preparadas** com parâmetros
 * **Conexões gerenciadas** com context managers
+* **Verificações automáticas** de integridade
 
 Monitoramento de Performance
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -422,6 +574,9 @@ Monitoramento de Performance
    -- Verificar tamanho das tabelas
    SELECT schemaname, tablename, pg_size_pretty(pg_total_relation_size(schemaname||'.'||tablename)) as size
    FROM pg_tables WHERE schemaname = 'public';
+   
+   -- Verificar performance de queries no mapa
+   EXPLAIN ANALYZE SELECT COUNT(*) FROM chunk WHERE id_mapa_turno = 'Dia';
 
 Próximos Passos
 ---------------
