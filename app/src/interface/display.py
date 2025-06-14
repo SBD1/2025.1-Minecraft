@@ -7,7 +7,8 @@ from src.utils.player_manager import (
     get_current_player, set_current_player, clear_current_player,
     load_player_by_id, get_all_players, create_new_player,
     display_player_status, save_player_changes, display_players_grid,
-    delete_player, confirm_player_deletion
+    delete_player, confirm_player_deletion, get_adjacent_chunks,
+    move_player_to_chunk, ensure_player_location
 )
 
 init(autoreset=True)
@@ -123,6 +124,66 @@ def menu_inicial():
                 print(f"{Fore.RED}❌ Opção inválida!{Fore.RESET}")
                 input("⏳ Pressione Enter para continuar...")
 
+def exibir_localizacao_atual():
+    """Exibe a localização atual do personagem de forma detalhada"""
+    current_player = get_current_player()
+    if not current_player:
+        return
+    
+    print("=" * 60)
+    print(f"🎮 JOGANDO COM: {Fore.GREEN}{current_player.nome}{Fore.RESET}")
+    print("=" * 60)
+    
+    # Exibir informações de localização
+    if current_player.chunk_bioma:
+        bioma_emoji = {
+            'Deserto': '🏜️',
+            'Oceano': '🌊',
+            'Selva': '🌴',
+            'Floresta': '🌲'
+        }
+        
+        emoji = bioma_emoji.get(current_player.chunk_bioma, '📍')
+        turno_emoji = '☀️' if current_player.chunk_mapa_turno == 'Dia' else '🌙'
+        
+        print(f"{emoji} BIOMA: {Fore.YELLOW}{current_player.chunk_bioma}{Fore.RESET}")
+        print(f"{turno_emoji} TURNO: {current_player.chunk_mapa_turno}")
+        print(f"📍 CHUNK: {current_player.id_chunk_atual}")
+    else:
+        print(f"{Fore.RED}❌ Localização desconhecida{Fore.RESET}")
+    
+    print("=" * 60)
+
+def exibir_opcoes_movimento():
+    """Exibe as opções de movimento disponíveis"""
+    current_player = get_current_player()
+    if not current_player or not current_player.id_chunk_atual:
+        print(f"{Fore.RED}❌ Não é possível mover - localização inválida{Fore.RESET}")
+        return []
+    
+    # Buscar chunks adjacentes
+    adjacent_chunks = get_adjacent_chunks(current_player.id_chunk_atual, current_player.chunk_mapa_turno)
+    
+    if not adjacent_chunks:
+        print(f"{Fore.YELLOW}⚠️  Nenhuma direção disponível para movimento{Fore.RESET}")
+        return []
+    
+    print("🚶 OPÇÕES DE MOVIMENTO:")
+    print("-" * 40)
+    
+    bioma_emoji = {
+        'Deserto': '🏜️',
+        'Oceano': '🌊',
+        'Selva': '🌴',
+        'Floresta': '🌲'
+    }
+    
+    for i, (chunk_id, bioma) in enumerate(adjacent_chunks, 1):
+        emoji = bioma_emoji.get(bioma, '📍')
+        print(f"{i}. {emoji} {bioma} (Chunk {chunk_id})")
+    
+    return adjacent_chunks
+
 def iniciar_jogo():
     """Inicia o jogo com o personagem atual"""
     current_player = get_current_player()
@@ -131,9 +192,87 @@ def iniciar_jogo():
         input("⏳ Pressione Enter para continuar...")
         return
     
-    print(f"🎮 Iniciando jogo com {current_player.nome}...")
-    print("🚧 Em desenvolvimento...")
-    input("⏳ Pressione Enter para voltar ao menu...")
+    # Garantir que o personagem tem uma localização válida
+    if not ensure_player_location():
+        print(f"{Fore.RED}❌ Erro ao definir localização do personagem!{Fore.RESET}")
+        input("⏳ Pressione Enter para continuar...")
+        return
+    
+    # Loop principal do jogo
+    while True:
+        clear_terminal()
+        exibir_titulo()
+        exibir_localizacao_atual()
+        
+        # Exibir status do personagem
+        print(f"❤️  Vida: {current_player.vida_atual}/{current_player.vida_max}")
+        print(f"⭐ XP: {current_player.xp} | 💪 Força: {current_player.forca}")
+        print()
+        
+        # Exibir opções de movimento
+        adjacent_chunks = exibir_opcoes_movimento()
+        
+        print()
+        print("🎮 OPÇÕES DO JOGO:")
+        print("1-4. Mover para direção")
+        print("5. 💾 Salvar progresso")
+        print("6. 📊 Ver status detalhado")
+        print("7. 🔙 Voltar ao menu principal")
+        print()
+        
+        try:
+            opcao = input("🎯 Escolha uma opção: ").strip()
+            
+            if opcao in ['1', '2', '3', '4']:
+                # Movimento
+                if adjacent_chunks:
+                    indice = int(opcao) - 1
+                    if 0 <= indice < len(adjacent_chunks):
+                        chunk_id, bioma = adjacent_chunks[indice]
+                        print(f"🚶 Movendo para {bioma}...")
+                        
+                        if move_player_to_chunk(chunk_id):
+                            print(f"✅ Chegou em {bioma}!")
+                            input("⏳ Pressione Enter para continuar...")
+                        else:
+                            print(f"❌ Erro ao mover para {bioma}!")
+                            input("⏳ Pressione Enter para continuar...")
+                    else:
+                        print(f"{Fore.RED}❌ Opção inválida!{Fore.RESET}")
+                        input("⏳ Pressione Enter para continuar...")
+                else:
+                    print(f"{Fore.YELLOW}⚠️  Nenhuma direção disponível{Fore.RESET}")
+                    input("⏳ Pressione Enter para continuar...")
+                    
+            elif opcao == "5":
+                # Salvar progresso
+                if save_player_changes():
+                    print(f"{Fore.GREEN}✅ Progresso salvo com sucesso!{Fore.RESET}")
+                else:
+                    print(f"{Fore.RED}❌ Erro ao salvar progresso!{Fore.RESET}")
+                input("⏳ Pressione Enter para continuar...")
+                
+            elif opcao == "6":
+                # Ver status detalhado
+                clear_terminal()
+                display_player_status()
+                input("\n⏳ Pressione Enter para continuar...")
+                
+            elif opcao == "7":
+                # Voltar ao menu principal
+                print("🔙 Voltando ao menu principal...")
+                break
+                
+            else:
+                print(f"{Fore.RED}❌ Opção inválida!{Fore.RESET}")
+                input("⏳ Pressione Enter para continuar...")
+                
+        except ValueError:
+            print(f"{Fore.RED}❌ Digite apenas números válidos!{Fore.RESET}")
+            input("⏳ Pressione Enter para continuar...")
+        except KeyboardInterrupt:
+            print(f"\n{Fore.YELLOW}⚠️  Jogo interrompido.{Fore.RESET}")
+            break
 
 def ver_status_detalhado():
     """Exibe status detalhado do personagem atual"""
@@ -240,6 +379,7 @@ def criar_jogador():
     print(f"❤️  Vida máxima: 100")
     print(f"💪 Força inicial: 10")
     print(f"⭐ XP inicial: 0")
+    print(f"📍 Localização inicial: Deserto")
     
     # Criar personagem com valores padrão fixos
     new_player = create_new_player(nome, vida_max=100, forca=10)
