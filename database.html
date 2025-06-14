@@ -275,6 +275,63 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#proximos-passos">Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sistema-de-jogo">Sistema de Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#localizacao-dos-personagens">Localização dos Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sistema-de-chunks">Sistema de Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#biomas-disponiveis">Biomas Disponíveis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#turnos">Turnos</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inicializacao-de-personagens">Inicialização de Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#novos-personagens">Novos Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#personagens-existentes">Personagens Existentes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sistema-de-movimento">Sistema de Movimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#chunks-adjacentes">Chunks Adjacentes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logica-de-movimento">Lógica de Movimento</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#interface-de-jogo">Interface de Jogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tela-principal">Tela Principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#opcoes-de-movimento">Opções de Movimento</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sistema-de-sessao">Sistema de Sessão</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#playersession">PlayerSession</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gerenciamento-de-estado">Gerenciamento de Estado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#funcoes-de-movimento">Funções de Movimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#get-adjacent-chunks">get_adjacent_chunks()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#move-player-to-chunk">move_player_to_chunk()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ensure-player-location">ensure_player_location()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#queries-de-movimento">Queries de Movimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#buscar-chunks-adjacentes">Buscar Chunks Adjacentes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mover-personagem">Mover Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#buscar-chunk-de-deserto">Buscar Chunk de Deserto</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#exemplos-de-uso">Exemplos de Uso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#criar-personagem-no-deserto">Criar Personagem no Deserto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Mover Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-localizacao">Verificar Localização</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoramento-de-jogo">Monitoramento de Jogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-movimento">Verificar Movimento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estatisticas-de-biomas">Estatísticas de Biomas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#otimizacoes-de-movimento">Otimizações de Movimento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Monitoramento de Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Próximos Passos</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a><ul>
@@ -952,6 +1009,315 @@ docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </spa
 </section>
 <section id="proximos-passos">
 <h2>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
+<p>Para mais informações:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Documentação da API</p></li>
+<li><p><a class="reference internal" href="development.html"><span class="doc">Desenvolvimento</span></a> - Guia de desenvolvimento</p></li>
+<li><p><a class="reference internal" href="contributing.html"><span class="doc">Contribuindo</span></a> - Como contribuir</p></li>
+</ul>
+</section>
+<section id="sistema-de-jogo">
+<h2>Sistema de Jogo<a class="headerlink" href="#sistema-de-jogo" title="Link to this heading"></a></h2>
+</section>
+<section id="id1">
+<h2>Visão Geral<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<p>O Minecraft Legends implementa um sistema de jogo baseado em chunks e biomas, onde os personagens podem se mover entre diferentes áreas do mapa.</p>
+</section>
+<section id="localizacao-dos-personagens">
+<h2>Localização dos Personagens<a class="headerlink" href="#localizacao-dos-personagens" title="Link to this heading"></a></h2>
+<section id="sistema-de-chunks">
+<h3>Sistema de Chunks<a class="headerlink" href="#sistema-de-chunks" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Cada personagem está localizado em um <strong>chunk específico</strong></p></li>
+<li><p>Os chunks são numerados de 1 a 2000 (1000 para dia + 1000 para noite)</p></li>
+<li><p>A localização é persistida no banco de dados via <cite>id_chunk_atual</cite></p></li>
+</ul>
+</section>
+<section id="biomas-disponiveis">
+<h3>Biomas Disponíveis<a class="headerlink" href="#biomas-disponiveis" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>🏜️ Deserto</strong>: Área central do mapa (~8% da área total)</p></li>
+<li><p><strong>🌊 Oceano</strong>: Bordas do mapa (~10% da área)</p></li>
+<li><p><strong>🌴 Selva</strong>: Interior do mapa (~41% da área)</p></li>
+<li><p><strong>🌲 Floresta</strong>: Interior do mapa (~41% da área)</p></li>
+</ul>
+</section>
+<section id="turnos">
+<h3>Turnos<a class="headerlink" href="#turnos" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>☀️ Dia</strong>: Chunks 1-1000</p></li>
+<li><p><strong>🌙 Noite</strong>: Chunks 1001-2000</p></li>
+</ul>
+</section>
+</section>
+<section id="inicializacao-de-personagens">
+<h2>Inicialização de Personagens<a class="headerlink" href="#inicializacao-de-personagens" title="Link to this heading"></a></h2>
+<section id="novos-personagens">
+<h3>Novos Personagens<a class="headerlink" href="#novos-personagens" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Localização inicial</strong>: Deserto (chunk 364)</p></li>
+<li><p><strong>Vida máxima</strong>: 100</p></li>
+<li><p><strong>Força inicial</strong>: 10</p></li>
+<li><p><strong>XP inicial</strong>: 0</p></li>
+</ul>
+</section>
+<section id="personagens-existentes">
+<h3>Personagens Existentes<a class="headerlink" href="#personagens-existentes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Carregam</strong> a localização onde estavam por último</p></li>
+<li><p><strong>Se não tiverem localização</strong>: São colocados no deserto automaticamente</p></li>
+</ul>
+</section>
+</section>
+<section id="sistema-de-movimento">
+<h2>Sistema de Movimento<a class="headerlink" href="#sistema-de-movimento" title="Link to this heading"></a></h2>
+<section id="chunks-adjacentes">
+<h3>Chunks Adjacentes<a class="headerlink" href="#chunks-adjacentes" title="Link to this heading"></a></h3>
+<p>O sistema calcula chunks adjacentes baseado em:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Movimento horizontal e vertical</span>
+<span class="n">numero_chunk</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="o">%</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">  </span><span class="c1">-- Horizontal</span>
+<span class="w">    </span><span class="o">%</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">32</span><span class="w">  </span><span class="c1">-- Vertical (mapa 32x32)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="logica-de-movimento">
+<h3>Lógica de Movimento<a class="headerlink" href="#logica-de-movimento" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Verifica chunks adjacentes</strong> no mesmo turno</p></li>
+<li><p><strong>Exibe opções disponíveis</strong> com bioma e chunk ID</p></li>
+<li><p><strong>Move o personagem</strong> para o chunk selecionado</p></li>
+<li><p><strong>Atualiza sessão e banco</strong> simultaneamente</p></li>
+</ol>
+</section>
+</section>
+<section id="interface-de-jogo">
+<h2>Interface de Jogo<a class="headerlink" href="#interface-de-jogo" title="Link to this heading"></a></h2>
+<section id="tela-principal">
+<h3>Tela Principal<a class="headerlink" href="#tela-principal" title="Link to this heading"></a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>╔══════════════════════════════════════════════════╗
+║         🟩 MINECRAFT - FGA - 2025/1              ║
+║              Python Edition                      ║
+╚══════════════════════════════════════════════════╝
+
+============================================================
+🎮 JOGANDO COM: TestePlayer
+============================================================
+🏜️ BIOMA: Deserto
+☀️ TURNO: Dia
+📍 CHUNK: 364
+============================================================
+❤️  Vida: 100/100
+⭐ XP: 0 | 💪 Força: 10
+
+🚶 OPÇÕES DE MOVIMENTO:
+----------------------------------------
+1. 🌲 Floresta (Chunk 363)
+2. 🏜️ Deserto (Chunk 365)
+3. 🌲 Floresta (Chunk 332)
+4. 🏜️ Deserto (Chunk 396)
+
+🎮 OPÇÕES DO JOGO:
+1-4. Mover para direção
+5. 💾 Salvar progresso
+6. 📊 Ver status detalhado
+7. 🔙 Voltar ao menu principal
+</pre></div>
+</div>
+</section>
+<section id="opcoes-de-movimento">
+<h3>Opções de Movimento<a class="headerlink" href="#opcoes-de-movimento" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>1-4</strong>: Mover para chunks adjacentes</p></li>
+<li><p><strong>5</strong>: Salvar progresso atual</p></li>
+<li><p><strong>6</strong>: Ver status detalhado do personagem</p></li>
+<li><p><strong>7</strong>: Voltar ao menu principal</p></li>
+</ul>
+</section>
+</section>
+<section id="sistema-de-sessao">
+<h2>Sistema de Sessão<a class="headerlink" href="#sistema-de-sessao" title="Link to this heading"></a></h2>
+<section id="playersession">
+<h3>PlayerSession<a class="headerlink" href="#playersession" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlayerSession</span><span class="p">:</span>
+    <span class="n">id_jogador</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">vida_atual</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">xp</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">forca</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">id_chunk_atual</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_bioma</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_mapa_nome</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_mapa_turno</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</section>
+<section id="gerenciamento-de-estado">
+<h3>Gerenciamento de Estado<a class="headerlink" href="#gerenciamento-de-estado" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Carregamento</strong>: Dados completos do banco + chunk atual</p></li>
+<li><p><strong>Movimento</strong>: Atualização simultânea de sessão e banco</p></li>
+<li><p><strong>Persistência</strong>: Salvamento automático ao sair do jogo</p></li>
+</ul>
+</section>
+</section>
+<section id="funcoes-de-movimento">
+<h2>Funções de Movimento<a class="headerlink" href="#funcoes-de-movimento" title="Link to this heading"></a></h2>
+<section id="get-adjacent-chunks">
+<h3>get_adjacent_chunks()<a class="headerlink" href="#get-adjacent-chunks" title="Link to this heading"></a></h3>
+<p>Busca chunks adjacentes ao chunk atual:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_adjacent_chunks</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">turno</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Dia&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retorna os chunks adjacentes ao chunk atual&quot;&quot;&quot;</span>
+    <span class="c1"># Retorna lista de tuplas (chunk_id, bioma)</span>
+</pre></div>
+</div>
+</section>
+<section id="move-player-to-chunk">
+<h3>move_player_to_chunk()<a class="headerlink" href="#move-player-to-chunk" title="Link to this heading"></a></h3>
+<p>Move o personagem para um novo chunk:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">move_player_to_chunk</span><span class="p">(</span><span class="n">chunk_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Move o personagem atual para um novo chunk&quot;&quot;&quot;</span>
+    <span class="c1"># Atualiza tanto a sessão quanto o banco de dados</span>
+</pre></div>
+</div>
+</section>
+<section id="ensure-player-location">
+<h3>ensure_player_location()<a class="headerlink" href="#ensure-player-location" title="Link to this heading"></a></h3>
+<p>Garante que o personagem tem localização válida:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">ensure_player_location</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Garante que o personagem atual tem uma localização válida&quot;&quot;&quot;</span>
+    <span class="c1"># Se não tiver, coloca no deserto</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="queries-de-movimento">
+<h2>Queries de Movimento<a class="headerlink" href="#queries-de-movimento" title="Link to this heading"></a></h2>
+<section id="buscar-chunks-adjacentes">
+<h3>Buscar Chunks Adjacentes<a class="headerlink" href="#buscar-chunks-adjacentes" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">id_bioma</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">numero_chunk</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="mi">364</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">364</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">  </span><span class="c1">-- Horizontal</span>
+<span class="w">    </span><span class="mi">364</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">364</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">32</span><span class="w">  </span><span class="c1">-- Vertical</span>
+<span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">numero_chunk</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="mover-personagem">
+<h3>Mover Personagem<a class="headerlink" href="#mover-personagem" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">jogador</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_jogador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="buscar-chunk-de-deserto">
+<h3>Buscar Chunk de Deserto<a class="headerlink" href="#buscar-chunk-de-deserto" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">numero_chunk</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_bioma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="exemplos-de-uso">
+<h2>Exemplos de Uso<a class="headerlink" href="#exemplos-de-uso" title="Link to this heading"></a></h2>
+<section id="criar-personagem-no-deserto">
+<h3>Criar Personagem no Deserto<a class="headerlink" href="#criar-personagem-no-deserto" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Criar personagem (automaticamente no deserto)</span>
+<span class="n">new_player</span> <span class="o">=</span> <span class="n">create_new_player</span><span class="p">(</span><span class="s2">&quot;Aventureiro&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Verificar localização</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Localização: </span><span class="si">{</span><span class="n">new_player</span><span class="o">.</span><span class="n">chunk_bioma</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="c1"># Saída: Localização: Deserto</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Mover Personagem<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Buscar chunks adjacentes</span>
+<span class="n">adjacent</span> <span class="o">=</span> <span class="n">get_adjacent_chunks</span><span class="p">(</span><span class="mi">364</span><span class="p">,</span> <span class="s1">&#39;Dia&#39;</span><span class="p">)</span>
+<span class="c1"># Resultado: [(363, &#39;Floresta&#39;), (365, &#39;Deserto&#39;), ...]</span>
+
+<span class="c1"># Mover para floresta</span>
+<span class="n">success</span> <span class="o">=</span> <span class="n">move_player_to_chunk</span><span class="p">(</span><span class="mi">363</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Movido para Floresta!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="verificar-localizacao">
+<h3>Verificar Localização<a class="headerlink" href="#verificar-localizacao" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Verificar onde está um personagem</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">nome</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_mapa_turno</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="n">j</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">chunk</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">numero_chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;TestePlayer&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="monitoramento-de-jogo">
+<h2>Monitoramento de Jogo<a class="headerlink" href="#monitoramento-de-jogo" title="Link to this heading"></a></h2>
+<section id="verificar-movimento">
+<h3>Verificar Movimento<a class="headerlink" href="#verificar-movimento" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Histórico de localizações (se implementado)</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">nome</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_mapa_turno</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="n">j</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">chunk</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">numero_chunk</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nome</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="estatisticas-de-biomas">
+<h3>Estatísticas de Biomas<a class="headerlink" href="#estatisticas-de-biomas" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Personagens por bioma</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">personagens</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">chunk</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">numero_chunk</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_bioma</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">personagens</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id3">
+<h2>Performance<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<section id="otimizacoes-de-movimento">
+<h3>Otimizações de Movimento<a class="headerlink" href="#otimizacoes-de-movimento" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>JOIN otimizado</strong> para carregar dados do chunk</p></li>
+<li><p><strong>Índices</strong> em <cite>numero_chunk</cite> e <cite>id_mapa_turno</cite></p></li>
+<li><p><strong>Sessão em memória</strong> para evitar queries desnecessárias</p></li>
+<li><p><strong>Atualização em lote</strong> de sessão e banco</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Monitoramento de Performance<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Verificar performance de busca de chunks adjacentes</span>
+<span class="k">EXPLAIN</span><span class="w"> </span><span class="k">ANALYZE</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">id_bioma</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">numero_chunk</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">364</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">364</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">364</span><span class="o">-</span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">364</span><span class="o">+</span><span class="mi">32</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id5">
+<h2>Próximos Passos<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
 <p>Para mais informações:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Documentação da API</p></li>
