@@ -297,7 +297,7 @@ def display_player_status(player: Optional[PlayerSession] = None) -> None:
     
     # Formatação da localização
     if player.chunk_bioma:
-        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})"
+        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})".replace("_", " ")
     else:
         localizacao = "Desconhecida"
     
@@ -322,7 +322,7 @@ def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> 
     
     # Formatação da localização
     if player.chunk_bioma:
-        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})"
+        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})".replace("_", " ")
     else:
         localizacao = "Desconhecida"
     

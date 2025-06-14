@@ -12,54 +12,28 @@ from src.utils.player_manager import (
 
 init(autoreset=True)
 
-CREEPER_ART = [
-    "⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️",
-    "⬛️📗📗📗📗📗📗📗📗⬛️",
-    "⬛️📗⬛️⬛️📗📗⬛️⬛️📗⬛️",
-    "⬛️📗⬛️⬛️📗📗⬛️⬛️📗⬛️",
-    "⬛️📗📗📗⬛️⬛️📗📗📗⬛️",
-    "⬛️📗📗⬛️⬛️⬛️⬛️📗📗⬛️",
-    "⬛️📗📗⬛️📗📗⬛️📗📗⬛️",
-    "⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️",
-    "⬛️📗📗📗📗📗⬛️",
-    "⬛️📗📗📗📗📗⬛️",
-    "⬛️📗📗📗📗📗⬛️",
-    "⬛️📗📗📗📗📗⬛️",
-    "⬛️⬛️⬛️⬛️⬛️|⬛️⬛️⬛️⬛️⬛️",
-    "⬛️📗📗📗📗|📗📗📗📗⬛️",
-    "⬛️📗📗📗📗|📗📗📗📗⬛️",
-    "⬛️⬛️⬛️⬛️⬛️|⬛️⬛️⬛️⬛️⬛️"
+MINECRAFT_ART = [
+    "⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️",
+    "⬛️⬛️⬛️⬛️⬛️🟫⬛️ M I N E C R A F T ⬛️⬛️🟫⬛️⬛️⬛⬛️⬛️",
+    "⬛️⬛️⬛️⬛️⬛️🟫  F G A ⬛️ 2 0 2 5 / 1 ⬛️🟫⬛️⬛️⬛️⬛️⬛️",
+    "⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️⬛️ "
 ]
 
 
-def mostrar_creeper(posicao):
+def mostrar_creeper():
     """Exibe o Creeper na posição especificada."""
-    for linha in CREEPER_ART:
-        print(" " * posicao + linha)
 
-
-def mover_creeper_para_direita():
-    """Anima o Creeper se movendo para a direita e explodindo."""
     largura_terminal = os.get_terminal_size().columns
     largura_creeper = 10 
-    meio_tela = largura_terminal // 2 - largura_creeper // 2
-    
-    for posicao in range(meio_tela + 1):
-        mostrar_creeper(posicao)
-        time.sleep(0.05)
+    posicao = largura_terminal // 2 - largura_creeper // 2
 
-    # Piscar e explodir o Creeper
-    for _ in range(3):
-        time.sleep(0.3)
-        mostrar_creeper(meio_tela)
-        time.sleep(0.3)
-    time.sleep(1)
+    for linha in MINECRAFT_ART:
+        print(" " * posicao + linha + " " * (largura_terminal - posicao - largura_creeper))
 
 def tela_inicial():
     clear_terminal()
-    # mover_creeper_para_direita()
-    print("################")
-    clear_terminal()
+    mostrar_creeper()
+    time.sleep(5)
     menu_inicial()
 
 def exibir_titulo():

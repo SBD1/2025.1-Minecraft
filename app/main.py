@@ -7,7 +7,4 @@ if __name__ == "__main__":
     
     # Inicia a aplicação
     tela_inicial()
-
-
-# Ver inventario
-# andar
+ 
