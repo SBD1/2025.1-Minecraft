@@ -1,0 +1,833 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banco de Dados &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/database.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Desenvolvimento" href="development.html" />
+    <link rel="prev" title="Referência da API" href="api_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4CAF50" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Minecraft Legends - Python Edition
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#clonando-o-repositorio">Clonando o Repositório</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verificacao-da-instalacao">Verificação da Instalação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#solucao-de-problemas">Solução de Problemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-erro-de-conexao-com-banco-de-dados">Problema: Erro de conexão com banco de dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-porta-5433-ja-em-uso">Problema: Porta 5433 já em uso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-permissoes-no-linux">Problema: Permissões no Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Início Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">Deletando um Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">Verificando o Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">Salvando Progresso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">Saindo do Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guia do Usuário</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-do-jogo">Interface do Jogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tela-inicial">Tela Inicial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#menu-principal">Menu Principal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-personagens">Sistema de Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#criacao-de-personagens">Criação de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#lista-de-personagens">Lista de Personagens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#selecao-de-personagem">Seleção de Personagem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#delecao-de-personagens">Deleção de Personagens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-localizacao">Sistema de Localização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#biomas-disponiveis">Biomas Disponíveis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#mapas-e-turnos">Mapas e Turnos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#chunks">Chunks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-status">Sistema de Status</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#atributos-do-personagem">Atributos do Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#status-detalhado">Status Detalhado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-persistencia">Sistema de Persistência</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-automatico">Salvamento Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-manual">Salvamento Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#banco-de-dados">Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-e-usabilidade">Interface e Usabilidade</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#cores-e-emojis">Cores e Emojis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#navegacao">Navegação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#dicas-e-truques">Dicas e Truques</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#dicas-gerais">Dicas Gerais</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#boas-praticas">Boas Práticas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">Referência da API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulos-principais">Módulos Principais</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-player-manager">Módulo player_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#playersession">PlayerSession</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-gerenciamento">Funções de Gerenciamento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-exibicao">Funções de Exibição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.initialize_database"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.setup_database"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#conexao-com-banco">Conexão com Banco</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#execucao-de-sql">Execução de SQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#verificacoes">Verificações</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#inicializacao">Inicialização</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-display">Módulo display</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#interface-principal">Interface Principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-jogo">Funções de Jogo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utilitarios">Utilitários</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#estrutura-de-dados">Estrutura de Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id7">PlayerSession</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#padroes-de-uso">Padrões de Uso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-sessao">Gerenciamento de Sessão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#criacao-de-personagem">Criação de Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#salvamento-de-dados">Salvamento de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exibicao-de-status">Exibição de Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#tratamento-de-erros">Tratamento de Erros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id8">Conexão com Banco</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#exemplos-praticos">Exemplos Práticos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-completo-de-criacao">Exemplo Completo de Criação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-backup-de-dados">Exemplo de Backup de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-sistema-de-combate">Exemplo de Sistema de Combate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Banco de Dados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuracao">Configuração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-compose">Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conexao">Conexão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-do-banco">Estrutura do Banco</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-principais">Tabelas Principais</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bioma">Bioma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mapa">Mapa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#chunk">Chunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#jogador">Jogador</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inventario">Inventario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#diagrama-er">Diagrama ER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#relacionamentos">Relacionamentos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bioma-chunk">Bioma → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mapa-chunk">Mapa → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chunk-jogador">Chunk → Jogador</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#jogador-inventario">Jogador → Inventario</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#indices">Índices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dados-iniciais">Dados Iniciais</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#biomas">Biomas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mapas">Mapas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chunks">Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#personagens-de-exemplo">Personagens de Exemplo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inventarios-de-exemplo">Inventários de Exemplo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#queries-comuns">Queries Comuns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#buscar-personagem-com-localizacao">Buscar Personagem com Localização</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-nome-unico">Verificar Nome Único</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#backup-e-restauracao">Backup e Restauração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#backup-automatico">Backup Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backup-manual">Backup Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#restauracao">Restauração</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoramento">Monitoramento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-status">Verificar Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verificar-tabelas">Verificar Tabelas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance">Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#otimizacoes-implementadas">Otimizações Implementadas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoramento-de-performance">Monitoramento de Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-projeto">Estrutura do Projeto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#arquitetura">Arquitetura</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#padrao-de-arquitetura">Padrão de Arquitetura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#fluxo-de-dados">Fluxo de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#configuracao-do-ambiente">Configuração do Ambiente</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#configuracao-local">Configuração Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#desenvolvimento-com-docker">Desenvolvimento com Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-codigo">Estrutura do Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-player-manager">Módulo player_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-db-helpers">Módulo db_helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-display">Módulo display</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#convencoes-de-nomenclatura">Convenções de Nomenclatura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#tratamento-de-erros">Tratamento de Erros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#estrutura-de-testes">Estrutura de Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#debugging">Debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-container">Debug no Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-vs-code">Debug no VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#deploy-e-ci-cd">Deploy e CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#github-actions">GitHub Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#deploy-automatico">Deploy Automático</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#versionamento">Versionamento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#semantic-versioning">Semantic Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#changelog">Changelog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#commits">Commits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribuindo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#como-contribuir">Como Contribuir</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#tipos-de-contribuicao">Tipos de Contribuição</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#processo-de-contribuicao">Processo de Contribuição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reportando-bugs">Reportando Bugs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-bug-report">Template de Bug Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#informacoes-necessarias">Informações Necessárias</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#sugerindo-features">Sugerindo Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-feature-request">Template de Feature Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-para-features">Critérios para Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#desenvolvimento">Desenvolvimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-uma-branch">Criando uma Branch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#estilo-de-codigo">Estilo de Código</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#escrevendo-testes">Escrevendo Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#commits">Commits</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#convencoes-de-commit">Convenções de Commit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#mensagens-de-commit">Mensagens de Commit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-requests">Pull Requests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-um-pr">Criando um PR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-pr">Template de PR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#revisao-de-codigo">Revisão de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-de-revisao">Critérios de Revisão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#comentarios-de-revisao">Comentários de Revisão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id1">Documentação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#atualizando-documentacao">Atualizando Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#estrutura-de-documentacao">Estrutura de Documentação</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#comunicacao">Comunicação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#canais-de-comunicacao">Canais de Comunicação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#codigo-de-conduta">Código de Conduta</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reconhecimento">Reconhecimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#contribuidores">Contribuidores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#como-ser-reconhecido">Como Ser Reconhecido</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #4CAF50" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Minecraft Legends - Python Edition</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Banco de Dados</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/database.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="banco-de-dados">
+<h1>Banco de Dados<a class="headerlink" href="#banco-de-dados" title="Link to this heading"></a></h1>
+<p>Esta seção documenta a estrutura e configuração do banco de dados do Minecraft Legends.</p>
+<section id="visao-geral">
+<h2>Visão Geral<a class="headerlink" href="#visao-geral" title="Link to this heading"></a></h2>
+<p>O projeto utiliza <strong>PostgreSQL</strong> como banco de dados principal, executando em um container Docker para facilitar a portabilidade e isolamento.</p>
+</section>
+<section id="configuracao">
+<h2>Configuração<a class="headerlink" href="#configuracao" title="Link to this heading"></a></h2>
+<section id="docker-compose">
+<h3>Docker Compose<a class="headerlink" href="#docker-compose" title="Link to this heading"></a></h3>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">db</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">context</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db</span>
+<span class="w">    </span><span class="nt">dockerfile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Dockerfile.db</span>
+<span class="w">  </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025_1_Minecraft</span>
+<span class="w">  </span><span class="nt">environment</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres</span>
+<span class="w">    </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password</span>
+<span class="w">    </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2025_1_Minecraft</span>
+<span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;5433:5432&quot;</span>
+<span class="w">  </span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/ddl.sql:/docker-entrypoint-initdb.d/1_ddl.sql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/trigger_SP.sql:/docker-entrypoint-initdb.d/2_trigger_SP.sql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/dml.sql:/docker-entrypoint-initdb.d/3_dml.sql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/dml_inst.sql:/docker-entrypoint-initdb.d/4_dml_inst.sql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./db/create_user.sql:/docker-entrypoint-initdb.d/5_create_user.sql</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db_data:/var/lib/postgresql/data</span>
+</pre></div>
+</div>
+</section>
+<section id="conexao">
+<h3>Conexão<a class="headerlink" href="#conexao" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">connection_db</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
+        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
+        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">,</span>
+        <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
+        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;2025_1_Minecraft&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="estrutura-do-banco">
+<h2>Estrutura do Banco<a class="headerlink" href="#estrutura-do-banco" title="Link to this heading"></a></h2>
+<section id="tabelas-principais">
+<h3>Tabelas Principais<a class="headerlink" href="#tabelas-principais" title="Link to this heading"></a></h3>
+<section id="bioma">
+<h4>Bioma<a class="headerlink" href="#bioma" title="Link to this heading"></a></h4>
+<p>Armazena os diferentes biomas do mundo.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Bioma</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">NomeBioma</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Dados iniciais:</strong>
+* Deserto
+* Oceano
+* Selva
+* Floresta</p>
+</section>
+<section id="mapa">
+<h4>Mapa<a class="headerlink" href="#mapa" title="Link to this heading"></a></h4>
+<p>Define os mapas e seus turnos.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Mapa</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Turno</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Dados iniciais:</strong>
+* Mapa_Principal - Dia
+* Mapa_Principal - Noite</p>
+</section>
+<section id="chunk">
+<h4>Chunk<a class="headerlink" href="#chunk" title="Link to this heading"></a></h4>
+<p>Representa as divisões do mundo (chunks).</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Numero_chunk</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_bioma</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_mapa_nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_mapa_turno</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_bioma</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Bioma</span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">),</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Mapa</span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Dados iniciais:</strong>
+* Chunk 1: Deserto (Mapa_Principal - Dia)
+* Chunk 2: Oceano (Mapa_Principal - Dia)
+* Chunk 3: Selva (Mapa_Principal - Noite)
+* Chunk 4: Floresta (Mapa_Principal - Noite)</p>
+</section>
+<section id="jogador">
+<h4>Jogador<a class="headerlink" href="#jogador" title="Link to this heading"></a></h4>
+<p>Armazena os dados dos personagens.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Id_Jogador</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Vida_max</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Vida_atual</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">xp</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">forca</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_Chunk_Atual</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">,</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_Chunk_Atual</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Chunk</span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Atributos:</strong>
+* <code class="docutils literal notranslate"><span class="pre">Id_Jogador</span></code>: Chave primária auto-incrementada
+* <code class="docutils literal notranslate"><span class="pre">Nome</span></code>: Nome único do personagem
+* <code class="docutils literal notranslate"><span class="pre">Vida_max</span></code>: Vida máxima (padrão: 100)
+* <code class="docutils literal notranslate"><span class="pre">Vida_atual</span></code>: Vida atual
+* <code class="docutils literal notranslate"><span class="pre">xp</span></code>: Experiência acumulada (padrão: 0)
+* <code class="docutils literal notranslate"><span class="pre">forca</span></code>: Força do personagem (padrão: 10)
+* <code class="docutils literal notranslate"><span class="pre">Id_Chunk_Atual</span></code>: Localização atual (FK para Chunk)</p>
+</section>
+<section id="inventario">
+<h4>Inventario<a class="headerlink" href="#inventario" title="Link to this heading"></a></h4>
+<p>Sistema de inventário dos personagens.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_jogador</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">id_inventario</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Instancia_Item</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ArmaduraEquipada</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">ArmaEquipada</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">),</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Jogador</span><span class="p">(</span><span class="n">Id_Jogador</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Atributos:</strong>
+* <code class="docutils literal notranslate"><span class="pre">id_jogador</span></code>: Referência ao personagem (FK)
+* <code class="docutils literal notranslate"><span class="pre">id_inventario</span></code>: ID do inventário
+* <code class="docutils literal notranslate"><span class="pre">Instancia_Item</span></code>: Itens em formato JSON
+* <code class="docutils literal notranslate"><span class="pre">ArmaduraEquipada</span></code>: Armadura atual
+* <code class="docutils literal notranslate"><span class="pre">ArmaEquipada</span></code>: Arma atual</p>
+</section>
+</section>
+</section>
+<section id="diagrama-er">
+<h2>Diagrama ER<a class="headerlink" href="#diagrama-er" title="Link to this heading"></a></h2>
+<img alt="Diagrama Entidade-Relacionamento" class="align-center" src="_static/er-diagram.png" />
+</section>
+<section id="relacionamentos">
+<h2>Relacionamentos<a class="headerlink" href="#relacionamentos" title="Link to this heading"></a></h2>
+<section id="bioma-chunk">
+<h3>Bioma → Chunk<a class="headerlink" href="#bioma-chunk" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Um bioma pode ter múltiplos chunks</p></li>
+<li><p>Relacionamento 1:N</p></li>
+<li><p>Chave estrangeira: <code class="docutils literal notranslate"><span class="pre">Chunk.Id_bioma</span></code></p></li>
+</ul>
+</section>
+<section id="mapa-chunk">
+<h3>Mapa → Chunk<a class="headerlink" href="#mapa-chunk" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Um mapa/turno pode ter múltiplos chunks</p></li>
+<li><p>Relacionamento 1:N</p></li>
+<li><p>Chave estrangeira composta: <code class="docutils literal notranslate"><span class="pre">Chunk.Id_mapa_nome,</span> <span class="pre">Id_mapa_turno</span></code></p></li>
+</ul>
+</section>
+<section id="chunk-jogador">
+<h3>Chunk → Jogador<a class="headerlink" href="#chunk-jogador" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Um chunk pode ter múltiplos jogadores</p></li>
+<li><p>Relacionamento 1:N</p></li>
+<li><p>Chave estrangeira: <code class="docutils literal notranslate"><span class="pre">Jogador.Id_Chunk_Atual</span></code></p></li>
+</ul>
+</section>
+<section id="jogador-inventario">
+<h3>Jogador → Inventario<a class="headerlink" href="#jogador-inventario" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Um jogador pode ter múltiplos inventários</p></li>
+<li><p>Relacionamento 1:N</p></li>
+<li><p>Chave estrangeira: <code class="docutils literal notranslate"><span class="pre">Inventario.id_jogador</span></code></p></li>
+</ul>
+</section>
+</section>
+<section id="indices">
+<h2>Índices<a class="headerlink" href="#indices" title="Link to this heading"></a></h2>
+<p>Para otimização de performance:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_chunk_id_bioma</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Id_bioma</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_chunk_id_mapa</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_inventario_id_jogador</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">idx_jogador_id_chunk_atual</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Id_Chunk_Atual</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="scripts-de-inicializacao">
+<h2>Scripts de Inicialização<a class="headerlink" href="#scripts-de-inicializacao" title="Link to this heading"></a></h2>
+<section id="ddl-data-definition-language">
+<h3>DDL (Data Definition Language)<a class="headerlink" href="#ddl-data-definition-language" title="Link to this heading"></a></h3>
+<p>Arquivo: <code class="docutils literal notranslate"><span class="pre">db/ddl.sql</span></code></p>
+<ul class="simple">
+<li><p>Criação das tabelas</p></li>
+<li><p>Definição de constraints</p></li>
+<li><p>Criação de índices</p></li>
+<li><p>Configuração de chaves estrangeiras</p></li>
+</ul>
+</section>
+<section id="dml-data-manipulation-language">
+<h3>DML (Data Manipulation Language)<a class="headerlink" href="#dml-data-manipulation-language" title="Link to this heading"></a></h3>
+<p>Arquivo: <code class="docutils literal notranslate"><span class="pre">db/dml.sql</span></code></p>
+<ul class="simple">
+<li><p>Inserção de biomas</p></li>
+<li><p>Inserção de mapas</p></li>
+<li><p>Inserção de chunks</p></li>
+<li><p>Inserção de personagens de exemplo</p></li>
+<li><p>Inserção de inventários de exemplo</p></li>
+</ul>
+</section>
+</section>
+<section id="dados-iniciais">
+<h2>Dados Iniciais<a class="headerlink" href="#dados-iniciais" title="Link to this heading"></a></h2>
+<section id="biomas">
+<h3>Biomas<a class="headerlink" href="#biomas" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Bioma</span><span class="w"> </span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Deserto&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Oceano&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Selva&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Floresta&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="mapas">
+<h3>Mapas<a class="headerlink" href="#mapas" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Mapa</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="chunks">
+<h3>Chunks<a class="headerlink" href="#chunks" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">Id_bioma</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Oceano&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Selva&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Floresta&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="personagens-de-exemplo">
+<h3>Personagens de Exemplo<a class="headerlink" href="#personagens-de-exemplo" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_atual</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">Id_Chunk_Atual</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player2&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="inventarios-de-exemplo">
+<h3>Inventários de Exemplo<a class="headerlink" href="#inventarios-de-exemplo" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">,</span><span class="w"> </span><span class="n">Instancia_Item</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaduraEquipada</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaEquipada</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 101, &quot;quantidade&quot;: 5}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Capacete de Ferro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Espada de Diamante&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 201, &quot;quantidade&quot;: 1}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Armadura de Couro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Arco Longo&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="queries-comuns">
+<h2>Queries Comuns<a class="headerlink" href="#queries-comuns" title="Link to this heading"></a></h2>
+<section id="buscar-personagem-com-localizacao">
+<h3>Buscar Personagem com Localização<a class="headerlink" href="#buscar-personagem-com-localizacao" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">nome</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">vida_atual</span><span class="p">,</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">id_bioma</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">id_mapa_turno</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="n">j</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">chunk</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">numero_chunk</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">id_jogador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="listar-todos-os-personagens">
+<h3>Listar Todos os Personagens<a class="headerlink" href="#listar-todos-os-personagens" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">nome</span><span class="p">,</span><span class="w"> </span><span class="n">vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">vida_atual</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">id_chunk_atual</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">nome</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="verificar-nome-unico">
+<h3>Verificar Nome Único<a class="headerlink" href="#verificar-nome-unico" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">LOWER</span><span class="p">(</span><span class="n">nome</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">LOWER</span><span class="p">(</span><span class="o">%</span><span class="n">s</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="atualizar-dados-do-personagem">
+<h3>Atualizar Dados do Personagem<a class="headerlink" href="#atualizar-dados-do-personagem" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">jogador</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">vida_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">id_jogador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">%</span><span class="n">s</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="backup-e-restauracao">
+<h2>Backup e Restauração<a class="headerlink" href="#backup-e-restauracao" title="Link to this heading"></a></h2>
+<section id="backup-automatico">
+<h3>Backup Automático<a class="headerlink" href="#backup-automatico" title="Link to this heading"></a></h3>
+<p>O Docker Compose configura um volume persistente:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">volumes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db_data:/var/lib/postgresql/data</span>
+</pre></div>
+</div>
+<p>Isso garante que os dados persistem entre reinicializações dos containers.</p>
+</section>
+<section id="backup-manual">
+<h3>Backup Manual<a class="headerlink" href="#backup-manual" title="Link to this heading"></a></h3>
+<p>Para fazer backup manual:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Backup completo</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>2025_1_Minecraft<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>&gt;<span class="w"> </span>backup.sql
+
+<span class="c1"># Backup apenas dados</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>2025_1_Minecraft<span class="w"> </span>pg_dump<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>--data-only<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>&gt;<span class="w"> </span>data_backup.sql
+</pre></div>
+</div>
+</section>
+<section id="restauracao">
+<h3>Restauração<a class="headerlink" href="#restauracao" title="Link to this heading"></a></h3>
+<p>Para restaurar um backup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Restaurar backup completo</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>&lt;<span class="w"> </span>backup.sql
+
+<span class="c1"># Restaurar apenas dados</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-i<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>&lt;<span class="w"> </span>data_backup.sql
+</pre></div>
+</div>
+</section>
+</section>
+<section id="monitoramento">
+<h2>Monitoramento<a class="headerlink" href="#monitoramento" title="Link to this heading"></a></h2>
+<section id="verificar-status">
+<h3>Verificar Status<a class="headerlink" href="#verificar-status" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Status dos containers</span>
+docker-compose<span class="w"> </span>ps
+
+<span class="c1"># Logs do banco</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>db
+
+<span class="c1"># Conectar ao banco</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>2025_1_Minecraft<span class="w"> </span>psql<span class="w"> </span>-U<span class="w"> </span>postgres<span class="w"> </span>-d<span class="w"> </span>2025_1_Minecraft
+</pre></div>
+</div>
+</section>
+<section id="verificar-tabelas">
+<h3>Verificar Tabelas<a class="headerlink" href="#verificar-tabelas" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Listar tabelas</span>
+<span class="err">\</span><span class="n">dt</span>
+
+<span class="c1">-- Verificar dados</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">chunk</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">bioma</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance">
+<h2>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h2>
+<section id="otimizacoes-implementadas">
+<h3>Otimizações Implementadas<a class="headerlink" href="#otimizacoes-implementadas" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Índices</strong> em chaves estrangeiras</p></li>
+<li><p><strong>JOINs otimizados</strong> com LEFT JOIN</p></li>
+<li><p><strong>Queries preparadas</strong> com parâmetros</p></li>
+<li><p><strong>Conexões gerenciadas</strong> com context managers</p></li>
+</ul>
+</section>
+<section id="monitoramento-de-performance">
+<h3>Monitoramento de Performance<a class="headerlink" href="#monitoramento-de-performance" title="Link to this heading"></a></h3>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Verificar uso de índices</span>
+<span class="k">EXPLAIN</span><span class="w"> </span><span class="k">ANALYZE</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">jogador</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_chunk_atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="c1">-- Verificar tamanho das tabelas</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">schemaname</span><span class="p">,</span><span class="w"> </span><span class="n">tablename</span><span class="p">,</span><span class="w"> </span><span class="n">pg_size_pretty</span><span class="p">(</span><span class="n">pg_total_relation_size</span><span class="p">(</span><span class="n">schemaname</span><span class="o">||</span><span class="s1">&#39;.&#39;</span><span class="o">||</span><span class="n">tablename</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">pg_tables</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">schemaname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;public&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="proximos-passos">
+<h2>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
+<p>Para mais informações:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Documentação da API</p></li>
+<li><p><a class="reference internal" href="development.html"><span class="doc">Desenvolvimento</span></a> - Guia de desenvolvimento</p></li>
+<li><p><a class="reference internal" href="contributing.html"><span class="doc">Contribuindo</span></a> - Como contribuir</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_reference.html" class="btn btn-neutral float-left" title="Referência da API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="development.html" class="btn btn-neutral float-right" title="Desenvolvimento" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SBD1 - Universidade de Brasília.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,922 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contribuindo &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/contributing.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Desenvolvimento" href="development.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4CAF50" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Minecraft Legends - Python Edition
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#clonando-o-repositorio">Clonando o Repositório</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verificacao-da-instalacao">Verificação da Instalação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#solucao-de-problemas">Solução de Problemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-erro-de-conexao-com-banco-de-dados">Problema: Erro de conexão com banco de dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-porta-5433-ja-em-uso">Problema: Porta 5433 já em uso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-permissoes-no-linux">Problema: Permissões no Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Início Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">Deletando um Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">Verificando o Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">Salvando Progresso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">Saindo do Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guia do Usuário</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-do-jogo">Interface do Jogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tela-inicial">Tela Inicial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#menu-principal">Menu Principal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-personagens">Sistema de Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#criacao-de-personagens">Criação de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#lista-de-personagens">Lista de Personagens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#selecao-de-personagem">Seleção de Personagem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#delecao-de-personagens">Deleção de Personagens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-localizacao">Sistema de Localização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#biomas-disponiveis">Biomas Disponíveis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#mapas-e-turnos">Mapas e Turnos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#chunks">Chunks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-status">Sistema de Status</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#atributos-do-personagem">Atributos do Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#status-detalhado">Status Detalhado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-persistencia">Sistema de Persistência</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-automatico">Salvamento Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-manual">Salvamento Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#banco-de-dados">Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-e-usabilidade">Interface e Usabilidade</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#cores-e-emojis">Cores e Emojis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#navegacao">Navegação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#dicas-e-truques">Dicas e Truques</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#dicas-gerais">Dicas Gerais</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#boas-praticas">Boas Práticas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">Referência da API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulos-principais">Módulos Principais</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-player-manager">Módulo player_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#playersession">PlayerSession</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-gerenciamento">Funções de Gerenciamento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-exibicao">Funções de Exibição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.initialize_database"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.setup_database"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#conexao-com-banco">Conexão com Banco</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#execucao-de-sql">Execução de SQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#verificacoes">Verificações</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#inicializacao">Inicialização</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-display">Módulo display</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#interface-principal">Interface Principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-jogo">Funções de Jogo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utilitarios">Utilitários</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#estrutura-de-dados">Estrutura de Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id7">PlayerSession</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#padroes-de-uso">Padrões de Uso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-sessao">Gerenciamento de Sessão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#criacao-de-personagem">Criação de Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#salvamento-de-dados">Salvamento de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exibicao-de-status">Exibição de Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#tratamento-de-erros">Tratamento de Erros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id8">Conexão com Banco</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#exemplos-praticos">Exemplos Práticos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-completo-de-criacao">Exemplo Completo de Criação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-backup-de-dados">Exemplo de Backup de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-sistema-de-combate">Exemplo de Sistema de Combate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Banco de Dados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#configuracao">Configuração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#docker-compose">Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#conexao">Conexão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#estrutura-do-banco">Estrutura do Banco</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#tabelas-principais">Tabelas Principais</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="database.html#bioma">Bioma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#mapa">Mapa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#chunk">Chunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#jogador">Jogador</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#inventario">Inventario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#diagrama-er">Diagrama ER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#relacionamentos">Relacionamentos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#bioma-chunk">Bioma → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#mapa-chunk">Mapa → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#chunk-jogador">Chunk → Jogador</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#jogador-inventario">Jogador → Inventario</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#indices">Índices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#dados-iniciais">Dados Iniciais</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#biomas">Biomas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#mapas">Mapas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#chunks">Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#personagens-de-exemplo">Personagens de Exemplo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#inventarios-de-exemplo">Inventários de Exemplo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#queries-comuns">Queries Comuns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#buscar-personagem-com-localizacao">Buscar Personagem com Localização</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-nome-unico">Verificar Nome Único</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#backup-e-restauracao">Backup e Restauração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#backup-automatico">Backup Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#backup-manual">Backup Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#restauracao">Restauração</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#monitoramento">Monitoramento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-status">Verificar Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-tabelas">Verificar Tabelas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#performance">Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#otimizacoes-implementadas">Otimizações Implementadas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#monitoramento-de-performance">Monitoramento de Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-projeto">Estrutura do Projeto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#arquitetura">Arquitetura</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#padrao-de-arquitetura">Padrão de Arquitetura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#fluxo-de-dados">Fluxo de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#configuracao-do-ambiente">Configuração do Ambiente</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#configuracao-local">Configuração Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#desenvolvimento-com-docker">Desenvolvimento com Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-codigo">Estrutura do Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-player-manager">Módulo player_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-db-helpers">Módulo db_helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-display">Módulo display</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#convencoes-de-nomenclatura">Convenções de Nomenclatura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#tratamento-de-erros">Tratamento de Erros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#estrutura-de-testes">Estrutura de Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#debugging">Debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-container">Debug no Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-vs-code">Debug no VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#deploy-e-ci-cd">Deploy e CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#github-actions">GitHub Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#deploy-automatico">Deploy Automático</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#versionamento">Versionamento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="development.html#semantic-versioning">Semantic Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#changelog">Changelog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="development.html#commits">Commits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contribuindo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#como-contribuir">Como Contribuir</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tipos-de-contribuicao">Tipos de Contribuição</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#processo-de-contribuicao">Processo de Contribuição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reportando-bugs">Reportando Bugs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#template-de-bug-report">Template de Bug Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#informacoes-necessarias">Informações Necessárias</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sugerindo-features">Sugerindo Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#template-de-feature-request">Template de Feature Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#criterios-para-features">Critérios para Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#desenvolvimento">Desenvolvimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#criando-uma-branch">Criando uma Branch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estilo-de-codigo">Estilo de Código</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#escrevendo-testes">Escrevendo Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#commits">Commits</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#convencoes-de-commit">Convenções de Commit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mensagens-de-commit">Mensagens de Commit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#criando-um-pr">Criando um PR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template-de-pr">Template de PR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#revisao-de-codigo">Revisão de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#criterios-de-revisao">Critérios de Revisão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comentarios-de-revisao">Comentários de Revisão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Documentação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#atualizando-documentacao">Atualizando Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#estrutura-de-documentacao">Estrutura de Documentação</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#comunicacao">Comunicação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#canais-de-comunicacao">Canais de Comunicação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#codigo-de-conduta">Código de Conduta</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reconhecimento">Reconhecimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#contribuidores">Contribuidores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#como-ser-reconhecido">Como Ser Reconhecido</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #4CAF50" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Minecraft Legends - Python Edition</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contribuindo</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/contributing.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contribuindo">
+<h1>Contribuindo<a class="headerlink" href="#contribuindo" title="Link to this heading"></a></h1>
+<p>Obrigado por considerar contribuir com o Minecraft Legends! Este guia irá ajudá-lo a começar.</p>
+<section id="como-contribuir">
+<h2>Como Contribuir<a class="headerlink" href="#como-contribuir" title="Link to this heading"></a></h2>
+<section id="tipos-de-contribuicao">
+<h3>Tipos de Contribuição<a class="headerlink" href="#tipos-de-contribuicao" title="Link to this heading"></a></h3>
+<p>Aceitamos diferentes tipos de contribuição:</p>
+<ul class="simple">
+<li><p><strong>🐛 Bug Reports</strong> - Reportar problemas encontrados</p></li>
+<li><p><strong>💡 Feature Requests</strong> - Sugerir novas funcionalidades</p></li>
+<li><p><strong>📝 Documentation</strong> - Melhorar documentação</p></li>
+<li><p><strong>🔧 Code Changes</strong> - Implementar melhorias</p></li>
+<li><p><strong>🧪 Testing</strong> - Testar e validar funcionalidades</p></li>
+<li><p><strong>🎨 UI/UX</strong> - Melhorar interface do usuário</p></li>
+</ul>
+</section>
+<section id="processo-de-contribuicao">
+<h3>Processo de Contribuição<a class="headerlink" href="#processo-de-contribuicao" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Fork</strong> o repositório</p></li>
+<li><p><strong>Clone</strong> seu fork localmente</p></li>
+<li><p><strong>Crie</strong> uma branch para sua feature</p></li>
+<li><p><strong>Desenvolva</strong> suas mudanças</p></li>
+<li><p><strong>Teste</strong> suas alterações</p></li>
+<li><p><strong>Commit</strong> suas mudanças</p></li>
+<li><p><strong>Push</strong> para sua branch</p></li>
+<li><p><strong>Abra</strong> um Pull Request</p></li>
+</ol>
+</section>
+</section>
+<section id="reportando-bugs">
+<h2>Reportando Bugs<a class="headerlink" href="#reportando-bugs" title="Link to this heading"></a></h2>
+<section id="template-de-bug-report">
+<h3>Template de Bug Report<a class="headerlink" href="#template-de-bug-report" title="Link to this heading"></a></h3>
+<p>Use o template de issue para bugs:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 🐛 Bug Report</span>
+
+<span class="gs">**Descrição do Bug**</span>
+Uma descrição clara e concisa do que aconteceu.
+
+<span class="gs">**Para Reproduzir**</span>
+Passos para reproduzir o comportamento:
+<span class="k">1.</span> Vá para &#39;...&#39;
+<span class="k">2.</span> Clique em &#39;...&#39;
+<span class="k">3.</span> Role até &#39;...&#39;
+<span class="k">4.</span> Veja o erro
+
+<span class="gs">**Comportamento Esperado**</span>
+Uma descrição clara do que deveria acontecer.
+
+<span class="gs">**Screenshots**</span>
+Se aplicável, adicione screenshots para ajudar a explicar o problema.
+
+<span class="gs">**Ambiente:**</span>
+<span class="k">-</span><span class="w"> </span>OS: [ex: Windows, macOS, Linux]
+<span class="k">-</span><span class="w"> </span>Python: [ex: 3.10.0]
+<span class="k">-</span><span class="w"> </span>Docker: [ex: 20.10.0]
+
+<span class="gs">**Contexto Adicional**</span>
+Adicione qualquer outro contexto sobre o problema aqui.
+</pre></div>
+</div>
+</section>
+<section id="informacoes-necessarias">
+<h3>Informações Necessárias<a class="headerlink" href="#informacoes-necessarias" title="Link to this heading"></a></h3>
+<p>Para bugs, inclua sempre:</p>
+<ul class="simple">
+<li><p><strong>Descrição detalhada</strong> do problema</p></li>
+<li><p><strong>Passos para reproduzir</strong></p></li>
+<li><p><strong>Comportamento esperado vs atual</strong></p></li>
+<li><p><strong>Screenshots</strong> (se aplicável)</p></li>
+<li><p><strong>Informações do ambiente</strong></p></li>
+<li><p><strong>Logs de erro</strong> (se disponível)</p></li>
+</ul>
+</section>
+</section>
+<section id="sugerindo-features">
+<h2>Sugerindo Features<a class="headerlink" href="#sugerindo-features" title="Link to this heading"></a></h2>
+<section id="template-de-feature-request">
+<h3>Template de Feature Request<a class="headerlink" href="#template-de-feature-request" title="Link to this heading"></a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 💡 Feature Request</span>
+
+<span class="gs">**Problema que a feature resolve**</span>
+Uma descrição clara e concisa do problema que a feature resolve.
+
+<span class="gs">**Descrição da Solução**</span>
+Uma descrição clara e concisa do que você quer que aconteça.
+
+<span class="gs">**Alternativas Consideradas**</span>
+Uma descrição clara e concisa de quaisquer soluções ou features alternativas que você considerou.
+
+<span class="gs">**Contexto Adicional**</span>
+Adicione qualquer outro contexto ou screenshots sobre a feature request aqui.
+</pre></div>
+</div>
+</section>
+<section id="criterios-para-features">
+<h3>Critérios para Features<a class="headerlink" href="#criterios-para-features" title="Link to this heading"></a></h3>
+<p>Features devem:</p>
+<ul class="simple">
+<li><p><strong>Resolver um problema real</strong> ou adicionar valor significativo</p></li>
+<li><p><strong>Ser bem documentadas</strong> com casos de uso claros</p></li>
+<li><p><strong>Seguir os padrões</strong> do projeto</p></li>
+<li><p><strong>Incluir testes</strong> quando aplicável</p></li>
+<li><p><strong>Ser compatíveis</strong> com a arquitetura existente</p></li>
+</ul>
+</section>
+</section>
+<section id="desenvolvimento">
+<h2>Desenvolvimento<a class="headerlink" href="#desenvolvimento" title="Link to this heading"></a></h2>
+<section id="configuracao-do-ambiente">
+<h3>Configuração do Ambiente<a class="headerlink" href="#configuracao-do-ambiente" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Fork e clone</strong>:</p>
+<p>git clone <a class="reference external" href="https://github.com/SEU_USUARIO/2025.1-Minecraft.git">https://github.com/SEU_USUARIO/2025.1-Minecraft.git</a>
+cd 2025.1-Minecraft</p>
+</li>
+<li><p><strong>Configure o ambiente</strong>:</p>
+<p>python -m venv venv
+source venv/bin/activate  # Linux/macOS
+pip install -r app/requirements.txt</p>
+</li>
+<li><p><strong>Inicie os containers</strong>:</p>
+<p>docker-compose up -d</p>
+</li>
+<li><p><strong>Teste a instalação</strong>:</p>
+<p>python app/main.py</p>
+</li>
+</ol>
+</section>
+<section id="criando-uma-branch">
+<h3>Criando uma Branch<a class="headerlink" href="#criando-uma-branch" title="Link to this heading"></a></h3>
+<p>Use branches descritivas:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Para novas features</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/nova-funcionalidade
+
+<span class="c1"># Para correções</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>fix/correcao-bug
+
+<span class="c1"># Para documentação</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>docs/melhorar-docs
+</pre></div>
+</div>
+</section>
+</section>
+<section id="padroes-de-codigo">
+<h2>Padrões de Código<a class="headerlink" href="#padroes-de-codigo" title="Link to this heading"></a></h2>
+<section id="estilo-de-codigo">
+<h3>Estilo de Código<a class="headerlink" href="#estilo-de-codigo" title="Link to this heading"></a></h3>
+<p>Siga o PEP 8 para Python:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Bom</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">criar_personagem</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cria um novo personagem.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">nome</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">return</span> <span class="n">PlayerSession</span><span class="p">(</span>
+        <span class="n">nome</span><span class="o">=</span><span class="n">nome</span><span class="p">,</span>
+        <span class="n">vida_max</span><span class="o">=</span><span class="n">vida_max</span><span class="p">,</span>
+        <span class="n">vida_atual</span><span class="o">=</span><span class="n">vida_max</span>
+    <span class="p">)</span>
+
+<span class="c1"># ❌ Ruim</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">criar_personagem</span><span class="p">(</span><span class="n">nome</span><span class="p">,</span><span class="n">vida_max</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">nome</span><span class="o">==</span><span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">PlayerSession</span><span class="p">(</span><span class="n">nome</span><span class="o">=</span><span class="n">nome</span><span class="p">,</span><span class="n">vida_max</span><span class="o">=</span><span class="n">vida_max</span><span class="p">,</span><span class="n">vida_atual</span><span class="o">=</span><span class="n">vida_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="documentacao">
+<h3>Documentação<a class="headerlink" href="#documentacao" title="Link to this heading"></a></h3>
+<p>Use docstrings no formato Google:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calcular_dano</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">modificador</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula o dano baseado em valores e modificadores.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        base: Dano base do ataque</span>
+<span class="sd">        modificador: Multiplicador de dano (padrão: 1.0)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dano final calculado</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: Se base for negativo</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; calcular_dano(10, 1.5)</span>
+<span class="sd">        15</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">base</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Dano base não pode ser negativo&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">base</span> <span class="o">*</span> <span class="n">modificador</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="tratamento-de-erros">
+<h3>Tratamento de Erros<a class="headerlink" href="#tratamento-de-erros" title="Link to this heading"></a></h3>
+<p>Use exceções específicas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PersonagemError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exceção base para erros de personagem.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">NomeDuplicadoError</span><span class="p">(</span><span class="n">PersonagemError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exceção para nomes duplicados.&quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">criar_personagem</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlayerSession</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">nome_existe</span><span class="p">(</span><span class="n">nome</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="n">NomeDuplicadoError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nome &#39;</span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39; já existe&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Criação do personagem...</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="testes">
+<h2>Testes<a class="headerlink" href="#testes" title="Link to this heading"></a></h2>
+<section id="escrevendo-testes">
+<h3>Escrevendo Testes<a class="headerlink" href="#escrevendo-testes" title="Link to this heading"></a></h3>
+<p>Crie testes para novas funcionalidades:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.player_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayerSession</span><span class="p">,</span> <span class="n">criar_personagem</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_criar_personagem_sucesso</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa criação bem-sucedida de personagem.&quot;&quot;&quot;</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">criar_personagem</span><span class="p">(</span><span class="s2">&quot;Teste&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">player</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">player</span><span class="o">.</span><span class="n">nome</span> <span class="o">==</span> <span class="s2">&quot;Teste&quot;</span>
+    <span class="k">assert</span> <span class="n">player</span><span class="o">.</span><span class="n">vida_max</span> <span class="o">==</span> <span class="mi">100</span>
+    <span class="k">assert</span> <span class="n">player</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">==</span> <span class="mi">100</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_criar_personagem_nome_vazio</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa criação com nome vazio.&quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">):</span>
+        <span class="n">criar_personagem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_criar_personagem_nome_duplicado</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa criação com nome duplicado.&quot;&quot;&quot;</span>
+    <span class="n">criar_personagem</span><span class="p">(</span><span class="s2">&quot;Teste&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">pytest</span><span class="o">.</span><span class="n">raises</span><span class="p">(</span><span class="n">NomeDuplicadoError</span><span class="p">):</span>
+        <span class="n">criar_personagem</span><span class="p">(</span><span class="s2">&quot;Teste&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="executando-testes">
+<h3>Executando Testes<a class="headerlink" href="#executando-testes" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalar pytest</span>
+pip<span class="w"> </span>install<span class="w"> </span>pytest<span class="w"> </span>pytest-cov
+
+<span class="c1"># Executar todos os testes</span>
+pytest
+
+<span class="c1"># Com cobertura</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>app<span class="w"> </span>--cov-report<span class="o">=</span>html
+
+<span class="c1"># Testes específicos</span>
+pytest<span class="w"> </span>tests/test_player_manager.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="commits">
+<h2>Commits<a class="headerlink" href="#commits" title="Link to this heading"></a></h2>
+<section id="convencoes-de-commit">
+<h3>Convenções de Commit<a class="headerlink" href="#convencoes-de-commit" title="Link to this heading"></a></h3>
+<p>Use commits semânticos:</p>
+<ul class="simple">
+<li><p><strong>feat</strong>: Nova funcionalidade</p></li>
+<li><p><strong>fix</strong>: Correção de bug</p></li>
+<li><p><strong>docs</strong>: Documentação</p></li>
+<li><p><strong>style</strong>: Formatação (espaços, ponto e vírgula, etc.)</p></li>
+<li><p><strong>refactor</strong>: Refatoração de código</p></li>
+<li><p><strong>test</strong>: Adicionando ou corrigindo testes</p></li>
+<li><p><strong>chore</strong>: Tarefas de manutenção</p></li>
+</ul>
+<p>Exemplos:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>feat:<span class="w"> </span>add<span class="w"> </span>character<span class="w"> </span>deletion<span class="w"> </span>functionality
+fix:<span class="w"> </span>resolve<span class="w"> </span>duplicate<span class="w"> </span>session<span class="w"> </span><span class="nb">exit</span><span class="w"> </span>message
+docs:<span class="w"> </span>update<span class="w"> </span>installation<span class="w"> </span>guide
+style:<span class="w"> </span>fix<span class="w"> </span>indentation<span class="w"> </span><span class="k">in</span><span class="w"> </span>display.py
+refactor:<span class="w"> </span>simplify<span class="w"> </span>player<span class="w"> </span>loading<span class="w"> </span>logic
+test:<span class="w"> </span>add<span class="w"> </span>tests<span class="w"> </span><span class="k">for</span><span class="w"> </span>character<span class="w"> </span>creation
+chore:<span class="w"> </span>update<span class="w"> </span>dependencies
+</pre></div>
+</div>
+</section>
+<section id="mensagens-de-commit">
+<h3>Mensagens de Commit<a class="headerlink" href="#mensagens-de-commit" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Use o imperativo (“add” não “added”)</p></li>
+<li><p>Primeira linha com máximo 50 caracteres</p></li>
+<li><p>Descrição detalhada após linha em branco</p></li>
+<li><p>Referencie issues quando aplicável</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>feat:<span class="w"> </span>add<span class="w"> </span>character<span class="w"> </span>deletion<span class="w"> </span>functionality
+
+-<span class="w"> </span>Add<span class="w"> </span>delete_player<span class="w"> </span><span class="k">function</span><span class="w"> </span>to<span class="w"> </span>player_manager
+-<span class="w"> </span>Add<span class="w"> </span>confirmation<span class="w"> </span>dialog<span class="w"> </span><span class="k">for</span><span class="w"> </span>deletion
+-<span class="w"> </span>Prevent<span class="w"> </span>deletion<span class="w"> </span>of<span class="w"> </span>active<span class="w"> </span>character
+-<span class="w"> </span>Add<span class="w"> </span>tests<span class="w"> </span><span class="k">for</span><span class="w"> </span>deletion<span class="w"> </span>functionality
+
+Closes<span class="w"> </span><span class="c1">#123</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="pull-requests">
+<h2>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h2>
+<section id="criando-um-pr">
+<h3>Criando um PR<a class="headerlink" href="#criando-um-pr" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p><strong>Atualize</strong> sua branch com a main:</p>
+<p>git checkout main
+git pull origin main
+git checkout sua-branch
+git rebase main</p>
+</li>
+<li><p><strong>Teste</strong> suas mudanças:</p>
+<p>python -m pytest
+python app/main.py</p>
+</li>
+<li><p><strong>Push</strong> suas mudanças:</p>
+<p>git push origin sua-branch</p>
+</li>
+<li><p><strong>Abra o PR</strong> no GitHub</p></li>
+</ol>
+</section>
+<section id="template-de-pr">
+<h3>Template de PR<a class="headerlink" href="#template-de-pr" title="Link to this heading"></a></h3>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 📝 Descrição</span>
+
+Breve descrição das mudanças implementadas.
+
+<span class="gu">## 🔗 Issue Relacionada</span>
+
+Closes <span class="ni">#123</span>
+
+<span class="gu">## 🧪 Testes</span>
+
+<span class="k">- [ ]</span> Testes unitários passando
+<span class="k">- [ ]</span> Testes de integração passando
+<span class="k">- [ ]</span> Funcionalidade testada manualmente
+
+<span class="gu">## 📸 Screenshots</span>
+
+Se aplicável, adicione screenshots das mudanças.
+
+<span class="gu">## ✅ Checklist</span>
+
+<span class="k">- [ ]</span> Código segue os padrões do projeto
+<span class="k">- [ ]</span> Documentação atualizada
+<span class="k">- [ ]</span> Testes adicionados/atualizados
+<span class="k">- [ ]</span> Commits seguem convenções
+<span class="k">- [ ]</span> PR está atualizado com a main
+</pre></div>
+</div>
+</section>
+</section>
+<section id="revisao-de-codigo">
+<h2>Revisão de Código<a class="headerlink" href="#revisao-de-codigo" title="Link to this heading"></a></h2>
+<section id="criterios-de-revisao">
+<h3>Critérios de Revisão<a class="headerlink" href="#criterios-de-revisao" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Funcionalidade</strong>: O código faz o que deveria?</p></li>
+<li><p><strong>Qualidade</strong>: O código está bem escrito?</p></li>
+<li><p><strong>Testes</strong>: Há testes adequados?</p></li>
+<li><p><strong>Documentação</strong>: Está bem documentado?</p></li>
+<li><p><strong>Performance</strong>: Há problemas de performance?</p></li>
+<li><p><strong>Segurança</strong>: Há vulnerabilidades?</p></li>
+</ul>
+</section>
+<section id="comentarios-de-revisao">
+<h3>Comentários de Revisão<a class="headerlink" href="#comentarios-de-revisao" title="Link to this heading"></a></h3>
+<p>Seja construtivo:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>✅ <span class="gs">**Positivo**</span>: &quot;Boa implementação! O código está claro e bem estruturado.&quot;
+
+🔧 <span class="gs">**Sugestão**</span>: &quot;Considere usar uma validação mais específica aqui.&quot;
+
+❌ <span class="gs">**Problema**</span>: &quot;Esta função pode causar problemas de performance com muitos dados.&quot;
+
+💡 <span class="gs">**Idea**</span>: &quot;Que tal implementar cache para melhorar performance?&quot;
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Documentação<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<section id="atualizando-documentacao">
+<h3>Atualizando Documentação<a class="headerlink" href="#atualizando-documentacao" title="Link to this heading"></a></h3>
+<p>Para mudanças que afetam a documentação:</p>
+<ol class="arabic">
+<li><p><strong>Atualize</strong> os arquivos .rst relevantes</p></li>
+<li><p><strong>Gere</strong> a documentação:</p>
+<p>cd docs
+make html</p>
+</li>
+<li><p><strong>Verifique</strong> se está correto:</p>
+<p>open build/html/index.html</p>
+</li>
+<li><p><strong>Commit</strong> as mudanças:</p>
+<p>git add docs/
+git commit -m “docs: update API documentation”</p>
+</li>
+</ol>
+</section>
+<section id="estrutura-de-documentacao">
+<h3>Estrutura de Documentação<a class="headerlink" href="#estrutura-de-documentacao" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>installation.rst</strong>: Guias de instalação</p></li>
+<li><p><strong>quickstart.rst</strong>: Início rápido</p></li>
+<li><p><strong>user_guide.rst</strong>: Guia do usuário</p></li>
+<li><p><strong>api_reference.rst</strong>: Documentação da API</p></li>
+<li><p><strong>database.rst</strong>: Estrutura do banco</p></li>
+<li><p><strong>development.rst</strong>: Guia de desenvolvimento</p></li>
+<li><p><strong>contributing.rst</strong>: Este guia</p></li>
+</ul>
+</section>
+</section>
+<section id="comunicacao">
+<h2>Comunicação<a class="headerlink" href="#comunicacao" title="Link to this heading"></a></h2>
+<section id="canais-de-comunicacao">
+<h3>Canais de Comunicação<a class="headerlink" href="#canais-de-comunicacao" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>GitHub Issues</strong>: Para bugs e features</p></li>
+<li><p><strong>GitHub Discussions</strong>: Para discussões gerais</p></li>
+<li><p><strong>Pull Requests</strong>: Para contribuições de código</p></li>
+<li><p><strong>Email</strong>: Para assuntos privados</p></li>
+</ul>
+</section>
+<section id="codigo-de-conduta">
+<h3>Código de Conduta<a class="headerlink" href="#codigo-de-conduta" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Seja respeitoso e inclusivo</p></li>
+<li><p>Foque no código, não na pessoa</p></li>
+<li><p>Seja construtivo em feedback</p></li>
+<li><p>Ajude outros contribuidores</p></li>
+<li><p>Respeite diferentes pontos de vista</p></li>
+</ul>
+</section>
+</section>
+<section id="reconhecimento">
+<h2>Reconhecimento<a class="headerlink" href="#reconhecimento" title="Link to this heading"></a></h2>
+<section id="contribuidores">
+<h3>Contribuidores<a class="headerlink" href="#contribuidores" title="Link to this heading"></a></h3>
+<p>Todos os contribuidores são reconhecidos:</p>
+<ul class="simple">
+<li><p>No arquivo CONTRIBUTORS.md</p></li>
+<li><p>Na documentação</p></li>
+<li><p>Nos releases do GitHub</p></li>
+<li><p>No README do projeto</p></li>
+</ul>
+</section>
+<section id="como-ser-reconhecido">
+<h3>Como Ser Reconhecido<a class="headerlink" href="#como-ser-reconhecido" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Contribuições significativas de código</p></li>
+<li><p>Melhorias importantes na documentação</p></li>
+<li><p>Reportes de bugs críticos</p></li>
+<li><p>Sugestões de features implementadas</p></li>
+<li><p>Ajuda na comunidade</p></li>
+</ul>
+</section>
+</section>
+<section id="proximos-passos">
+<h2>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
+<p>Agora que você conhece como contribuir:</p>
+<ol class="arabic simple">
+<li><p><strong>Escolha</strong> uma issue para trabalhar</p></li>
+<li><p><strong>Configure</strong> seu ambiente de desenvolvimento</p></li>
+<li><p><strong>Desenvolva</strong> sua contribuição</p></li>
+<li><p><strong>Teste</strong> suas mudanças</p></li>
+<li><p><strong>Abra</strong> um Pull Request</p></li>
+</ol>
+<p>Obrigado por contribuir com o Minecraft Legends! 🎮</p>
+<p>Para mais informações:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="development.html"><span class="doc">Desenvolvimento</span></a> - Guia de desenvolvimento</p></li>
+<li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Documentação da API</p></li>
+<li><p><a class="reference internal" href="database.html"><span class="doc">Banco de Dados</span></a> - Estrutura do banco</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="development.html" class="btn btn-neutral float-left" title="Desenvolvimento" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SBD1 - Universidade de Brasília.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

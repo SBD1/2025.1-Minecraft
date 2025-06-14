@@ -1,0 +1,855 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desenvolvimento &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/development.html" />
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contribuindo" href="contributing.html" />
+    <link rel="prev" title="Banco de Dados" href="database.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #4CAF50" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Minecraft Legends - Python Edition
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#clonando-o-repositorio">Clonando o Repositório</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verificacao-da-instalacao">Verificação da Instalação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#solucao-de-problemas">Solução de Problemas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-erro-de-conexao-com-banco-de-dados">Problema: Erro de conexão com banco de dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-porta-5433-ja-em-uso">Problema: Porta 5433 já em uso</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-permissoes-no-linux">Problema: Permissões no Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Início Rápido</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">Deletando um Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">Verificando o Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">Salvando Progresso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">Saindo do Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guia do Usuário</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-do-jogo">Interface do Jogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tela-inicial">Tela Inicial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#menu-principal">Menu Principal</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-personagens">Sistema de Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#criacao-de-personagens">Criação de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#lista-de-personagens">Lista de Personagens</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#selecao-de-personagem">Seleção de Personagem</a></li>
+<li class="toctree-l4"><a class="reference internal" href="user_guide.html#delecao-de-personagens">Deleção de Personagens</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-localizacao">Sistema de Localização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#biomas-disponiveis">Biomas Disponíveis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#mapas-e-turnos">Mapas e Turnos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#chunks">Chunks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-status">Sistema de Status</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#atributos-do-personagem">Atributos do Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#status-detalhado">Status Detalhado</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-persistencia">Sistema de Persistência</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-automatico">Salvamento Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-manual">Salvamento Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#banco-de-dados">Banco de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-e-usabilidade">Interface e Usabilidade</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#cores-e-emojis">Cores e Emojis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#navegacao">Navegação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#dicas-e-truques">Dicas e Truques</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#dicas-gerais">Dicas Gerais</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#boas-praticas">Boas Práticas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">Referência da API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulos-principais">Módulos Principais</a><ul class="simple">
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-player-manager">Módulo player_manager</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#playersession">PlayerSession</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-gerenciamento">Funções de Gerenciamento</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-exibicao">Funções de Exibição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.initialize_database"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.setup_database"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#conexao-com-banco">Conexão com Banco</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#execucao-de-sql">Execução de SQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#verificacoes">Verificações</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#inicializacao">Inicialização</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-display">Módulo display</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#interface-principal">Interface Principal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-jogo">Funções de Jogo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utilitarios">Utilitários</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#estrutura-de-dados">Estrutura de Dados</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id7">PlayerSession</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#padroes-de-uso">Padrões de Uso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-sessao">Gerenciamento de Sessão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#criacao-de-personagem">Criação de Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#salvamento-de-dados">Salvamento de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exibicao-de-status">Exibição de Status</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#tratamento-de-erros">Tratamento de Erros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id8">Conexão com Banco</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#exemplos-praticos">Exemplos Práticos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-completo-de-criacao">Exemplo Completo de Criação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-backup-de-dados">Exemplo de Backup de Dados</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-sistema-de-combate">Exemplo de Sistema de Combate</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api_reference.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Banco de Dados</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="database.html#visao-geral">Visão Geral</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#configuracao">Configuração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#docker-compose">Docker Compose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#conexao">Conexão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#estrutura-do-banco">Estrutura do Banco</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#tabelas-principais">Tabelas Principais</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="database.html#bioma">Bioma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#mapa">Mapa</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#chunk">Chunk</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#jogador">Jogador</a></li>
+<li class="toctree-l4"><a class="reference internal" href="database.html#inventario">Inventario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#diagrama-er">Diagrama ER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#relacionamentos">Relacionamentos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#bioma-chunk">Bioma → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#mapa-chunk">Mapa → Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#chunk-jogador">Chunk → Jogador</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#jogador-inventario">Jogador → Inventario</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#indices">Índices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#dados-iniciais">Dados Iniciais</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#biomas">Biomas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#mapas">Mapas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#chunks">Chunks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#personagens-de-exemplo">Personagens de Exemplo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#inventarios-de-exemplo">Inventários de Exemplo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#queries-comuns">Queries Comuns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#buscar-personagem-com-localizacao">Buscar Personagem com Localização</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-nome-unico">Verificar Nome Único</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#backup-e-restauracao">Backup e Restauração</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#backup-automatico">Backup Automático</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#backup-manual">Backup Manual</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#restauracao">Restauração</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#monitoramento">Monitoramento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-status">Verificar Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-tabelas">Verificar Tabelas</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#performance">Performance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="database.html#otimizacoes-implementadas">Otimizações Implementadas</a></li>
+<li class="toctree-l3"><a class="reference internal" href="database.html#monitoramento-de-performance">Monitoramento de Performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="database.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Desenvolvimento</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-do-projeto">Estrutura do Projeto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#arquitetura">Arquitetura</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#padrao-de-arquitetura">Padrão de Arquitetura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fluxo-de-dados">Fluxo de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuracao-do-ambiente">Configuração do Ambiente</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pre-requisitos">Pré-requisitos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuracao-local">Configuração Local</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#desenvolvimento-com-docker">Desenvolvimento com Docker</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-do-codigo">Estrutura do Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modulo-player-manager">Módulo player_manager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modulo-db-helpers">Módulo db_helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modulo-display">Módulo display</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#convencoes-de-nomenclatura">Convenções de Nomenclatura</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tratamento-de-erros">Tratamento de Erros</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#validacao-de-dados">Validação de Dados</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estrutura-de-testes">Estrutura de Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#logs">Logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-no-container">Debug no Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-no-vs-code">Debug no VS Code</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-e-ci-cd">Deploy e CI/CD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#github-actions">GitHub Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploy-automatico">Deploy Automático</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#versionamento">Versionamento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#semantic-versioning">Semantic Versioning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changelog">Changelog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commits">Commits</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribuindo</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#como-contribuir">Como Contribuir</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#tipos-de-contribuicao">Tipos de Contribuição</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#processo-de-contribuicao">Processo de Contribuição</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reportando-bugs">Reportando Bugs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-bug-report">Template de Bug Report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#informacoes-necessarias">Informações Necessárias</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#sugerindo-features">Sugerindo Features</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-feature-request">Template de Feature Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-para-features">Critérios para Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#desenvolvimento">Desenvolvimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-uma-branch">Criando uma Branch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#padroes-de-codigo">Padrões de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#estilo-de-codigo">Estilo de Código</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#documentacao">Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#tratamento-de-erros">Tratamento de Erros</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#testes">Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#escrevendo-testes">Escrevendo Testes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#executando-testes">Executando Testes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#commits">Commits</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#convencoes-de-commit">Convenções de Commit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#mensagens-de-commit">Mensagens de Commit</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-requests">Pull Requests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-um-pr">Criando um PR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-pr">Template de PR</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#revisao-de-codigo">Revisão de Código</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-de-revisao">Critérios de Revisão</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#comentarios-de-revisao">Comentários de Revisão</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#id1">Documentação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#atualizando-documentacao">Atualizando Documentação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#estrutura-de-documentacao">Estrutura de Documentação</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#comunicacao">Comunicação</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#canais-de-comunicacao">Canais de Comunicação</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#codigo-de-conduta">Código de Conduta</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#reconhecimento">Reconhecimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#contribuidores">Contribuidores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#como-ser-reconhecido">Como Ser Reconhecido</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#proximos-passos">Próximos Passos</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #4CAF50" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Minecraft Legends - Python Edition</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Desenvolvimento</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="desenvolvimento">
+<h1>Desenvolvimento<a class="headerlink" href="#desenvolvimento" title="Link to this heading"></a></h1>
+<p>Este guia irá ajudá-lo a configurar o ambiente de desenvolvimento e entender a arquitetura do projeto.</p>
+<section id="estrutura-do-projeto">
+<h2>Estrutura do Projeto<a class="headerlink" href="#estrutura-do-projeto" title="Link to this heading"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2025.1-Minecraft/
+├── app/                          # Aplicação principal
+│   ├── main.py                   # Ponto de entrada
+│   ├── Dockerfile                # Container da aplicação
+│   ├── requirements.txt          # Dependências Python
+│   └── src/                      # Código fonte
+│       ├── interface/            # Interface do usuário
+│       │   └── display.py        # Menus e exibição
+│       └── utils/                # Utilitários
+│           ├── player_manager.py # Gerenciamento de personagens
+│           └── db_helpers.py     # Helpers do banco de dados
+├── db/                           # Banco de dados
+│   ├── ddl.sql                   # Definição das tabelas
+│   ├── dml.sql                   # Dados iniciais
+│   ├── Dockerfile.db             # Container do banco
+│   └── create_user.sql           # Criação de usuários
+├── docs/                         # Documentação
+│   ├── source/                   # Arquivos fonte do Sphinx
+│   └── build/                    # Documentação gerada
+├── docker-compose.yml            # Orquestração dos containers
+└── README.md                     # Documentação principal
+</pre></div>
+</div>
+</section>
+<section id="arquitetura">
+<h2>Arquitetura<a class="headerlink" href="#arquitetura" title="Link to this heading"></a></h2>
+<section id="padrao-de-arquitetura">
+<h3>Padrão de Arquitetura<a class="headerlink" href="#padrao-de-arquitetura" title="Link to this heading"></a></h3>
+<p>O projeto segue uma arquitetura modular com separação clara de responsabilidades:</p>
+<ul class="simple">
+<li><p><strong>Interface Layer</strong> (<code class="docutils literal notranslate"><span class="pre">interface/display.py</span></code>)
+* Menus e interação com usuário
+* Validação de entrada
+* Formatação de saída</p></li>
+<li><p><strong>Business Logic Layer</strong> (<code class="docutils literal notranslate"><span class="pre">utils/player_manager.py</span></code>)
+* Lógica de negócio
+* Gerenciamento de estado
+* Operações de personagens</p></li>
+<li><p><strong>Data Access Layer</strong> (<code class="docutils literal notranslate"><span class="pre">utils/db_helpers.py</span></code>)
+* Conexão com banco de dados
+* Execução de queries
+* Inicialização do banco</p></li>
+<li><p><strong>Data Layer</strong> (<code class="docutils literal notranslate"><span class="pre">db/</span></code>)
+* Scripts SQL
+* Configuração do banco
+* Dados iniciais</p></li>
+</ul>
+</section>
+<section id="fluxo-de-dados">
+<h3>Fluxo de Dados<a class="headerlink" href="#fluxo-de-dados" title="Link to this heading"></a></h3>
+<img alt="Fluxo de Dados" class="align-center" src="_static/architecture-flow.png" />
+<ol class="arabic simple">
+<li><p><strong>Interface</strong> recebe entrada do usuário</p></li>
+<li><p><strong>Business Logic</strong> processa a lógica</p></li>
+<li><p><strong>Data Access</strong> executa operações no banco</p></li>
+<li><p><strong>Interface</strong> exibe resultados</p></li>
+</ol>
+</section>
+</section>
+<section id="configuracao-do-ambiente">
+<h2>Configuração do Ambiente<a class="headerlink" href="#configuracao-do-ambiente" title="Link to this heading"></a></h2>
+<section id="pre-requisitos">
+<h3>Pré-requisitos<a class="headerlink" href="#pre-requisitos" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Python 3.10+</p></li>
+<li><p>Docker e Docker Compose</p></li>
+<li><p>Git</p></li>
+<li><p>Editor de código (VS Code, PyCharm, etc.)</p></li>
+</ul>
+</section>
+<section id="configuracao-local">
+<h3>Configuração Local<a class="headerlink" href="#configuracao-local" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Clone o repositório:</p>
+<p>git clone <a class="reference external" href="https://github.com/SBD1/2025.1-Minecraft.git">https://github.com/SBD1/2025.1-Minecraft.git</a>
+cd 2025.1-Minecraft</p>
+</li>
+<li><p>Configure o ambiente virtual:</p>
+<p>python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# ou
+venvScriptsactivate     # Windows</p>
+</li>
+<li><p>Instale dependências:</p>
+<p>pip install -r app/requirements.txt</p>
+</li>
+<li><p>Inicie os containers:</p>
+<p>docker-compose up -d</p>
+</li>
+<li><p>Execute o jogo:</p>
+<p>python app/main.py</p>
+</li>
+</ol>
+</section>
+<section id="desenvolvimento-com-docker">
+<h3>Desenvolvimento com Docker<a class="headerlink" href="#desenvolvimento-com-docker" title="Link to this heading"></a></h3>
+<p>Para desenvolvimento dentro do container:</p>
+<ol class="arabic">
+<li><p>Acesse o container:</p>
+<p>docker exec -it python_mine bash</p>
+</li>
+<li><p>Instale dependências de desenvolvimento:</p>
+<p>pip install sphinx sphinx-rtd-theme</p>
+</li>
+<li><p>Execute o jogo:</p>
+<p>python main.py</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="estrutura-do-codigo">
+<h2>Estrutura do Código<a class="headerlink" href="#estrutura-do-codigo" title="Link to this heading"></a></h2>
+<section id="modulo-player-manager">
+<h3>Módulo player_manager<a class="headerlink" href="#modulo-player-manager" title="Link to this heading"></a></h3>
+<p>Responsável pelo gerenciamento de personagens:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Variável global para personagem ativo</span>
+<span class="n">current_player</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Classe principal</span>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlayerSession</span><span class="p">:</span>
+    <span class="c1"># Atributos do personagem</span>
+
+<span class="c1"># Funções de gerenciamento</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">set_current_player</span><span class="p">(</span><span class="n">player_data</span><span class="p">:</span> <span class="n">PlayerSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Define o personagem ativo&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_current_player</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Retorna o personagem ativo&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_player_by_id</span><span class="p">(</span><span class="n">player_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Carrega personagem do banco&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="modulo-db-helpers">
+<h3>Módulo db_helpers<a class="headerlink" href="#modulo-db-helpers" title="Link to this heading"></a></h3>
+<p>Gerencia conexões e operações do banco:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">connection_db</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cria conexão com PostgreSQL&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_database</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configura banco antes da execução&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">check_tables_exist</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se tabelas existem&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">initialize_database</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inicializa estrutura e dados&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="modulo-display">
+<h3>Módulo display<a class="headerlink" href="#modulo-display" title="Link to this heading"></a></h3>
+<p>Interface do usuário e menus:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">menu_inicial</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Menu principal do jogo&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">criar_jogador</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Interface de criação de personagem&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">listar_jogadores</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lista personagens em grid&quot;&quot;&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sair_jogo</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Encerra o jogo&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="padroes-de-codigo">
+<h2>Padrões de Código<a class="headerlink" href="#padroes-de-codigo" title="Link to this heading"></a></h2>
+<section id="convencoes-de-nomenclatura">
+<h3>Convenções de Nomenclatura<a class="headerlink" href="#convencoes-de-nomenclatura" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Funções</strong>: snake_case (<code class="docutils literal notranslate"><span class="pre">criar_jogador</span></code>)</p></li>
+<li><p><strong>Variáveis</strong>: snake_case (<code class="docutils literal notranslate"><span class="pre">current_player</span></code>)</p></li>
+<li><p><strong>Classes</strong>: PascalCase (<code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code>)</p></li>
+<li><p><strong>Constantes</strong>: UPPER_CASE (<code class="docutils literal notranslate"><span class="pre">MAX_LIFE</span></code>)</p></li>
+<li><p><strong>Módulos</strong>: snake_case (<code class="docutils literal notranslate"><span class="pre">player_manager</span></code>)</p></li>
+</ul>
+</section>
+<section id="documentacao">
+<h3>Documentação<a class="headerlink" href="#documentacao" title="Link to this heading"></a></h3>
+<p>Use docstrings no formato Google:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">criar_personagem</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cria um novo personagem no banco de dados.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        nome: Nome único do personagem</span>
+<span class="sd">        vida_max: Vida máxima (padrão: 100)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        PlayerSession do personagem criado ou None se erro</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: Se nome for inválido</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tratamento-de-erros">
+<h3>Tratamento de Erros<a class="headerlink" href="#tratamento-de-erros" title="Link to this heading"></a></h3>
+<p>Use try/except com mensagens específicas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
+    <span class="c1"># Operações</span>
+<span class="k">except</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Erro de banco: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Erro inesperado: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="validacao-de-dados">
+<h3>Validação de Dados<a class="headerlink" href="#validacao-de-dados" title="Link to this heading"></a></h3>
+<p>Valide sempre as entradas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">validar_nome</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Valida nome do personagem&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">nome</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">nome</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nome</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="testes">
+<h2>Testes<a class="headerlink" href="#testes" title="Link to this heading"></a></h2>
+<section id="estrutura-de-testes">
+<h3>Estrutura de Testes<a class="headerlink" href="#estrutura-de-testes" title="Link to this heading"></a></h3>
+<p>Crie testes para funções críticas:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_criar_personagem</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa criação de personagem&quot;&quot;&quot;</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">create_new_player</span><span class="p">(</span><span class="s2">&quot;Teste&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">player</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">assert</span> <span class="n">player</span><span class="o">.</span><span class="n">nome</span> <span class="o">==</span> <span class="s2">&quot;Teste&quot;</span>
+    <span class="k">assert</span> <span class="n">player</span><span class="o">.</span><span class="n">vida_max</span> <span class="o">==</span> <span class="mi">100</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_validar_nome</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Testa validação de nome&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">validar_nome</span><span class="p">(</span><span class="s2">&quot;João&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span>
+    <span class="k">assert</span> <span class="n">validar_nome</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span>
+    <span class="k">assert</span> <span class="n">validar_nome</span><span class="p">(</span><span class="s2">&quot;   &quot;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</section>
+<section id="executando-testes">
+<h3>Executando Testes<a class="headerlink" href="#executando-testes" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalar pytest</span>
+pip<span class="w"> </span>install<span class="w"> </span>pytest
+
+<span class="c1"># Executar testes</span>
+pytest<span class="w"> </span>tests/
+
+<span class="c1"># Com cobertura</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>app<span class="w"> </span>tests/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h2>
+<section id="logs">
+<h3>Logs<a class="headerlink" href="#logs" title="Link to this heading"></a></h3>
+<p>Use prints informativos para debug:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🔍 Debug: Criando personagem &#39;</span><span class="si">{</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;🔍 Debug: Dados salvos: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="debug-no-container">
+<h3>Debug no Container<a class="headerlink" href="#debug-no-container" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Acessar container</span>
+docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>python_mine<span class="w"> </span>bash
+
+<span class="c1"># Executar com debug</span>
+python<span class="w"> </span>-u<span class="w"> </span>main.py
+
+<span class="c1"># Ver logs</span>
+docker-compose<span class="w"> </span>logs<span class="w"> </span>app
+</pre></div>
+</div>
+</section>
+<section id="debug-no-vs-code">
+<h3>Debug no VS Code<a class="headerlink" href="#debug-no-vs-code" title="Link to this heading"></a></h3>
+<p>Configure o launch.json:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Python: Minecraft&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;program&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/app/main.py&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integratedTerminal&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;cwd&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/app&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="deploy-e-ci-cd">
+<h2>Deploy e CI/CD<a class="headerlink" href="#deploy-e-ci-cd" title="Link to this heading"></a></h2>
+<section id="github-actions">
+<h3>GitHub Actions<a class="headerlink" href="#github-actions" title="Link to this heading"></a></h3>
+<p>Configure workflows para:</p>
+<ul class="simple">
+<li><p><strong>Testes automáticos</strong></p></li>
+<li><p><strong>Build da documentação</strong></p></li>
+<li><p><strong>Deploy no GitHub Pages</strong></p></li>
+</ul>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build Documentation</span>
+<span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">pull_request</span><span class="p p-Indicator">]</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">build</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Set up Python</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.10</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">pip install sphinx sphinx-rtd-theme</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build docs</span>
+<span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">          </span><span class="no">cd docs</span>
+<span class="w">          </span><span class="no">make html</span>
+</pre></div>
+</div>
+</section>
+<section id="deploy-automatico">
+<h3>Deploy Automático<a class="headerlink" href="#deploy-automatico" title="Link to this heading"></a></h3>
+<p>Configure deploy automático no GitHub Pages:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to GitHub Pages</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="w"> </span><span class="nv">main</span><span class="w"> </span><span class="p p-Indicator">]</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy</span>
+<span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">peaceiris/actions-gh-pages@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+<span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./docs/build/html</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="versionamento">
+<h2>Versionamento<a class="headerlink" href="#versionamento" title="Link to this heading"></a></h2>
+<section id="semantic-versioning">
+<h3>Semantic Versioning<a class="headerlink" href="#semantic-versioning" title="Link to this heading"></a></h3>
+<p>Use o padrão MAJOR.MINOR.PATCH:</p>
+<ul class="simple">
+<li><p><strong>MAJOR</strong>: Mudanças incompatíveis</p></li>
+<li><p><strong>MINOR</strong>: Novas funcionalidades</p></li>
+<li><p><strong>PATCH</strong>: Correções de bugs</p></li>
+</ul>
+</section>
+<section id="changelog">
+<h3>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h3>
+<p>Mantenha um CHANGELOG.md:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># Changelog</span>
+
+<span class="gu">## [1.1.0] - 2025-01-XX</span>
+<span class="gu">### Added</span>
+<span class="k">-</span><span class="w"> </span>Sistema de grid para lista de personagens
+<span class="k">-</span><span class="w"> </span>Opção de deletar personagens
+
+<span class="gu">### Changed</span>
+<span class="k">-</span><span class="w"> </span>Melhorada interface de seleção
+
+<span class="gu">### Fixed</span>
+<span class="k">-</span><span class="w"> </span>Correção de mensagens duplicadas
+</pre></div>
+</div>
+</section>
+<section id="commits">
+<h3>Commits<a class="headerlink" href="#commits" title="Link to this heading"></a></h3>
+<p>Use commits semânticos:</p>
+<ul class="simple">
+<li><p><strong>feat</strong>: Nova funcionalidade</p></li>
+<li><p><strong>fix</strong>: Correção de bug</p></li>
+<li><p><strong>docs</strong>: Documentação</p></li>
+<li><p><strong>style</strong>: Formatação</p></li>
+<li><p><strong>refactor</strong>: Refatoração</p></li>
+<li><p><strong>test</strong>: Testes</p></li>
+<li><p><strong>chore</strong>: Tarefas de manutenção</p></li>
+</ul>
+<p>Exemplo: <code class="docutils literal notranslate"><span class="pre">feat:</span> <span class="pre">add</span> <span class="pre">character</span> <span class="pre">deletion</span> <span class="pre">functionality</span></code></p>
+</section>
+</section>
+<section id="proximos-passos">
+<h2>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
+<p>Para continuar o desenvolvimento:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="contributing.html"><span class="doc">Contribuindo</span></a> - Guia de contribuição</p></li>
+<li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Documentação da API</p></li>
+<li><p><a class="reference internal" href="database.html"><span class="doc">Banco de Dados</span></a> - Estrutura do banco</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="database.html" class="btn btn-neutral float-left" title="Banco de Dados" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral float-right" title="Contribuindo" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, SBD1 - Universidade de Brasília.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
