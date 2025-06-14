@@ -6,6 +6,19 @@ Este projeto recria o Minecraft Legends utilizando SQL e Python, com ambiente is
 
 ---
 
+## 📚 Documentação
+
+📖 **Documentação Completa**: [https://sbd1.github.io/2025.1-Minecraft/](https://sbd1.github.io/2025.1-Minecraft/)
+
+A documentação inclui:
+- 📋 Guias de instalação e início rápido
+- 🎮 Guia completo do usuário
+- 🔧 Referência da API e desenvolvimento
+- 🗄️ Estrutura do banco de dados
+- 🤝 Guia de contribuição
+
+---
+
 ## 📸 Preview
 
 > *(Adicione aqui um gif ou screenshot do jogo rodando, se desejar)*
@@ -51,6 +64,30 @@ python main.py
 
 ---
 
+## 📖 Documentação Local
+
+Para construir a documentação localmente:
+
+```bash
+# Instalar dependências
+pip install sphinx sphinx-rtd-theme
+
+# Construir documentação
+cd docs
+./build_docs.sh
+```
+
+Ou manualmente:
+
+```bash
+cd docs
+make html
+```
+
+A documentação será gerada em `docs/build/html/`.
+
+---
+
 ## ❌ Como sair
 
 Para sair do terminal interativo:
@@ -64,6 +101,33 @@ Para parar os containers:
 docker compose down
 ```
 
+---
+
+## 🛠️ Desenvolvimento
+
+### Estrutura do Projeto
+
+```
+2025.1-Minecraft/
+├── app/                    # Aplicação principal
+│   ├── main.py            # Ponto de entrada
+│   └── src/               # Código fonte
+│       ├── interface/     # Interface do usuário
+│       └── utils/         # Utilitários
+├── db/                    # Banco de dados
+├── docs/                  # Documentação
+└── docker-compose.yml     # Orquestração
+```
+
+### Contribuindo
+
+1. Fork o repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
+3. Commit suas mudanças (`git commit -am 'feat: add nova funcionalidade'`)
+4. Push para a branch (`git push origin feature/nova-funcionalidade`)
+5. Abra um Pull Request
+
+Para mais detalhes, consulte o [Guia de Contribuição](https://sbd1.github.io/2025.1-Minecraft/contributing.html).
 
 ---
 
@@ -71,6 +135,9 @@ docker compose down
 
 Sinta-se à vontade para abrir issues, sugestões ou enviar pull requests!
 
+Para contribuir, consulte nossa [documentação completa](https://sbd1.github.io/2025.1-Minecraft/contributing.html).
+
+---
 
 ## ✍️ Créditos
 
