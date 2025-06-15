@@ -70,7 +70,22 @@ html_theme_options = {
     'style_external_links': False,
     'vcs_pageview_mode': '',
     'style_nav_header_background': '#4CAF50',
+    'canonical_url': '',
+    'analytics_id': '',
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 4,
+    'includehidden': True,
+    'titles_only': False,
+    'github_url': 'https://github.com/SBD1/2025.1-Minecraft',
+    'show_sphinx': True,
+    'show_copyright': True,
 }
+
+# Custom CSS files
+html_css_files = [
+    'custom.css',
+]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
