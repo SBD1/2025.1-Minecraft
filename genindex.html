@@ -61,6 +61,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#sistema-de-movimento">Sistema de Movimento</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
@@ -118,6 +119,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-movimento">Sistema de Movimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#movimento-com-direcoes">Movimento com Direções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#informacao-de-bioma-inteligente">Informação de Bioma Inteligente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#como-mover">Como Mover</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#id1">Sistema de Localização</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">Modelos</a><ul>
@@ -653,68 +661,44 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contribuindo</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#como-contribuir">Como Contribuir</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#tipos-de-contribuicao">Tipos de Contribuição</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#processo-de-contribuicao">Processo de Contribuição</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#tipos-de-contribuicao">Tipos de Contribuição</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#processo-de-contribuicao">Processo de Contribuição</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#reportando-bugs">Reportando Bugs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#reportando-bugs">Reportando Bugs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-bug-report">Template de Bug Report</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#informacoes-necessarias">Informações Necessárias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#template-de-bug-report">Template de Bug Report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#informacoes-necessarias">Informações Necessárias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#desenvolvimento">Desenvolvimento</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#sugerindo-features">Sugerindo Features</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-feature-request">Template de Feature Request</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-para-features">Critérios para Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#criando-uma-branch">Criando uma Branch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#padroes-de-codigo">Padrões de Código</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#desenvolvimento">Desenvolvimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-uma-branch">Criando uma Branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#estilo-de-codigo">Estilo de Código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#documentacao">Documentação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#tratamento-de-erros">Tratamento de Erros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#testes">Testes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#padroes-de-codigo">Padrões de Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#estilo-de-codigo">Estilo de Código</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#documentacao">Documentação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#tratamento-de-erros">Tratamento de Erros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#organizacao-dos-testes">Organização dos Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#escrevendo-testes">Escrevendo Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#executando-testes">Executando Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#commits">Commits</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#testes">Testes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#escrevendo-testes">Escrevendo Testes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#executando-testes">Executando Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#convencoes-de-commit">Convenções de Commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#mensagens-de-commit">Mensagens de Commit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#pull-requests">Pull Requests</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#commits">Commits</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#convencoes-de-commit">Convenções de Commit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#mensagens-de-commit">Mensagens de Commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#criando-um-pr">Criando um PR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#id1">Documentação</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#pull-requests">Pull Requests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#criando-um-pr">Criando um PR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#template-de-pr">Template de PR</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#revisao-de-codigo">Revisão de Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#criterios-de-revisao">Critérios de Revisão</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#comentarios-de-revisao">Comentários de Revisão</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#id1">Documentação</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#atualizando-documentacao">Atualizando Documentação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#estrutura-de-documentacao">Estrutura de Documentação</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#comunicacao">Comunicação</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#canais-de-comunicacao">Canais de Comunicação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#codigo-de-conduta">Código de Conduta</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#reconhecimento">Reconhecimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#contribuidores">Contribuidores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="contributing.html#como-ser-reconhecido">Como Ser Reconhecido</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#proximos-passos">Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#atualizando-documentacao">Atualizando Documentação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#estrutura-de-documentacao">Estrutura de Documentação</a></li>
 </ul>
 </li>
 </ul>

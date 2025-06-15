@@ -63,6 +63,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#sistema-de-movimento">Sistema de Movimento</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
@@ -120,6 +121,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-movimento">Sistema de Movimento</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#movimento-com-direcoes">Movimento com Direções</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#informacao-de-bioma-inteligente">Informação de Bioma Inteligente</a></li>
+<li class="toctree-l3"><a class="reference internal" href="user_guide.html#como-mover">Como Mover</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="user_guide.html#id1">Sistema de Localização</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">Modelos</a><ul>
@@ -655,68 +663,44 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contribuindo</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#como-contribuir">Como Contribuir</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tipos-de-contribuicao">Tipos de Contribuição</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#processo-de-contribuicao">Processo de Contribuição</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tipos-de-contribuicao">Tipos de Contribuição</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processo-de-contribuicao">Processo de Contribuição</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reportando-bugs">Reportando Bugs</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#reportando-bugs">Reportando Bugs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#template-de-bug-report">Template de Bug Report</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#informacoes-necessarias">Informações Necessárias</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#template-de-bug-report">Template de Bug Report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#informacoes-necessarias">Informações Necessárias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#desenvolvimento">Desenvolvimento</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#sugerindo-features">Sugerindo Features</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#template-de-feature-request">Template de Feature Request</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#criterios-para-features">Critérios para Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuracao-do-ambiente">Configuração do Ambiente</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#criando-uma-branch">Criando uma Branch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#padroes-de-codigo">Padrões de Código</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#desenvolvimento">Desenvolvimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#configuracao-do-ambiente">Configuração do Ambiente</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#criando-uma-branch">Criando uma Branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estilo-de-codigo">Estilo de Código</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentacao">Documentação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tratamento-de-erros">Tratamento de Erros</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#testes">Testes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#padroes-de-codigo">Padrões de Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#estilo-de-codigo">Estilo de Código</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#documentacao">Documentação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tratamento-de-erros">Tratamento de Erros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#organizacao-dos-testes">Organização dos Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#escrevendo-testes">Escrevendo Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executando-testes">Executando Testes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#commits">Commits</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#testes">Testes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#escrevendo-testes">Escrevendo Testes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#executando-testes">Executando Testes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#convencoes-de-commit">Convenções de Commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mensagens-de-commit">Mensagens de Commit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pull-requests">Pull Requests</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#commits">Commits</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#convencoes-de-commit">Convenções de Commit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mensagens-de-commit">Mensagens de Commit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#criando-um-pr">Criando um PR</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Documentação</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pull-requests">Pull Requests</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#criando-um-pr">Criando um PR</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#template-de-pr">Template de PR</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#revisao-de-codigo">Revisão de Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#criterios-de-revisao">Critérios de Revisão</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#comentarios-de-revisao">Comentários de Revisão</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">Documentação</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#atualizando-documentacao">Atualizando Documentação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#estrutura-de-documentacao">Estrutura de Documentação</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#comunicacao">Comunicação</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#canais-de-comunicacao">Canais de Comunicação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#codigo-de-conduta">Código de Conduta</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#reconhecimento">Reconhecimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#contribuidores">Contribuidores</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#como-ser-reconhecido">Como Ser Reconhecido</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#atualizando-documentacao">Atualizando Documentação</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-de-documentacao">Estrutura de Documentação</a></li>
 </ul>
 </li>
 </ul>
@@ -747,11 +731,8 @@
              
   <section id="contribuindo">
 <h1>Contribuindo<a class="headerlink" href="#contribuindo" title="Link to this heading"></a></h1>
-<p>Obrigado por considerar contribuir com o MINECRAFT - FGA - 2025/1! Este guia irá ajudá-lo a começar.</p>
-<section id="como-contribuir">
-<h2>Como Contribuir<a class="headerlink" href="#como-contribuir" title="Link to this heading"></a></h2>
 <section id="tipos-de-contribuicao">
-<h3>Tipos de Contribuição<a class="headerlink" href="#tipos-de-contribuicao" title="Link to this heading"></a></h3>
+<h2>Tipos de Contribuição<a class="headerlink" href="#tipos-de-contribuicao" title="Link to this heading"></a></h2>
 <p>Aceitamos diferentes tipos de contribuição:</p>
 <ul class="simple">
 <li><p><strong>🐛 Bug Reports</strong> - Reportar problemas encontrados</p></li>
@@ -763,7 +744,7 @@
 </ul>
 </section>
 <section id="processo-de-contribuicao">
-<h3>Processo de Contribuição<a class="headerlink" href="#processo-de-contribuicao" title="Link to this heading"></a></h3>
+<h2>Processo de Contribuição<a class="headerlink" href="#processo-de-contribuicao" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Fork</strong> o repositório</p></li>
 <li><p><strong>Clone</strong> seu fork localmente</p></li>
@@ -774,12 +755,12 @@
 <li><p><strong>Push</strong> para sua branch</p></li>
 <li><p><strong>Abra</strong> um Pull Request</p></li>
 </ol>
-</section>
-</section>
 <section id="reportando-bugs">
-<h2>Reportando Bugs<a class="headerlink" href="#reportando-bugs" title="Link to this heading"></a></h2>
+<h3>Reportando Bugs<a class="headerlink" href="#reportando-bugs" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="template-de-bug-report">
-<h3>Template de Bug Report<a class="headerlink" href="#template-de-bug-report" title="Link to this heading"></a></h3>
+<h2>Template de Bug Report<a class="headerlink" href="#template-de-bug-report" title="Link to this heading"></a></h2>
 <p>Use o template de issue para bugs:</p>
 <div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 🐛 Bug Report</span>
 
@@ -810,7 +791,7 @@ Adicione qualquer outro contexto sobre o problema aqui.
 </div>
 </section>
 <section id="informacoes-necessarias">
-<h3>Informações Necessárias<a class="headerlink" href="#informacoes-necessarias" title="Link to this heading"></a></h3>
+<h2>Informações Necessárias<a class="headerlink" href="#informacoes-necessarias" title="Link to this heading"></a></h2>
 <p>Para bugs, inclua sempre:</p>
 <ul class="simple">
 <li><p><strong>Descrição detalhada</strong> do problema</p></li>
@@ -820,44 +801,12 @@ Adicione qualquer outro contexto sobre o problema aqui.
 <li><p><strong>Informações do ambiente</strong></p></li>
 <li><p><strong>Logs de erro</strong> (se disponível)</p></li>
 </ul>
-</section>
-</section>
-<section id="sugerindo-features">
-<h2>Sugerindo Features<a class="headerlink" href="#sugerindo-features" title="Link to this heading"></a></h2>
-<section id="template-de-feature-request">
-<h3>Template de Feature Request<a class="headerlink" href="#template-de-feature-request" title="Link to this heading"></a></h3>
-<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 💡 Feature Request</span>
-
-<span class="gs">**Problema que a feature resolve**</span>
-Uma descrição clara e concisa do problema que a feature resolve.
-
-<span class="gs">**Descrição da Solução**</span>
-Uma descrição clara e concisa do que você quer que aconteça.
-
-<span class="gs">**Alternativas Consideradas**</span>
-Uma descrição clara e concisa de quaisquer soluções ou features alternativas que você considerou.
-
-<span class="gs">**Contexto Adicional**</span>
-Adicione qualquer outro contexto ou screenshots sobre a feature request aqui.
-</pre></div>
-</div>
-</section>
-<section id="criterios-para-features">
-<h3>Critérios para Features<a class="headerlink" href="#criterios-para-features" title="Link to this heading"></a></h3>
-<p>Features devem:</p>
-<ul class="simple">
-<li><p><strong>Resolver um problema real</strong> ou adicionar valor significativo</p></li>
-<li><p><strong>Ser bem documentadas</strong> com casos de uso claros</p></li>
-<li><p><strong>Seguir os padrões</strong> do projeto</p></li>
-<li><p><strong>Incluir testes</strong> quando aplicável</p></li>
-<li><p><strong>Ser compatíveis</strong> com a arquitetura existente</p></li>
-</ul>
-</section>
-</section>
 <section id="desenvolvimento">
-<h2>Desenvolvimento<a class="headerlink" href="#desenvolvimento" title="Link to this heading"></a></h2>
+<h3>Desenvolvimento<a class="headerlink" href="#desenvolvimento" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="configuracao-do-ambiente">
-<h3>Configuração do Ambiente<a class="headerlink" href="#configuracao-do-ambiente" title="Link to this heading"></a></h3>
+<h2>Configuração do Ambiente<a class="headerlink" href="#configuracao-do-ambiente" title="Link to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Fork e clone</strong>:</p>
 <p>git clone <a class="reference external" href="https://github.com/SEU_USUARIO/2025.1-Minecraft.git">https://github.com/SEU_USUARIO/2025.1-Minecraft.git</a>
@@ -877,7 +826,7 @@ pip install -r app/requirements.txt</p>
 </ol>
 </section>
 <section id="criando-uma-branch">
-<h3>Criando uma Branch<a class="headerlink" href="#criando-uma-branch" title="Link to this heading"></a></h3>
+<h2>Criando uma Branch<a class="headerlink" href="#criando-uma-branch" title="Link to this heading"></a></h2>
 <p>Use branches descritivas:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Para novas features</span>
 git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feat/nova-funcionalidade
@@ -889,12 +838,12 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
 git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>docs/melhorar-docs
 </pre></div>
 </div>
-</section>
-</section>
 <section id="padroes-de-codigo">
-<h2>Padrões de Código<a class="headerlink" href="#padroes-de-codigo" title="Link to this heading"></a></h2>
+<h3>Padrões de Código<a class="headerlink" href="#padroes-de-codigo" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="estilo-de-codigo">
-<h3>Estilo de Código<a class="headerlink" href="#estilo-de-codigo" title="Link to this heading"></a></h3>
+<h2>Estilo de Código<a class="headerlink" href="#estilo-de-codigo" title="Link to this heading"></a></h2>
 <p>Siga o PEP 8 para Python:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># ✅ Bom</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">criar_personagem</span><span class="p">(</span><span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlayerSession</span><span class="p">]:</span>
@@ -917,7 +866,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
 </div>
 </section>
 <section id="documentacao">
-<h3>Documentação<a class="headerlink" href="#documentacao" title="Link to this heading"></a></h3>
+<h2>Documentação<a class="headerlink" href="#documentacao" title="Link to this heading"></a></h2>
 <p>Use docstrings no formato Google:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calcular_dano</span><span class="p">(</span><span class="n">base</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">modificador</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calcula o dano baseado em valores e modificadores.</span>
@@ -944,7 +893,7 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
 </div>
 </section>
 <section id="tratamento-de-erros">
-<h3>Tratamento de Erros<a class="headerlink" href="#tratamento-de-erros" title="Link to this heading"></a></h3>
+<h2>Tratamento de Erros<a class="headerlink" href="#tratamento-de-erros" title="Link to this heading"></a></h2>
 <p>Use exceções específicas:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PersonagemError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Exceção base para erros de personagem.&quot;&quot;&quot;</span>
@@ -961,12 +910,36 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
     <span class="c1"># Criação do personagem...</span>
 </pre></div>
 </div>
-</section>
-</section>
 <section id="testes">
-<h2>Testes<a class="headerlink" href="#testes" title="Link to this heading"></a></h2>
+<h3>Testes<a class="headerlink" href="#testes" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="organizacao-dos-testes">
+<h2>Organização dos Testes<a class="headerlink" href="#organizacao-dos-testes" title="Link to this heading"></a></h2>
+<p>Os testes estão organizados em subpastas por categoria:</p>
+<ul class="simple">
+<li><p><strong>``tests/model/``</strong>: Testes de models (Player, Chunk, Mapa, Bioma)</p></li>
+<li><p><strong>``tests/repositorio/``</strong>: Testes de repositórios e padrão Repository</p></li>
+<li><p><strong>``tests/servicos/``</strong>: Testes de serviços e integração</p></li>
+<li><p><strong>``tests/utils/``</strong>: Testes de utilitários (preparado para futuro)</p></li>
+</ul>
+<p>Ao adicionar novos testes, coloque-os na pasta apropriada:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Para novos models</span>
+<span class="n">tests</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">test_novo_model</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># Para novos repositórios</span>
+<span class="n">tests</span><span class="o">/</span><span class="n">repositorio</span><span class="o">/</span><span class="n">test_novo_repository</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># Para novos serviços</span>
+<span class="n">tests</span><span class="o">/</span><span class="n">servicos</span><span class="o">/</span><span class="n">test_novo_service</span><span class="o">.</span><span class="n">py</span>
+
+<span class="c1"># Para novos utilitários</span>
+<span class="n">tests</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">test_novo_utils</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
 <section id="escrevendo-testes">
-<h3>Escrevendo Testes<a class="headerlink" href="#escrevendo-testes" title="Link to this heading"></a></h3>
+<h2>Escrevendo Testes<a class="headerlink" href="#escrevendo-testes" title="Link to this heading"></a></h2>
 <p>Crie testes para novas funcionalidades:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">utils.player_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayerSession</span><span class="p">,</span> <span class="n">criar_personagem</span>
@@ -995,26 +968,31 @@ git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </
 </div>
 </section>
 <section id="executando-testes">
-<h3>Executando Testes<a class="headerlink" href="#executando-testes" title="Link to this heading"></a></h3>
+<h2>Executando Testes<a class="headerlink" href="#executando-testes" title="Link to this heading"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalar pytest</span>
 pip<span class="w"> </span>install<span class="w"> </span>pytest<span class="w"> </span>pytest-cov
 
 <span class="c1"># Executar todos os testes</span>
 pytest
 
+<span class="c1"># Executar testes por categoria</span>
+pytest<span class="w"> </span>tests/model/<span class="w"> </span>-v
+pytest<span class="w"> </span>tests/repositorio/<span class="w"> </span>-v
+pytest<span class="w"> </span>tests/servicos/<span class="w"> </span>-v
+
 <span class="c1"># Com cobertura</span>
 pytest<span class="w"> </span>--cov<span class="o">=</span>app<span class="w"> </span>--cov-report<span class="o">=</span>html
 
 <span class="c1"># Testes específicos</span>
-pytest<span class="w"> </span>tests/test_player_manager.py
+pytest<span class="w"> </span>tests/model/test_player_manager.py
 </pre></div>
 </div>
-</section>
-</section>
 <section id="commits">
-<h2>Commits<a class="headerlink" href="#commits" title="Link to this heading"></a></h2>
+<h3>Commits<a class="headerlink" href="#commits" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="convencoes-de-commit">
-<h3>Convenções de Commit<a class="headerlink" href="#convencoes-de-commit" title="Link to this heading"></a></h3>
+<h2>Convenções de Commit<a class="headerlink" href="#convencoes-de-commit" title="Link to this heading"></a></h2>
 <p>Use commits semânticos:</p>
 <ul class="simple">
 <li><p><strong>feat</strong>: Nova funcionalidade</p></li>
@@ -1037,12 +1015,10 @@ chore:<span class="w"> </span>update<span class="w"> </span>dependencies
 </div>
 </section>
 <section id="mensagens-de-commit">
-<h3>Mensagens de Commit<a class="headerlink" href="#mensagens-de-commit" title="Link to this heading"></a></h3>
+<h2>Mensagens de Commit<a class="headerlink" href="#mensagens-de-commit" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>Use o imperativo (“add” não “added”)</p></li>
-<li><p>Primeira linha com máximo 50 caracteres</p></li>
-<li><p>Descrição detalhada após linha em branco</p></li>
-<li><p>Referencie issues quando aplicável</p></li>
+<li><p>Máximo 50 caracteres</p></li>
 </ul>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>feat:<span class="w"> </span>add<span class="w"> </span>character<span class="w"> </span>deletion<span class="w"> </span>functionality
 
@@ -1054,12 +1030,12 @@ chore:<span class="w"> </span>update<span class="w"> </span>dependencies
 Closes<span class="w"> </span><span class="c1">#123</span>
 </pre></div>
 </div>
-</section>
-</section>
 <section id="pull-requests">
-<h2>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h2>
+<h3>Pull Requests<a class="headerlink" href="#pull-requests" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="criando-um-pr">
-<h3>Criando um PR<a class="headerlink" href="#criando-um-pr" title="Link to this heading"></a></h3>
+<h2>Criando um PR<a class="headerlink" href="#criando-um-pr" title="Link to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Atualize</strong> sua branch com a main:</p>
 <p>git checkout main
@@ -1076,69 +1052,12 @@ python app/main.py</p>
 </li>
 <li><p><strong>Abra o PR</strong> no GitHub</p></li>
 </ol>
-</section>
-<section id="template-de-pr">
-<h3>Template de PR<a class="headerlink" href="#template-de-pr" title="Link to this heading"></a></h3>
-<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gu">## 📝 Descrição</span>
-
-Breve descrição das mudanças implementadas.
-
-<span class="gu">## 🔗 Issue Relacionada</span>
-
-Closes <span class="ni">#123</span>
-
-<span class="gu">## 🧪 Testes</span>
-
-<span class="k">- [ ]</span> Testes unitários passando
-<span class="k">- [ ]</span> Testes de integração passando
-<span class="k">- [ ]</span> Funcionalidade testada manualmente
-
-<span class="gu">## 📸 Screenshots</span>
-
-Se aplicável, adicione screenshots das mudanças.
-
-<span class="gu">## ✅ Checklist</span>
-
-<span class="k">- [ ]</span> Código segue os padrões do projeto
-<span class="k">- [ ]</span> Documentação atualizada
-<span class="k">- [ ]</span> Testes adicionados/atualizados
-<span class="k">- [ ]</span> Commits seguem convenções
-<span class="k">- [ ]</span> PR está atualizado com a main
-</pre></div>
-</div>
-</section>
-</section>
-<section id="revisao-de-codigo">
-<h2>Revisão de Código<a class="headerlink" href="#revisao-de-codigo" title="Link to this heading"></a></h2>
-<section id="criterios-de-revisao">
-<h3>Critérios de Revisão<a class="headerlink" href="#criterios-de-revisao" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>Funcionalidade</strong>: O código faz o que deveria?</p></li>
-<li><p><strong>Qualidade</strong>: O código está bem escrito?</p></li>
-<li><p><strong>Testes</strong>: Há testes adequados?</p></li>
-<li><p><strong>Documentação</strong>: Está bem documentado?</p></li>
-<li><p><strong>Performance</strong>: Há problemas de performance?</p></li>
-<li><p><strong>Segurança</strong>: Há vulnerabilidades?</p></li>
-</ul>
-</section>
-<section id="comentarios-de-revisao">
-<h3>Comentários de Revisão<a class="headerlink" href="#comentarios-de-revisao" title="Link to this heading"></a></h3>
-<p>Seja construtivo:</p>
-<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>✅ <span class="gs">**Positivo**</span>: &quot;Boa implementação! O código está claro e bem estruturado.&quot;
-
-🔧 <span class="gs">**Sugestão**</span>: &quot;Considere usar uma validação mais específica aqui.&quot;
-
-❌ <span class="gs">**Problema**</span>: &quot;Esta função pode causar problemas de performance com muitos dados.&quot;
-
-💡 <span class="gs">**Idea**</span>: &quot;Que tal implementar cache para melhorar performance?&quot;
-</pre></div>
-</div>
-</section>
-</section>
 <section id="id1">
-<h2>Documentação<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h3>Documentação<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+</section>
+</section>
 <section id="atualizando-documentacao">
-<h3>Atualizando Documentação<a class="headerlink" href="#atualizando-documentacao" title="Link to this heading"></a></h3>
+<h2>Atualizando Documentação<a class="headerlink" href="#atualizando-documentacao" title="Link to this heading"></a></h2>
 <p>Para mudanças que afetam a documentação:</p>
 <ol class="arabic">
 <li><p><strong>Atualize</strong> os arquivos .rst relevantes</p></li>
@@ -1156,7 +1075,7 @@ git commit -m “docs: update API documentation”</p>
 </ol>
 </section>
 <section id="estrutura-de-documentacao">
-<h3>Estrutura de Documentação<a class="headerlink" href="#estrutura-de-documentacao" title="Link to this heading"></a></h3>
+<h2>Estrutura de Documentação<a class="headerlink" href="#estrutura-de-documentacao" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p><strong>installation.rst</strong>: Guias de instalação</p></li>
 <li><p><strong>quickstart.rst</strong>: Início rápido</p></li>
@@ -1166,64 +1085,6 @@ git commit -m “docs: update API documentation”</p>
 <li><p><strong>development.rst</strong>: Guia de desenvolvimento</p></li>
 <li><p><strong>contributing.rst</strong>: Este guia</p></li>
 </ul>
-</section>
-</section>
-<section id="comunicacao">
-<h2>Comunicação<a class="headerlink" href="#comunicacao" title="Link to this heading"></a></h2>
-<section id="canais-de-comunicacao">
-<h3>Canais de Comunicação<a class="headerlink" href="#canais-de-comunicacao" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>GitHub Issues</strong>: Para bugs e features</p></li>
-<li><p><strong>GitHub Discussions</strong>: Para discussões gerais</p></li>
-<li><p><strong>Pull Requests</strong>: Para contribuições de código</p></li>
-<li><p><strong>Email</strong>: Para assuntos privados</p></li>
-</ul>
-</section>
-<section id="codigo-de-conduta">
-<h3>Código de Conduta<a class="headerlink" href="#codigo-de-conduta" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p>Seja respeitoso e inclusivo</p></li>
-<li><p>Foque no código, não na pessoa</p></li>
-<li><p>Seja construtivo em feedback</p></li>
-<li><p>Ajude outros contribuidores</p></li>
-<li><p>Respeite diferentes pontos de vista</p></li>
-</ul>
-</section>
-</section>
-<section id="reconhecimento">
-<h2>Reconhecimento<a class="headerlink" href="#reconhecimento" title="Link to this heading"></a></h2>
-<section id="contribuidores">
-<h3>Contribuidores<a class="headerlink" href="#contribuidores" title="Link to this heading"></a></h3>
-<p>Todos os contribuidores são reconhecidos:</p>
-<ul class="simple">
-<li><p>No arquivo CONTRIBUTORS.md</p></li>
-<li><p>Na documentação</p></li>
-<li><p>Nos releases do GitHub</p></li>
-<li><p>No README do projeto</p></li>
-</ul>
-</section>
-<section id="como-ser-reconhecido">
-<h3>Como Ser Reconhecido<a class="headerlink" href="#como-ser-reconhecido" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p>Contribuições significativas de código</p></li>
-<li><p>Melhorias importantes na documentação</p></li>
-<li><p>Reportes de bugs críticos</p></li>
-<li><p>Sugestões de features implementadas</p></li>
-<li><p>Ajuda na comunidade</p></li>
-</ul>
-</section>
-</section>
-<section id="proximos-passos">
-<h2>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
-<p>Agora que você conhece como contribuir:</p>
-<ol class="arabic simple">
-<li><p><strong>Escolha</strong> uma issue para trabalhar</p></li>
-<li><p><strong>Configure</strong> seu ambiente de desenvolvimento</p></li>
-<li><p><strong>Desenvolva</strong> sua contribuição</p></li>
-<li><p><strong>Teste</strong> suas mudanças</p></li>
-<li><p><strong>Abra</strong> um Pull Request</p></li>
-</ol>
-<p>Obrigado por contribuir com o MINECRAFT - FGA - 2025/1! 🎮</p>
 <p>Para mais informações:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="development.html"><span class="doc">Desenvolvimento</span></a> - Guia de desenvolvimento</p></li>

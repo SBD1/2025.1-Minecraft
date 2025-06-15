@@ -36,13 +36,37 @@ Navegando pelo Menu
 
 O menu principal oferece as seguintes opções:
 
-* **🎮 Iniciar jogo** - Inicia uma sessão de jogo (em desenvolvimento)
+* **🎮 Iniciar jogo** - Inicia uma sessão de jogo com sistema de movimento
 * **📊 Ver status detalhado** - Mostra informações completas do personagem
 * **💾 Salvar progresso** - Salva as alterações no banco de dados
 * **👥 Trocar personagem** - Permite trocar para outro personagem
 * **📋 Lista de personagens** - Visualiza todos os personagens
 * **➕ Criar novo personagem** - Cria um novo personagem
 * **🚪 Sair** - Sai do jogo
+
+Sistema de Movimento
+--------------------
+
+Quando você inicia o jogo, pode mover seu personagem:
+
+#. Selecione **🎮 Iniciar jogo**
+#. Você verá as opções de movimento com direções:
+   * **⬆️ Cima** - Move para chunk acima
+   * **⬇️ Baixo** - Move para chunk abaixo
+   * **⬅️ Esquerda** - Move para chunk à esquerda
+   * **➡️ Direita** - Move para chunk à direita
+#. Escolha uma direção (1-4)
+#. O sistema informará se houve mudança de bioma
+
+**Exemplo de movimento:**
+.. code-block:: text
+
+   🚶 OPÇÕES DE MOVIMENTO:
+   ----------------------------------------
+   1. ⬆️ Cima - 🌊 Oceano (Chunk 2)
+   2. ⬇️ Baixo - 🌴 Selva (Chunk 4)
+   3. ⬅️ Esquerda - 🏜️ Deserto (Chunk 1)
+   4. ➡️ Direita - 🌲 Floresta (Chunk 3)
 
 Gerenciando Personagens
 -----------------------
