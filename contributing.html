@@ -9,6 +9,7 @@
   <title>Contribuindo &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=8c861dee" />
 
   
     <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/contributing.html" />
@@ -20,7 +21,263 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Desenvolvimento" href="development.html" /> 
+    <link rel="prev" title="Desenvolvimento" href="development.html" />
+ 
+<style>
+    /* Additional custom styles */
+    .wy-nav-content {
+        max-width: none !important;
+        margin: auto;
+        padding: 20px;
+    }
+    
+    /* Better responsive design */
+    @media (min-width: 1200px) {
+        .wy-nav-content {
+            max-width: 1400px !important;
+        }
+    }
+    
+    @media (min-width: 1600px) {
+        .wy-nav-content {
+            max-width: 1600px !important;
+        }
+    }
+    
+    /* Improve table layouts */
+    .wy-table-responsive {
+        margin-bottom: 20px;
+    }
+    
+    .wy-table-responsive table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .wy-table-responsive table th,
+    .wy-table-responsive table td {
+        padding: 8px 12px;
+        border: 1px solid #e1e4e8;
+        text-align: left;
+        vertical-align: top;
+    }
+    
+    .wy-table-responsive table th {
+        background-color: #f6f8fa;
+        font-weight: bold;
+    }
+    
+    /* Better code block formatting */
+    .highlight {
+        margin: 15px 0;
+    }
+    
+    .highlight pre {
+        margin: 0;
+        padding: 16px;
+        background-color: #f6f8fa;
+        border: 1px solid #e1e4e8;
+        border-radius: 6px;
+        overflow-x: auto;
+    }
+    
+    /* Improve section headers */
+    .section h1,
+    .section h2,
+    .section h3,
+    .section h4 {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #4CAF50;
+        color: #2c3e50;
+    }
+    
+    .section h1 {
+        font-size: 2.2em;
+        color: #4CAF50;
+    }
+    
+    .section h2 {
+        font-size: 1.8em;
+        color: #34495e;
+    }
+    
+    .section h3 {
+        font-size: 1.4em;
+        color: #2c3e50;
+    }
+    
+    /* Better list formatting */
+    .section ul,
+    .section ol {
+        margin: 15px 0;
+        padding-left: 30px;
+    }
+    
+    .section li {
+        margin: 8px 0;
+        line-height: 1.6;
+    }
+    
+    /* Improve admonitions */
+    .admonition {
+        margin: 20px 0;
+        padding: 15px 20px;
+        border-radius: 8px;
+        border-left: 4px solid;
+    }
+    
+    .admonition.note {
+        background-color: #e3f2fd;
+        border-left-color: #2196f3;
+    }
+    
+    .admonition.warning {
+        background-color: #fff3e0;
+        border-left-color: #ff9800;
+    }
+    
+    .admonition.danger {
+        background-color: #ffebee;
+        border-left-color: #f44336;
+    }
+    
+    .admonition.tip {
+        background-color: #e8f5e8;
+        border-left-color: #4caf50;
+    }
+    
+    /* Better navigation */
+    .wy-menu-vertical {
+        font-size: 14px;
+    }
+    
+    .wy-menu-vertical li {
+        margin: 2px 0;
+    }
+    
+    .wy-menu-vertical a {
+        padding: 8px 15px;
+        border-radius: 4px;
+        margin: 2px 5px;
+    }
+    
+    .wy-menu-vertical a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+    
+    /* Improve search */
+    .wy-side-nav-search {
+        background-color: #4CAF50;
+        padding: 20px;
+    }
+    
+    .wy-side-nav-search input[type="text"] {
+        border-radius: 6px;
+        border: none;
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    /* Better breadcrumbs */
+    .wy-breadcrumbs {
+        margin-bottom: 20px;
+        padding: 15px 0;
+        border-bottom: 1px solid #e1e4e8;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+    }
+    
+    .wy-breadcrumbs a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+    
+    .wy-breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+    
+    /* Improve mobile responsiveness */
+    @media (max-width: 768px) {
+        .wy-nav-content {
+            padding: 10px;
+        }
+        
+        .section h1 {
+            font-size: 1.8em;
+        }
+        
+        .section h2 {
+            font-size: 1.5em;
+        }
+        
+        .section h3 {
+            font-size: 1.3em;
+        }
+    }
+    
+    /* Better code syntax highlighting */
+    .highlight .k { color: #0000ff; font-weight: bold; }
+    .highlight .s { color: #a31515; }
+    .highlight .c1 { color: #008000; font-style: italic; }
+    .highlight .mi { color: #098658; }
+    .highlight .n { color: #001080; }
+    .highlight .o { color: #000000; font-weight: bold; }
+    .highlight .p { color: #000000; }
+    .highlight .na { color: #ff0000; }
+    .highlight .nb { color: #0000ff; }
+    .highlight .nc { color: #267f99; font-weight: bold; }
+    .highlight .nd { color: #000000; font-weight: bold; }
+    .highlight .ne { color: #000000; font-weight: bold; }
+    .highlight .nf { color: #795e26; font-weight: bold; }
+    .highlight .nl { color: #000000; font-weight: bold; }
+    .highlight .nn { color: #000000; }
+    .highlight .nt { color: #0000ff; font-weight: bold; }
+    .highlight .nv { color: #001080; }
+    
+    /* Minecraft theme colors */
+    .wy-side-nav-search {
+        background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    }
+    
+    .wy-nav-side {
+        background: #2c3e50;
+    }
+    
+    .wy-menu-vertical a {
+        color: #ecf0f1;
+    }
+    
+    .wy-menu-vertical a:hover {
+        background: #4CAF50;
+        color: white;
+    }
+    
+    /* Footer improvements */
+    .rst-footer-buttons {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #e1e4e8;
+    }
+    
+    .rst-footer-buttons .btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        margin: 5px;
+        display: inline-block;
+    }
+    
+    .rst-footer-buttons .btn:hover {
+        background-color: #45a049;
+        color: white;
+        text-decoration: none;
+    }
+</style>
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,346 +301,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#clonando-o-repositorio">Clonando o Repositório</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#configuracao-do-ambiente">Configuração do Ambiente</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#verificacao-da-instalacao">Verificação da Instalação</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#solucao-de-problemas">Solução de Problemas</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-erro-de-conexao-com-banco-de-dados">Problema: Erro de conexão com banco de dados</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-porta-5433-ja-em-uso">Problema: Porta 5433 já em uso</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#problema-permissoes-no-linux">Problema: Permissões no Linux</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#proximos-passos">Próximos Passos</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Início Rápido</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#primeira-execucao">Primeira Execução</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">Criando seu Primeiro Personagem</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">Navegando pelo Menu</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">Gerenciando Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">Listando Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">Selecionando um Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">Deletando um Personagem</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">Verificando o Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">Salvando Progresso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">Saindo do Jogo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">Próximos Passos</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guia do Usuário</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-do-jogo">Interface do Jogo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tela-inicial">Tela Inicial</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#menu-principal">Menu Principal</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-personagens">Sistema de Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#criacao-de-personagens">Criação de Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="user_guide.html#lista-de-personagens">Lista de Personagens</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user_guide.html#selecao-de-personagem">Seleção de Personagem</a></li>
-<li class="toctree-l4"><a class="reference internal" href="user_guide.html#delecao-de-personagens">Deleção de Personagens</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-localizacao">Sistema de Localização</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#biomas-disponiveis">Biomas Disponíveis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#mapas-e-turnos">Mapas e Turnos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#chunks">Chunks</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-status">Sistema de Status</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#atributos-do-personagem">Atributos do Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#status-detalhado">Status Detalhado</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#sistema-de-persistencia">Sistema de Persistência</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-automatico">Salvamento Automático</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#salvamento-manual">Salvamento Manual</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#banco-de-dados">Banco de Dados</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#interface-e-usabilidade">Interface e Usabilidade</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#cores-e-emojis">Cores e Emojis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#navegacao">Navegação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#tratamento-de-erros">Tratamento de Erros</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#dicas-e-truques">Dicas e Truques</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#dicas-gerais">Dicas Gerais</a></li>
-<li class="toctree-l3"><a class="reference internal" href="user_guide.html#boas-praticas">Boas Práticas</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="user_guide.html#proximos-passos">Próximos Passos</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="api_reference.html">Referência da API</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulos-principais">Módulos Principais</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-player-manager">Módulo player_manager</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#playersession">PlayerSession</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-gerenciamento">Funções de Gerenciamento</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-exibicao">Funções de Exibição</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#module-utils.db_helpers">Módulo db_helpers</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_map_with_1000_chunks"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.initialize_database"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.setup_database"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#conexao-com-banco">Conexão com Banco</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id0"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#execucao-de-sql">Execução de SQL</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id1"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#verificacoes">Verificações</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id2"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id3"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id4"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#inicializacao">Inicialização</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id5"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id6"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#modulo-display">Módulo display</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#interface-principal">Interface Principal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#funcoes-de-jogo">Funções de Jogo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-personagens">Gerenciamento de Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utilitarios">Utilitários</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#estrutura-de-dados">Estrutura de Dados</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id7">PlayerSession</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#padroes-de-uso">Padrões de Uso</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#gerenciamento-de-sessao">Gerenciamento de Sessão</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#criacao-de-personagem">Criação de Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#salvamento-de-dados">Salvamento de Dados</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exibicao-de-status">Exibição de Status</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#tratamento-de-erros">Tratamento de Erros</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id8">Conexão com Banco</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#validacao-de-dados">Validação de Dados</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#exemplos-praticos">Exemplos Práticos</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-completo-de-criacao">Exemplo Completo de Criação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-backup-de-dados">Exemplo de Backup de Dados</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#exemplo-de-sistema-de-combate">Exemplo de Sistema de Combate</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="api_reference.html#proximos-passos">Próximos Passos</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="database.html">Banco de Dados</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="database.html#visao-geral">Visão Geral</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#configuracao">Configuração</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#docker-compose">Docker Compose</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#conexao">Conexão</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#estrutura-do-banco">Estrutura do Banco</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#tabelas-principais">Tabelas Principais</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="database.html#bioma">Bioma</a></li>
-<li class="toctree-l4"><a class="reference internal" href="database.html#mapa">Mapa</a></li>
-<li class="toctree-l4"><a class="reference internal" href="database.html#chunk">Chunk</a></li>
-<li class="toctree-l4"><a class="reference internal" href="database.html#jogador">Jogador</a></li>
-<li class="toctree-l4"><a class="reference internal" href="database.html#inventario">Inventario</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#diagrama-er">Diagrama ER</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#relacionamentos">Relacionamentos</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#bioma-chunk">Bioma → Chunk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#mapa-chunk">Mapa → Chunk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#chunk-jogador">Chunk → Jogador</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#jogador-inventario">Jogador → Inventario</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#indices">Índices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#scripts-de-inicializacao">Scripts de Inicialização</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#ddl-data-definition-language">DDL (Data Definition Language)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#dml-data-manipulation-language">DML (Data Manipulation Language)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#dml-com-1000-chunks">DML com 1000 Chunks</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#sistema-de-verificacao-automatica">Sistema de Verificação Automática</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificacao-de-tabelas">Verificação de Tabelas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificacao-de-dados-iniciais">Verificação de Dados Iniciais</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificacao-do-mapa-com-1000-chunks">Verificação do Mapa com 1000 Chunks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#logica-de-inicializacao">Lógica de Inicialização</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#estrutura-do-mapa-de-1000-chunks">Estrutura do Mapa de 1000 Chunks</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#distribuicao-dos-biomas">Distribuição dos Biomas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#geracao-automatica">Geração Automática</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#dados-iniciais">Dados Iniciais</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#biomas">Biomas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#mapas">Mapas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#chunks-basico-4-chunks">Chunks (Básico - 4 chunks)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#chunks-completo-2000-chunks">Chunks (Completo - 2000 chunks)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#personagens-de-exemplo">Personagens de Exemplo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#inventarios-de-exemplo">Inventários de Exemplo</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#queries-comuns">Queries Comuns</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#buscar-personagem-com-localizacao">Buscar Personagem com Localização</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#listar-todos-os-personagens">Listar Todos os Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-nome-unico">Verificar Nome Único</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#atualizar-dados-do-personagem">Atualizar Dados do Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-mapa-com-1000-chunks">Verificar Mapa com 1000 Chunks</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#backup-e-restauracao">Backup e Restauração</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#backup-automatico">Backup Automático</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#backup-manual">Backup Manual</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#restauracao">Restauração</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#monitoramento">Monitoramento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-status">Verificar Status</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-tabelas">Verificar Tabelas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-mapa-completo">Verificar Mapa Completo</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#performance">Performance</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#otimizacoes-implementadas">Otimizações Implementadas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#monitoramento-de-performance">Monitoramento de Performance</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#proximos-passos">Próximos Passos</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#sistema-de-jogo">Sistema de Jogo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#id1">Visão Geral</a></li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#localizacao-dos-personagens">Localização dos Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#sistema-de-chunks">Sistema de Chunks</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#biomas-disponiveis">Biomas Disponíveis</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#turnos">Turnos</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#inicializacao-de-personagens">Inicialização de Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#novos-personagens">Novos Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#personagens-existentes">Personagens Existentes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#sistema-de-movimento">Sistema de Movimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#chunks-adjacentes">Chunks Adjacentes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#logica-de-movimento">Lógica de Movimento</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#interface-de-jogo">Interface de Jogo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#tela-principal">Tela Principal</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#opcoes-de-movimento">Opções de Movimento</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#sistema-de-sessao">Sistema de Sessão</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#playersession">PlayerSession</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#gerenciamento-de-estado">Gerenciamento de Estado</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#funcoes-de-movimento">Funções de Movimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#get-adjacent-chunks">get_adjacent_chunks()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#move-player-to-chunk">move_player_to_chunk()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#ensure-player-location">ensure_player_location()</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#queries-de-movimento">Queries de Movimento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#buscar-chunks-adjacentes">Buscar Chunks Adjacentes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#mover-personagem">Mover Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#buscar-chunk-de-deserto">Buscar Chunk de Deserto</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#exemplos-de-uso">Exemplos de Uso</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#criar-personagem-no-deserto">Criar Personagem no Deserto</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#id2">Mover Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-localizacao">Verificar Localização</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#monitoramento-de-jogo">Monitoramento de Jogo</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#verificar-movimento">Verificar Movimento</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#estatisticas-de-biomas">Estatísticas de Biomas</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#id3">Performance</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="database.html#otimizacoes-de-movimento">Otimizações de Movimento</a></li>
-<li class="toctree-l3"><a class="reference internal" href="database.html#id4">Monitoramento de Performance</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="database.html#id5">Próximos Passos</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-projeto">Estrutura do Projeto</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#arquitetura">Arquitetura</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#padrao-de-arquitetura">Padrão de Arquitetura</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#fluxo-de-dados">Fluxo de Dados</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#configuracao-do-ambiente">Configuração do Ambiente</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#pre-requisitos">Pré-requisitos</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#configuracao-local">Configuração Local</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#desenvolvimento-com-docker">Desenvolvimento com Docker</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#estrutura-do-codigo">Estrutura do Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-player-manager">Módulo player_manager</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-db-helpers">Módulo db_helpers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#modulo-display">Módulo display</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#padroes-de-codigo">Padrões de Código</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#convencoes-de-nomenclatura">Convenções de Nomenclatura</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#documentacao">Documentação</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#tratamento-de-erros">Tratamento de Erros</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#validacao-de-dados">Validação de Dados</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#testes">Testes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#estrutura-de-testes">Estrutura de Testes</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#executando-testes">Executando Testes</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#debugging">Debugging</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#logs">Logs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-container">Debug no Container</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#debug-no-vs-code">Debug no VS Code</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#deploy-e-ci-cd">Deploy e CI/CD</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#github-actions">GitHub Actions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#deploy-automatico">Deploy Automático</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#versionamento">Versionamento</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="development.html#semantic-versioning">Semantic Versioning</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#changelog">Changelog</a></li>
-<li class="toctree-l3"><a class="reference internal" href="development.html#commits">Commits</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#proximos-passos">Próximos Passos</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Início Rápido</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">Guia do Usuário</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">Referência da API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Banco de Dados</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Contribuindo</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#como-contribuir">Como Contribuir</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#tipos-de-contribuicao">Tipos de Contribuição</a></li>
