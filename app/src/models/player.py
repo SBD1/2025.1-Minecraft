@@ -9,6 +9,141 @@ from colorama import Fore
 
 
 @dataclass
+class Player:
+    """
+    Model que representa um personagem no banco de dados
+    
+    Attributes:
+        id_jogador: ID único do personagem no banco
+        nome: Nome do personagem
+        vida_maxima: Vida máxima do personagem
+        vida_atual: Vida atual do personagem
+        forca: Força do personagem
+        localizacao: Localização atual do personagem
+        nivel: Nível do personagem
+        experiencia: Experiência acumulada
+    """
+    id_jogador: Optional[int]
+    nome: str
+    vida_maxima: int
+    vida_atual: int
+    forca: int
+    localizacao: str
+    nivel: int
+    experiencia: int
+    
+    def __post_init__(self):
+        """Validações após inicialização"""
+        if self.vida_atual > self.vida_maxima:
+            self.vida_atual = self.vida_maxima
+    
+    def is_alive(self) -> bool:
+        """Verifica se o personagem está vivo"""
+        return self.vida_atual > 0
+    
+    def take_damage(self, damage: int) -> bool:
+        """
+        Aplica dano ao personagem
+        
+        Args:
+            damage: Quantidade de dano a ser aplicado
+            
+        Returns:
+            True se o personagem ainda está vivo após o dano
+        """
+        self.vida_atual = max(0, self.vida_atual - damage)
+        return self.is_alive()
+    
+    def heal(self, amount: int) -> None:
+        """
+        Cura o personagem
+        
+        Args:
+            amount: Quantidade de vida a ser restaurada
+        """
+        self.vida_atual = min(self.vida_maxima, self.vida_atual + amount)
+    
+    def gain_experience(self, amount: int) -> None:
+        """
+        Adiciona experiência ao personagem
+        
+        Args:
+            amount: Quantidade de experiência a ser adicionada
+        """
+        self.experiencia += amount
+    
+    def level_up(self) -> bool:
+        """
+        Tenta fazer o personagem subir de nível
+        
+        Returns:
+            True se subiu de nível
+        """
+        # Lógica simples: a cada 100 XP sobe de nível
+        if self.experiencia >= self.nivel * 100:
+            self.nivel += 1
+            self.vida_maxima += 10
+            self.vida_atual = self.vida_maxima  # Cura ao subir de nível
+            self.forca += 2
+            return True
+        return False
+    
+    def get_health_percentage(self) -> float:
+        """
+        Retorna a porcentagem de vida atual
+        
+        Returns:
+            Porcentagem de vida (0.0 a 1.0)
+        """
+        return self.vida_atual / self.vida_maxima if self.vida_maxima > 0 else 0.0
+    
+    def get_health_bar(self, width: int = 20) -> str:
+        """
+        Retorna uma barra de vida visual
+        
+        Args:
+            width: Largura da barra em caracteres
+            
+        Returns:
+            String representando a barra de vida
+        """
+        percentage = self.get_health_percentage()
+        filled = int(width * percentage)
+        empty = width - filled
+        
+        if percentage > 0.6:
+            color = Fore.GREEN
+        elif percentage > 0.3:
+            color = Fore.YELLOW
+        else:
+            color = Fore.RED
+            
+        bar = "█" * filled + "░" * empty
+        return f"{color}{bar}{Fore.RESET}"
+    
+    def __str__(self) -> str:
+        """Representação string do personagem"""
+        return f"Player(id={self.id_jogador}, nome='{self.nome}', vida={self.vida_atual}/{self.vida_maxima})"
+    
+    def __repr__(self) -> str:
+        """Representação detalhada do personagem"""
+        return (f"Player(id_jogador={self.id_jogador}, nome='{self.nome}', "
+                f"vida_maxima={self.vida_maxima}, vida_atual={self.vida_atual}, "
+                f"forca={self.forca}, localizacao='{self.localizacao}', "
+                f"nivel={self.nivel}, experiencia={self.experiencia})")
+    
+    def __eq__(self, other) -> bool:
+        """Comparação de igualdade baseada no ID"""
+        if not isinstance(other, Player):
+            return False
+        return self.id_jogador == other.id_jogador
+    
+    def __hash__(self) -> int:
+        """Hash baseado no ID"""
+        return hash(self.id_jogador)
+
+
+@dataclass
 class PlayerSession:
     """
     Model que representa um personagem ativo na sessão do jogo

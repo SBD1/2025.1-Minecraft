@@ -426,8 +426,8 @@ def listar_jogadores():
     while True:
         try:
             opcao = input("🎯 Escolha uma opção: ").strip()
-            
-            if opcao == "1":
+
+    if opcao == "1":
                 # Mostrar lista numerada para seleção
                 clear_terminal()
                 print("👥 SELEÇÃO DE PERSONAGEM")
@@ -484,7 +484,7 @@ def listar_jogadores():
                 # Voltar para a lista principal
                 break
                 
-            elif opcao == "2":
+    elif opcao == "2":
                 # Mostrar lista numerada para deletar
                 clear_terminal()
                 print("🗑️  DELETAR PERSONAGEM")
