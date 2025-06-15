@@ -15,6 +15,19 @@ Estrutura do Projeto
    │   ├── requirements.txt          # Dependências Python
    │   ├── pytest.ini               # Configuração do pytest
    │   ├── run_tests.py             # Script de execução de testes
+   │   ├── tests/                    # Testes organizados por categoria
+   │   │   ├── model/                # Testes de models
+   │   │   │   ├── test_bioma.py
+   │   │   │   ├── test_chunk.py
+   │   │   │   └── test_mapa.py
+   │   │   ├── repositorio/          # Testes de repositórios
+   │   │   │   └── test_repository_pattern.py
+   │   │   ├── servicos/             # Testes de serviços
+   │   │   │   ├── test_integration.py
+   │   │   │   └── test_singleton.py
+   │   │   ├── utils/                # Testes de utilitários (futuro)
+   │   │   ├── conftest.py           # Configuração compartilhada
+   │   │   └── __init__.py
    │   └── src/                      # Código fonte
    │       ├── interface/            # Interface do usuário
    │       │   └── display.py        # Menus e exibição
@@ -418,6 +431,15 @@ Tipos de Testes
 Executando Testes
 ^^^^^^^^^^^^^^^^
 
+**Organização dos Testes**:
+
+Os testes estão organizados em subpastas por categoria:
+
+* **``tests/model/``**: Testes de models (Player, Chunk, Mapa, Bioma)
+* **``tests/repositorio/``**: Testes de repositórios e padrão Repository
+* **``tests/servicos/``**: Testes de serviços e integração
+* **``tests/utils/``**: Testes de utilitários (preparado para futuro)
+
 **Com Docker (Recomendado)**:
 .. code-block:: bash
 
@@ -427,11 +449,16 @@ Executando Testes
    # Executar com cobertura
    docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
    
+   # Executar testes por categoria
+   docker compose exec app python -m pytest tests/model/ -v
+   docker compose exec app python -m pytest tests/repositorio/ -v
+   docker compose exec app python -m pytest tests/servicos/ -v
+   
    # Executar teste específico
-   docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+   docker compose exec app python -m pytest tests/model/test_bioma.py::TestBioma::test_bioma_creation -v
    
    # Executar testes de integração
-   docker compose exec app python -m pytest tests/test_integration.py -v
+   docker compose exec app python -m pytest tests/servicos/test_integration.py -v
 
 **Localmente**:
 .. code-block:: bash

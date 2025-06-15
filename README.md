@@ -91,14 +91,29 @@ docker compose exec app python -m pytest tests/ -v
 docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
 ```
 
-### Executar teste específico
+### Executar testes por categoria
 ```bash
-docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+# Testes de models
+docker compose exec app python -m pytest tests/model/ -v
+
+# Testes de repositórios
+docker compose exec app python -m pytest tests/repositorio/ -v
+
+# Testes de serviços
+docker compose exec app python -m pytest tests/servicos/ -v
+
+# Testes de integração
+docker compose exec app python -m pytest tests/servicos/test_integration.py -v
 ```
 
-### Executar testes de integração
+### Executar teste específico
 ```bash
-docker compose exec app python -m pytest tests/test_integration.py -v
+docker compose exec app python -m pytest tests/model/test_bioma.py::TestBioma::test_bioma_creation -v
+```
+
+### Executar testes com relatório detalhado
+```bash
+docker compose exec app python -m pytest tests/ --cov=src --cov-report=html --cov-report=term-missing
 ```
 
 ---
@@ -138,11 +153,18 @@ A documentação será gerada em `docs/build/html/`.
 │   ├── requirements.txt   # Dependências Python
 │   ├── Dockerfile         # Container da aplicação
 │   ├── tests/             # Testes unitários e integração
-│   │   ├── test_bioma.py
-│   │   ├── test_chunk.py
-│   │   ├── test_mapa.py
-│   │   ├── test_integration.py
-│   │   └── test_repository_pattern.py
+│   │   ├── model/         # Testes de models
+│   │   │   ├── test_bioma.py
+│   │   │   ├── test_chunk.py
+│   │   │   └── test_mapa.py
+│   │   ├── repositorio/   # Testes de repositórios
+│   │   │   └── test_repository_pattern.py
+│   │   ├── servicos/      # Testes de serviços
+│   │   │   ├── test_integration.py
+│   │   │   └── test_singleton.py
+│   │   ├── utils/         # Testes de utilitários (futuro)
+│   │   ├── conftest.py    # Configuração compartilhada
+│   │   └── __init__.py
 │   └── src/               # Código fonte
 │       ├── interface/     # Interface do usuário
 │       │   └── display.py

@@ -123,17 +123,31 @@ Interface → InterfaceService → ChunkRepository (valida chunk)
 ### Estrutura de Testes
 ```
 tests/
-├── test_models/          # Testes dos modelos
-├── test_repositories/    # Testes dos repositórios
-├── test_services/        # Testes dos serviços
-├── test_integration.py   # Testes de integração
-└── test_interface/       # Testes da interface
+├── model/                # Testes dos modelos
+│   ├── test_bioma.py
+│   ├── test_chunk.py
+│   └── test_mapa.py
+├── repositorio/          # Testes dos repositórios
+│   └── test_repository_pattern.py
+├── servicos/             # Testes dos serviços
+│   ├── test_integration.py
+│   └── test_singleton.py
+├── utils/                # Testes de utilitários (futuro)
+├── conftest.py           # Configuração compartilhada
+└── __init__.py
 ```
+
+### Organização por Categoria
+- **Model Tests**: Testam entidades de domínio (Player, Chunk, Mapa, Bioma)
+- **Repository Tests**: Testam acesso a dados e padrão Repository
+- **Service Tests**: Testam lógica de negócio e integração
+- **Utils Tests**: Testam funções auxiliares (preparado para futuro)
 
 ### Tipos de Testes
 - **Unitários**: Testam componentes isolados
 - **Integração**: Testam interação entre camadas
 - **Mock**: Simulam dependências externas
+- **Singleton**: Testam padrão Singleton do InterfaceService
 
 ## Configuração do Banco
 

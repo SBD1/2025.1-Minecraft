@@ -18,7 +18,7 @@ def set_current_player(player_data: Player) -> None:
     """Define o personagem ativo da sessão"""
     global current_player
     current_player = player_data
-    print(f"🎮 Personagem '{player_data.nome}' selecionado!")
+    print(f"Personagem '{player_data.nome}' selecionado!")
 
 def get_current_player() -> Optional[Player]:
     """Retorna o personagem ativo da sessão"""
@@ -38,14 +38,14 @@ def load_player_by_id(player_id: int) -> Optional[Player]:
         player = interface_service.get_player_by_id(player_id)
         
         if player:
-            print(f"✅ Personagem '{player.nome}' carregado com sucesso!")
+            print(f"Personagem '{player.nome}' carregado com sucesso!")
             return player
         else:
-            print(f"❌ Personagem com ID {player_id} não encontrado!")
+            print(f"Personagem com ID {player_id} não encontrado!")
             return None
                 
     except Exception as e:
-        print(f"❌ Erro ao carregar personagem {player_id}: {str(e)}")
+        print(f"Erro ao carregar personagem {player_id}: {str(e)}")
         return None
 
 def refresh_current_player() -> bool:
@@ -60,10 +60,10 @@ def refresh_current_player() -> bool:
     updated_player = load_player_by_id(current_player.id_jogador)
     if updated_player:
         current_player = updated_player
-        print("🔄 Dados do personagem atualizados!")
+        print("Dados do personagem atualizados!")
         return True
     else:
-        print("❌ Erro ao atualizar dados do personagem")
+        print("Erro ao atualizar dados do personagem")
         return False
 
 def save_player_changes() -> bool:
@@ -72,7 +72,7 @@ def save_player_changes() -> bool:
     """
     global current_player
     if not current_player:
-        print("❌ Nenhum personagem ativo para salvar")
+        print("Nenhum personagem ativo para salvar")
         return False
     
     try:
@@ -81,14 +81,14 @@ def save_player_changes() -> bool:
         
         if saved_player:
             current_player = saved_player
-            print("💾 Dados do personagem salvos no banco!")
+            print("Dados do personagem salvos no banco!")
             return True
         else:
-            print("❌ Erro ao salvar personagem")
+            print("Erro ao salvar personagem")
             return False
                 
     except Exception as e:
-        print(f"❌ Erro ao salvar personagem: {str(e)}")
+        print(f"Erro ao salvar personagem: {str(e)}")
         return False
 
 def get_all_players() -> List[Player]:
@@ -98,7 +98,7 @@ def get_all_players() -> List[Player]:
         players = interface_service.get_all_players()
         return players
     except Exception as e:
-        print(f"❌ Erro ao buscar personagens: {str(e)}")
+        print(f"Erro ao buscar personagens: {str(e)}")
         return []
 
 def create_new_player(nome: str, vida_maxima: int = 100, forca: int = 10) -> Optional[Player]:
@@ -110,14 +110,14 @@ def create_new_player(nome: str, vida_maxima: int = 100, forca: int = 10) -> Opt
         new_player = interface_service.create_player(nome, vida_maxima, forca)
         
         if new_player:
-            print(f"✅ Personagem '{nome}' criado com sucesso!")
+            print(f"Personagem '{nome}' criado com sucesso!")
             return new_player
         else:
-            print(f"❌ Erro ao criar personagem '{nome}' ou nome já existe!")
+            print(f"Erro ao criar personagem '{nome}' ou nome já existe!")
             return None
                 
     except Exception as e:
-        print(f"❌ Erro ao criar personagem: {str(e)}")
+        print(f"Erro ao criar personagem: {str(e)}")
         return None
 
 def delete_player(player_id: int) -> bool:
@@ -131,43 +131,43 @@ def delete_player(player_id: int) -> bool:
         player = interface_service.get_player_by_id(player_id)
         
         if not player:
-            print(f"❌ Personagem com ID {player_id} não encontrado!")
+            print(f"Personagem com ID {player_id} não encontrado!")
             return False
         
         # Verificar se é o personagem ativo
         current_player = get_current_player()
         if current_player and current_player.id_jogador == player_id:
-            print(f"❌ Não é possível deletar o personagem ativo '{player.nome}'!")
-            print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
+            print(f"Não é possível deletar o personagem ativo '{player.nome}'!")
+            print("Dica: Troque de personagem primeiro ou saia da sessão.")
             return False
         
         # Deletar o personagem
         if interface_service.delete_player(player_id):
-            print(f"🗑️  Personagem '{player.nome}' deletado com sucesso!")
+            print(f"Personagem '{player.nome}' deletado com sucesso!")
             return True
         else:
-            print(f"❌ Erro ao deletar personagem '{player.nome}'!")
+            print(f"Erro ao deletar personagem '{player.nome}'!")
             return False
                 
     except Exception as e:
-        print(f"❌ Erro ao deletar personagem: {str(e)}")
+        print(f"Erro ao deletar personagem: {str(e)}")
         return False
 
 def confirm_player_deletion(player_name: str) -> bool:
     """Confirma a deleção de um personagem com o usuário"""
-    print(f"\n⚠️  ATENÇÃO: Você está prestes a deletar o personagem '{player_name}'!")
+    print(f"\nATENÇÃO: Você está prestes a deletar o personagem '{player_name}'!")
     print("Esta ação é IRREVERSÍVEL e todos os dados do personagem serão perdidos.")
     print()
     
     while True:
-        confirmacao = input("❓ Tem certeza que deseja continuar? (sim/não): ").strip().lower()
+        confirmacao = input("Tem certeza que deseja continuar? (sim/não): ").strip().lower()
         
         if confirmacao in ['sim', 's', 'yes', 'y']:
             return True
         elif confirmacao in ['não', 'nao', 'n', 'no']:
             return False
         else:
-            print("❌ Digite 'sim' ou 'não'.")
+            print("Digite 'sim' ou 'não'.")
 
 def display_player_status(player: Optional[Player] = None) -> None:
     """Exibe o status do personagem (atual ou especificado)"""
@@ -175,7 +175,7 @@ def display_player_status(player: Optional[Player] = None) -> None:
         player = get_current_player()
     
     if not player:
-        print("❌ Nenhum personagem para exibir")
+        print("Nenhum personagem para exibir")
         return
     
     # Usar métodos da model para formatação
@@ -222,7 +222,7 @@ def get_player_status_lines(player: Player, is_current: bool = False) -> list:
 def display_players_grid(players_data: List[Player]) -> None:
     """Exibe múltiplos personagens em formato de grid lado a lado"""
     if not players_data:
-        print("❌ Nenhum personagem para exibir")
+        print("Nenhum personagem para exibir")
         return
     
     # Detectar largura do terminal (padrão 80 se não conseguir detectar)
@@ -286,7 +286,7 @@ def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, st
         interface_service = InterfaceService.get_instance()
         return interface_service.get_adjacent_chunks(chunk_id, turno)
     except Exception as e:
-        print(f"❌ Erro ao buscar chunks adjacentes: {str(e)}")
+        print(f"Erro ao buscar chunks adjacentes: {str(e)}")
         return []
 
 def move_player_to_chunk(chunk_id: int) -> bool:
@@ -295,7 +295,7 @@ def move_player_to_chunk(chunk_id: int) -> bool:
     """
     global current_player
     if not current_player:
-        print("❌ Nenhum personagem ativo")
+        print("Nenhum personagem ativo")
         return False
     
     try:
@@ -304,14 +304,14 @@ def move_player_to_chunk(chunk_id: int) -> bool:
         
         if updated_player:
             current_player = updated_player
-            print(f"✅ Movido para chunk {chunk_id}!")
+            print(f"Movido para chunk {chunk_id}!")
             return True
         else:
-            print(f"❌ Erro ao mover para chunk {chunk_id}!")
+            print(f"Erro ao mover para chunk {chunk_id}!")
             return False
                 
     except Exception as e:
-        print(f"❌ Erro ao mover personagem: {str(e)}")
+        print(f"Erro ao mover personagem: {str(e)}")
         return False
 
 def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
@@ -322,7 +322,7 @@ def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
         interface_service = InterfaceService.get_instance()
         return interface_service.get_desert_chunk(turno)
     except Exception as e:
-        print(f"❌ Erro ao buscar chunk de deserto: {str(e)}")
+        print(f"Erro ao buscar chunk de deserto: {str(e)}")
         return None
 
 def ensure_player_location() -> bool:
@@ -337,5 +337,5 @@ def ensure_player_location() -> bool:
         interface_service = InterfaceService.get_instance()
         return interface_service.ensure_player_location(current_player)
     except Exception as e:
-        print(f"❌ Erro ao garantir localização: {str(e)}")
+        print(f"Erro ao garantir localização: {str(e)}")
         return False

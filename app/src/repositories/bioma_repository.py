@@ -59,7 +59,7 @@ class BiomaRepositoryImpl(BiomaRepository):
                     
                     return biomas
         except Exception as e:
-            print(f"❌ Erro ao buscar biomas: {str(e)}")
+            print(f"Erro ao buscar biomas: {str(e)}")
             return []
     
     def find_by_id(self, id: str) -> Optional[Bioma]:
@@ -82,7 +82,7 @@ class BiomaRepositoryImpl(BiomaRepository):
                         )
                     return None
         except Exception as e:
-            print(f"❌ Erro ao buscar bioma {id}: {str(e)}")
+            print(f"Erro ao buscar bioma {id}: {str(e)}")
             return None
     
     def save(self, bioma: Bioma) -> Bioma:
@@ -107,7 +107,7 @@ class BiomaRepositoryImpl(BiomaRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao salvar bioma: {str(e)}")
+            print(f"Erro ao salvar bioma: {str(e)}")
             return bioma
     
     def delete(self, id: str) -> bool:
@@ -122,5 +122,5 @@ class BiomaRepositoryImpl(BiomaRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao deletar bioma {id}: {str(e)}")
+            print(f"Erro ao deletar bioma {id}: {str(e)}")
             return False 

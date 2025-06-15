@@ -162,8 +162,35 @@ def exibir_localizacao_atual():
     
     print("=" * 60)
 
+def determinar_direcao(current_chunk: int, target_chunk: int) -> str:
+    """Determina a direção de movimento baseada na diferença entre chunks"""
+    diff = target_chunk - current_chunk
+    
+    # Assumindo que os chunks são organizados em uma grade 32x32
+    # Chunks adjacentes horizontalmente têm diferença de ±1
+    # Chunks adjacentes verticalmente têm diferença de ±32
+    
+    if diff == 1:
+        return "➡️ Direita"
+    elif diff == -1:
+        return "⬅️ Esquerda"
+    elif diff == 32:
+        return "⬇️ Baixo"
+    elif diff == -32:
+        return "⬆️ Cima"
+    elif diff > 1 and diff < 32:
+        return "➡️ Direita (distante)"
+    elif diff < -1 and diff > -32:
+        return "⬅️ Esquerda (distante)"
+    elif diff > 32:
+        return "⬇️ Baixo (distante)"
+    elif diff < -32:
+        return "⬆️ Cima (distante)"
+    else:
+        return "📍 Direção"
+
 def exibir_opcoes_movimento():
-    """Exibe as opções de movimento disponíveis"""
+    """Exibe as opções de movimento disponíveis com direções"""
     current_player = get_current_player()
     if not current_player or not current_player.localizacao:
         print(f"{Fore.RED}❌ Não é possível mover - localização inválida{Fore.RESET}")
@@ -180,6 +207,18 @@ def exibir_opcoes_movimento():
     print("🚶 OPÇÕES DE MOVIMENTO:")
     print("-" * 40)
     
+    # Determinar direções baseado na diferença de chunk_id
+    current_chunk = int(current_player.localizacao)
+    directions = []
+    
+    for chunk_id, bioma in adjacent_chunks:
+        direction = determinar_direcao(current_chunk, chunk_id)
+        directions.append((chunk_id, bioma, direction))
+    
+    # Ordenar por direção (cima, baixo, esquerda, direita)
+    direction_order = {"⬆️ Cima": 0, "⬇️ Baixo": 1, "⬅️ Esquerda": 2, "➡️ Direita": 3, "📍 Direção": 4}
+    directions.sort(key=lambda x: direction_order.get(x[2].split()[0], 5))
+    
     bioma_emoji = {
         'Deserto': '🏜️',
         'Oceano': '🌊',
@@ -187,11 +226,11 @@ def exibir_opcoes_movimento():
         'Floresta': '🌲'
     }
     
-    for i, (chunk_id, bioma) in enumerate(adjacent_chunks, 1):
+    for i, (chunk_id, bioma, direction) in enumerate(directions, 1):
         emoji = bioma_emoji.get(bioma, '📍')
-        print(f"{i}. {emoji} {bioma} (Chunk {chunk_id})")
+        print(f"{i}. {direction} - {emoji} {bioma} (Chunk {chunk_id})")
     
-    return adjacent_chunks
+    return [(chunk_id, bioma) for chunk_id, bioma, _ in directions]
 
 def iniciar_jogo():
     """Inicia o jogo com o personagem atual"""
@@ -239,17 +278,38 @@ def iniciar_jogo():
                     indice = int(opcao) - 1
                     if 0 <= indice < len(adjacent_chunks):
                         chunk_id, bioma = adjacent_chunks[indice]
-                        print(f"🚶 Movendo para {bioma}...")
+                        
+                        # Verificar se há mudança de bioma
+                        current_bioma = None
+                        try:
+                            # Buscar o bioma atual do chunk onde o jogador está
+                            current_chunk = interface_service.chunk_repository.find_by_id(int(current_player.localizacao))
+                            if current_chunk:
+                                current_bioma = current_chunk.id_bioma
+                        except Exception:
+                            # Se não conseguir determinar o bioma atual, assumir que há mudança
+                            current_bioma = None
+                        
+                        print(f"🚶 Movendo...")
                         
                         # Usar InterfaceService Singleton para mover
                         updated_player = interface_service.move_player_to_chunk(current_player, chunk_id)
                         if updated_player:
                             current_player = updated_player
                             set_current_player(updated_player)
-                            print(f"✅ Chegou em {bioma}!")
+                            
+                            # Informar apenas se houve mudança de bioma
+                            if current_bioma and current_bioma != bioma:
+                                print(f"✅ Chegou em {bioma}!")
+                            elif not current_bioma:
+                                # Se não conseguimos determinar o bioma anterior, sempre informar
+                                print(f"✅ Chegou em {bioma}!")
+                            else:
+                                print(f"✅ Movimento realizado!")
+                            
                             input("⏳ Pressione Enter para continuar...")
                         else:
-                            print(f"❌ Erro ao mover para {bioma}!")
+                            print(f"❌ Erro ao mover!")
                             input("⏳ Pressione Enter para continuar...")
                     else:
                         print(f"{Fore.RED}❌ Opção inválida!{Fore.RESET}")

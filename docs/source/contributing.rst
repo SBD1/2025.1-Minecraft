@@ -233,6 +233,32 @@ Use exceções específicas:
 Testes
 ------
 
+Organização dos Testes
+^^^^^^^^^^^^^^^^^^^^^
+
+Os testes estão organizados em subpastas por categoria:
+
+* **``tests/model/``**: Testes de models (Player, Chunk, Mapa, Bioma)
+* **``tests/repositorio/``**: Testes de repositórios e padrão Repository  
+* **``tests/servicos/``**: Testes de serviços e integração
+* **``tests/utils/``**: Testes de utilitários (preparado para futuro)
+
+Ao adicionar novos testes, coloque-os na pasta apropriada:
+
+.. code-block:: python
+
+   # Para novos models
+   tests/model/test_novo_model.py
+   
+   # Para novos repositórios
+   tests/repositorio/test_novo_repository.py
+   
+   # Para novos serviços
+   tests/servicos/test_novo_service.py
+   
+   # Para novos utilitários
+   tests/utils/test_novo_utils.py
+
 Escrevendo Testes
 ^^^^^^^^^^^^^^^^
 
@@ -275,11 +301,16 @@ Executando Testes
    # Executar todos os testes
    pytest
    
+   # Executar testes por categoria
+   pytest tests/model/ -v
+   pytest tests/repositorio/ -v
+   pytest tests/servicos/ -v
+   
    # Com cobertura
    pytest --cov=app --cov-report=html
    
    # Testes específicos
-   pytest tests/test_player_manager.py
+   pytest tests/model/test_player_manager.py
 
 Commits
 -------

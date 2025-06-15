@@ -60,7 +60,7 @@ class MapaRepositoryImpl(MapaRepository):
                     
                     return mapas
         except Exception as e:
-            print(f"❌ Erro ao buscar mapas: {str(e)}")
+            print(f"Erro ao buscar mapas: {str(e)}")
             return []
     
     def find_by_id(self, nome: str, turno: TurnoType) -> Optional[Mapa]:
@@ -79,7 +79,7 @@ class MapaRepositoryImpl(MapaRepository):
                         return Mapa(nome=result[0], turno=result[1])
                     return None
         except Exception as e:
-            print(f"❌ Erro ao buscar mapa {nome} ({turno.value}): {str(e)}")
+            print(f"Erro ao buscar mapa {nome} ({turno.value}): {str(e)}")
             return None
     
     def save(self, mapa: Mapa) -> Mapa:
@@ -100,7 +100,7 @@ class MapaRepositoryImpl(MapaRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao salvar mapa: {str(e)}")
+            print(f"Erro ao salvar mapa: {str(e)}")
             return mapa
     
     def delete(self, nome: str, turno: TurnoType) -> bool:
@@ -115,7 +115,7 @@ class MapaRepositoryImpl(MapaRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao deletar mapa {nome} ({turno.value}): {str(e)}")
+            print(f"Erro ao deletar mapa {nome} ({turno.value}): {str(e)}")
             return False
     
     def find_by_turno(self, turno: TurnoType) -> List[Mapa]:
@@ -139,5 +139,5 @@ class MapaRepositoryImpl(MapaRepository):
                     
                     return mapas
         except Exception as e:
-            print(f"❌ Erro ao buscar mapas do turno {turno.value}: {str(e)}")
+            print(f"Erro ao buscar mapas do turno {turno.value}: {str(e)}")
             return [] 
