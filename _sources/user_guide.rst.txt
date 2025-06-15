@@ -1,7 +1,7 @@
 Guia do Usuário
 ==============
 
-Este guia detalhado irá ajudá-lo a aproveitar ao máximo o Minecraft Legends.
+Este guia detalhado irá ajudá-lo a aproveitar ao máximo o MINECRAFT - FGA - 2025/1.
 
 Interface do Jogo
 -----------------

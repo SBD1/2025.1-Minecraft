@@ -1,9 +1,9 @@
-🟩 Minecraft Legends - Python Edition
-=====================================
+🟩 MINECRAFT - FGA - 2025/1 - Python Edition
+============================================
 
-Bem-vindo à documentação do **Minecraft Legends**, desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
+Bem-vindo à documentação do **MINECRAFT - FGA - 2025/1**, desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
 
-Este projeto recria o Minecraft Legends utilizando SQL e Python, com ambiente isolado via Docker para facilitar a execução e portabilidade.
+Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambiente isolado via Docker para facilitar a execução e portabilidade.
 
 .. toctree::
    :maxdepth: 2
@@ -18,8 +18,8 @@ Este projeto recria o Minecraft Legends utilizando SQL e Python, com ambiente is
    development
    contributing
 
-.. image:: _static/minecraft-banner.png
-   :alt: Minecraft Legends Banner
+.. image:: _static/banner.png
+   :alt: MINECRAFT - FGA - 2025/1 Banner
    :align: center
 
 Características Principais
