@@ -1,7 +1,7 @@
 Início Rápido
 =============
 
-Este guia irá ajudá-lo a começar rapidamente com o Minecraft Legends.
+Este guia irá ajudá-lo a começar rapidamente com o MINECRAFT - FGA - 2025/1.
 
 Primeira Execução
 -----------------

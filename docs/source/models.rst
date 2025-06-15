@@ -1,7 +1,7 @@
-Models
-======
+Modelos
+=======
 
-O Minecraft Legends utiliza uma arquitetura baseada em models para representar as entidades do jogo. Esta abordagem garante separação de responsabilidades, reutilização de código e facilita a manutenção.
+O MINECRAFT - FGA - 2025/1 utiliza uma arquitetura baseada em models para representar as entidades do jogo. Esta abordagem garante separação de responsabilidades, reutilização de código e facilita a manutenção.
 
 Estrutura de Models
 ------------------

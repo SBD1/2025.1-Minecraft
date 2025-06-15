@@ -1,7 +1,7 @@
 Instalação
 ==========
 
-Este guia irá ajudá-lo a configurar o ambiente Minecraft Legends em sua máquina local.
+Este guia irá ajudá-lo a configurar o ambiente MINECRAFT - FGA - 2025/1 em sua máquina local.
 
 Pré-requisitos
 --------------
@@ -114,7 +114,7 @@ Para verificar se tudo está funcionando:
 
    python main.py
 
-#. Você deve ver a tela inicial do Minecraft Legends
+#. Você deve ver a tela inicial do MINECRAFT - FGA - 2025/1
 
 Se tudo estiver funcionando, você verá uma mensagem como:
 

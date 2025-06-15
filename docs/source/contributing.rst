@@ -1,7 +1,7 @@
 Contribuindo
 ============
 
-Obrigado por considerar contribuir com o Minecraft Legends! Este guia irá ajudá-lo a começar.
+Obrigado por considerar contribuir com o MINECRAFT - FGA - 2025/1! Este guia irá ajudá-lo a começar.
 
 Como Contribuir
 ---------------
@@ -498,7 +498,7 @@ Agora que você conhece como contribuir:
 #. **Teste** suas mudanças
 #. **Abra** um Pull Request
 
-Obrigado por contribuir com o Minecraft Legends! 🎮
+Obrigado por contribuir com o MINECRAFT - FGA - 2025/1! 🎮
 
 Para mais informações:
 
