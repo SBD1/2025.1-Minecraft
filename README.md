@@ -133,12 +133,18 @@ docker compose down
 #### Localmente (com Docker) - **Recomendado**
 ```bash
 # Executar todos os testes
+docker compose exec app python -m pytest tests/ -v
+# ou
 docker-compose exec app python -m pytest tests/ -v
 
 # Executar com cobertura
+docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
+# ou
 docker-compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
 
 # Executar teste específico
+docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+# ou
 docker-compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
 ```
 
@@ -146,6 +152,7 @@ docker-compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bi
 Os testes são executados automaticamente no GitHub Actions usando Docker:
 - ✅ **Testes Unitários**: Executados em cada push e pull request
 - ✅ **Ambiente Docker**: Garante consistência entre desenvolvimento e CI
+- ✅ **Compatibilidade**: Funciona com `docker compose` e `docker-compose`
 - ✅ **Cobertura de Código**: Relatório enviado para Codecov
 
 ### Contribuindo
