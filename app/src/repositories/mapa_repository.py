@@ -5,10 +5,39 @@ Implementação PostgreSQL do MapaRepository
 from typing import List, Optional
 from ..utils.db_helpers import connection_db
 from ..models.mapa import Mapa, TurnoType
-from . import MapaRepository
+from abc import ABC, abstractmethod
 
 
-class MapaRepository(MapaRepository):
+class MapaRepository(ABC):
+    """Interface para repositório de Mapa"""
+    
+    @abstractmethod
+    def find_all(self) -> List[Mapa]:
+        """Retorna todos os mapas"""
+        pass
+    
+    @abstractmethod
+    def find_by_id(self, nome: str, turno: TurnoType) -> Optional[Mapa]:
+        """Busca mapa por nome e turno"""
+        pass
+    
+    @abstractmethod
+    def save(self, mapa: Mapa) -> Mapa:
+        """Salva um mapa"""
+        pass
+    
+    @abstractmethod
+    def delete(self, nome: str, turno: TurnoType) -> bool:
+        """Deleta um mapa por nome e turno"""
+        pass
+    
+    @abstractmethod
+    def find_by_turno(self, turno: TurnoType) -> List[Mapa]:
+        """Busca mapas por turno"""
+        pass
+
+
+class MapaRepositoryImpl(MapaRepository):
     """Implementação PostgreSQL do MapaRepository"""
     
     def find_all(self) -> List[Mapa]:

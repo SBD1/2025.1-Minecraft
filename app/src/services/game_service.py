@@ -5,10 +5,10 @@ Demonstra o uso do Repository Pattern
 
 from typing import List, Optional, Dict, Any
 from ..repositories import (
-    BiomaRepository,
-    ChunkRepository,
-    MapaRepository,
-    PlayerRepository
+    BiomaRepositoryImpl,
+    ChunkRepositoryImpl,
+    MapaRepositoryImpl,
+    PlayerRepositoryImpl
 )
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
@@ -23,9 +23,9 @@ class GameService:
     
     def __init__(self):
         """Inicializa o service com repositories"""
-        self.chunk_repository = ChunkRepository()
-        self.mapa_repository = MapaRepository()
-        self.player_repository = PlayerRepository()
+        self.chunk_repository = ChunkRepositoryImpl()
+        self.mapa_repository = MapaRepositoryImpl()
+        self.player_repository = PlayerRepositoryImpl()
     
     def get_map_info(self, mapa_nome: str, turno: TurnoType) -> Dict[str, Any]:
         """

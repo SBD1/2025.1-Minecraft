@@ -5,10 +5,44 @@ Implementação PostgreSQL do ChunkRepository
 from typing import List, Optional
 from ..utils.db_helpers import connection_db
 from ..models.chunk import Chunk
-from . import ChunkRepository
+from abc import ABC, abstractmethod
 
 
-class ChunkRepository(ChunkRepository):
+class ChunkRepository(ABC):
+    """Interface para repositório de Chunk"""
+    
+    @abstractmethod
+    def find_all(self) -> List[Chunk]:
+        """Retorna todos os chunks"""
+        pass
+    
+    @abstractmethod
+    def find_by_id(self, id: int) -> Optional[Chunk]:
+        """Busca chunk por ID"""
+        pass
+    
+    @abstractmethod
+    def save(self, chunk: Chunk) -> Chunk:
+        """Salva um chunk"""
+        pass
+    
+    @abstractmethod
+    def delete(self, id: int) -> bool:
+        """Deleta um chunk por ID"""
+        pass
+    
+    @abstractmethod
+    def find_by_mapa(self, mapa_nome: str, mapa_turno: str) -> List[Chunk]:
+        """Busca chunks por mapa"""
+        pass
+    
+    @abstractmethod
+    def find_by_bioma(self, bioma_id: str) -> List[Chunk]:
+        """Busca chunks por bioma"""
+        pass
+
+
+class ChunkRepositoryImpl(ChunkRepository):
     """Implementação PostgreSQL do ChunkRepository"""
     
     def find_all(self) -> List[Chunk]:

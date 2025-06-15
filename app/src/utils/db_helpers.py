@@ -1,7 +1,6 @@
 import psycopg2
 import os
 import sys
-from ..repositories import BiomaRepository, MapaRepository, ChunkRepository
 
 def connection_db():
     return psycopg2.connect(
@@ -42,9 +41,12 @@ def check_database_connection():
 def check_tables_exist():
     """Verifica se as tabelas principais existem no banco usando repositórios"""
     try:
-        bioma_repo = BiomaRepository()
-        mapa_repo = MapaRepository()
-        chunk_repo = ChunkRepository()
+        # Importação local para evitar importação circular
+        from ..repositories import BiomaRepositoryImpl, MapaRepositoryImpl, ChunkRepositoryImpl
+        
+        bioma_repo = BiomaRepositoryImpl()
+        mapa_repo = MapaRepositoryImpl()
+        chunk_repo = ChunkRepositoryImpl()
 
         # Verifica se as tabelas têm pelo menos um registro
         if not bioma_repo.find_all() or not mapa_repo.find_all() or not chunk_repo.find_all():

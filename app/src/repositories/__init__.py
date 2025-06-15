@@ -9,10 +9,10 @@ from ..models.bioma import Bioma
 from ..models.chunk import Chunk
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
-from .bioma_repository import BiomaRepository
-from .chunk_repository import ChunkRepository
-from .mapa_repository import MapaRepository
-from .player_repository import PlayerRepository
+from .bioma_repository import BiomaRepository, BiomaRepositoryImpl
+from .chunk_repository import ChunkRepository, ChunkRepositoryImpl
+from .mapa_repository import MapaRepository, MapaRepositoryImpl
+from .player_repository import PlayerRepository, PlayerRepositoryImpl
 
 
 class BaseRepository(ABC):

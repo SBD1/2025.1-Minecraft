@@ -5,10 +5,10 @@ Testes para demonstrar o uso do Repository Pattern
 import pytest
 from unittest.mock import Mock, patch
 from src.repositories import (
-    BiomaRepository,
-    ChunkRepository,
-    MapaRepository,
-    PlayerRepository
+    BiomaRepositoryImpl,
+    ChunkRepositoryImpl,
+    MapaRepositoryImpl,
+    PlayerRepositoryImpl
 )
 from src.services.game_service import GameService
 from src.models.chunk import Chunk
@@ -29,8 +29,8 @@ class TestRepositoryPattern:
         ]
         
         # Mock do repository
-        with patch.object(ChunkRepository, 'find_by_mapa', return_value=mock_chunks):
-            repo = ChunkRepository()
+        with patch.object(ChunkRepositoryImpl, 'find_by_mapa', return_value=mock_chunks):
+            repo = ChunkRepositoryImpl()
             
             # Act
             chunks = repo.find_by_mapa("Mapa_Principal", "Dia")
@@ -50,8 +50,8 @@ class TestRepositoryPattern:
         ]
         
         # Mock do repository
-        with patch.object(MapaRepository, 'find_by_turno', return_value=mock_mapas):
-            repo = MapaRepository()
+        with patch.object(MapaRepositoryImpl, 'find_by_turno', return_value=mock_mapas):
+            repo = MapaRepositoryImpl()
             
             # Act
             mapas = repo.find_by_turno(TurnoType.DIA)
@@ -72,8 +72,8 @@ class TestRepositoryPattern:
         ]
         
         # Mock do repository
-        with patch.object(PlayerRepository, 'find_active_players', return_value=[mock_players[0], mock_players[2]]):
-            repo = PlayerRepository()
+        with patch.object(PlayerRepositoryImpl, 'find_active_players', return_value=[mock_players[0], mock_players[2]]):
+            repo = PlayerRepositoryImpl()
             
             # Act
             active_players = repo.find_active_players()
@@ -95,8 +95,8 @@ class TestRepositoryPattern:
         ]
         
         # Mock dos repositories
-        with patch.object(MapaRepository, 'find_by_id', return_value=mock_mapa), \
-             patch.object(ChunkRepository, 'find_by_mapa', return_value=mock_chunks):
+        with patch.object(MapaRepositoryImpl, 'find_by_id', return_value=mock_mapa), \
+             patch.object(ChunkRepositoryImpl, 'find_by_mapa', return_value=mock_chunks):
             
             service = GameService()
             
@@ -116,8 +116,8 @@ class TestRepositoryPattern:
         mock_saved_player = Player(1, "NovoJogador", 100, 100, 10, "Spawn", 1, 0)
         
         # Mock dos repositories
-        with patch.object(PlayerRepository, 'find_by_name', return_value=None), \
-             patch.object(PlayerRepository, 'save', return_value=mock_saved_player):
+        with patch.object(PlayerRepositoryImpl, 'find_by_name', return_value=None), \
+             patch.object(PlayerRepositoryImpl, 'save', return_value=mock_saved_player):
             
             service = GameService()
             
@@ -137,7 +137,7 @@ class TestRepositoryPattern:
         existing_player = Player(1, "JogadorExistente", 100, 100, 10, "Spawn", 1, 0)
         
         # Mock do repository
-        with patch.object(PlayerRepository, 'find_by_name', return_value=existing_player):
+        with patch.object(PlayerRepositoryImpl, 'find_by_name', return_value=existing_player):
             service = GameService()
             
             # Act
@@ -155,9 +155,9 @@ class TestRepositoryPattern:
         mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa_Principal - Chunk 5", 1, 0)
         
         # Mock dos repositories
-        with patch.object(PlayerRepository, 'find_by_id', return_value=mock_player), \
-             patch.object(ChunkRepository, 'find_by_id', return_value=mock_chunk), \
-             patch.object(PlayerRepository, 'save', return_value=mock_updated_player):
+        with patch.object(PlayerRepositoryImpl, 'find_by_id', return_value=mock_player), \
+             patch.object(ChunkRepositoryImpl, 'find_by_id', return_value=mock_chunk), \
+             patch.object(PlayerRepositoryImpl, 'save', return_value=mock_updated_player):
             
             service = GameService()
             
@@ -189,9 +189,9 @@ class TestRepositoryPattern:
         ]
         
         # Mock dos repositories
-        with patch.object(MapaRepository, 'find_all', return_value=mock_mapas), \
-             patch.object(ChunkRepository, 'find_all', return_value=mock_chunks), \
-             patch.object(PlayerRepository, 'find_all', return_value=mock_players):
+        with patch.object(MapaRepositoryImpl, 'find_all', return_value=mock_mapas), \
+             patch.object(ChunkRepositoryImpl, 'find_all', return_value=mock_chunks), \
+             patch.object(PlayerRepositoryImpl, 'find_all', return_value=mock_players):
             
             service = GameService()
             
@@ -210,9 +210,9 @@ class TestRepositoryPattern:
     def test_repository_interface_compliance(self):
         """Testa se as implementações seguem a interface"""
         # Arrange & Act
-        chunk_repo = ChunkRepository()
-        mapa_repo = MapaRepository()
-        player_repo = PlayerRepository()
+        chunk_repo = ChunkRepositoryImpl()
+        mapa_repo = MapaRepositoryImpl()
+        player_repo = PlayerRepositoryImpl()
         
         # Assert - Verifica se os métodos existem
         assert hasattr(chunk_repo, 'find_all')

@@ -5,10 +5,34 @@ Implementação PostgreSQL do BiomaRepository
 from typing import List, Optional
 from ..utils.db_helpers import connection_db
 from ..models.bioma import Bioma
-from . import BiomaRepository
+from abc import ABC, abstractmethod
 
 
-class BiomaRepository(BiomaRepository):
+class BiomaRepository(ABC):
+    """Interface para repositório de Bioma"""
+    
+    @abstractmethod
+    def find_all(self) -> List[Bioma]:
+        """Retorna todos os biomas"""
+        pass
+    
+    @abstractmethod
+    def find_by_id(self, id: str) -> Optional[Bioma]:
+        """Busca bioma por ID"""
+        pass
+    
+    @abstractmethod
+    def save(self, bioma: Bioma) -> Bioma:
+        """Salva um bioma"""
+        pass
+    
+    @abstractmethod
+    def delete(self, id: str) -> bool:
+        """Deleta um bioma por ID"""
+        pass
+
+
+class BiomaRepositoryImpl(BiomaRepository):
     """Implementação PostgreSQL do BiomaRepository"""
     
     def find_all(self) -> List[Bioma]:

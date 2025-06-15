@@ -5,10 +5,44 @@ Implementação PostgreSQL do PlayerRepository
 from typing import List, Optional
 from ..utils.db_helpers import connection_db
 from ..models.player import Player
-from . import PlayerRepository
+from abc import ABC, abstractmethod
 
 
-class PlayerRepository(PlayerRepository):
+class PlayerRepository(ABC):
+    """Interface para repositório de Player"""
+    
+    @abstractmethod
+    def find_all(self) -> List[Player]:
+        """Retorna todos os jogadores"""
+        pass
+    
+    @abstractmethod
+    def find_by_id(self, id: int) -> Optional[Player]:
+        """Busca jogador por ID"""
+        pass
+    
+    @abstractmethod
+    def save(self, player: Player) -> Player:
+        """Salva um jogador"""
+        pass
+    
+    @abstractmethod
+    def delete(self, id: int) -> bool:
+        """Deleta um jogador por ID"""
+        pass
+    
+    @abstractmethod
+    def find_by_name(self, name: str) -> Optional[Player]:
+        """Busca jogador por nome"""
+        pass
+    
+    @abstractmethod
+    def find_active_players(self) -> List[Player]:
+        """Busca jogadores ativos"""
+        pass
+
+
+class PlayerRepositoryImpl(PlayerRepository):
     """Implementação PostgreSQL do PlayerRepository"""
     
     def find_all(self) -> List[Player]:
