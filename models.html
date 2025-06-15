@@ -210,7 +210,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.is_day_map"><code class="docutils literal notranslate"><span class="pre">Mapa.is_day_map()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.is_night_map"><code class="docutils literal notranslate"><span class="pre">Mapa.is_night_map()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.nome"><code class="docutils literal notranslate"><span class="pre">Mapa.nome</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.set_chunks"><code class="docutils literal notranslate"><span class="pre">Mapa.set_chunks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.set_chunk_repository"><code class="docutils literal notranslate"><span class="pre">Mapa.set_chunk_repository()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.turno"><code class="docutils literal notranslate"><span class="pre">Mapa.turno</span></code></a></li>
 </ul>
 </li>
@@ -1160,7 +1160,7 @@ Baseado na lógica de grid do mapa</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nome</strong> (<em>str</em>) – Nome do mapa (parte da chave primária composta)</p></li>
 <li><p><strong>turno</strong> (<a class="reference internal" href="#models.mapa.TurnoType" title="models.mapa.TurnoType"><em>models.mapa.TurnoType</em></a>) – Turno do mapa (parte da chave primária composta)</p></li>
-<li><p><strong>chunks</strong> – Lista de chunks do mapa (opcional, para cache)</p></li>
+<li><p><strong>_chunk_repository</strong> – Repository para acesso aos chunks (injetado)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1236,8 +1236,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="models.mapa.Mapa.get_chunks">
 <span class="sig-name descname"><span class="pre">get_chunks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/mapa.html#Mapa.get_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.mapa.Mapa.get_chunks" title="Link to this definition"></a></dt>
-<dd><p>Retorna os chunks deste mapa consultando o banco de dados
-Resultado é cacheado automaticamente via memoize</p>
+<dd><p>Retorna os chunks deste mapa usando o repository</p>
 <dl class="field-list simple">
 </dl>
 </dd></dl>
@@ -1295,15 +1294,9 @@ Resultado é cacheado automaticamente via memoize</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="models.mapa.Mapa.set_chunks">
-<span class="sig-name descname"><span class="pre">set_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/mapa.html#Mapa.set_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.mapa.Mapa.set_chunks" title="Link to this definition"></a></dt>
-<dd><p>Define chunks manualmente (para cache customizado)
-Sobrescreve o cache do memoize</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>chunks</strong> (<em>List</em><em>[</em><a class="reference internal" href="#models.chunk.Chunk" title="models.chunk.Chunk"><em>Chunk</em></a><em>]</em>) – Lista de chunks do mapa</p>
-</dd>
-</dl>
+<dt class="sig sig-object py" id="models.mapa.Mapa.set_chunk_repository">
+<span class="sig-name descname"><span class="pre">set_chunk_repository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/mapa.html#Mapa.set_chunk_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.mapa.Mapa.set_chunk_repository" title="Link to this definition"></a></dt>
+<dd><p>Define o repository de chunks (injeção de dependência)</p>
 </dd></dl>
 
 <dl class="py attribute">

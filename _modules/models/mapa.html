@@ -207,7 +207,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.is_day_map"><code class="docutils literal notranslate"><span class="pre">Mapa.is_day_map()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.is_night_map"><code class="docutils literal notranslate"><span class="pre">Mapa.is_night_map()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.nome"><code class="docutils literal notranslate"><span class="pre">Mapa.nome</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.set_chunks"><code class="docutils literal notranslate"><span class="pre">Mapa.set_chunks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.set_chunk_repository"><code class="docutils literal notranslate"><span class="pre">Mapa.set_chunk_repository()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.mapa.Mapa.turno"><code class="docutils literal notranslate"><span class="pre">Mapa.turno</span></code></a></li>
 </ul>
 </li>
@@ -587,23 +587,6 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.chunk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chunk</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">memoize</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Decorator para cachear resultados de funções&quot;&quot;&quot;</span>
-    <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
-    
-    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="c1"># Usa os argumentos como chave do cache</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
-            <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    
-    <span class="k">return</span> <span class="n">wrapper</span>
 
 
 <div class="viewcode-block" id="TurnoType">
@@ -625,10 +608,11 @@
 <span class="sd">    Attributes:</span>
 <span class="sd">        nome: Nome do mapa (parte da chave primária composta)</span>
 <span class="sd">        turno: Turno do mapa (parte da chave primária composta)</span>
-<span class="sd">        chunks: Lista de chunks do mapa (opcional, para cache)</span>
+<span class="sd">        _chunk_repository: Repository para acesso aos chunks (injetado)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">turno</span><span class="p">:</span> <span class="n">TurnoType</span>
+    <span class="n">_chunk_repository</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Será injetado via setter</span>
     
 <div class="viewcode-block" id="Mapa.__post_init__">
 <a class="viewcode-back" href="../../models.html#models.mapa.Mapa.__post_init__">[docs]</a>
@@ -636,6 +620,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Converte string para enum se necessário&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">turno</span> <span class="o">=</span> <span class="n">TurnoType</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Mapa.set_chunk_repository">
+<a class="viewcode-back" href="../../models.html#models.mapa.Mapa.set_chunk_repository">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_chunk_repository</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repository</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Define o repository de chunks (injeção de dependência)&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span> <span class="o">=</span> <span class="n">repository</span></div>
 
     
 <div class="viewcode-block" id="Mapa.get_chunks_by_bioma">
@@ -650,6 +641,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Lista de chunks do bioma</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
+        
         <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div>
 
@@ -663,6 +657,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Dicionário com bioma e quantidade de chunks</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
+        
         <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">chunks</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">{}</span>
@@ -697,6 +694,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Dicionário com informações do mapa</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
+        
         <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;nome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span>
             <span class="s1">&#39;turno&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -713,62 +713,14 @@
     
 <div class="viewcode-block" id="Mapa.get_chunks">
 <a class="viewcode-back" href="../../models.html#models.mapa.Mapa.get_chunks">[docs]</a>
-    <span class="nd">@memoize</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Chunk</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retorna os chunks deste mapa consultando o banco de dados</span>
-<span class="sd">        Resultado é cacheado automaticamente via memoize</span>
+<span class="sd">        Retorna os chunks deste mapa usando o repository</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="kn">from</span><span class="w"> </span><span class="nn">..utils.db_helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">connection_db</span>
-            
-            <span class="k">with</span> <span class="n">connection_db</span><span class="p">()</span> <span class="k">as</span> <span class="n">conn</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
-                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                        SELECT numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno</span>
-<span class="s2">                        FROM chunk</span>
-<span class="s2">                        WHERE id_mapa_nome = </span><span class="si">%s</span><span class="s2"> AND id_mapa_turno = </span><span class="si">%s</span>
-<span class="s2">                        ORDER BY numero_chunk</span>
-<span class="s2">                    &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
-                    
-                    <span class="n">results</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-                    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
-                    
-                    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-                        <span class="n">chunk</span> <span class="o">=</span> <span class="n">Chunk</span><span class="p">(</span>
-                            <span class="n">numero_chunk</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                            <span class="n">id_bioma</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                            <span class="n">id_mapa_nome</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                            <span class="n">id_mapa_turno</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-                        <span class="p">)</span>
-                        <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-                    
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Carregados </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks do mapa </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="n">chunks</span>
-                    
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;❌ Erro ao carregar chunks do banco: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">[]</span></div>
-
-    
-<div class="viewcode-block" id="Mapa.set_chunks">
-<a class="viewcode-back" href="../../models.html#models.mapa.Mapa.set_chunks">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_chunks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chunks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Chunk</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Define chunks manualmente (para cache customizado)</span>
-<span class="sd">        Sobrescreve o cache do memoize</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            chunks: Lista de chunks do mapa</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Filtra apenas chunks deste mapa</span>
-        <span class="n">filtered_chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_mapa_nome</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">nome</span> <span class="ow">and</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_mapa_turno</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
         
-        <span class="c1"># Sobrescreve o cache do memoize</span>
-        <span class="n">cache_key</span> <span class="o">=</span> <span class="nb">str</span><span class="p">((</span><span class="bp">self</span><span class="p">,))</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">sorted</span><span class="p">({}</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
-        <span class="n">memoize</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">cache_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">filtered_chunks</span>
-        
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✅ Definidos </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">filtered_chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks manualmente para </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="o">.</span><span class="n">find_by_mapa</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
 
     
 <div class="viewcode-block" id="Mapa.get_chunk_by_id">
@@ -783,6 +735,9 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            Chunk encontrado ou None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_chunk_repository</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
+        
         <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
         
         <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
@@ -795,9 +750,12 @@
 <a class="viewcode-back" href="../../models.html#models.mapa.Mapa.__str__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do mapa&quot;&quot;&quot;</span>
-        <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
-        <span class="n">chunk_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="k">if</span> <span class="n">chunks</span> <span class="k">else</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Mapa(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">chunk_count</span><span class="si">}</span><span class="s2"> chunks)&quot;</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
+            <span class="n">chunk_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="k">if</span> <span class="n">chunks</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Mapa(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">chunk_count</span><span class="si">}</span><span class="s2"> chunks)&quot;</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Mapa(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">, repository não configurado)&quot;</span></div>
 
     
 <div class="viewcode-block" id="Mapa.__repr__">
@@ -820,9 +778,36 @@
 <a class="viewcode-back" href="../../models.html#models.mapa.Mapa.__hash__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado na chave primária composta&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="p">))</span> </div>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">turno</span><span class="p">))</span></div>
 </div>
 
+
+
+<span class="c1"># Exemplo de uso com Repository Pattern</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">exemplo_uso_repository</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exemplo de como usar o Mapa com Repository Pattern&quot;&quot;&quot;</span>
+    
+    <span class="c1"># 1. Configurar repositories (import local para evitar circular import)</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">..repositories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChunkRepositoryImpl</span>
+    <span class="n">chunk_repo</span> <span class="o">=</span> <span class="n">ChunkRepositoryImpl</span><span class="p">()</span>
+    
+    <span class="c1"># 2. Criar mapa e injetar repository</span>
+    <span class="n">mapa</span> <span class="o">=</span> <span class="n">Mapa</span><span class="p">(</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span> <span class="n">TurnoType</span><span class="o">.</span><span class="n">DIA</span><span class="p">)</span>
+    <span class="n">mapa</span><span class="o">.</span><span class="n">set_chunk_repository</span><span class="p">(</span><span class="n">chunk_repo</span><span class="p">)</span>
+    
+    <span class="c1"># 3. Usar o mapa (agora sem acesso direto ao banco)</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mapa tem </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 4. Buscar por bioma</span>
+    <span class="n">chunks_deserto</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_chunks_by_bioma</span><span class="p">(</span><span class="s2">&quot;Deserto&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunks de deserto: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks_deserto</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># 5. Informações de exibição</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_display_info</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Informações: </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">mapa</span> 
 </pre></div>
 
            </div>
