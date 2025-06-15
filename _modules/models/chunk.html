@@ -5,12 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>utils.db_helpers &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
+  <title>models.chunk &mdash; Minecraft Legends - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/utils/db_helpers.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/models/chunk.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=8d563738"></script>
@@ -568,7 +568,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">utils.db_helpers</li>
+      <li class="breadcrumb-item active">models.chunk</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -577,250 +577,190 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for utils.db_helpers</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+  <h1>Source code for models.chunk</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Model do Chunk</span>
+<span class="sd">Representa um chunk do mapa do jogo</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="connection_db">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.connection_db">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">connection_db</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
-        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">,</span>
-        <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
-        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;2025_1_Minecraft&quot;</span>
-    <span class="p">)</span></div>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 
-<div class="viewcode-block" id="execute_sql_file">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.execute_sql_file">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executa um arquivo SQL no banco de dados&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">sql_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<div class="viewcode-block" id="Chunk">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Chunk</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model que representa um chunk do mapa</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        numero_chunk: ID único do chunk (chave primária)</span>
+<span class="sd">        id_bioma: Nome do bioma do chunk (FK para Bioma.NomeBioma)</span>
+<span class="sd">        id_mapa_nome: Nome do mapa (parte da FK para Mapa)</span>
+<span class="sd">        id_mapa_turno: Turno do mapa (parte da FK para Mapa)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">numero_chunk</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">id_bioma</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">id_mapa_nome</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">id_mapa_turno</span><span class="p">:</span> <span class="nb">str</span>
+    
+<div class="viewcode-block" id="Chunk.get_display_name">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.get_display_name">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna o nome formatado do chunk para exibição</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            String formatada do chunk</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_nome</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_desert">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_desert">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_desert</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o chunk é um deserto&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;deserto&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_jungle">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_jungle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_jungle</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o chunk é uma selva&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;selva&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_forest">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_forest">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_forest</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o chunk é uma floresta&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;floresta&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_ocean">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_ocean">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_ocean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o chunk é um oceano&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;oceano&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_day">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_day">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_day</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se é dia no chunk&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dia&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.is_night">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.is_night">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_night</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se é noite no chunk&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;noite&#39;</span></div>
+
+    
+<div class="viewcode-block" id="Chunk.get_adjacent_chunk_ids">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.get_adjacent_chunk_ids">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_adjacent_chunk_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">map_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna os IDs dos chunks adjacentes</span>
+<span class="sd">        Baseado na lógica de grid do mapa</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            map_size: Tamanho do mapa (assumindo mapa quadrado)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Lista de IDs dos chunks adjacentes</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">adjacent</span> <span class="o">=</span> <span class="p">[]</span>
         
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_content</span><span class="p">)</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Arquivo SQL executado com sucesso: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao executar arquivo SQL </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+        <span class="c1"># Horizontal</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">adjacent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>  <span class="c1"># Assumindo 1000 chunks</span>
+            <span class="n">adjacent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        
+        <span class="c1"># Vertical</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">&gt;</span> <span class="n">map_size</span><span class="p">:</span>
+            <span class="n">adjacent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">-</span> <span class="n">map_size</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">&lt;=</span> <span class="mi">1000</span> <span class="o">-</span> <span class="n">map_size</span><span class="p">:</span>
+            <span class="n">adjacent</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">+</span> <span class="n">map_size</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">adjacent</span></div>
 
+    
+<div class="viewcode-block" id="Chunk.belongs_to_map">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.belongs_to_map">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">belongs_to_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mapa_nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mapa_turno</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verifica se o chunk pertence a um mapa específico</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            mapa_nome: Nome do mapa</span>
+<span class="sd">            mapa_turno: Turno do mapa</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se o chunk pertence ao mapa</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_nome</span> <span class="o">==</span> <span class="n">mapa_nome</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span> <span class="o">==</span> <span class="n">mapa_turno</span></div>
 
-<div class="viewcode-block" id="check_database_connection">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_database_connection">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_database_connection</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se é possível conectar ao banco de dados&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Conexão com o banco de dados estabelecida&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao conectar com o banco de dados: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="Chunk.get_bioma_type">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.get_bioma_type">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_bioma_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna o tipo de bioma como string</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Nome do bioma</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span></div>
 
+    
+<div class="viewcode-block" id="Chunk.get_map_key">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.get_map_key">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_map_key</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna a chave do mapa como tupla</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Tupla (nome_mapa, turno_mapa)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_nome</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="check_tables_exist">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_tables_exist">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_tables_exist</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se as tabelas principais existem no banco&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        
-        <span class="c1"># Lista das tabelas principais que devem existir</span>
-        <span class="n">required_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bioma&#39;</span><span class="p">,</span> <span class="s1">&#39;mapa&#39;</span><span class="p">,</span> <span class="s1">&#39;chunk&#39;</span><span class="p">,</span> <span class="s1">&#39;jogador&#39;</span><span class="p">,</span> <span class="s1">&#39;inventario&#39;</span><span class="p">]</span>
-        
-        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">required_tables</span><span class="p">:</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                SELECT EXISTS (</span>
-<span class="s2">                    SELECT FROM information_schema.tables </span>
-<span class="s2">                    WHERE table_schema = &#39;public&#39; </span>
-<span class="s2">                    AND table_name = </span><span class="si">%s</span>
-<span class="s2">                );</span>
-<span class="s2">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">table</span><span class="p">,))</span>
-            
-            <span class="n">exists</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">:</span>
-                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Tabela &#39;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&#39; não encontrada&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Todas as tabelas necessárias existem&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao verificar tabelas: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="Chunk.__str__">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do chunk&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Chunk(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_display_name</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span></div>
 
+    
+<div class="viewcode-block" id="Chunk.__repr__">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do chunk&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunk(numero_chunk=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;id_bioma=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;id_mapa_nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;id_mapa_turno=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa_turno</span><span class="si">}</span><span class="s2">&#39;)&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="check_map_with_1000_chunks">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_map_with_1000_chunks">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_map_with_1000_chunks</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se o mapa com 1000 chunks já foi criado&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de dia</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Dia&#39;</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">day_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de noite</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Noite&#39;</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">night_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">day_chunks</span> <span class="o">&gt;=</span> <span class="mi">1000</span> <span class="ow">and</span> <span class="n">night_chunks</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✓ Mapa com 1000 chunks já existe (Dia: </span><span class="si">{</span><span class="n">day_chunks</span><span class="si">}</span><span class="s2">, Noite: </span><span class="si">{</span><span class="n">night_chunks</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;⚠ Mapa com 1000 chunks não encontrado (Dia: </span><span class="si">{</span><span class="n">day_chunks</span><span class="si">}</span><span class="s2">, Noite: </span><span class="si">{</span><span class="n">night_chunks</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Chunk.__eq__">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.__eq__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Comparação de igualdade baseada na chave primária&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Chunk</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao verificar mapa com 1000 chunks: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">numero_chunk</span></div>
 
-
-<div class="viewcode-block" id="check_data_seeded">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_data_seeded">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_data_seeded</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se os dados iniciais (seed) já foram inseridos&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        
-        <span class="c1"># Verifica se existem dados básicos nas tabelas principais</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM bioma;&quot;</span><span class="p">)</span>
-        <span class="n">bioma_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM mapa;&quot;</span><span class="p">)</span>
-        <span class="n">mapa_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM chunk;&quot;</span><span class="p">)</span>
-        <span class="n">chunk_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">bioma_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">mapa_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">chunk_count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Dados iniciais (seed) já existem no banco&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠ Dados iniciais (seed) não encontrados&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao verificar dados iniciais: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="initialize_database">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.initialize_database">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">initialize_database</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inicializa o banco de dados executando os scripts SQL necessários&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inicializando banco de dados...&quot;</span><span class="p">)</span>
     
-    <span class="c1"># Caminhos dos arquivos SQL (relativos ao diretório /app no container)</span>
-    <span class="n">base_path</span> <span class="o">=</span> <span class="s2">&quot;/app/db&quot;</span>
-    
-    <span class="n">ddl_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;ddl.sql&quot;</span><span class="p">)</span>
-    <span class="n">dml_1000_chunks_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;dml_1000_chunks.sql&quot;</span><span class="p">)</span>
-    <span class="n">dml_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;dml.sql&quot;</span><span class="p">)</span>
-    
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        
-        <span class="c1"># Executa DDL (criação das tabelas)</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ddl_path</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">ddl_path</span><span class="p">):</span>
-                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Arquivo DDL não encontrado: </span><span class="si">{</span><span class="n">ddl_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        
-        <span class="c1"># Tenta executar o script com 1000 chunks primeiro</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dml_1000_chunks_path</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🗺️ Executando script com mapa de 1000 chunks...&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">dml_1000_chunks_path</span><span class="p">):</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;⚠ Erro ao executar script de 1000 chunks, tentando script básico...&quot;</span><span class="p">)</span>
-                <span class="c1"># Se falhar, tenta o script básico</span>
-                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dml_path</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">dml_path</span><span class="p">):</span>
-                        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                        <span class="k">return</span> <span class="kc">False</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Arquivo DML básico não encontrado: </span><span class="si">{</span><span class="n">dml_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># Se não existir o script de 1000 chunks, usa o básico</span>
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dml_path</span><span class="p">):</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">dml_path</span><span class="p">):</span>
-                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                    <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Arquivo DML não encontrado: </span><span class="si">{</span><span class="n">dml_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Banco de dados inicializado com sucesso!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-        
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro durante a inicialização do banco: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="setup_database">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.setup_database">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">setup_database</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Função principal para configurar o banco de dados antes da execução do app&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Verificando configuração do banco de dados...&quot;</span><span class="p">)</span>
-    
-    <span class="c1"># 1. Verifica conexão com o banco</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">check_database_connection</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Falha na conexão com o banco de dados. Verifique se o serviço está rodando.&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="c1"># 2. Verifica se as tabelas existem</span>
-    <span class="n">tables_exist</span> <span class="o">=</span> <span class="n">check_tables_exist</span><span class="p">()</span>
-    
-    <span class="c1"># 3. Verifica se os dados iniciais existem</span>
-    <span class="n">data_exists</span> <span class="o">=</span> <span class="n">check_data_seeded</span><span class="p">()</span>
-    
-    <span class="c1"># 4. Verifica se o mapa com 1000 chunks existe</span>
-    <span class="n">map_1000_exists</span> <span class="o">=</span> <span class="n">check_map_with_1000_chunks</span><span class="p">()</span>
-    
-    <span class="c1"># 5. Se tabelas não existem, dados não existem, ou mapa não tem 1000 chunks, inicializa o banco</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">tables_exist</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">data_exists</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">map_1000_exists</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;🔄 Inicializando estrutura e dados do banco...&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">initialize_database</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;❌ Falha na inicialização do banco de dados.&quot;</span><span class="p">)</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✅ Banco de dados já configurado e pronto para uso!&quot;</span><span class="p">)</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span></div>
+<div class="viewcode-block" id="Chunk.__hash__">
+<a class="viewcode-back" href="../../models.html#models.chunk.Chunk.__hash__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado na chave primária&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">numero_chunk</span><span class="p">)</span> </div>
+</div>
 
 </pre></div>
 
