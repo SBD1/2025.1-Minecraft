@@ -124,3 +124,11 @@ BEGIN
     RAISE NOTICE 'Total: % chunks', (desert_chunks + ocean_chunks + jungle_chunks + forest_chunks);
 END
 $$ LANGUAGE plpgsql;
+
+-- Inserir alguns jogadores de exemplo (apenas se não existirem)
+INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
+VALUES
+    ('Player1', 100, 100, 0, 10, 1), 
+    ('Player2', 120, 120, 50, 12, 2),
+    ('Player3', 110, 110, 25, 11, 3)
+ON CONFLICT (Id_Jogador) DO NOTHING; 
