@@ -2,9 +2,9 @@ name: Run Tests
 
 on:
   push:
-    branches: [ main, master, develop ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, develop ]
 
 jobs:
   test:
@@ -23,7 +23,7 @@ jobs:
         if command -v docker compose &> /dev/null; then
           echo "Using docker compose"
           docker compose build
-          docker compose up -d db
+          docker compose up -d
           sleep 15
           docker compose exec -T app python -m pytest tests/ -v --tb=short
         else
