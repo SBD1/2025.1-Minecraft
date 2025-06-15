@@ -70,7 +70,7 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     return chunks
         except Exception as e:
-            print(f"❌ Erro ao buscar chunks: {str(e)}")
+            print(f"Erro ao buscar chunks: {str(e)}")
             return []
     
     def find_by_id(self, id: int) -> Optional[Chunk]:
@@ -94,7 +94,7 @@ class ChunkRepositoryImpl(ChunkRepository):
                         )
                     return None
         except Exception as e:
-            print(f"❌ Erro ao buscar chunk {id}: {str(e)}")
+            print(f"Erro ao buscar chunk {id}: {str(e)}")
             return None
     
     def save(self, chunk: Chunk) -> Chunk:
@@ -120,7 +120,7 @@ class ChunkRepositoryImpl(ChunkRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao salvar chunk: {str(e)}")
+            print(f"Erro ao salvar chunk: {str(e)}")
             return chunk
     
     def delete(self, id: int) -> bool:
@@ -135,7 +135,7 @@ class ChunkRepositoryImpl(ChunkRepository):
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
-            print(f"❌ Erro ao deletar chunk {id}: {str(e)}")
+            print(f"Erro ao deletar chunk {id}: {str(e)}")
             return False
     
     def find_by_mapa(self, mapa_nome: str, mapa_turno: str) -> List[Chunk]:
@@ -164,7 +164,7 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     return chunks
         except Exception as e:
-            print(f"❌ Erro ao buscar chunks do mapa {mapa_nome} ({mapa_turno}): {str(e)}")
+            print(f"Erro ao buscar chunks do mapa {mapa_nome} ({mapa_turno}): {str(e)}")
             return []
     
     def find_by_bioma(self, bioma_id: str) -> List[Chunk]:
@@ -193,5 +193,5 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     return chunks
         except Exception as e:
-            print(f"❌ Erro ao buscar chunks do bioma {bioma_id}: {str(e)}")
+            print(f"Erro ao buscar chunks do bioma {bioma_id}: {str(e)}")
             return [] 

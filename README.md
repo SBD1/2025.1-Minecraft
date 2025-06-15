@@ -1,33 +1,33 @@
-# 🟩 2025.1 - MINECRAFT - FGA - 2025/1
+# 2025.1 - MINECRAFT - FGA - 2025/1
 
 [![Tests](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/tests.yml/badge.svg)](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/tests.yml)
 [![Documentation](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/docs.yml/badge.svg)](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/docs.yml)
 [![Codecov](https://codecov.io/gh/SBD1/2025.1-Minecraft/branch/main/graph/badge.svg)](https://codecov.io/gh/SBD1/2025.1-Minecraft)
 
-Bem-vindo ao projeto **MINECRAFT - FGA - 2025/1**, desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
+O **MINECRAFT - FGA - 2025/1**, foi desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
 
-Este projeto implementa um jogo baseado no MINECRAFT - FGA - 2025/1 utilizando Python e PostgreSQL, com uma arquitetura em camadas bem definida e ambiente isolado via Docker.
+Este projeto implementa um jogo baseado no MINECRAFT utilizando Python e PostgreSQL, com uma arquitetura em camadas bem definida e ambiente isolado via Docker.
 
 ---
 
-## 📚 Documentação
+## Documentação
 
-📖 **Documentação Completa**: [https://sbd1.github.io/2025.1-Minecraft/](https://sbd1.github.io/2025.1-Minecraft/)
+**Documentação Completa**: [https://sbd1.github.io/2025.1-Minecraft/](https://sbd1.github.io/2025.1-Minecraft/)
 
 A documentação inclui:
-- 📋 Guias de instalação e início rápido
-- 🎮 Guia completo do usuário
-- 🔧 Referência da API e desenvolvimento
-- 🗄️ Estrutura do banco de dados
-- 🤝 Guia de contribuição
+- Guias de instalação e início rápido
+- Guia completo do usuário
+- Referência da API e desenvolvimento
+- Estrutura do banco de dados
+- Guia de contribuição
 
 ---
 
-## 🏗️ Arquitetura do Projeto
+## Arquitetura do Projeto
 
 O projeto utiliza uma arquitetura em camadas com padrão Repository:
 
-- **Interface Layer** (`app/src/interface/`): Interface com o usuário
+- **Interface Layer** (`app/src/interface/`): Interface com o usuário (terminal)
 - **Service Layer** (`app/src/services/`): Lógica de negócio
 - **Repository Layer** (`app/src/repositories/`): Acesso a dados
 - **Model Layer** (`app/src/models/`): Entidades de domínio
@@ -41,7 +41,7 @@ O projeto utiliza uma arquitetura em camadas com padrão Repository:
 
 ---
 
-## ⚙️ Pré-requisitos
+## Pré-requisitos
 
 Antes de começar, certifique-se de ter os seguintes softwares instalados na sua máquina:
 
@@ -50,7 +50,7 @@ Antes de começar, certifique-se de ter os seguintes softwares instalados na sua
 
 ---
 
-## 🚀 Como rodar o jogo
+## Como executar o jogo
 
 ### 1. Clone e acesse este repositório
 
@@ -79,7 +79,7 @@ python main.py
 
 ---
 
-## 🧪 Executando os Testes
+## Executando os Testes
 
 ### Executar todos os testes
 ```bash
@@ -91,19 +91,34 @@ docker compose exec app python -m pytest tests/ -v
 docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
 ```
 
-### Executar teste específico
+### Executar testes por categoria
 ```bash
-docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+# Testes de models
+docker compose exec app python -m pytest tests/model/ -v
+
+# Testes de repositórios
+docker compose exec app python -m pytest tests/repositorio/ -v
+
+# Testes de serviços
+docker compose exec app python -m pytest tests/servicos/ -v
+
+# Testes de integração
+docker compose exec app python -m pytest tests/servicos/test_integration.py -v
 ```
 
-### Executar testes de integração
+### Executar teste específico
 ```bash
-docker compose exec app python -m pytest tests/test_integration.py -v
+docker compose exec app python -m pytest tests/model/test_bioma.py::TestBioma::test_bioma_creation -v
+```
+
+### Executar testes com relatório detalhado
+```bash
+docker compose exec app python -m pytest tests/ --cov=src --cov-report=html --cov-report=term-missing
 ```
 
 ---
 
-## 📖 Documentação Local
+## Documentação Local
 
 Para construir a documentação localmente:
 
@@ -127,22 +142,29 @@ A documentação será gerada em `docs/build/html/`.
 
 ---
 
-## 🛠️ Desenvolvimento
+## Desenvolvimento
 
 ### Estrutura do Projeto
 
 ```
 2025.1-Minecraft/
-├── app/                    # Aplicação principal
+├── app/                   # Aplicação principal
 │   ├── main.py            # Ponto de entrada
 │   ├── requirements.txt   # Dependências Python
-│   ├── Dockerfile         # Container da aplicação
+│   ├── Dockerfile          # Container da aplicação
 │   ├── tests/             # Testes unitários e integração
-│   │   ├── test_bioma.py
-│   │   ├── test_chunk.py
-│   │   ├── test_mapa.py
-│   │   ├── test_integration.py
-│   │   └── test_repository_pattern.py
+│   │   ├── model/         # Testes de models
+│   │   │   ├── test_bioma.py
+│   │   │   ├── test_chunk.py
+│   │   │   └── test_mapa.py
+│   │   ├── repositorio/   # Testes de repositórios
+│   │   │   └── test_repository_pattern.py
+│   │   ├── servicos/      # Testes de serviços
+│   │   │   ├── test_integration.py
+│   │   │   └── test_singleton.py
+│   │   ├── utils/         # Testes de utilitários (futuro)
+│   │   ├── conftest.py    # Configuração compartilhada
+│   │   └── __init__.py
 │   └── src/               # Código fonte
 │       ├── interface/     # Interface do usuário
 │       │   └── display.py
@@ -154,24 +176,24 @@ A documentação será gerada em `docs/build/html/`.
 │       │   ├── chunk_repository.py
 │       │   ├── mapa_repository.py
 │       │   └── bioma_repository.py
-│       ├── models/        # Entidades de domínio
+│       ├── models/       # Entidades de domínio
 │       │   ├── player.py
 │       │   ├── chunk.py
 │       │   ├── mapa.py
 │       │   └── bioma.py
-│       └── utils/         # Utilitários
+│       └── utils/        # Utilitários
 │           └── db_helpers.py
-├── db/                    # Scripts do banco de dados
+├── db/                   # Scripts do banco de dados
 │   ├── Dockerfile.db      # Container do PostgreSQL
 │   ├── ddl.sql           # Definição das tabelas
 │   ├── trigger_SP.sql    # Triggers e stored procedures
 │   ├── dml.sql           # Dados iniciais
 │   └── dml_inst.sql      # Dados de instância
-├── docs/                  # Documentação
+├── docs/                 # Documentação
 │   ├── source/           # Arquivos fonte da documentação
 │   ├── build/            # Documentação gerada
 │   └── architecture.md   # Documentação da arquitetura
-└── docker-compose.yml     # Orquestração dos containers
+└── docker-compose.yml    # Orquestração dos containers
 ```
 
 ### Dependências
@@ -196,7 +218,7 @@ A documentação será gerada em `docs/build/html/`.
 
 ---
 
-## ❌ Como sair
+## Terminar execução
 
 Para sair do terminal interativo:
 - Pressione `Ctrl + D`
@@ -214,29 +236,20 @@ docker compose down -v
 
 ---
 
-## 👥 Contribuindo
+## Créditos
 
-1. Fork o repositório
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
-3. **Execute os testes** para garantir que tudo funciona
-4. Commit suas mudanças (`git commit -am 'feat: add nova funcionalidade'`)
-5. Push para a branch (`git push origin feature/nova-funcionalidade`)
-6. Abra um Pull Request
-
-**Importante**: Todos os PRs devem passar nos testes antes de serem aprovados.
-
-Para mais detalhes, consulte o [Guia de Contribuição](https://sbd1.github.io/2025.1-Minecraft/contributing.html).
-
----
-
-## ✍️ Créditos
-
-Projeto desenvolvido por alunos da disciplina **SBD1 – 2025.1**.  
+Disciplina **SBD1 – 2025.1**.  
 Professor: *Mauricio Serrano*  
 Instituição: *Universidade de Brasília*
+Alunos:
+    - João Lucas Fragoso Zarbiélli
+    - Karolina
+    - Nathan
+    - Victor Hoffmann
+    - Yan Sousa Guimaraes
 
 ---
 
-## 📄 Licença
+## Licença
 
 Este projeto é licenciado sob a [MIT License](LICENSE).

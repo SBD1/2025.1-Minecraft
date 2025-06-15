@@ -103,7 +103,7 @@ class InterfaceService:
             
             return adjacent_chunks
         except Exception as e:
-            print(f"❌ Erro ao buscar chunks adjacentes: {str(e)}")
+            print(f"Erro ao buscar chunks adjacentes: {str(e)}")
             return []
     
     def move_player_to_chunk(self, player: Player, chunk_id: int) -> Optional[Player]:
@@ -120,7 +120,7 @@ class InterfaceService:
             # Salvar no banco
             return self.player_repository.save(player)
         except Exception as e:
-            print(f"❌ Erro ao mover jogador: {str(e)}")
+            print(f"Erro ao mover jogador: {str(e)}")
             return None
     
     def get_desert_chunk(self, turno: str = 'Dia') -> Optional[int]:
@@ -136,7 +136,7 @@ class InterfaceService:
             
             return None
         except Exception as e:
-            print(f"❌ Erro ao buscar chunk de deserto: {str(e)}")
+            print(f"Erro ao buscar chunk de deserto: {str(e)}")
             return None
     
     def ensure_player_location(self, player: Player) -> bool:

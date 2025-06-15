@@ -247,3 +247,51 @@ Para aprofundar seus conhecimentos:
 * :doc:`api_reference` - Documentação técnica
 * :doc:`database` - Estrutura do banco de dados
 * :doc:`development` - Como contribuir 
+
+Sistema de Movimento
+-------------------
+
+Movimento com Direções
+^^^^^^^^^^^^^^^^^^^^^
+
+O sistema de movimento foi melhorado para mostrar direções claras:
+
+* **⬆️ Cima** - Move para chunk acima
+* **⬇️ Baixo** - Move para chunk abaixo  
+* **⬅️ Esquerda** - Move para chunk à esquerda
+* **➡️ Direita** - Move para chunk à direita
+
+Exemplo de opções de movimento:
+.. code-block:: text
+
+   🚶 OPÇÕES DE MOVIMENTO:
+   ----------------------------------------
+   1. ⬆️ Cima - 🌊 Oceano (Chunk 2)
+   2. ⬇️ Baixo - 🌴 Selva (Chunk 4)
+   3. ⬅️ Esquerda - 🏜️ Deserto (Chunk 1)
+   4. ➡️ Direita - 🌲 Floresta (Chunk 3)
+
+Informação de Bioma Inteligente
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+O sistema informa mudanças de bioma de forma inteligente:
+
+* **Se há mudança de bioma**: "✅ Chegou em [Bioma]!"
+* **Se não há mudança**: "✅ Movimento realizado!"
+* **Se não consegue determinar**: "✅ Chegou em [Bioma]!" (por segurança)
+
+Como Mover
+^^^^^^^^^^
+
+#. Selecione **1-4. Mover para direção**
+#. Escolha a direção desejada (1-4)
+#. Aguarde a confirmação do movimento
+#. Verifique se houve mudança de bioma
+
+**Validações:**
+* Direção deve ser válida (1-4)
+* Chunk de destino deve existir
+* Movimento é instantâneo
+
+Sistema de Localização
+----------------------
