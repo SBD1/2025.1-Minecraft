@@ -169,35 +169,51 @@ class TestInterfaceServiceIntegration:
     
     def test_singleton_persistence_across_calls(self):
         """Testa se o Singleton mantém estado entre chamadas"""
-        # Obter primeira instância
-        service1 = InterfaceService.get_instance()
+        # Reset da instância para teste limpo
+        InterfaceService.reset_instance()
         
-        # Configurar mock para retornar dados
-        from src.models.player import Player
-        test_player = Player(
-            id_jogador=1,
-            nome="TestPlayer",
-            vida_maxima=100,
-            vida_atual=100,
-            forca=10,
-            localizacao="1",
-            nivel=1,
-            experiencia=0
-        )
-        self.mock_player_repo.find_by_id.return_value = test_player
-        
-        # Obter segunda instância
-        service2 = InterfaceService.get_instance()
-        
-        # Verificar se são a mesma instância
-        assert service1 is service2
-        
-        # Usar a segunda instância para buscar jogador
-        result = service2.get_player_by_id(1)
-        
-        # Verificar se o mock foi chamado
-        self.mock_player_repo.find_by_id.assert_called_once_with(1)
-        assert result == test_player
+        # Mock dos repositórios ANTES de instanciar o InterfaceService
+        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
+             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
+             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
+            
+            self.mock_player_repo = Mock()
+            self.mock_chunk_repo = Mock()
+            self.mock_mapa_repo = Mock()
+            
+            mock_player_repo.return_value = self.mock_player_repo
+            mock_chunk_repo.return_value = self.mock_chunk_repo
+            mock_mapa_repo.return_value = self.mock_mapa_repo
+            
+            # Obter primeira instância
+            service1 = InterfaceService.get_instance()
+            
+            # Configurar mock para retornar dados
+            from src.models.player import Player
+            test_player = Player(
+                id_jogador=1,
+                nome="TestPlayer",
+                vida_maxima=100,
+                vida_atual=100,
+                forca=10,
+                localizacao="1",
+                nivel=1,
+                experiencia=0
+            )
+            self.mock_player_repo.find_by_id.return_value = test_player
+            
+            # Obter segunda instância
+            service2 = InterfaceService.get_instance()
+            
+            # Verificar se são a mesma instância
+            assert service1 is service2
+            
+            # Usar a segunda instância para buscar jogador
+            result = service2.get_player_by_id(1)
+            
+            # Verificar se o mock foi chamado
+            self.mock_player_repo.find_by_id.assert_called_once_with(1)
+            assert result == test_player
 
 
 if __name__ == "__main__":

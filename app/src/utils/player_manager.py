@@ -101,13 +101,13 @@ def get_all_players() -> List[Player]:
         print(f"❌ Erro ao buscar personagens: {str(e)}")
         return []
 
-def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Optional[Player]:
+def create_new_player(nome: str, vida_maxima: int = 100, forca: int = 10) -> Optional[Player]:
     """
     Cria um novo personagem no banco de dados usando repositório
     """
     try:
         interface_service = InterfaceService.get_instance()
-        new_player = interface_service.create_player(nome, vida_max, forca)
+        new_player = interface_service.create_player(nome, vida_maxima, forca)
         
         if new_player:
             print(f"✅ Personagem '{nome}' criado com sucesso!")

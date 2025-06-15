@@ -51,10 +51,12 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT id_jogador, nome, vida_maxima, vida_atual, forca, 
-                               localizacao, nivel, experiencia
-                        FROM jogador
-                        ORDER BY nome
+                        SELECT Id_Jogador, Nome, Vida_max, Vida_atual, forca, 
+                               COALESCE(Id_Chunk_Atual, 1) as localizacao,
+                               COALESCE(xp, 0) as experiencia,
+                               1 as nivel
+                        FROM Jogador
+                        ORDER BY Nome
                     """)
                     
                     results = cursor.fetchall()
@@ -67,9 +69,9 @@ class PlayerRepositoryImpl(PlayerRepository):
                             vida_maxima=row[2],
                             vida_atual=row[3],
                             forca=row[4],
-                            localizacao=row[5],
-                            nivel=row[6],
-                            experiencia=row[7]
+                            localizacao=str(row[5]),
+                            nivel=row[7],
+                            experiencia=row[6]
                         )
                         players.append(player)
                     
@@ -84,10 +86,12 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT id_jogador, nome, vida_maxima, vida_atual, forca, 
-                               localizacao, nivel, experiencia
-                        FROM jogador
-                        WHERE id_jogador = %s
+                        SELECT Id_Jogador, Nome, Vida_max, Vida_atual, forca, 
+                               COALESCE(Id_Chunk_Atual, 1) as localizacao,
+                               COALESCE(xp, 0) as experiencia,
+                               1 as nivel
+                        FROM Jogador
+                        WHERE Id_Jogador = %s
                     """, (id,))
                     
                     result = cursor.fetchone()
@@ -98,9 +102,9 @@ class PlayerRepositoryImpl(PlayerRepository):
                             vida_maxima=result[2],
                             vida_atual=result[3],
                             forca=result[4],
-                            localizacao=result[5],
-                            nivel=result[6],
-                            experiencia=result[7]
+                            localizacao=str(result[5]),
+                            nivel=result[7],
+                            experiencia=result[6]
                         )
                     return None
         except Exception as e:
@@ -142,37 +146,39 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     if player.id_jogador:
+                        # Update existing player - only update columns that exist in DB
                         cursor.execute("""
-                            UPDATE jogador 
-                            SET nome = %s, vida_maxima = %s, vida_atual = %s, 
-                                forca = %s, localizacao = %s, nivel = %s, experiencia = %s
-                            WHERE id_jogador = %s
-                            RETURNING id_jogador, nome, vida_maxima, vida_atual, 
-                                     forca, localizacao, nivel, experiencia
+                            UPDATE Jogador 
+                            SET Nome = %s, Vida_max = %s, Vida_atual = %s, 
+                                forca = %s, Id_Chunk_Atual = %s, xp = %s
+                            WHERE Id_Jogador = %s
+                            RETURNING Id_Jogador, Nome, Vida_max, Vida_atual, 
+                                     forca, Id_Chunk_Atual, xp
                         """, (player.nome, player.vida_maxima, player.vida_atual,
-                              player.forca, player.localizacao, player.nivel, 
+                              player.forca, int(player.localizacao) if player.localizacao.isdigit() else 1, 
                               player.experiencia, player.id_jogador))
                     else:
+                        # Insert new player - only insert columns that exist in DB
                         cursor.execute("""
-                            INSERT INTO jogador (nome, vida_maxima, vida_atual, forca, 
-                                               localizacao, nivel, experiencia)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s)
-                            RETURNING id_jogador, nome, vida_maxima, vida_atual, 
-                                     forca, localizacao, nivel, experiencia
+                            INSERT INTO Jogador (Nome, Vida_max, Vida_atual, forca, 
+                                               Id_Chunk_Atual, xp)
+                            VALUES (%s, %s, %s, %s, %s, %s)
+                            RETURNING Id_Jogador, Nome, Vida_max, Vida_atual, 
+                                     forca, Id_Chunk_Atual, xp
                         """, (player.nome, player.vida_maxima, player.vida_atual,
-                              player.forca, player.localizacao, player.nivel, 
+                              player.forca, int(player.localizacao) if player.localizacao.isdigit() else 1, 
                               player.experiencia))
                     result = cursor.fetchone()
                     conn.commit()
                     return Player(
                         id_jogador=result[0],
                         nome=result[1],
-                        vida_maxima=result[2],
+                        vida_maxima=result[2],  # Map Vida_max to vida_maxima
                         vida_atual=result[3],
                         forca=result[4],
-                        localizacao=result[5],
-                        nivel=result[6],
-                        experiencia=result[7]
+                        localizacao=str(result[5]) if result[5] else "1",  # Map Id_Chunk_Atual to localizacao
+                        nivel=player.nivel,  # Keep the model's nivel since it's not in DB
+                        experiencia=result[6]  # Map xp to experiencia
                     )
         except Exception as e:
             if 'conn' in locals():
@@ -185,7 +191,7 @@ class PlayerRepositoryImpl(PlayerRepository):
         try:
             with connection_db() as conn:
                 with conn.cursor() as cursor:
-                    cursor.execute("DELETE FROM jogador WHERE id_jogador = %s", (id,))
+                    cursor.execute("DELETE FROM Jogador WHERE Id_Jogador = %s", (id,))
                     deleted = cursor.rowcount > 0
                     conn.commit()
                     return deleted
@@ -201,10 +207,12 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT id_jogador, nome, vida_maxima, vida_atual, forca, 
-                               localizacao, nivel, experiencia
-                        FROM jogador
-                        WHERE nome = %s
+                        SELECT Id_Jogador, Nome, Vida_max, Vida_atual, forca, 
+                               COALESCE(Id_Chunk_Atual, 1) as localizacao,
+                               COALESCE(xp, 0) as experiencia,
+                               1 as nivel
+                        FROM Jogador
+                        WHERE Nome = %s
                     """, (name,))
                     
                     result = cursor.fetchone()
@@ -212,12 +220,12 @@ class PlayerRepositoryImpl(PlayerRepository):
                         return Player(
                             id_jogador=result[0],
                             nome=result[1],
-                            vida_maxima=result[2],
+                            vida_maxima=result[2],  # Map Vida_max to vida_maxima
                             vida_atual=result[3],
                             forca=result[4],
-                            localizacao=result[5],
-                            nivel=result[6],
-                            experiencia=result[7]
+                            localizacao=str(result[5]),  # Convert chunk ID to string
+                            nivel=result[7],  # Default to 1
+                            experiencia=result[6]  # Map xp to experiencia
                         )
                     return None
         except Exception as e:
@@ -230,11 +238,13 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT id_jogador, nome, vida_maxima, vida_atual, forca, 
-                               localizacao, nivel, experiencia
-                        FROM jogador
-                        WHERE vida_atual > 0
-                        ORDER BY nome
+                        SELECT Id_Jogador, Nome, Vida_max, Vida_atual, forca, 
+                               COALESCE(Id_Chunk_Atual, 1) as localizacao,
+                               COALESCE(xp, 0) as experiencia,
+                               1 as nivel
+                        FROM Jogador
+                        WHERE Vida_atual > 0
+                        ORDER BY Nome
                     """)
                     
                     results = cursor.fetchall()
@@ -244,12 +254,12 @@ class PlayerRepositoryImpl(PlayerRepository):
                         player = Player(
                             id_jogador=row[0],
                             nome=row[1],
-                            vida_maxima=row[2],
+                            vida_maxima=row[2],  # Map Vida_max to vida_maxima
                             vida_atual=row[3],
                             forca=row[4],
-                            localizacao=row[5],
-                            nivel=row[6],
-                            experiencia=row[7]
+                            localizacao=str(row[5]),  # Convert chunk ID to string
+                            nivel=row[7],  # Default to 1
+                            experiencia=row[6]  # Map xp to experiencia
                         )
                         players.append(player)
                     

@@ -194,6 +194,9 @@ class GameServiceImpl(GameService):
                 "nome": saved.nome,
                 "vida_atual": saved.vida_atual,
                 "vida_maxima": saved.vida_maxima,
+                "forca": saved.forca,
+                "nivel": saved.nivel,
+                "experiencia": saved.experiencia,
                 "localizacao": saved.localizacao
             }
         }
