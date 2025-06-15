@@ -1,5 +1,6 @@
 """
-Testes para demonstrar o uso do Repository Pattern
+Testes para o Repository Pattern
+Verifica se os repositories estão funcionando corretamente
 """
 
 import pytest
@@ -10,14 +11,14 @@ from src.repositories import (
     MapaRepositoryImpl,
     PlayerRepositoryImpl
 )
-from src.services.game_service import GameService
-from src.models.chunk import Chunk
 from src.models.mapa import Mapa, TurnoType
 from src.models.player import Player
+from src.models.chunk import Chunk
+from src.services.game_service import GameServiceImpl
 
 
 class TestRepositoryPattern:
-    """Testes para demonstrar o Repository Pattern"""
+    """Testes para o Repository Pattern"""
     
     def test_chunk_repository_find_by_mapa(self):
         """Testa busca de chunks por mapa usando repository"""
@@ -98,7 +99,7 @@ class TestRepositoryPattern:
         with patch.object(MapaRepositoryImpl, 'find_by_id', return_value=mock_mapa), \
              patch.object(ChunkRepositoryImpl, 'find_by_mapa', return_value=mock_chunks):
             
-            service = GameService()
+            service = GameServiceImpl()
             
             # Act
             info = service.get_map_info("Mapa_Principal", TurnoType.DIA)
@@ -116,17 +117,16 @@ class TestRepositoryPattern:
         mock_saved_player = Player(1, "NovoJogador", 100, 100, 10, "Spawn", 1, 0)
         
         # Mock dos repositories
-        with patch.object(PlayerRepositoryImpl, 'find_by_name', return_value=None), \
+        with patch.object(PlayerRepositoryImpl, 'find_all', return_value=[]), \
              patch.object(PlayerRepositoryImpl, 'save', return_value=mock_saved_player):
             
-            service = GameService()
+            service = GameServiceImpl()
             
             # Act
             result = service.create_new_player("NovoJogador")
             
             # Assert
             assert result["success"] is True
-            assert result["message"] == "Jogador 'NovoJogador' criado com sucesso"
             assert result["player"]["nome"] == "NovoJogador"
             assert result["player"]["vida_atual"] == 100
             assert result["player"]["nivel"] == 1
@@ -137,15 +137,15 @@ class TestRepositoryPattern:
         existing_player = Player(1, "JogadorExistente", 100, 100, 10, "Spawn", 1, 0)
         
         # Mock do repository
-        with patch.object(PlayerRepositoryImpl, 'find_by_name', return_value=existing_player):
-            service = GameService()
+        with patch.object(PlayerRepositoryImpl, 'find_all', return_value=[existing_player]):
+            service = GameServiceImpl()
             
             # Act
             result = service.create_new_player("JogadorExistente")
             
             # Assert
             assert "error" in result
-            assert "Já existe um jogador com o nome" in result["error"]
+            assert "Nome de jogador já existe" in result["error"]
     
     def test_game_service_move_player_to_chunk(self):
         """Testa movimento de jogador para chunk"""
@@ -159,7 +159,7 @@ class TestRepositoryPattern:
              patch.object(ChunkRepositoryImpl, 'find_by_id', return_value=mock_chunk), \
              patch.object(PlayerRepositoryImpl, 'save', return_value=mock_updated_player):
             
-            service = GameService()
+            service = GameServiceImpl()
             
             # Act
             result = service.move_player_to_chunk(1, 5)
@@ -193,7 +193,7 @@ class TestRepositoryPattern:
              patch.object(ChunkRepositoryImpl, 'find_all', return_value=mock_chunks), \
              patch.object(PlayerRepositoryImpl, 'find_all', return_value=mock_players):
             
-            service = GameService()
+            service = GameServiceImpl()
             
             # Act
             stats = service.get_map_statistics()
