@@ -4,23 +4,23 @@ Mantém dados essenciais do personagem em memória para otimizar performance
 """
 
 from typing import Optional, List, Tuple
-from src.utils.db_helpers import connection_db
-from src.models.player import PlayerSession
+from src.models.player import Player
 from src.models.chunk import Chunk
+from src.services.interface_service import InterfaceService
 from colorama import Fore
 
 
 # Variável global para armazenar o personagem ativo
-current_player: Optional[PlayerSession] = None
+current_player: Optional[Player] = None
 
 
-def set_current_player(player_data: PlayerSession) -> None:
+def set_current_player(player_data: Player) -> None:
     """Define o personagem ativo da sessão"""
     global current_player
     current_player = player_data
     print(f"🎮 Personagem '{player_data.nome}' selecionado!")
 
-def get_current_player() -> Optional[PlayerSession]:
+def get_current_player() -> Optional[Player]:
     """Retorna o personagem ativo da sessão"""
     return current_player
 
@@ -29,41 +29,20 @@ def clear_current_player() -> None:
     global current_player
     current_player = None
 
-def load_player_by_id(player_id: int) -> Optional[PlayerSession]:
+def load_player_by_id(player_id: int) -> Optional[Player]:
     """
-    Carrega um personagem completo do banco de dados com dados do chunk atual
-    Otimizado com JOIN para evitar múltiplas queries
+    Carrega um personagem completo do banco de dados usando repositório
     """
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                # Query otimizada com LEFT JOIN para pegar dados do chunk
-                cursor.execute("""
-                    SELECT 
-                        j.id_jogador, j.nome, j.vida_max, j.vida_atual, 
-                        j.xp, j.forca, j.id_chunk_atual,
-                        c.id_bioma, c.id_mapa_nome, c.id_mapa_turno
-                    FROM jogador j
-                    LEFT JOIN chunk c ON j.id_chunk_atual = c.numero_chunk
-                    WHERE j.id_jogador = %s
-                """, (player_id,))
-                
-                result = cursor.fetchone()
-                
-                if result:
-                    return PlayerSession(
-                        id_jogador=result[0],
-                        nome=result[1],
-                        vida_max=result[2],
-                        vida_atual=result[3],
-                        xp=result[4],
-                        forca=result[5],
-                        id_chunk_atual=result[6],
-                        chunk_bioma=result[7],
-                        chunk_mapa_nome=result[8],
-                        chunk_mapa_turno=result[9]
-                    )
-                return None
+        interface_service = InterfaceService.get_instance()
+        player = interface_service.get_player_by_id(player_id)
+        
+        if player:
+            print(f"✅ Personagem '{player.nome}' carregado com sucesso!")
+            return player
+        else:
+            print(f"❌ Personagem com ID {player_id} não encontrado!")
+            return None
                 
     except Exception as e:
         print(f"❌ Erro ao carregar personagem {player_id}: {str(e)}")
@@ -89,8 +68,7 @@ def refresh_current_player() -> bool:
 
 def save_player_changes() -> bool:
     """
-    Salva as alterações do personagem atual no banco de dados
-    Útil após modificações na sessão (vida, XP, etc.)
+    Salva as alterações do personagem atual no banco de dados usando repositório
     """
     global current_player
     if not current_player:
@@ -98,64 +76,45 @@ def save_player_changes() -> bool:
         return False
     
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    UPDATE jogador 
-                    SET vida_atual = %s, xp = %s, forca = %s, id_chunk_atual = %s
-                    WHERE id_jogador = %s
-                """, (
-                    current_player.vida_atual,
-                    current_player.xp,
-                    current_player.forca,
-                    current_player.id_chunk_atual,
-                    current_player.id_jogador
-                ))
-                conn.commit()
-                print("💾 Dados do personagem salvos no banco!")
-                return True
+        interface_service = InterfaceService.get_instance()
+        saved_player = interface_service.save_player(current_player)
+        
+        if saved_player:
+            current_player = saved_player
+            print("💾 Dados do personagem salvos no banco!")
+            return True
+        else:
+            print("❌ Erro ao salvar personagem")
+            return False
                 
     except Exception as e:
         print(f"❌ Erro ao salvar personagem: {str(e)}")
         return False
 
-def get_all_players() -> list:
-    """Busca todos os personagens do banco para seleção"""
+def get_all_players() -> List[Player]:
+    """Busca todos os personagens do banco usando repositório"""
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    SELECT id_jogador, nome, vida_max, vida_atual, xp, forca, id_chunk_atual
-                    FROM jogador 
-                    ORDER BY nome
-                """)
-                return cursor.fetchall()
+        interface_service = InterfaceService.get_instance()
+        players = interface_service.get_all_players()
+        return players
     except Exception as e:
         print(f"❌ Erro ao buscar personagens: {str(e)}")
         return []
 
-def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Optional[PlayerSession]:
+def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Optional[Player]:
     """
-    Cria um novo personagem no banco de dados
-    Retorna o PlayerSession do personagem criado
+    Cria um novo personagem no banco de dados usando repositório
     """
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    INSERT INTO jogador (nome, vida_max, vida_atual, xp, forca, id_chunk_atual)
-                    VALUES (%s, %s, %s, 0, %s, 1)
-                    RETURNING id_jogador
-                """, (nome, vida_max, vida_max, forca))
-                
-                player_id = cursor.fetchone()[0]
-                conn.commit()
-
-                # Carrega o personagem recém-criado
-                new_player = load_player_by_id(player_id)
-                if new_player:
-                    print(f"✅ Personagem '{nome}' criado com sucesso!")
-                    return new_player
+        interface_service = InterfaceService.get_instance()
+        new_player = interface_service.create_player(nome, vida_max, forca)
+        
+        if new_player:
+            print(f"✅ Personagem '{nome}' criado com sucesso!")
+            return new_player
+        else:
+            print(f"❌ Erro ao criar personagem '{nome}' ou nome já existe!")
+            return None
                 
     except Exception as e:
         print(f"❌ Erro ao criar personagem: {str(e)}")
@@ -163,103 +122,85 @@ def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Option
 
 def delete_player(player_id: int) -> bool:
     """
-    Deleta um personagem do banco de dados
-    Retorna True se deletado com sucesso
+    Deleta um personagem do banco de dados usando repositório
     """
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                # Primeiro, verificar se o personagem existe e pegar o nome
-                cursor.execute("SELECT nome FROM jogador WHERE id_jogador = %s", (player_id,))
-                result = cursor.fetchone()
-                
-                if not result:
-                    print(f"❌ Personagem com ID {player_id} não encontrado!")
-                    return False
-                
-                player_name = result[0]
-                
-                # Verificar se é o personagem ativo
-                current_player = get_current_player()
-                if current_player and current_player.id_jogador == player_id:
-                    print(f"❌ Não é possível deletar o personagem ativo '{player_name}'!")
-                    print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
-                    return False
-                
-                # Deletar o personagem (CASCADE irá deletar inventário automaticamente)
-                cursor.execute("DELETE FROM jogador WHERE id_jogador = %s", (player_id,))
-                
-                if cursor.rowcount > 0:
-                    conn.commit()
-                    print(f"🗑️  Personagem '{player_name}' deletado com sucesso!")
-                    return True
-                else:
-                    print(f"❌ Erro ao deletar personagem '{player_name}'!")
-                    return False
+        interface_service = InterfaceService.get_instance()
+        
+        # Primeiro, verificar se o personagem existe
+        player = interface_service.get_player_by_id(player_id)
+        
+        if not player:
+            print(f"❌ Personagem com ID {player_id} não encontrado!")
+            return False
+        
+        # Verificar se é o personagem ativo
+        current_player = get_current_player()
+        if current_player and current_player.id_jogador == player_id:
+            print(f"❌ Não é possível deletar o personagem ativo '{player.nome}'!")
+            print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
+            return False
+        
+        # Deletar o personagem
+        if interface_service.delete_player(player_id):
+            print(f"🗑️  Personagem '{player.nome}' deletado com sucesso!")
+            return True
+        else:
+            print(f"❌ Erro ao deletar personagem '{player.nome}'!")
+            return False
                 
     except Exception as e:
         print(f"❌ Erro ao deletar personagem: {str(e)}")
         return False
 
 def confirm_player_deletion(player_name: str) -> bool:
-    """
-    Solicita confirmação para deletar um personagem
-    Retorna True se confirmado
-    """
+    """Confirma a deleção de um personagem com o usuário"""
     print(f"\n⚠️  ATENÇÃO: Você está prestes a deletar o personagem '{player_name}'!")
-    print("🗑️  Esta ação é IRREVERSÍVEL e deletará:")
-    print("   • Todos os dados do personagem")
-    print("   • Todo o inventário do personagem")
-    print("   • Todo o progresso salvo")
+    print("Esta ação é IRREVERSÍVEL e todos os dados do personagem serão perdidos.")
     print()
     
     while True:
-        confirm = input(f"❓ Tem certeza que deseja deletar '{player_name}'? (sim/não): ").strip().lower()
+        confirmacao = input("❓ Tem certeza que deseja continuar? (sim/não): ").strip().lower()
         
-        if confirm in ['sim', 's', 'yes', 'y']:
-            # Confirmação final
-            final_confirm = input(f"🔴 Digite {Fore.RED}'DELETAR'{Fore.RESET} para confirmar definitivamente: ").strip()
-            return final_confirm == 'DELETAR'
-        elif confirm in ['não', 'nao', 'n', 'no']:
-            print("✅ Operação cancelada.")
+        if confirmacao in ['sim', 's', 'yes', 'y']:
+            return True
+        elif confirmacao in ['não', 'nao', 'n', 'no']:
             return False
         else:
             print("❌ Digite 'sim' ou 'não'.")
 
-def display_player_status(player: Optional[PlayerSession] = None) -> None:
+def display_player_status(player: Optional[Player] = None) -> None:
     """Exibe o status do personagem (atual ou especificado)"""
     if not player:
-        player = current_player
+        player = get_current_player()
     
     if not player:
-        print("❌ Nenhum personagem ativo")
+        print("❌ Nenhum personagem para exibir")
         return
     
-    # Largura da tabela: 50 caracteres internos (suficiente para maior localização possível)
-    table_width = 50
-    
     # Usar métodos da model para formatação
-    localizacao = player.get_location_display()
-    vida_str = f"{player.vida_atual}/{player.vida_max}"
+    localizacao = f"Chunk {player.localizacao}" if player.localizacao else "Desconhecida"
+    vida_str = f"{player.vida_atual}/{player.vida_maxima}"
     
+    table_width = 50
     print(f"""
 ╔═{'═' * table_width}═╗
-║{' STATUS DO PERSONAGEM '.center(table_width)}  ║
+║{' STATUS PERSONAGEM '.center(table_width)}  ║
 ╠═{'═' * table_width}═╣
 ║ Nome: {player.nome:<{table_width-6}} ║
 ║ Vida: {vida_str:<{table_width-6}} ║
-║ XP: {player.xp:<{table_width-4}} ║
+║ XP: {player.experiencia:<{table_width-4}} ║
 ║ Força: {player.forca:<{table_width-7}} ║
 ║ Localização: {localizacao:<{table_width-13}} ║
 ╚═{'═' * table_width}═╝""")
 
-def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> list:
+def get_player_status_lines(player: Player, is_current: bool = False) -> list:
     """Retorna as linhas da tabela de status como lista de strings"""
     table_width = 50
     
     # Usar métodos da model para formatação
-    localizacao = player.get_location_display()
-    vida_str = f"{player.vida_atual}/{player.vida_max}"
+    localizacao = f"Chunk {player.localizacao}" if player.localizacao else "Desconhecida"
+    vida_str = f"{player.vida_atual}/{player.vida_maxima}"
     
     # Título com indicador de personagem atual
     title = " PERSONAGEM ATIVO " if is_current else " STATUS PERSONAGEM "
@@ -270,7 +211,7 @@ def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> 
         f"╠═{'═' * table_width}═╣",
         f"║ Nome: {player.nome:<{table_width-6}} ║",
         f"║ Vida: {vida_str:<{table_width-6}} ║",
-        f"║ XP: {player.xp:<{table_width-4}} ║",
+        f"║ XP: {player.experiencia:<{table_width-4}} ║",
         f"║ Força: {player.forca:<{table_width-7}} ║",
         f"║ Localização: {localizacao:<{table_width-13}} ║",
         f"╚═{'═' * table_width}═╝"
@@ -278,7 +219,7 @@ def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> 
     
     return lines
 
-def display_players_grid(players_data: list) -> None:
+def display_players_grid(players_data: List[Player]) -> None:
     """Exibe múltiplos personagens em formato de grid lado a lado"""
     if not players_data:
         print("❌ Nenhum personagem para exibir")
@@ -298,16 +239,15 @@ def display_players_grid(players_data: list) -> None:
     # Calcular quantas tabelas cabem por linha
     tables_per_line = max(1, (terminal_width + spacing) // (table_total_width + spacing))
     
-    # Converter dados brutos em PlayerSession objects
+    # Obter personagem atual
     current_player_obj = get_current_player()
     current_id = current_player_obj.id_jogador if current_player_obj else None
     
+    # Preparar dados dos jogadores
     player_sessions = []
-    for player_data in players_data:
-        # Carregar dados completos do personagem
-        player_session = load_player_by_id(player_data[0])
-        if player_session:
-            player_sessions.append((player_session, player_data[0] == current_id))
+    for player in players_data:
+        is_current = current_id and player.id_jogador == current_id
+        player_sessions.append((player, is_current))
     
     # Organizar em linhas
     for i in range(0, len(player_sessions), tables_per_line):
@@ -339,33 +279,19 @@ def display_players_grid(players_data: list) -> None:
 
 def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, str]]:
     """
-    Retorna os chunks adjacentes ao chunk atual
+    Retorna os chunks adjacentes ao chunk atual usando repositório
     Retorna lista de tuplas (chunk_id, bioma)
     """
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                # Busca chunks adjacentes no mesmo turno
-                cursor.execute("""
-                    SELECT numero_chunk, id_bioma
-                    FROM chunk 
-                    WHERE id_mapa_turno = %s 
-                    AND numero_chunk IN (
-                        %s - 1, %s + 1,  -- Horizontal
-                        %s - 32, %s + 32  -- Vertical (assumindo mapa 32x32)
-                    )
-                    ORDER BY numero_chunk
-                """, (turno, chunk_id, chunk_id, chunk_id, chunk_id))
-                
-                return cursor.fetchall()
+        interface_service = InterfaceService.get_instance()
+        return interface_service.get_adjacent_chunks(chunk_id, turno)
     except Exception as e:
         print(f"❌ Erro ao buscar chunks adjacentes: {str(e)}")
         return []
 
 def move_player_to_chunk(chunk_id: int) -> bool:
     """
-    Move o personagem atual para um novo chunk
-    Atualiza tanto a sessão quanto o banco de dados
+    Move o personagem atual para um novo chunk usando repositórios
     """
     global current_player
     if not current_player:
@@ -373,36 +299,16 @@ def move_player_to_chunk(chunk_id: int) -> bool:
         return False
     
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                # Verifica se o chunk existe e obtém seus dados
-                cursor.execute("""
-                    SELECT id_bioma, id_mapa_nome, id_mapa_turno
-                    FROM chunk 
-                    WHERE numero_chunk = %s
-                """, (chunk_id,))
-                
-                chunk_data = cursor.fetchone()
-                if not chunk_data:
-                    print(f"❌ Chunk {chunk_id} não encontrado!")
-                    return False
-                
-                # Atualiza o banco de dados
-                cursor.execute("""
-                    UPDATE jogador 
-                    SET id_chunk_atual = %s
-                    WHERE id_jogador = %s
-                """, (chunk_id, current_player.id_jogador))
-                
-                # Atualiza a sessão
-                current_player.id_chunk_atual = chunk_id
-                current_player.chunk_bioma = chunk_data[0]
-                current_player.chunk_mapa_nome = chunk_data[1]
-                current_player.chunk_mapa_turno = chunk_data[2]
-                
-                conn.commit()
-                print(f"✅ Movido para {chunk_data[0]}!")
-                return True
+        interface_service = InterfaceService.get_instance()
+        updated_player = interface_service.move_player_to_chunk(current_player, chunk_id)
+        
+        if updated_player:
+            current_player = updated_player
+            print(f"✅ Movido para chunk {chunk_id}!")
+            return True
+        else:
+            print(f"❌ Erro ao mover para chunk {chunk_id}!")
+            return False
                 
     except Exception as e:
         print(f"❌ Erro ao mover personagem: {str(e)}")
@@ -410,41 +316,26 @@ def move_player_to_chunk(chunk_id: int) -> bool:
 
 def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
     """
-    Retorna o ID de um chunk de deserto no turno especificado
+    Retorna o ID de um chunk de deserto no turno especificado usando repositório
     """
     try:
-        with connection_db() as conn:
-            with conn.cursor() as cursor:
-                cursor.execute("""
-                    SELECT numero_chunk
-                    FROM chunk 
-                    WHERE id_bioma = 'Deserto' AND id_mapa_turno = %s
-                    LIMIT 1
-                """, (turno,))
-                
-                result = cursor.fetchone()
-                return result[0] if result else None
-                
+        interface_service = InterfaceService.get_instance()
+        return interface_service.get_desert_chunk(turno)
     except Exception as e:
         print(f"❌ Erro ao buscar chunk de deserto: {str(e)}")
         return None
 
 def ensure_player_location() -> bool:
     """
-    Garante que o personagem atual tem uma localização válida
-    Se não tiver, coloca no deserto
+    Garante que o personagem atual tem uma localização válida usando repositórios
     """
     global current_player
     if not current_player:
         return False
     
-    # Se o personagem não tem localização, coloca no deserto
-    if not current_player.id_chunk_atual:
-        desert_chunk = get_desert_chunk('Dia')
-        if desert_chunk:
-            return move_player_to_chunk(desert_chunk)
-        else:
-            print("❌ Não foi possível encontrar um chunk de deserto!")
-            return False
-    
-    return True
+    try:
+        interface_service = InterfaceService.get_instance()
+        return interface_service.ensure_player_location(current_player)
+    except Exception as e:
+        print(f"❌ Erro ao garantir localização: {str(e)}")
+        return False

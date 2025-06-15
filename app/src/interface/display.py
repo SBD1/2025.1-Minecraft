@@ -2,7 +2,7 @@ import os
 import time
 from colorama import Fore, init
 from src.utils.screen_helpers import clear_terminal, players_status
-from src.utils.db_helpers import connection_db
+from src.services.interface_service import InterfaceService
 from src.utils.player_manager import (
     get_current_player, set_current_player, clear_current_player,
     load_player_by_id, get_all_players, create_new_player,
@@ -50,10 +50,10 @@ def exibir_jogador_atual():
     current_player = get_current_player()
     if current_player:
         print(f"🎮 Personagem ativo: {Fore.GREEN}{current_player.nome}{Fore.RESET}")
-        print(f"❤️  Vida: {current_player.vida_atual}/{current_player.vida_max} | "
-              f"⭐ XP: {current_player.xp} | 💪 Força: {current_player.forca}")
-        if current_player.chunk_bioma:
-            print(f"📍 Localização: {current_player.chunk_bioma} ({current_player.chunk_mapa_nome} - {current_player.chunk_mapa_turno})")
+        print(f"❤️  Vida: {current_player.vida_atual}/{current_player.vida_maxima} | "
+              f"⭐ XP: {current_player.experiencia} | 💪 Força: {current_player.forca}")
+        if current_player.localizacao:
+            print(f"📍 Localização: Chunk {current_player.localizacao}")
         print("-" * 50)
     else:
         print(f"{Fore.YELLOW}⚠️  Nenhum personagem selecionado{Fore.RESET}")
@@ -135,20 +135,28 @@ def exibir_localizacao_atual():
     print("=" * 60)
     
     # Exibir informações de localização
-    if current_player.chunk_bioma:
-        bioma_emoji = {
-            'Deserto': '🏜️',
-            'Oceano': '🌊',
-            'Selva': '🌴',
-            'Floresta': '🌲'
-        }
+    if current_player.localizacao:
+        print(f"📍 CHUNK: {current_player.localizacao}")
         
-        emoji = bioma_emoji.get(current_player.chunk_bioma, '📍')
-        turno_emoji = '☀️' if current_player.chunk_mapa_turno == 'Dia' else '🌙'
+        # Buscar informações do chunk usando InterfaceService Singleton
+        interface_service = InterfaceService.get_instance()
+        chunk = interface_service.chunk_repository.find_by_id(int(current_player.localizacao))
         
-        print(f"{emoji} BIOMA: {Fore.YELLOW}{current_player.chunk_bioma}{Fore.RESET}")
-        print(f"{turno_emoji} TURNO: {current_player.chunk_mapa_turno}")
-        print(f"📍 CHUNK: {current_player.id_chunk_atual}")
+        if chunk:
+            bioma_emoji = {
+                'Deserto': '🏜️',
+                'Oceano': '🌊',
+                'Selva': '🌴',
+                'Floresta': '🌲'
+            }
+            
+            emoji = bioma_emoji.get(chunk.id_bioma, '📍')
+            turno_emoji = '☀️' if chunk.id_mapa_turno == 'Dia' else '🌙'
+            
+            print(f"{emoji} BIOMA: {Fore.YELLOW}{chunk.id_bioma}{Fore.RESET}")
+            print(f"{turno_emoji} TURNO: {chunk.id_mapa_turno}")
+        else:
+            print(f"{Fore.YELLOW}⚠️  Informações do chunk não disponíveis{Fore.RESET}")
     else:
         print(f"{Fore.RED}❌ Localização desconhecida{Fore.RESET}")
     
@@ -157,12 +165,13 @@ def exibir_localizacao_atual():
 def exibir_opcoes_movimento():
     """Exibe as opções de movimento disponíveis"""
     current_player = get_current_player()
-    if not current_player or not current_player.id_chunk_atual:
+    if not current_player or not current_player.localizacao:
         print(f"{Fore.RED}❌ Não é possível mover - localização inválida{Fore.RESET}")
         return []
     
-    # Buscar chunks adjacentes
-    adjacent_chunks = get_adjacent_chunks(current_player.id_chunk_atual, current_player.chunk_mapa_turno)
+    # Usar InterfaceService Singleton
+    interface_service = InterfaceService.get_instance()
+    adjacent_chunks = interface_service.get_adjacent_chunks(int(current_player.localizacao), 'Dia')
     
     if not adjacent_chunks:
         print(f"{Fore.YELLOW}⚠️  Nenhuma direção disponível para movimento{Fore.RESET}")
@@ -192,8 +201,9 @@ def iniciar_jogo():
         input("⏳ Pressione Enter para continuar...")
         return
     
-    # Garantir que o personagem tem uma localização válida
-    if not ensure_player_location():
+    # Usar InterfaceService Singleton para garantir localização
+    interface_service = InterfaceService.get_instance()
+    if not interface_service.ensure_player_location(current_player):
         print(f"{Fore.RED}❌ Erro ao definir localização do personagem!{Fore.RESET}")
         input("⏳ Pressione Enter para continuar...")
         return
@@ -205,8 +215,8 @@ def iniciar_jogo():
         exibir_localizacao_atual()
         
         # Exibir status do personagem
-        print(f"❤️  Vida: {current_player.vida_atual}/{current_player.vida_max}")
-        print(f"⭐ XP: {current_player.xp} | 💪 Força: {current_player.forca}")
+        print(f"❤️  Vida: {current_player.vida_atual}/{current_player.vida_maxima}")
+        print(f"⭐ XP: {current_player.experiencia} | 💪 Força: {current_player.forca}")
         print()
         
         # Exibir opções de movimento
@@ -231,7 +241,11 @@ def iniciar_jogo():
                         chunk_id, bioma = adjacent_chunks[indice]
                         print(f"🚶 Movendo para {bioma}...")
                         
-                        if move_player_to_chunk(chunk_id):
+                        # Usar InterfaceService Singleton para mover
+                        updated_player = interface_service.move_player_to_chunk(current_player, chunk_id)
+                        if updated_player:
+                            current_player = updated_player
+                            set_current_player(updated_player)
                             print(f"✅ Chegou em {bioma}!")
                             input("⏳ Pressione Enter para continuar...")
                         else:
@@ -246,7 +260,9 @@ def iniciar_jogo():
                     
             elif opcao == "5":
                 # Salvar progresso
-                if save_player_changes():
+                if interface_service.save_player(current_player):
+                    current_player = interface_service.get_player_by_id(current_player.id_jogador)
+                    set_current_player(current_player)
                     print(f"{Fore.GREEN}✅ Progresso salvo com sucesso!{Fore.RESET}")
                 else:
                     print(f"{Fore.RED}❌ Erro ao salvar progresso!{Fore.RESET}")
@@ -282,7 +298,14 @@ def ver_status_detalhado():
 
 def salvar_progresso():
     """Salva o progresso do personagem atual"""
-    if save_player_changes():
+    current_player = get_current_player()
+    if not current_player:
+        print(f"{Fore.RED}❌ Nenhum personagem ativo!{Fore.RESET}")
+        input("⏳ Pressione Enter para continuar...")
+        return
+    
+    interface_service = InterfaceService.get_instance()
+    if interface_service.save_player(current_player):
         print(f"{Fore.GREEN}✅ Progresso salvo com sucesso!{Fore.RESET}")
     else:
         print(f"{Fore.RED}❌ Erro ao salvar progresso!{Fore.RESET}")
@@ -299,7 +322,9 @@ def selecionar_jogador():
     print("👥 SELEÇÃO DE PERSONAGEM")
     print("=" * 40)
     
-    players = get_all_players()
+    # Usar InterfaceService Singleton
+    interface_service = InterfaceService.get_instance()
+    players = interface_service.get_all_players()
     
     if not players:
         print(f"{Fore.YELLOW}⚠️  Nenhum personagem encontrado!{Fore.RESET}")
@@ -311,7 +336,7 @@ def selecionar_jogador():
     print()
     
     for i, player in enumerate(players, 1):
-        print(f"{i}. {player[1]} (Vida: {player[3]}/{player[2]} | XP: {player[4]} | Força: {player[5]})")
+        print(f"{i}. {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
     
     print()
     try:
@@ -323,33 +348,26 @@ def selecionar_jogador():
         indice = int(escolha) - 1
         
         if 0 <= indice < len(players):
-            player_id = players[indice][0]
-            player_name = players[indice][1]
+            player = players[indice]
             
             # Verificar se é o personagem atual
             current_player = get_current_player()
             current_id = current_player.id_jogador if current_player else None
             
-            if current_id and player_id == current_id:
-                print(f"{Fore.YELLOW}⚠️  '{player_name}' já é o personagem ativo!{Fore.RESET}")
+            if current_id and player.id_jogador == current_id:
+                print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                 input("⏳ Pressione Enter para continuar...")
                 return
             
-            # Carregar e definir personagem
-            player_session = load_player_by_id(player_id)
-            
-            if player_session:
-                set_current_player(player_session)
-                print(f"{Fore.GREEN}✅ Personagem '{player_name}' selecionado com sucesso!{Fore.RESET}")
-                input("⏳ Pressione Enter para continuar...")
-                return  # Sair da função e voltar ao menu principal
-            else:
-                print(f"{Fore.RED}❌ Erro ao carregar personagem!{Fore.RESET}")
-                input("⏳ Pressione Enter para continuar...")
-                return
+            # Definir personagem
+            set_current_player(player)
+            print(f"{Fore.GREEN}✅ Personagem '{player.nome}' selecionado com sucesso!{Fore.RESET}")
+            input("⏳ Pressione Enter para continuar...")
+            return  # Sair da função e voltar ao menu principal
         else:
             print(f"{Fore.RED}❌ Número inválido! Digite um número entre 1 e {len(players)}.{Fore.RESET}")
             input("⏳ Pressione Enter para continuar...")
+            return
             
     except ValueError:
         print(f"{Fore.RED}❌ Digite apenas números!{Fore.RESET}")
@@ -368,21 +386,15 @@ def criar_jogador():
         input("⏳ Pressione Enter para continuar...")
         return
     
-    # Verificar se nome já existe
-    players = get_all_players()
-    if any(player[1].lower() == nome.lower() for player in players):
-        print(f"{Fore.RED}❌ Já existe um personagem com esse nome!{Fore.RESET}")
-        input("⏳ Pressione Enter para continuar...")
-        return
-    
     print(f"\n⚙️ Status iniciais:")
     print(f"❤️  Vida máxima: 100")
     print(f"💪 Força inicial: 10")
     print(f"⭐ XP inicial: 0")
     print(f"📍 Localização inicial: Deserto")
     
-    # Criar personagem com valores padrão fixos
-    new_player = create_new_player(nome, vida_max=100, forca=10)
+    # Usar InterfaceService Singleton
+    interface_service = InterfaceService.get_instance()
+    new_player = interface_service.create_player(nome, vida_maxima=100, forca=10)
     
     if new_player:
         print(f"\n{Fore.GREEN}✅ Personagem '{nome}' criado com sucesso!{Fore.RESET}")
@@ -390,6 +402,8 @@ def criar_jogador():
         
         if escolha == 's':
             set_current_player(new_player)
+    else:
+        print(f"{Fore.RED}❌ Erro ao criar personagem ou nome já existe!{Fore.RESET}")
         
     input("⏳ Pressione Enter para continuar...")
 
@@ -400,7 +414,9 @@ def listar_jogadores():
     print("=" * 70)
     print()
     
-    players = get_all_players()
+    # Usar InterfaceService Singleton
+    interface_service = InterfaceService.get_instance()
+    players = interface_service.get_all_players()
     
     if not players:
         print(f"{Fore.YELLOW}⚠️  Nenhum personagem cadastrado.{Fore.RESET}")
@@ -427,7 +443,7 @@ def listar_jogadores():
         try:
             opcao = input("🎯 Escolha uma opção: ").strip()
 
-    if opcao == "1":
+            if opcao == "1":
                 # Mostrar lista numerada para seleção
                 clear_terminal()
                 print("👥 SELEÇÃO DE PERSONAGEM")
@@ -439,8 +455,8 @@ def listar_jogadores():
                 
                 print("Personagens disponíveis:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player[0] == current_id else "👤"
-                    print(f"{i}. {status_icon} {player[1]} (Vida: {player[3]}/{player[2]} | XP: {player[4]} | Força: {player[5]})")
+                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
                 
@@ -454,27 +470,19 @@ def listar_jogadores():
                         indice = int(escolha) - 1
                         
                         if 0 <= indice < len(players):
-                            player_id = players[indice][0]
-                            player_name = players[indice][1]
+                            player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player_id == current_id:
-                                print(f"{Fore.YELLOW}⚠️  '{player_name}' já é o personagem ativo!{Fore.RESET}")
+                            if current_id and player.id_jogador == current_id:
+                                print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                                 input("⏳ Pressione Enter para continuar...")
                                 return
                             
-                            # Carregar e definir personagem
-                            player_session = load_player_by_id(player_id)
-                            
-                            if player_session:
-                                set_current_player(player_session)
-                                print(f"{Fore.GREEN}✅ Personagem '{player_name}' selecionado com sucesso!{Fore.RESET}")
-                                input("⏳ Pressione Enter para continuar...")
-                                return  # Sair da função e voltar ao menu principal
-                            else:
-                                print(f"{Fore.RED}❌ Erro ao carregar personagem!{Fore.RESET}")
-                                input("⏳ Pressione Enter para continuar...")
-                                return
+                            # Definir personagem
+                            set_current_player(player)
+                            print(f"{Fore.GREEN}✅ Personagem '{player.nome}' selecionado com sucesso!{Fore.RESET}")
+                            input("⏳ Pressione Enter para continuar...")
+                            return  # Sair da função e voltar ao menu principal
                         else:
                             print(f"{Fore.RED}❌ Número inválido! Digite um número entre 1 e {len(players)}.{Fore.RESET}")
                             
@@ -484,7 +492,7 @@ def listar_jogadores():
                 # Voltar para a lista principal
                 break
                 
-    elif opcao == "2":
+            elif opcao == "2":
                 # Mostrar lista numerada para deletar
                 clear_terminal()
                 print("🗑️  DELETAR PERSONAGEM")
@@ -496,8 +504,8 @@ def listar_jogadores():
                 
                 print("Personagens disponíveis para deletar:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player[0] == current_id else "👤"
-                    print(f"{i}. {status_icon} {player[1]} (Vida: {player[3]}/{player[2]} | XP: {player[4]} | Força: {player[5]})")
+                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
                 
@@ -511,21 +519,20 @@ def listar_jogadores():
                         indice = int(escolha) - 1
                         
                         if 0 <= indice < len(players):
-                            player_id = players[indice][0]
-                            player_name = players[indice][1]
+                            player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player_id == current_id:
-                                print(f"{Fore.RED}❌ Não é possível deletar o personagem ativo '{player_name}'!{Fore.RESET}")
+                            if current_id and player.id_jogador == current_id:
+                                print(f"{Fore.RED}❌ Não é possível deletar o personagem ativo '{player.nome}'!{Fore.RESET}")
                                 print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
                                 input("⏳ Pressione Enter para continuar...")
                                 return
                             
                             # Confirmar deleção
-                            if confirm_player_deletion(player_name):
+                            if confirm_player_deletion(player.nome):
                                 # Deletar personagem
-                                if delete_player(player_id):
-                                    print(f"{Fore.GREEN}✅ Personagem '{player_name}' deletado com sucesso!{Fore.RESET}")
+                                if interface_service.delete_player(player.id_jogador):
+                                    print(f"{Fore.GREEN}✅ Personagem '{player.nome}' deletado com sucesso!{Fore.RESET}")
                                     input("⏳ Pressione Enter para continuar...")
                                     return  # Sair da função e voltar ao menu principal
                                 else:
@@ -560,7 +567,10 @@ def sair_jogo():
     
     if current_player:
         print(f"👋 Encerrando sessão de {current_player.nome}...")
-        save_player_changes()  # Salva automaticamente ao sair
+        
+        # Usar InterfaceService Singleton para salvar
+        interface_service = InterfaceService.get_instance()
+        interface_service.save_player(current_player)
         clear_current_player()
     
     print("🚪 Saindo do Minecraft")

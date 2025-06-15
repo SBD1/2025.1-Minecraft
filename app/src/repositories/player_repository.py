@@ -108,8 +108,37 @@ class PlayerRepositoryImpl(PlayerRepository):
             return None
     
     def save(self, player: Player) -> Player:
-        """Salva um jogador"""
+        """Salva um jogador com validações"""
         try:
+            # Validações
+            if not player.nome or not player.nome.strip():
+                print("❌ Nome do jogador não pode estar vazio")
+                return player
+            
+            if player.vida_atual < 0:
+                print("❌ Vida atual não pode ser negativa")
+                return player
+            
+            if player.vida_maxima <= 0:
+                print("❌ Vida máxima deve ser maior que zero")
+                return player
+            
+            if player.vida_atual > player.vida_maxima:
+                print("❌ Vida atual não pode ser maior que vida máxima")
+                return player
+            
+            if player.forca < 0:
+                print("❌ Força não pode ser negativa")
+                return player
+            
+            if player.nivel < 1:
+                print("❌ Nível deve ser pelo menos 1")
+                return player
+            
+            if player.experiencia < 0:
+                print("❌ Experiência não pode ser negativa")
+                return player
+            
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     if player.id_jogador:
