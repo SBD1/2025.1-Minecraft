@@ -3,22 +3,25 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
+  <title>Álgebra Relacional &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/genindex.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/relational_algebra.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=8d563738"></script>
       <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="#" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Desenvolvimento" href="development.html" />
+    <link rel="prev" title="Banco de Dados" href="database.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +44,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
@@ -603,10 +606,10 @@
 <li class="toctree-l2"><a class="reference internal" href="database.html#id5">Próximos Passos</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="relational_algebra.html">Álgebra Relacional</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#operadores-fundamentais">Operadores Fundamentais</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-relacionais-no-banco-minecraft">Consultas Relacionais no Banco Minecraft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-compostas">Consultas Compostas</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Álgebra Relacional</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#operadores-fundamentais">Operadores Fundamentais</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#consultas-relacionais-no-banco-minecraft">Consultas Relacionais no Banco Minecraft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#consultas-compostas">Consultas Compostas</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">Desenvolvimento</a><ul>
@@ -723,8 +726,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Index</li>
+      <li class="breadcrumb-item active">Álgebra Relacional</li>
       <li class="wy-breadcrumbs-aside">
+            <a href="_sources/relational_algebra.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -732,462 +736,76 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- <a href="#_"><strong>_</strong></a>
- | <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
- | <a href="#D"><strong>D</strong></a>
- | <a href="#E"><strong>E</strong></a>
- | <a href="#F"><strong>F</strong></a>
- | <a href="#G"><strong>G</strong></a>
- | <a href="#H"><strong>H</strong></a>
- | <a href="#I"><strong>I</strong></a>
- | <a href="#L"><strong>L</strong></a>
- | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
- | <a href="#P"><strong>P</strong></a>
- | <a href="#S"><strong>S</strong></a>
- | <a href="#T"><strong>T</strong></a>
- | <a href="#U"><strong>U</strong></a>
- | <a href="#V"><strong>V</strong></a>
- | <a href="#X"><strong>X</strong></a>
- 
+  <section id="algebra-relacional">
+<h1>Álgebra Relacional<a class="headerlink" href="#algebra-relacional" title="Link to this heading"></a></h1>
+<p>A álgebra relacional é uma linguagem formal utilizada para representar consultas em bancos de dados relacionais de forma matemática e precisa. Essa linguagem serve como base teórica para o SQL, especialmente para consultas (SELECT). Além de ajudar a entender o funcionamento interno dos sistemas de banco de dados, a álgebra relacional é útil para projetar, otimizar e validar consultas, oferecendo uma forma rigorosa e lógica de manipular dados. Seu uso é fundamental no ensino e na análise de bancos relacionais, por ser independente da linguagem de implementação.</p>
+<section id="operadores-fundamentais">
+<h2>Operadores Fundamentais<a class="headerlink" href="#operadores-fundamentais" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Seleção (σ)</strong>: Filtra linhas com base em uma condição.</p></li>
+<li><p><strong>Projeção (π)</strong>: Seleciona colunas específicas.</p></li>
+<li><p><strong>União (∪)</strong>: Junta duas relações com o mesmo esquema.</p></li>
+<li><p><strong>Diferença (−)</strong>: Retorna tuplas que estão em uma relação mas não na outra.</p></li>
+<li><p><strong>Produto Cartesiano (×)</strong>: Junta todas as combinações de tuplas das duas relações.</p></li>
+</ul>
+</section>
+<section id="consultas-relacionais-no-banco-minecraft">
+<h2>Consultas Relacionais no Banco Minecraft<a class="headerlink" href="#consultas-relacionais-no-banco-minecraft" title="Link to this heading"></a></h2>
+<p><strong>Seleciona todos os mapas</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Mapa
+</pre></div>
 </div>
-<h2 id="_">_</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id58">__eq__() (models.bioma.Bioma method)</a>, <a href="api_reference.html#models.bioma.Bioma.__eq__">[1]</a>, <a href="models.html#models.bioma.Bioma.__eq__">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id22">(models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.__eq__">[1]</a>, <a href="models.html#models.chunk.Chunk.__eq__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id42">(models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.__eq__">[1]</a>, <a href="models.html#models.mapa.Mapa.__eq__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id1">(models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.__eq__">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#id59">__hash__() (models.bioma.Bioma method)</a>, <a href="api_reference.html#models.bioma.Bioma.__hash__">[1]</a>, <a href="models.html#models.bioma.Bioma.__hash__">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id23">(models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.__hash__">[1]</a>, <a href="models.html#models.chunk.Chunk.__hash__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id43">(models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.__hash__">[1]</a>, <a href="models.html#models.mapa.Mapa.__hash__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id2">(models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.__hash__">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#id44">__post_init__() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.__post_init__">[1]</a>, <a href="models.html#models.mapa.Mapa.__post_init__">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id3">(models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.__post_init__">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id60">__repr__() (models.bioma.Bioma method)</a>, <a href="api_reference.html#models.bioma.Bioma.__repr__">[1]</a>, <a href="models.html#models.bioma.Bioma.__repr__">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id24">(models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.__repr__">[1]</a>, <a href="models.html#models.chunk.Chunk.__repr__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id45">(models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.__repr__">[1]</a>, <a href="models.html#models.mapa.Mapa.__repr__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id4">(models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.__repr__">[1]</a>
-</li>
-        <li><a href="api_reference.html#models.player.PlayerSession.__repr__">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.__repr__">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#id61">__str__() (models.bioma.Bioma method)</a>, <a href="api_reference.html#models.bioma.Bioma.__str__">[1]</a>, <a href="models.html#models.bioma.Bioma.__str__">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id25">(models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.__str__">[1]</a>, <a href="models.html#models.chunk.Chunk.__str__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id46">(models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.__str__">[1]</a>, <a href="models.html#models.mapa.Mapa.__str__">[2]</a>
-</li>
-        <li><a href="api_reference.html#id5">(models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.__str__">[1]</a>
-</li>
-        <li><a href="api_reference.html#models.player.PlayerSession.__str__">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.__str__">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="B">B</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id26">belongs_to_map() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.belongs_to_map">[1]</a>, <a href="models.html#models.chunk.Chunk.belongs_to_map">[2]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id57">Bioma (class in models.bioma)</a>, <a href="api_reference.html#models.bioma.Bioma">[1]</a>, <a href="models.html#models.bioma.Bioma">[2]</a>
-</li>
-      <li><a href="api_reference.html#models.bioma.BiomaType">BiomaType (class in models.bioma)</a>, <a href="models.html#models.bioma.BiomaType">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="C">C</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.player.PlayerSession.can_move">can_move() (models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.can_move">[1]</a>
-</li>
-      <li><a href="api_reference.html#id67">check_data_seeded() (in module utils.db_helpers)</a>, <a href="api_reference.html#id70">[1]</a>, <a href="api_reference.html#id85">[2]</a>, <a href="api_reference.html#utils.db_helpers.check_data_seeded">[3]</a>
-</li>
-      <li><a href="api_reference.html#id65">check_database_connection() (in module utils.db_helpers)</a>, <a href="api_reference.html#id71">[1]</a>, <a href="api_reference.html#id83">[2]</a>, <a href="api_reference.html#utils.db_helpers.check_database_connection">[3]</a>
-</li>
-      <li><a href="api_reference.html#id72">check_map_with_1000_chunks() (in module utils.db_helpers)</a>, <a href="api_reference.html#utils.db_helpers.check_map_with_1000_chunks">[1]</a>
-</li>
-      <li><a href="api_reference.html#id66">check_tables_exist() (in module utils.db_helpers)</a>, <a href="api_reference.html#id73">[1]</a>, <a href="api_reference.html#id84">[2]</a>, <a href="api_reference.html#utils.db_helpers.check_tables_exist">[3]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id21">Chunk (class in models.chunk)</a>, <a href="api_reference.html#models.chunk.Chunk">[1]</a>, <a href="models.html#models.chunk.Chunk">[2]</a>
-</li>
-      <li><a href="api_reference.html#models.player.PlayerSession.chunk_bioma">chunk_bioma (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.chunk_bioma">[1]</a>
-</li>
-      <li><a href="api_reference.html#models.player.PlayerSession.chunk_mapa_nome">chunk_mapa_nome (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.chunk_mapa_nome">[1]</a>
-</li>
-      <li><a href="api_reference.html#models.player.PlayerSession.chunk_mapa_turno">chunk_mapa_turno (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.chunk_mapa_turno">[1]</a>
-</li>
-      <li><a href="api_reference.html#id63">connection_db() (in module utils.db_helpers)</a>, <a href="api_reference.html#id74">[1]</a>, <a href="api_reference.html#id79">[2]</a>, <a href="api_reference.html#utils.db_helpers.connection_db">[3]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="D">D</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.bioma.BiomaType.DESERTO">DESERTO (models.bioma.BiomaType attribute)</a>, <a href="models.html#models.bioma.BiomaType.DESERTO">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.mapa.TurnoType.DIA">DIA (models.mapa.TurnoType attribute)</a>, <a href="models.html#models.mapa.TurnoType.DIA">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="E">E</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id64">execute_sql_file() (in module utils.db_helpers)</a>, <a href="api_reference.html#id75">[1]</a>, <a href="api_reference.html#id81">[2]</a>, <a href="api_reference.html#utils.db_helpers.execute_sql_file">[3]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.mapa.exemplo_uso_repository">exemplo_uso_repository() (in module models.mapa)</a>
-</li>
-      <li><a href="api_reference.html#id6">experiencia (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.experiencia">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="F">F</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.bioma.BiomaType.FLORESTA">FLORESTA (models.bioma.BiomaType attribute)</a>, <a href="models.html#models.bioma.BiomaType.FLORESTA">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id7">forca (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.forca">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.forca">(models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.forca">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="G">G</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id8">gain_experience() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.gain_experience">[1]</a>
-</li>
-      <li><a href="api_reference.html#models.player.PlayerSession.gain_xp">gain_xp() (models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.gain_xp">[1]</a>
-</li>
-      <li><a href="api_reference.html#id27">get_adjacent_chunk_ids() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.get_adjacent_chunk_ids">[1]</a>, <a href="models.html#models.chunk.Chunk.get_adjacent_chunk_ids">[2]</a>
-</li>
-      <li><a href="api_reference.html#id47">get_bioma_distribution() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.get_bioma_distribution">[1]</a>, <a href="models.html#models.mapa.Mapa.get_bioma_distribution">[2]</a>
-</li>
-      <li><a href="api_reference.html#id28">get_bioma_type() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.get_bioma_type">[1]</a>, <a href="models.html#models.chunk.Chunk.get_bioma_type">[2]</a>
-</li>
-      <li><a href="api_reference.html#id48">get_chunk_by_id() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.get_chunk_by_id">[1]</a>, <a href="models.html#models.mapa.Mapa.get_chunk_by_id">[2]</a>
-</li>
-      <li><a href="api_reference.html#id49">get_chunks() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.get_chunks">[1]</a>, <a href="models.html#models.mapa.Mapa.get_chunks">[2]</a>
-</li>
-      <li><a href="api_reference.html#id50">get_chunks_by_bioma() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.get_chunks_by_bioma">[1]</a>, <a href="models.html#models.mapa.Mapa.get_chunks_by_bioma">[2]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id51">get_display_info() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.get_display_info">[1]</a>, <a href="models.html#models.mapa.Mapa.get_display_info">[2]</a>
-</li>
-      <li><a href="api_reference.html#id29">get_display_name() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.get_display_name">[1]</a>, <a href="models.html#models.chunk.Chunk.get_display_name">[2]</a>
-</li>
-      <li><a href="api_reference.html#id9">get_health_bar() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.get_health_bar">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.get_health_bar">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.get_health_bar">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#id10">get_health_percentage() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.get_health_percentage">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.get_health_percentage">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.get_health_percentage">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#models.player.PlayerSession.get_location_display">get_location_display() (models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.get_location_display">[1]</a>
-</li>
-      <li><a href="api_reference.html#id30">get_map_key() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.get_map_key">[1]</a>, <a href="models.html#models.chunk.Chunk.get_map_key">[2]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="H">H</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id11">heal() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.heal">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.heal">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.heal">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="I">I</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id31">id_bioma (models.chunk.Chunk attribute)</a>, <a href="api_reference.html#models.chunk.Chunk.id_bioma">[1]</a>, <a href="models.html#models.chunk.Chunk.id_bioma">[2]</a>
-</li>
-      <li><a href="api_reference.html#models.player.PlayerSession.id_chunk_atual">id_chunk_atual (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.id_chunk_atual">[1]</a>
-</li>
-      <li><a href="api_reference.html#id12">id_jogador (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.id_jogador">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.id_jogador">(models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.id_jogador">[1]</a>
-</li>
-      </ul></li>
-      <li><a href="api_reference.html#id32">id_mapa_nome (models.chunk.Chunk attribute)</a>, <a href="api_reference.html#models.chunk.Chunk.id_mapa_nome">[1]</a>, <a href="models.html#models.chunk.Chunk.id_mapa_nome">[2]</a>
-</li>
-      <li><a href="api_reference.html#id33">id_mapa_turno (models.chunk.Chunk attribute)</a>, <a href="api_reference.html#models.chunk.Chunk.id_mapa_turno">[1]</a>, <a href="models.html#models.chunk.Chunk.id_mapa_turno">[2]</a>
-</li>
-      <li><a href="api_reference.html#id68">initialize_database() (in module utils.db_helpers)</a>, <a href="api_reference.html#id76">[1]</a>, <a href="api_reference.html#id87">[2]</a>, <a href="api_reference.html#utils.db_helpers.initialize_database">[3]</a>
-</li>
-      <li><a href="api_reference.html#id13">is_alive() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.is_alive">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.is_alive">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.is_alive">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id34">is_day() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_day">[1]</a>, <a href="models.html#models.chunk.Chunk.is_day">[2]</a>
-</li>
-      <li><a href="api_reference.html#id52">is_day_map() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.is_day_map">[1]</a>, <a href="models.html#models.mapa.Mapa.is_day_map">[2]</a>
-</li>
-      <li><a href="api_reference.html#id35">is_desert() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_desert">[1]</a>, <a href="models.html#models.chunk.Chunk.is_desert">[2]</a>
-</li>
-      <li><a href="api_reference.html#id36">is_forest() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_forest">[1]</a>, <a href="models.html#models.chunk.Chunk.is_forest">[2]</a>
-</li>
-      <li><a href="api_reference.html#id37">is_jungle() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_jungle">[1]</a>, <a href="models.html#models.chunk.Chunk.is_jungle">[2]</a>
-</li>
-      <li><a href="api_reference.html#id38">is_night() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_night">[1]</a>, <a href="models.html#models.chunk.Chunk.is_night">[2]</a>
-</li>
-      <li><a href="api_reference.html#id53">is_night_map() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.is_night_map">[1]</a>, <a href="models.html#models.mapa.Mapa.is_night_map">[2]</a>
-</li>
-      <li><a href="api_reference.html#id39">is_ocean() (models.chunk.Chunk method)</a>, <a href="api_reference.html#models.chunk.Chunk.is_ocean">[1]</a>, <a href="models.html#models.chunk.Chunk.is_ocean">[2]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="L">L</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id14">level_up() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.level_up">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id15">localizacao (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.localizacao">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="M">M</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id41">Mapa (class in models.mapa)</a>, <a href="api_reference.html#models.mapa.Mapa">[1]</a>, <a href="models.html#models.mapa.Mapa">[2]</a>
-</li>
-      <li>
-    models.bioma
-
-      <ul>
-        <li><a href="api_reference.html#module-models.bioma">module</a>
-</li>
-      </ul></li>
-      <li>
-    models.chunk
-
-      <ul>
-        <li><a href="api_reference.html#module-models.chunk">module</a>
-</li>
-      </ul></li>
-      <li>
-    models.mapa
-
-      <ul>
-        <li><a href="api_reference.html#module-models.mapa">module</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    models.player
-
-      <ul>
-        <li><a href="api_reference.html#module-models.player">module</a>
-</li>
-      </ul></li>
-      <li>
-    module
-
-      <ul>
-        <li><a href="api_reference.html#module-models.bioma">models.bioma</a>
-</li>
-        <li><a href="api_reference.html#module-models.chunk">models.chunk</a>
-</li>
-        <li><a href="api_reference.html#module-models.mapa">models.mapa</a>
-</li>
-        <li><a href="api_reference.html#module-models.player">models.player</a>
-</li>
-        <li><a href="api_reference.html#module-0">utils.db_helpers</a>, <a href="api_reference.html#module-utils.db_helpers">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id16">nivel (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.nivel">[1]</a>
-</li>
-      <li><a href="api_reference.html#models.mapa.TurnoType.NOITE">NOITE (models.mapa.TurnoType attribute)</a>, <a href="models.html#models.mapa.TurnoType.NOITE">[1]</a>
-</li>
-      <li><a href="api_reference.html#id62">nome (models.bioma.Bioma attribute)</a>, <a href="api_reference.html#models.bioma.Bioma.nome">[1]</a>, <a href="models.html#models.bioma.Bioma.nome">[2]</a>
-
-      <ul>
-        <li><a href="api_reference.html#id54">(models.mapa.Mapa attribute)</a>, <a href="api_reference.html#models.mapa.Mapa.nome">[1]</a>, <a href="models.html#models.mapa.Mapa.nome">[2]</a>
-</li>
-        <li><a href="api_reference.html#id17">(models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.nome">[1]</a>
-</li>
-        <li><a href="api_reference.html#models.player.PlayerSession.nome">(models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.nome">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id40">numero_chunk (models.chunk.Chunk attribute)</a>, <a href="api_reference.html#models.chunk.Chunk.numero_chunk">[1]</a>, <a href="models.html#models.chunk.Chunk.numero_chunk">[2]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.bioma.BiomaType.OCEANO">OCEANO (models.bioma.BiomaType attribute)</a>, <a href="models.html#models.bioma.BiomaType.OCEANO">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="P">P</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id0">Player (class in models.player)</a>, <a href="api_reference.html#models.player.Player">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.player.PlayerSession">PlayerSession (class in models.player)</a>, <a href="models.html#models.player.PlayerSession">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="S">S</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.bioma.BiomaType.SELVA">SELVA (models.bioma.BiomaType attribute)</a>, <a href="models.html#models.bioma.BiomaType.SELVA">[1]</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id55">set_chunk_repository() (models.mapa.Mapa method)</a>, <a href="api_reference.html#models.mapa.Mapa.set_chunk_repository">[1]</a>, <a href="models.html#models.mapa.Mapa.set_chunk_repository">[2]</a>
-</li>
-      <li><a href="api_reference.html#id69">setup_database() (in module utils.db_helpers)</a>, <a href="api_reference.html#id77">[1]</a>, <a href="api_reference.html#id88">[2]</a>, <a href="api_reference.html#utils.db_helpers.setup_database">[3]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="T">T</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id18">take_damage() (models.player.Player method)</a>, <a href="api_reference.html#models.player.Player.take_damage">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.take_damage">(models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.take_damage">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.player.PlayerSession.to_dict">to_dict() (models.player.PlayerSession method)</a>, <a href="models.html#models.player.PlayerSession.to_dict">[1]</a>
-</li>
-      <li><a href="api_reference.html#id56">turno (models.mapa.Mapa attribute)</a>, <a href="api_reference.html#models.mapa.Mapa.turno">[1]</a>, <a href="models.html#models.mapa.Mapa.turno">[2]</a>
-</li>
-      <li><a href="api_reference.html#models.mapa.TurnoType">TurnoType (class in models.mapa)</a>, <a href="models.html#models.mapa.TurnoType">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="U">U</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    utils.db_helpers
-
-      <ul>
-        <li><a href="api_reference.html#module-0">module</a>, <a href="api_reference.html#module-utils.db_helpers">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="V">V</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#id19">vida_atual (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.vida_atual">[1]</a>
-
-      <ul>
-        <li><a href="api_reference.html#models.player.PlayerSession.vida_atual">(models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.vida_atual">[1]</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.player.PlayerSession.vida_max">vida_max (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.vida_max">[1]</a>
-</li>
-      <li><a href="api_reference.html#id20">vida_maxima (models.player.Player attribute)</a>, <a href="api_reference.html#models.player.Player.vida_maxima">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="X">X</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#models.player.PlayerSession.xp">xp (models.player.PlayerSession attribute)</a>, <a href="models.html#models.player.PlayerSession.xp">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
+<p><strong>Seleciona todos os biomas</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Bioma
+</pre></div>
+</div>
+<p><strong>Seleciona todos os chunks</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Chunks
+</pre></div>
+</div>
+<p><strong>Seleciona todos os jogadores</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Jogadores
+</pre></div>
+</div>
+<p><strong>Seleciona todos os inventários</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>nventários
+</pre></div>
+</div>
+</section>
+<section id="consultas-compostas">
+<h2>Consultas Compostas<a class="headerlink" href="#consultas-compostas" title="Link to this heading"></a></h2>
+<p><strong>Consulta 1: Jogadores e sua Localização Atual</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>π_{j.Nome, j.Vida_atual, j.xp, c.Numero_chunk, c.Id_bioma, c.Id_mapa_nome, c.Id_mapa_turno}
+(
+    Jogador ⨝_{Jogador.Id_Chunk_Atual = Chunk.Numero_chunk} Chunk
+)
+</pre></div>
+</div>
+<p><strong>Consulta 2: Inventário de Cada Jogador</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>π_{j.Nome, i.Instancia_Item, i.ArmaduraEquipada, i.ArmaEquipada}
+(
+    Inventario ⨝_{Inventario.id_jogador = Jogador.Id_Jogador} Jogador
+)
+</pre></div>
+</div>
+<p><strong>Consulta 3: Detalhes Completos dos Chunks</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>π_{c.Numero_chunk, b.NomeBioma, m.Nome, m.Turno}
+(
+    (Chunk ⨝_{Chunk.Id_bioma = Bioma.NomeBioma} Bioma)
+         ⨝_{Chunk.Id_mapa_nome = Mapa.Nome ∧ Chunk.Id_mapa_turno = Mapa.Turno} Mapa
+)
+</pre></div>
+</div>
+</section>
+</section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="database.html" class="btn btn-neutral float-left" title="Banco de Dados" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="development.html" class="btn btn-neutral float-right" title="Desenvolvimento" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
