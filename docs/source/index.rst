@@ -12,6 +12,7 @@ Este projeto recria o Minecraft Legends utilizando SQL e Python, com ambiente is
    installation
    quickstart
    user_guide
+   models
    api_reference
    database
    development
@@ -30,6 +31,7 @@ Características Principais
 * 💾 **Persistência de Dados**: Banco PostgreSQL com Docker
 * 🎨 **Interface Colorida**: Terminal colorido com emojis
 * 🔄 **Sistema de Sessão**: Gerenciamento global de personagem ativo
+* 🏗️ **Arquitetura de Models**: Estrutura organizada com models bem definidas
 
 Tecnologias Utilizadas
 ---------------------
