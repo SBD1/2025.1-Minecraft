@@ -1,5 +1,6 @@
 """
-Testes para o padrão Singleton do InterfaceService
+Testes para o padrão Singleton
+Verifica se o InterfaceService implementa corretamente o Singleton
 """
 
 import pytest
@@ -57,9 +58,9 @@ class TestInterfaceServiceSingleton:
         InterfaceService.reset_instance()
         
         # Mock dos repositórios
-        with patch('src.repositories.player_repository.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.repositories.chunk_repository.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.repositories.mapa_repository.MapaRepositoryImpl') as mock_mapa_repo:
+        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
+             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
+             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
             
             mock_player_repo.return_value = Mock()
             mock_chunk_repo.return_value = Mock()
@@ -104,10 +105,10 @@ class TestInterfaceServiceSingleton:
         # Reset da instância para teste limpo
         InterfaceService.reset_instance()
         
-        # Mock dos repositórios
-        with patch('src.repositories.player_repository.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.repositories.chunk_repository.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.repositories.mapa_repository.MapaRepositoryImpl') as mock_mapa_repo:
+        # Mock dos repositórios ANTES de instanciar o InterfaceService
+        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
+             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
+             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
             
             mock_player_repo.return_value = Mock()
             mock_chunk_repo.return_value = Mock()
@@ -154,9 +155,9 @@ class TestInterfaceServiceIntegration:
         InterfaceService.reset_instance()
         
         # Mock dos repositórios
-        with patch('src.repositories.player_repository.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.repositories.chunk_repository.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.repositories.mapa_repository.MapaRepositoryImpl') as mock_mapa_repo:
+        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
+             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
+             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
             
             self.mock_player_repo = Mock()
             self.mock_chunk_repo = Mock()
