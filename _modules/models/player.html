@@ -588,6 +588,141 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span>
 
 
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model que representa um personagem no banco de dados</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id_jogador: ID único do personagem no banco</span>
+<span class="sd">        nome: Nome do personagem</span>
+<span class="sd">        vida_maxima: Vida máxima do personagem</span>
+<span class="sd">        vida_atual: Vida atual do personagem</span>
+<span class="sd">        forca: Força do personagem</span>
+<span class="sd">        localizacao: Localização atual do personagem</span>
+<span class="sd">        nivel: Nível do personagem</span>
+<span class="sd">        experiencia: Experiência acumulada</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_jogador</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span>
+    <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">vida_maxima</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">vida_atual</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">forca</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">localizacao</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nivel</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">experiencia</span><span class="p">:</span> <span class="nb">int</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validações após inicialização&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o personagem está vivo&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">&gt;</span> <span class="mi">0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">take_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica dano ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            damage: Quantidade de dano a ser aplicado</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se o personagem ainda está vivo após o dano</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">-</span> <span class="n">damage</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">heal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cura o personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de vida a ser restaurada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">gain_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona experiência ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de experiência a ser adicionada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span> <span class="o">+=</span> <span class="n">amount</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">level_up</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tenta fazer o personagem subir de nível</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se subiu de nível</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Lógica simples: a cada 100 XP sobe de nível</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nivel</span> <span class="o">*</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nivel</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="o">+=</span> <span class="mi">10</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span>  <span class="c1"># Cura ao subir de nível</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">forca</span> <span class="o">+=</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_percentage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna a porcentagem de vida atual</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Porcentagem de vida (0.0 a 1.0)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna uma barra de vida visual</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            width: Largura da barra em caracteres</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            String representando a barra de vida</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">percentage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_health_percentage</span><span class="p">()</span>
+        <span class="n">filled</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">)</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="n">width</span> <span class="o">-</span> <span class="n">filled</span>
+        
+        <span class="k">if</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.6</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span>
+        <span class="k">elif</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span>
+            
+        <span class="n">bar</span> <span class="o">=</span> <span class="s2">&quot;█&quot;</span> <span class="o">*</span> <span class="n">filled</span> <span class="o">+</span> <span class="s2">&quot;░&quot;</span> <span class="o">*</span> <span class="n">empty</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">bar</span><span class="si">}{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Player(id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, vida=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="si">}</span><span class="s2">)&quot;</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Player(id_jogador=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;vida_maxima=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="si">}</span><span class="s2">, vida_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;forca=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forca</span><span class="si">}</span><span class="s2">, localizacao=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">localizacao</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;nivel=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nivel</span><span class="si">}</span><span class="s2">, experiencia=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Comparação de igualdade baseada no ID&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Player</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id_jogador</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado no ID&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="PlayerSession">
 <a class="viewcode-back" href="../../models.html#models.player.PlayerSession">[docs]</a>
 <span class="nd">@dataclass</span>

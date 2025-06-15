@@ -630,33 +630,21 @@
 <div class="viewcode-block" id="check_tables_exist">
 <a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_tables_exist">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">check_tables_exist</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se as tabelas principais existem no banco&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se as tabelas principais existem no banco usando repositórios&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="c1"># Importação local para evitar importação circular</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">..repositories</span><span class="w"> </span><span class="kn">import</span> <span class="n">BiomaRepositoryImpl</span><span class="p">,</span> <span class="n">MapaRepositoryImpl</span><span class="p">,</span> <span class="n">ChunkRepositoryImpl</span>
         
-        <span class="c1"># Lista das tabelas principais que devem existir</span>
-        <span class="n">required_tables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bioma&#39;</span><span class="p">,</span> <span class="s1">&#39;mapa&#39;</span><span class="p">,</span> <span class="s1">&#39;chunk&#39;</span><span class="p">,</span> <span class="s1">&#39;jogador&#39;</span><span class="p">,</span> <span class="s1">&#39;inventario&#39;</span><span class="p">]</span>
-        
-        <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">required_tables</span><span class="p">:</span>
-            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                SELECT EXISTS (</span>
-<span class="s2">                    SELECT FROM information_schema.tables </span>
-<span class="s2">                    WHERE table_schema = &#39;public&#39; </span>
-<span class="s2">                    AND table_name = </span><span class="si">%s</span>
-<span class="s2">                );</span>
-<span class="s2">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">table</span><span class="p">,))</span>
-            
-            <span class="n">exists</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">exists</span><span class="p">:</span>
-                <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Tabela &#39;</span><span class="si">{</span><span class="n">table</span><span class="si">}</span><span class="s2">&#39; não encontrada&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="kc">False</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Todas as tabelas necessárias existem&quot;</span><span class="p">)</span>
+        <span class="n">bioma_repo</span> <span class="o">=</span> <span class="n">BiomaRepositoryImpl</span><span class="p">()</span>
+        <span class="n">mapa_repo</span> <span class="o">=</span> <span class="n">MapaRepositoryImpl</span><span class="p">()</span>
+        <span class="n">chunk_repo</span> <span class="o">=</span> <span class="n">ChunkRepositoryImpl</span><span class="p">()</span>
+
+        <span class="c1"># Verifica se as tabelas têm pelo menos um registro</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bioma_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">mapa_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">chunk_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✗ Algumas tabelas não têm registros&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;✓ Todas as tabelas necessárias têm registros&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;✗ Erro ao verificar tabelas: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
