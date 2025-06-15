@@ -21,8 +21,8 @@ MINECRAFT_ART = [
 ]
 
 
-def mostrar_creeper():
-    """Exibe o Creeper na posição especificada."""
+def mostrar_logo():
+    """Exibe o logo na posição especificada."""
 
     largura_terminal = os.get_terminal_size().columns
     largura_creeper = 10 
@@ -33,7 +33,7 @@ def mostrar_creeper():
 
 def tela_inicial():
     clear_terminal()
-    mostrar_creeper()
+    mostrar_logo()
     time.sleep(5)
     menu_inicial()
 

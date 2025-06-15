@@ -3,58 +3,11 @@ Gerenciador de Sessão do Personagem Global
 Mantém dados essenciais do personagem em memória para otimizar performance
 """
 
-from dataclasses import dataclass
-from typing import Optional, Dict, Any, List, Tuple
+from typing import Optional, List, Tuple
 from src.utils.db_helpers import connection_db
+from src.models.player import PlayerSession
+from src.models.chunk import Chunk
 from colorama import Fore
-
-@dataclass
-class PlayerSession:
-    """Classe para armazenar dados essenciais do personagem ativo na sessão"""
-    id_jogador: int
-    nome: str
-    vida_max: int
-    vida_atual: int
-    xp: int
-    forca: int
-    id_chunk_atual: Optional[int] = None
-    
-    # Dados do chunk atual (evita JOIN desnecessário)
-    chunk_bioma: Optional[str] = None
-    chunk_mapa_nome: Optional[str] = None
-    chunk_mapa_turno: Optional[str] = None
-    
-    def to_dict(self) -> Dict[str, Any]:
-        """Converte para dicionário para facilitar manipulação"""
-        return {
-            'id_jogador': self.id_jogador,
-            'nome': self.nome,
-            'vida_max': self.vida_max,
-            'vida_atual': self.vida_atual,
-            'xp': self.xp,
-            'forca': self.forca,
-            'id_chunk_atual': self.id_chunk_atual,
-            'chunk_bioma': self.chunk_bioma,
-            'chunk_mapa_nome': self.chunk_mapa_nome,
-            'chunk_mapa_turno': self.chunk_mapa_turno
-        }
-    
-    def is_alive(self) -> bool:
-        """Verifica se o personagem está vivo"""
-        return self.vida_atual > 0
-    
-    def take_damage(self, damage: int) -> bool:
-        """Aplica dano ao personagem. Retorna True se ainda está vivo"""
-        self.vida_atual = max(0, self.vida_atual - damage)
-        return self.is_alive()
-    
-    def heal(self, amount: int) -> None:
-        """Cura o personagem até o máximo de vida"""
-        self.vida_atual = min(self.vida_max, self.vida_atual + amount)
-    
-    def gain_xp(self, amount: int) -> None:
-        """Adiciona experiência ao personagem"""
-        self.xp += amount
 
 
 # Variável global para armazenar o personagem ativo
@@ -67,17 +20,14 @@ def set_current_player(player_data: PlayerSession) -> None:
     current_player = player_data
     print(f"🎮 Personagem '{player_data.nome}' selecionado!")
 
-
 def get_current_player() -> Optional[PlayerSession]:
     """Retorna o personagem ativo da sessão"""
     return current_player
-
 
 def clear_current_player() -> None:
     """Limpa o personagem ativo (logout)"""
     global current_player
     current_player = None
-
 
 def load_player_by_id(player_id: int) -> Optional[PlayerSession]:
     """
@@ -119,7 +69,6 @@ def load_player_by_id(player_id: int) -> Optional[PlayerSession]:
         print(f"❌ Erro ao carregar personagem {player_id}: {str(e)}")
         return None
 
-
 def refresh_current_player() -> bool:
     """
     Atualiza os dados do personagem atual do banco de dados
@@ -137,7 +86,6 @@ def refresh_current_player() -> bool:
     else:
         print("❌ Erro ao atualizar dados do personagem")
         return False
-
 
 def save_player_changes() -> bool:
     """
@@ -171,7 +119,6 @@ def save_player_changes() -> bool:
         print(f"❌ Erro ao salvar personagem: {str(e)}")
         return False
 
-
 def get_all_players() -> list:
     """Busca todos os personagens do banco para seleção"""
     try:
@@ -187,7 +134,6 @@ def get_all_players() -> list:
         print(f"❌ Erro ao buscar personagens: {str(e)}")
         return []
 
-
 def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Optional[PlayerSession]:
     """
     Cria um novo personagem no banco de dados
@@ -196,7 +142,6 @@ def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Option
     try:
         with connection_db() as conn:
             with conn.cursor() as cursor:
-                # Para novos personagens, começar no deserto (chunk 1)
                 cursor.execute("""
                     INSERT INTO jogador (nome, vida_max, vida_atual, xp, forca, id_chunk_atual)
                     VALUES (%s, %s, %s, 0, %s, 1)
@@ -205,7 +150,7 @@ def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Option
                 
                 player_id = cursor.fetchone()[0]
                 conn.commit()
-                
+
                 # Carrega o personagem recém-criado
                 new_player = load_player_by_id(player_id)
                 if new_player:
@@ -215,7 +160,6 @@ def create_new_player(nome: str, vida_max: int = 100, forca: int = 10) -> Option
     except Exception as e:
         print(f"❌ Erro ao criar personagem: {str(e)}")
         return None
-
 
 def delete_player(player_id: int) -> bool:
     """
@@ -257,7 +201,6 @@ def delete_player(player_id: int) -> bool:
         print(f"❌ Erro ao deletar personagem: {str(e)}")
         return False
 
-
 def confirm_player_deletion(player_name: str) -> bool:
     """
     Solicita confirmação para deletar um personagem
@@ -283,7 +226,6 @@ def confirm_player_deletion(player_name: str) -> bool:
         else:
             print("❌ Digite 'sim' ou 'não'.")
 
-
 def display_player_status(player: Optional[PlayerSession] = None) -> None:
     """Exibe o status do personagem (atual ou especificado)"""
     if not player:
@@ -296,13 +238,8 @@ def display_player_status(player: Optional[PlayerSession] = None) -> None:
     # Largura da tabela: 50 caracteres internos (suficiente para maior localização possível)
     table_width = 50
     
-    # Formatação da localização
-    if player.chunk_bioma:
-        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})".replace("_", " ")
-    else:
-        localizacao = "Desconhecida"
-    
-    # Formatação da vida
+    # Usar métodos da model para formatação
+    localizacao = player.get_location_display()
     vida_str = f"{player.vida_atual}/{player.vida_max}"
     
     print(f"""
@@ -316,18 +253,12 @@ def display_player_status(player: Optional[PlayerSession] = None) -> None:
 ║ Localização: {localizacao:<{table_width-13}} ║
 ╚═{'═' * table_width}═╝""")
 
-
 def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> list:
     """Retorna as linhas da tabela de status como lista de strings"""
     table_width = 50
     
-    # Formatação da localização
-    if player.chunk_bioma:
-        localizacao = f"{player.chunk_bioma} ({player.chunk_mapa_nome} - {player.chunk_mapa_turno})".replace("_", " ")
-    else:
-        localizacao = "Desconhecida"
-    
-    # Formatação da vida
+    # Usar métodos da model para formatação
+    localizacao = player.get_location_display()
     vida_str = f"{player.vida_atual}/{player.vida_max}"
     
     # Título com indicador de personagem atual
@@ -346,7 +277,6 @@ def get_player_status_lines(player: PlayerSession, is_current: bool = False) -> 
     ]
     
     return lines
-
 
 def display_players_grid(players_data: list) -> None:
     """Exibe múltiplos personagens em formato de grid lado a lado"""
@@ -407,7 +337,6 @@ def display_players_grid(players_data: list) -> None:
         if i + tables_per_line < len(player_sessions):
             print()  # Linha vazia entre grupos
 
-
 def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, str]]:
     """
     Retorna os chunks adjacentes ao chunk atual
@@ -432,7 +361,6 @@ def get_adjacent_chunks(chunk_id: int, turno: str = 'Dia') -> List[Tuple[int, st
     except Exception as e:
         print(f"❌ Erro ao buscar chunks adjacentes: {str(e)}")
         return []
-
 
 def move_player_to_chunk(chunk_id: int) -> bool:
     """
@@ -480,7 +408,6 @@ def move_player_to_chunk(chunk_id: int) -> bool:
         print(f"❌ Erro ao mover personagem: {str(e)}")
         return False
 
-
 def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
     """
     Retorna o ID de um chunk de deserto no turno especificado
@@ -502,7 +429,6 @@ def get_desert_chunk(turno: str = 'Dia') -> Optional[int]:
         print(f"❌ Erro ao buscar chunk de deserto: {str(e)}")
         return None
 
-
 def ensure_player_location() -> bool:
     """
     Garante que o personagem atual tem uma localização válida
@@ -521,4 +447,4 @@ def ensure_player_location() -> bool:
             print("❌ Não foi possível encontrar um chunk de deserto!")
             return False
     
-    return True 
+    return True
