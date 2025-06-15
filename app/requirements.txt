@@ -1,2 +1,5 @@
 psycopg2-binary==2.9.9
 colorama==0.4.6
+pytest==7.4.3
+pytest-cov==4.1.0
+pytest-mock==3.12.0
