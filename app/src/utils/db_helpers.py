@@ -39,33 +39,21 @@ def check_database_connection():
         return False
 
 def check_tables_exist():
-    """Verifica se as tabelas principais existem no banco"""
+    """Verifica se as tabelas principais existem no banco usando repositórios"""
     try:
-        conn = connection_db()
-        cursor = conn.cursor()
+        # Importação local para evitar importação circular
+        from ..repositories import BiomaRepositoryImpl, MapaRepositoryImpl, ChunkRepositoryImpl
         
-        # Lista das tabelas principais que devem existir
-        required_tables = ['bioma', 'mapa', 'chunk', 'jogador', 'inventario']
-        
-        for table in required_tables:
-            cursor.execute("""
-                SELECT EXISTS (
-                    SELECT FROM information_schema.tables 
-                    WHERE table_schema = 'public' 
-                    AND table_name = %s
-                );
-            """, (table,))
-            
-            exists = cursor.fetchone()[0]
-            if not exists:
-                cursor.close()
-                conn.close()
-                print(f"✗ Tabela '{table}' não encontrada")
-                return False
-        
-        cursor.close()
-        conn.close()
-        print("✓ Todas as tabelas necessárias existem")
+        bioma_repo = BiomaRepositoryImpl()
+        mapa_repo = MapaRepositoryImpl()
+        chunk_repo = ChunkRepositoryImpl()
+
+        # Verifica se as tabelas têm pelo menos um registro
+        if not bioma_repo.find_all() or not mapa_repo.find_all() or not chunk_repo.find_all():
+            print("✗ Algumas tabelas não têm registros")
+            return False
+
+        print("✓ Todas as tabelas necessárias têm registros")
         return True
     except Exception as e:
         print(f"✗ Erro ao verificar tabelas: {str(e)}")
