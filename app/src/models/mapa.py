@@ -7,7 +7,6 @@ from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 from enum import Enum
 from .chunk import Chunk
-from ..repositories import ChunkRepositoryImpl
 
 
 class TurnoType(Enum):
@@ -19,7 +18,7 @@ class TurnoType(Enum):
 @dataclass
 class Mapa:
     """
-    Model que representa um mapa do jogo (versão refatorada)
+    Model que representa um mapa do jogo
     
     Attributes:
         nome: Nome do mapa (parte da chave primária composta)
@@ -163,7 +162,8 @@ class Mapa:
 def exemplo_uso_repository():
     """Exemplo de como usar o Mapa com Repository Pattern"""
     
-    # 1. Configurar repositories
+    # 1. Configurar repositories (import local para evitar circular import)
+    from ..repositories import ChunkRepositoryImpl
     chunk_repo = ChunkRepositoryImpl()
     
     # 2. Criar mapa e injetar repository
