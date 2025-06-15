@@ -25,9 +25,13 @@ class TestMapa:
     def test_mapa_string_representation(self):
         """Testa representação string do mapa"""
         mapa = Mapa("Mapa_Principal", TurnoType.DIA)
-        # O mapa real carrega 1000 chunks do banco
-        assert str(mapa) == "Mapa(Mapa_Principal - Dia, 1000 chunks)"
-        assert repr(mapa) == "Mapa(nome='Mapa_Principal', turno=TurnoType.DIA)"
+        
+        # Mock do get_chunks para retornar 1000 chunks de teste
+        mock_chunks = [Chunk(i, "Deserto", "Mapa_Principal", "Dia") for i in range(1, 1001)]
+        
+        with patch.object(mapa, 'get_chunks', return_value=mock_chunks):
+            assert str(mapa) == "Mapa(Mapa_Principal - Dia, 1000 chunks)"
+            assert repr(mapa) == "Mapa(nome='Mapa_Principal', turno=TurnoType.DIA)"
     
     def test_mapa_equality(self):
         """Testa igualdade entre mapas"""
@@ -63,13 +67,17 @@ class TestMapa:
     def test_get_display_info_empty(self):
         """Testa informações de exibição sem chunks"""
         mapa = Mapa("Mapa_Principal", TurnoType.DIA)
-        info = mapa.get_display_info()
-        assert info['nome'] == "Mapa_Principal"
-        assert info['turno'] == "Dia"
-        assert info['tipo'] == "Dia"
-        # O mapa real carrega 1000 chunks do banco
-        assert info['total_chunks'] == 1000
-        assert 'distribuicao' in info
+        
+        # Mock do get_chunks para retornar 1000 chunks de teste
+        mock_chunks = [Chunk(i, "Deserto", "Mapa_Principal", "Dia") for i in range(1, 1001)]
+        
+        with patch.object(mapa, 'get_chunks', return_value=mock_chunks):
+            info = mapa.get_display_info()
+            assert info['nome'] == "Mapa_Principal"
+            assert info['turno'] == "Dia"
+            assert info['tipo'] == "Dia"
+            assert info['total_chunks'] == 1000
+            assert 'distribuicao' in info
     
     def test_get_display_info_with_chunks(self):
         """Testa informações de exibição com chunks"""
