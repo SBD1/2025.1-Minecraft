@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.abspath('../../app/src'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'Minecraft Legends - Python Edition'
+project = 'MINECRAFT - FGA - 2025/1 - Python Edition'
 copyright = '2025, SBD1 - Universidade de Brasília'
 author = 'SBD1 - 2025.1'
 

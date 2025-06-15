@@ -1,12 +1,12 @@
-# 🟩 2025.1 - Minecraft em Python
+# 🟩 2025.1 - MINECRAFT - FGA - 2025/1
 
 [![Tests](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/tests.yml/badge.svg)](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/tests.yml)
 [![Documentation](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/docs.yml/badge.svg)](https://github.com/SBD1/2025.1-Minecraft/actions/workflows/docs.yml)
 [![Codecov](https://codecov.io/gh/SBD1/2025.1-Minecraft/branch/main/graph/badge.svg)](https://codecov.io/gh/SBD1/2025.1-Minecraft)
 
-Bem-vindo ao projeto **Minecraft Legends**, desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
+Bem-vindo ao projeto **MINECRAFT - FGA - 2025/1**, desenvolvido para a disciplina de Sistemas de Banco de Dados 1 (SBD1) — 2025.1.
 
-Este projeto recria o Minecraft Legends utilizando SQL e Python, com ambiente isolado via Docker para facilitar a execução e portabilidade.
+Este projeto implementa um jogo baseado no MINECRAFT - FGA - 2025/1 utilizando Python e PostgreSQL, com uma arquitetura em camadas bem definida e ambiente isolado via Docker.
 
 ---
 
@@ -23,9 +23,21 @@ A documentação inclui:
 
 ---
 
-## 📸 Preview
+## 🏗️ Arquitetura do Projeto
 
-> *(Adicione aqui um gif ou screenshot do jogo rodando, se desejar)*
+O projeto utiliza uma arquitetura em camadas com padrão Repository:
+
+- **Interface Layer** (`app/src/interface/`): Interface com o usuário
+- **Service Layer** (`app/src/services/`): Lógica de negócio
+- **Repository Layer** (`app/src/repositories/`): Acesso a dados
+- **Model Layer** (`app/src/models/`): Entidades de domínio
+- **Utils Layer** (`app/src/utils/`): Funções auxiliares
+
+### Modelos Implementados
+- **Player**: Gerenciamento de jogadores com estatísticas
+- **Chunk**: Sistema de chunks do mundo
+- **Mapa**: Gerenciamento do mapa do jogo
+- **Bioma**: Diferentes tipos de biomas
 
 ---
 
@@ -33,28 +45,27 @@ A documentação inclui:
 
 Antes de começar, certifique-se de ter os seguintes softwares instalados na sua máquina:
 
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Docker](https://www.docker.com/) (versão 20.10+)
+- [Docker Compose](https://docs.docker.com/compose/) (versão 2.0+)
 
 ---
 
 ## 🚀 Como rodar o jogo
 
-### 1. Clone e acesse este repositório em seu ambiente local
+### 1. Clone e acesse este repositório
 
 ```bash
 git clone https://github.com/SBD1/2025.1-Minecraft.git
-
 cd 2025.1-Minecraft
 ```
 
-### 2. Construa e suba os containers com Docker
+### 2. Construa e suba os containers
 
 ```bash
 docker compose up -d --build
 ```
 
-### 3. Acesse o container interativamente
+### 3. Acesse o container da aplicação
 
 ```bash
 docker exec -it python_mine bash
@@ -68,12 +79,36 @@ python main.py
 
 ---
 
+## 🧪 Executando os Testes
+
+### Executar todos os testes
+```bash
+docker compose exec app python -m pytest tests/ -v
+```
+
+### Executar com cobertura de código
+```bash
+docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
+```
+
+### Executar teste específico
+```bash
+docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+```
+
+### Executar testes de integração
+```bash
+docker compose exec app python -m pytest tests/test_integration.py -v
+```
+
+---
+
 ## 📖 Documentação Local
 
 Para construir a documentação localmente:
 
 ```bash
-# Instalar dependências
+# Instalar dependências da documentação
 pip install sphinx sphinx-rtd-theme
 
 # Construir documentação
@@ -92,21 +127,6 @@ A documentação será gerada em `docs/build/html/`.
 
 ---
 
-## ❌ Como sair
-
-Para sair do terminal interativo:
-
-- Pressione `Ctrl + D`
-- Ou digite `exit` e pressione `Enter`
-
-Para parar os containers:
-
-```bash
-docker compose down
-```
-
----
-
 ## 🛠️ Desenvolvimento
 
 ### Estrutura do Projeto
@@ -115,47 +135,86 @@ docker compose down
 2025.1-Minecraft/
 ├── app/                    # Aplicação principal
 │   ├── main.py            # Ponto de entrada
-│   ├── tests/             # Testes unitários
-│   │   ├── test_bioma.py  # Testes da model Bioma
-│   │   ├── test_chunk.py  # Testes da model Chunk
-│   │   └── test_mapa.py   # Testes da model Mapa
+│   ├── requirements.txt   # Dependências Python
+│   ├── Dockerfile         # Container da aplicação
+│   ├── tests/             # Testes unitários e integração
+│   │   ├── test_bioma.py
+│   │   ├── test_chunk.py
+│   │   ├── test_mapa.py
+│   │   ├── test_integration.py
+│   │   └── test_repository_pattern.py
 │   └── src/               # Código fonte
 │       ├── interface/     # Interface do usuário
-│       ├── models/        # Models do banco
+│       │   └── display.py
+│       ├── services/      # Lógica de negócio
+│       │   ├── game_service.py
+│       │   └── interface_service.py
+│       ├── repositories/  # Acesso a dados
+│       │   ├── player_repository.py
+│       │   ├── chunk_repository.py
+│       │   ├── mapa_repository.py
+│       │   └── bioma_repository.py
+│       ├── models/        # Entidades de domínio
+│       │   ├── player.py
+│       │   ├── chunk.py
+│       │   ├── mapa.py
+│       │   └── bioma.py
 │       └── utils/         # Utilitários
-├── db/                    # Banco de dados
+│           └── db_helpers.py
+├── db/                    # Scripts do banco de dados
+│   ├── Dockerfile.db      # Container do PostgreSQL
+│   ├── ddl.sql           # Definição das tabelas
+│   ├── trigger_SP.sql    # Triggers e stored procedures
+│   ├── dml.sql           # Dados iniciais
+│   └── dml_inst.sql      # Dados de instância
 ├── docs/                  # Documentação
-└── docker-compose.yml     # Orquestração
+│   ├── source/           # Arquivos fonte da documentação
+│   ├── build/            # Documentação gerada
+│   └── architecture.md   # Documentação da arquitetura
+└── docker-compose.yml     # Orquestração dos containers
 ```
 
-### 🧪 Executando os Testes
+### Dependências
 
-#### Localmente (com Docker) - **Recomendado**
+#### Python (app/requirements.txt)
+- `psycopg2-binary==2.9.9`: Driver PostgreSQL
+- `colorama==0.4.6`: Cores no terminal
+- `pytest==7.4.3`: Framework de testes
+- `pytest-cov==4.1.0`: Cobertura de código
+- `pytest-mock==3.12.0`: Mocking para testes
+
+#### Documentação (docs/requirements.txt)
+- `sphinx`: Gerador de documentação
+- `sphinx-rtd-theme`: Tema Read the Docs
+
+### Padrões de Código
+
+- **Arquitetura**: Camadas com padrão Repository
+- **Testes**: Cobertura completa com pytest
+- **Banco**: PostgreSQL com triggers e stored procedures
+- **Containerização**: Docker para desenvolvimento e produção
+
+---
+
+## ❌ Como sair
+
+Para sair do terminal interativo:
+- Pressione `Ctrl + D`
+- Ou digite `exit` e pressione `Enter`
+
+Para parar os containers:
 ```bash
-# Executar todos os testes
-docker compose exec app python -m pytest tests/ -v
-# ou
-docker-compose exec app python -m pytest tests/ -v
-
-# Executar com cobertura
-docker compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
-# ou
-docker-compose exec app python -m pytest tests/ --cov=src --cov-report=term-missing
-
-# Executar teste específico
-docker compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
-# ou
-docker-compose exec app python -m pytest tests/test_bioma.py::TestBioma::test_bioma_creation -v
+docker compose down
 ```
 
-#### No CI/CD
-Os testes são executados automaticamente no GitHub Actions usando Docker:
-- ✅ **Testes Unitários**: Executados em cada push e pull request
-- ✅ **Ambiente Docker**: Garante consistência entre desenvolvimento e CI
-- ✅ **Compatibilidade**: Funciona com `docker compose` e `docker-compose`
-- ✅ **Cobertura de Código**: Relatório enviado para Codecov
+Para parar e remover volumes (cuidado: apaga dados):
+```bash
+docker compose down -v
+```
 
-### Contribuindo
+---
+
+## 👥 Contribuindo
 
 1. Fork o repositório
 2. Crie uma branch para sua feature (`git checkout -b feature/nova-funcionalidade`)
@@ -167,14 +226,6 @@ Os testes são executados automaticamente no GitHub Actions usando Docker:
 **Importante**: Todos os PRs devem passar nos testes antes de serem aprovados.
 
 Para mais detalhes, consulte o [Guia de Contribuição](https://sbd1.github.io/2025.1-Minecraft/contributing.html).
-
----
-
-## 👥 Contribuindo
-
-Sinta-se à vontade para abrir issues, sugestões ou enviar pull requests!
-
-Para contribuir, consulte nossa [documentação completa](https://sbd1.github.io/2025.1-Minecraft/contributing.html).
 
 ---
 

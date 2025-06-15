@@ -1,7 +1,7 @@
 Banco de Dados
 =============
 
-Esta seção documenta a estrutura e configuração do banco de dados do Minecraft Legends.
+Esta seção documenta a estrutura e configuração do banco de dados do MINECRAFT - FGA - 2025/1.
 
 Visão Geral
 -----------
@@ -593,7 +593,7 @@ Sistema de Jogo
 Visão Geral
 -----------
 
-O Minecraft Legends implementa um sistema de jogo baseado em chunks e biomas, onde os personagens podem se mover entre diferentes áreas do mapa.
+O MINECRAFT - FGA - 2025/1 implementa um sistema de jogo baseado em chunks e biomas, onde os personagens podem se mover entre diferentes áreas do mapa.
 
 Localização dos Personagens
 ---------------------------

@@ -1,8 +1,8 @@
-# Arquitetura do Projeto Minecraft Legends
+# Arquitetura do Projeto MINECRAFT - FGA - 2025/1
 
 ## Visão Geral
 
-O projeto Minecraft Legends utiliza uma arquitetura em camadas com o padrão Repository para separar a lógica de negócio da persistência de dados, e um InterfaceService para coordenar as ações da interface com os repositórios.
+O projeto MINECRAFT - FGA - 2025/1 utiliza uma arquitetura em camadas com o padrão Repository para separar a lógica de negócio da persistência de dados, e um InterfaceService para coordenar as ações da interface com os repositórios.
 
 ## Camadas da Arquitetura
 
@@ -143,20 +143,20 @@ services:
   postgres:
     image: postgres:15
     environment:
-      POSTGRES_DB: minecraft_legends
-      POSTGRES_USER: minecraft
-      POSTGRES_PASSWORD: minecraft123
+      POSTGRES_DB: 2025_1_Minecraft
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 ```
 
 ### Conexão
-- **Host**: localhost:5432
-- **Database**: minecraft_legends
-- **User**: minecraft
-- **Password**: minecraft123
+- **Host**: localhost:5433
+- **Database**: 2025_1_Minecraft
+- **User**: postgres
+- **Password**: password
 
 ## Convenções de Código
 

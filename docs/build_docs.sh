@@ -2,7 +2,7 @@
 
 # Script para construir a documentação localmente
 
-echo "🔨 Construindo documentação do Minecraft Legends..."
+echo "🔨 Construindo documentação do MINECRAFT - FGA - 2025/1..."
 
 # Verificar se estamos no diretório correto
 if [ ! -f "Makefile" ]; then
