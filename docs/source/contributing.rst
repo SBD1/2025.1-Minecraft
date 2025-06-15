@@ -1,11 +1,6 @@
 Contribuindo
 ============
 
-Obrigado por considerar contribuir com o MINECRAFT - FGA - 2025/1! Este guia irá ajudá-lo a começar.
-
-Como Contribuir
----------------
-
 Tipos de Contribuição
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -78,38 +73,6 @@ Para bugs, inclua sempre:
 * **Informações do ambiente**
 * **Logs de erro** (se disponível)
 
-Sugerindo Features
-------------------
-
-Template de Feature Request
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: markdown
-
-   ## 💡 Feature Request
-   
-   **Problema que a feature resolve**
-   Uma descrição clara e concisa do problema que a feature resolve.
-   
-   **Descrição da Solução**
-   Uma descrição clara e concisa do que você quer que aconteça.
-   
-   **Alternativas Consideradas**
-   Uma descrição clara e concisa de quaisquer soluções ou features alternativas que você considerou.
-   
-   **Contexto Adicional**
-   Adicione qualquer outro contexto ou screenshots sobre a feature request aqui.
-
-Critérios para Features
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Features devem:
-
-* **Resolver um problema real** ou adicionar valor significativo
-* **Ser bem documentadas** com casos de uso claros
-* **Seguir os padrões** do projeto
-* **Incluir testes** quando aplicável
-* **Ser compatíveis** com a arquitetura existente
 
 Desenvolvimento
 --------------
@@ -344,9 +307,7 @@ Mensagens de Commit
 ^^^^^^^^^^^^^^^^^^
 
 * Use o imperativo ("add" não "added")
-* Primeira linha com máximo 50 caracteres
-* Descrição detalhada após linha em branco
-* Referencie issues quando aplicável
+* Máximo 50 caracteres
 
 .. code-block:: bash
 
@@ -383,64 +344,6 @@ Criando um PR
 
 #. **Abra o PR** no GitHub
 
-Template de PR
-^^^^^^^^^^^^^
-
-.. code-block:: markdown
-
-   ## 📝 Descrição
-   
-   Breve descrição das mudanças implementadas.
-   
-   ## 🔗 Issue Relacionada
-   
-   Closes #123
-   
-   ## 🧪 Testes
-   
-   - [ ] Testes unitários passando
-   - [ ] Testes de integração passando
-   - [ ] Funcionalidade testada manualmente
-   
-   ## 📸 Screenshots
-   
-   Se aplicável, adicione screenshots das mudanças.
-   
-   ## ✅ Checklist
-   
-   - [ ] Código segue os padrões do projeto
-   - [ ] Documentação atualizada
-   - [ ] Testes adicionados/atualizados
-   - [ ] Commits seguem convenções
-   - [ ] PR está atualizado com a main
-
-Revisão de Código
------------------
-
-Critérios de Revisão
-^^^^^^^^^^^^^^^^^^^^
-
-* **Funcionalidade**: O código faz o que deveria?
-* **Qualidade**: O código está bem escrito?
-* **Testes**: Há testes adequados?
-* **Documentação**: Está bem documentado?
-* **Performance**: Há problemas de performance?
-* **Segurança**: Há vulnerabilidades?
-
-Comentários de Revisão
-^^^^^^^^^^^^^^^^^^^^^^
-
-Seja construtivo:
-
-.. code-block:: markdown
-
-   ✅ **Positivo**: "Boa implementação! O código está claro e bem estruturado."
-   
-   🔧 **Sugestão**: "Considere usar uma validação mais específica aqui."
-   
-   ❌ **Problema**: "Esta função pode causar problemas de performance com muitos dados."
-   
-   💡 **Idea**: "Que tal implementar cache para melhorar performance?"
 
 Documentação
 ------------
@@ -475,61 +378,6 @@ Estrutura de Documentação
 * **database.rst**: Estrutura do banco
 * **development.rst**: Guia de desenvolvimento
 * **contributing.rst**: Este guia
-
-Comunicação
------------
-
-Canais de Comunicação
-^^^^^^^^^^^^^^^^^^^^^
-
-* **GitHub Issues**: Para bugs e features
-* **GitHub Discussions**: Para discussões gerais
-* **Pull Requests**: Para contribuições de código
-* **Email**: Para assuntos privados
-
-Código de Conduta
-^^^^^^^^^^^^^^^^^
-
-* Seja respeitoso e inclusivo
-* Foque no código, não na pessoa
-* Seja construtivo em feedback
-* Ajude outros contribuidores
-* Respeite diferentes pontos de vista
-
-Reconhecimento
---------------
-
-Contribuidores
-^^^^^^^^^^^^^
-
-Todos os contribuidores são reconhecidos:
-
-* No arquivo CONTRIBUTORS.md
-* Na documentação
-* Nos releases do GitHub
-* No README do projeto
-
-Como Ser Reconhecido
-^^^^^^^^^^^^^^^^^^^^
-
-* Contribuições significativas de código
-* Melhorias importantes na documentação
-* Reportes de bugs críticos
-* Sugestões de features implementadas
-* Ajuda na comunidade
-
-Próximos Passos
----------------
-
-Agora que você conhece como contribuir:
-
-#. **Escolha** uma issue para trabalhar
-#. **Configure** seu ambiente de desenvolvimento
-#. **Desenvolva** sua contribuição
-#. **Teste** suas mudanças
-#. **Abra** um Pull Request
-
-Obrigado por contribuir com o MINECRAFT - FGA - 2025/1! 🎮
 
 Para mais informações:
 
