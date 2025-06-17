@@ -9,6 +9,7 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    :maxdepth: 2
    :caption: Conteúdo:
 
+   documentation_guide
    installation
    quickstart
    user_guide
