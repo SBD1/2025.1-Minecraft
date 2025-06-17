@@ -1,4 +1,7 @@
-.. _Módulo 2:Documentação do Esquema e Dados do Projeto.. sectnum:::depth: 2.. contents:: Sumário:depth: 2:local:Esquema do Banco de Dados (DDL)Este é o DDL (Data Definition Language) para criar a estrutura do banco de dados do projeto. Ele define as tabelas, colunas, chaves primárias e estrangeiras necessárias... code-block:: sql-- Configurações para garantir que os comandos rodem sem parar em erros de "já existe"
+## Módulo 2
+==========
+
+Documentação do Esquema e Dados do Projeto.. sectnum:::depth: 2.. contents:: Sumário:depth: 2:local:Esquema do Banco de Dados (DDL)Este é o DDL (Data Definition Language) para criar a estrutura do banco de dados do projeto. Ele define as tabelas, colunas, chaves primárias e estrangeiras necessárias... code-block:: sql-- Configurações para garantir que os comandos rodem sem parar em erros de "já existe"
 -- Isso é útil se o script for executado em um ambiente onde partes já foram criadas.
 SET client_min_messages TO WARNING; -- Suprime mensagens de NOTICE, mostrando WARNINGs e erros
 
