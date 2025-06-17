@@ -9,7 +9,7 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    :maxdepth: 2
    :caption: Conteúdo:
 
-   documentation_guide
+   modulo_2
    installation
    quickstart
    user_guide
@@ -19,7 +19,6 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    relational_algebra 
    development
    contributing
-   modulo_2
 
 .. image:: _static/banner.png
    :alt: MINECRAFT - FGA - 2025/1 Banner
