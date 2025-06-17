@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>## Módulo 2 &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
+  <title>1 Módulo 2 &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/documentation_guide.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/modulo_2.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=8d563738"></script>
@@ -45,7 +45,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">## Módulo 2</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"><span class="sectnum">1 </span>Módulo 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#esquema-do-banco-de-dados-ddl"><span class="sectnum">1.1 </span>Esquema do Banco de Dados (DDL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manipulacao-de-dados-dml"><span class="sectnum">1.2 </span>Manipulação de Dados (DML)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linguagem-de-consulta-de-dados-dql"><span class="sectnum">1.3 </span>Linguagem de Consulta de Dados (DQL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dml-geracao-de-1000-chunks"><span class="sectnum">1.4 </span>DML: Geração de 1000 Chunks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#video-de-demonstracao"><span class="sectnum">1.5 </span>Vídeo de Demonstração</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Instalação</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pre-requisitos">Pré-requisitos</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#instalacao-do-docker">Instalação do Docker</a></li>
@@ -727,9 +734,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">## Módulo 2</li>
+      <li class="breadcrumb-item active"><span class="sectnum">1 </span>Módulo 2</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/documentation_guide.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/modulo_2.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -738,345 +745,342 @@
            <div itemprop="articleBody">
              
   <section id="modulo-2">
-<h1>## Módulo 2<a class="headerlink" href="#modulo-2" title="Link to this heading"></a></h1>
-<p>Documentação do Esquema e Dados do Projeto.. sectnum:::depth: 2.. contents:: Sumário:depth: 2:local:Esquema do Banco de Dados (DDL)Este é o DDL (Data Definition Language) para criar a estrutura do banco de dados do projeto. Ele define as tabelas, colunas, chaves primárias e estrangeiras necessárias… code-block:: sql– Configurações para garantir que os comandos rodem sem parar em erros de “já existe”
-– Isso é útil se o script for executado em um ambiente onde partes já foram criadas.
-SET client_min_messages TO WARNING; – Suprime mensagens de NOTICE, mostrando WARNINGs e erros</p>
-<dl class="simple">
-<dt>CREATE TABLE IF NOT EXISTS Bioma (</dt><dd><p>NomeBioma VARCHAR(100) PRIMARY KEY NOT NULL</p>
-</dd>
-</dl>
-<p>);</p>
-<dl class="simple">
-<dt>CREATE TABLE IF NOT EXISTS Mapa (</dt><dd><p>Nome VARCHAR(100) NOT NULL,
-Turno VARCHAR(50) NOT NULL,
-PRIMARY KEY (Nome, Turno)</p>
-</dd>
-</dl>
-<p>);</p>
-<dl>
-<dt>CREATE TABLE IF NOT EXISTS Chunk (</dt><dd><p>Numero_chunk INTEGER PRIMARY KEY NOT NULL,
-Id_bioma VARCHAR(100) NOT NULL,
-Id_mapa_nome VARCHAR(100) NOT NULL,
-Id_mapa_turno VARCHAR(50) NOT NULL,</p>
-<p>FOREIGN KEY (Id_bioma) REFERENCES Bioma(NomeBioma) ON DELETE RESTRICT ON UPDATE CASCADE,
-FOREIGN KEY (Id_mapa_nome, Id_mapa_turno) REFERENCES Mapa(Nome, Turno) ON DELETE RESTRICT ON UPDATE CASCADE</p>
-</dd>
-</dl>
-<p>);</p>
-<dl class="simple">
-<dt>CREATE TABLE IF NOT EXISTS Jogador (</dt><dd><p>Id_Jogador SERIAL PRIMARY KEY,
-Nome VARCHAR(100) NOT NULL,
-Vida_max INT NOT NULL,
-Vida_atual INT NOT NULL,
-xp INT NOT NULL,
-forca INT NOT NULL</p>
-</dd>
-</dl>
-<p>);</p>
-<dl>
-<dt>CREATE TABLE IF NOT EXISTS Inventario (</dt><dd><p>id_jogador INT NOT NULL,
-id_inventario INT NOT NULL,
-Instancia_Item TEXT,
-ArmaduraEquipada VARCHAR(100),
-ArmaEquipada VARCHAR(100),</p>
-<p>PRIMARY KEY (id_jogador, id_inventario),
-FOREIGN KEY (id_jogador) REFERENCES Jogador(Id_Jogador) ON DELETE CASCADE ON UPDATE CASCADE</p>
-</dd>
-</dl>
-<p>);</p>
-<p>– Garante que a coluna e a constraint só sejam adicionadas se não existirem.
-DO $$
-BEGIN</p>
-<blockquote>
-<div><p>– Adicionar a coluna Id_Chunk_Atual à tabela Jogador se ela não existir
-– Note que este bloco ‘IF NOT EXISTS’ não é padrão SQL, mas é uma extensão comum em PG.
-– Ou você pode usar um bloco EXCEPTION WHEN duplicate_column THEN null; como antes
-IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name=’jogador’ AND column_name=’id_chunk_atual’) THEN</p>
-<blockquote>
-<div><p>ALTER TABLE Jogador ADD COLUMN Id_Chunk_Atual INTEGER; – &lt;— AGORA É INTEGER</p>
-</div></blockquote>
-<p>END IF;</p>
-<p>– Adicionar a constraint de chave estrangeira se ela não existir
-IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = ‘fk_jogador_chunk’) THEN</p>
-<blockquote>
-<div><p>ALTER TABLE Jogador ADD CONSTRAINT fk_jogador_chunk
-FOREIGN KEY (Id_Chunk_Atual) REFERENCES Chunk(Numero_chunk) ON DELETE SET NULL ON UPDATE CASCADE;</p>
-</div></blockquote>
-<p>END IF;</p>
-</div></blockquote>
-<p>END
-$$ LANGUAGE plpgsql;</p>
-<p>– Índices para Chaves Estrangeiras (para otimização de performance em consultas)
-CREATE INDEX IF NOT EXISTS idx_chunk_id_bioma ON Chunk (Id_bioma);
-CREATE INDEX IF NOT EXISTS idx_chunk_id_mapa ON Chunk (Id_mapa_nome, Id_mapa_turno);
-CREATE INDEX IF NOT EXISTS idx_inventario_id_jogador ON Inventario (id_jogador);
-CREATE INDEX IF NOT EXISTS idx_jogador_id_chunk_atual ON Jogador (Id_Chunk_Atual);
-Manipulação de Dados (DML)Este script DML (Data Manipulation Language) insere alguns dados iniciais nas tabelas do banco de dados para testes e demonstrações… code-block:: sqlINSERT INTO Mapa (Nome, Turno)
-VALUES</p>
-<blockquote>
-<div><p>(‘Mapa_Principal’, ‘Dia’),
-(‘Mapa_Principal’, ‘Noite’)</p>
-</div></blockquote>
-<p>ON CONFLICT (Nome, Turno) DO NOTHING;</p>
-<p>INSERT INTO Bioma (NomeBioma)
-VALUES</p>
-<blockquote>
-<div><p>(‘Deserto’),
-(‘Oceano’),
-(‘Selva’),
-(‘Floresta’)</p>
-</div></blockquote>
-<p>ON CONFLICT (NomeBioma) DO NOTHING;</p>
-<p>INSERT INTO Chunk (Numero_chunk, Id_bioma, Id_mapa_nome, Id_mapa_turno)
-VALUES</p>
-<blockquote>
-<div><p>(1, ‘Deserto’, ‘Mapa_Principal’, ‘Dia’),
-(2, ‘Oceano’, ‘Mapa_Principal’, ‘Dia’),
-(3, ‘Selva’, ‘Mapa_Principal’, ‘Noite’),
-(4, ‘Floresta’, ‘Mapa_Principal’, ‘Noite’)</p>
-</div></blockquote>
-<p>ON CONFLICT (Numero_chunk) DO NOTHING;</p>
-<p>INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
-VALUES</p>
-<blockquote>
-<div><p>(‘Player1’, 100, 100, 0, 10, 1),
-(‘Player2’, 120, 120, 50, 12, 2);</p>
-</div></blockquote>
-<p>INSERT INTO Inventario (id_jogador, id_inventario, Instancia_Item, ArmaduraEquipada, ArmaEquipada)
-VALUES</p>
-<blockquote>
-<div><p>(1, 1, ‘{“item_id”: 101, “quantidade”: 5}’, ‘Capacete de Ferro’, ‘Espada de Diamante’),
-(2, 1, ‘{“item_id”: 201, “quantidade”: 1}’, ‘Armadura de Couro’, ‘Arco Longo’)</p>
-</div></blockquote>
-<p>ON CONFLICT (id_jogador, id_inventario) DO NOTHING;
-Linguagem de Consulta de Dados (DQL)Aqui estão algumas consultas DQL (Data Query Language) para recuperar e analisar os dados armazenados no banco de dados… code-block:: sql– =================================================================
-–                  Consultas Básicas
-– Seleciona todos os dados de cada tabela individualmente.
-– =================================================================</p>
-<p>– Seleciona todos os mapas
-SELECT * FROM Mapa;</p>
-<p>– Seleciona todos os biomas
-SELECT * FROM Bioma;</p>
-<p>– Seleciona todos os chunks
-SELECT * FROM Chunk;</p>
-<p>– Seleciona todos os jogadores
-SELECT * FROM Jogador;</p>
-<p>– Seleciona todos os inventários
-SELECT * FROM Inventario;</p>
-<p>– Consulta 1: Jogadores e sua Localização Atual
-– Mostra em qual chunk, bioma, mapa e turno cada jogador está.
-SELECT</p>
-<blockquote>
-<div><p>j.Nome AS Nome_Jogador,
-j.Vida_atual,
-j.xp,
-c.Numero_chunk,
-c.Id_bioma AS Bioma,
-c.Id_mapa_nome AS Mapa,
-c.Id_mapa_turno AS Turno</p>
-</div></blockquote>
-<dl class="simple">
-<dt>FROM</dt><dd><p>Jogador j</p>
-</dd>
-<dt>JOIN</dt><dd><p>Chunk c ON j.Id_Chunk_Atual = c.Numero_chunk;</p>
-</dd>
-</dl>
-<p>– Consulta 2: Inventário de Cada Jogador
-– Lista os itens, armadura e arma equipada para cada jogador.
-SELECT</p>
-<blockquote>
-<div><p>j.Nome AS Nome_Jogador,
-i.Instancia_Item,
-i.ArmaduraEquipada,
-i.ArmaEquipada</p>
-</div></blockquote>
-<dl class="simple">
-<dt>FROM</dt><dd><p>Inventario i</p>
-</dd>
-<dt>JOIN</dt><dd><p>Jogador j ON i.id_jogador = j.Id_jogador; – Assumindo que ‘Id_jogador’ é a chave primária da tabela Jogador.</p>
-</dd>
-</dl>
-<p>– Consulta 3: Detalhes Completos dos Chunks
-– Visualiza os detalhes de cada chunk, incluindo o nome do bioma e as informações do mapa.
-SELECT</p>
-<blockquote>
-<div><p>c.Numero_chunk,
-b.NomeBioma,
-m.Nome AS Nome_Mapa,
-m.Turno</p>
-</div></blockquote>
-<dl class="simple">
-<dt>FROM</dt><dd><p>Chunk c</p>
-</dd>
-<dt>JOIN</dt><dd><p>Bioma b ON c.Id_bioma = b.NomeBioma</p>
-</dd>
-<dt>JOIN</dt><dd><p>Mapa m ON c.Id_mapa_nome = m.Nome AND c.Id_mapa_turno = m.Turno;</p>
-</dd>
-</dl>
-<p>DML: Geração de 1000 ChunksEste script DML avançado preenche o banco de dados com 1000 “chunks” para simular um mapa maior. Ele inclui lógica para distribuir os biomas (Oceano, Deserto, Selva, Floresta) de forma programática… code-block:: sql– Script DML para popular o banco de dados com 1000 chunks
-– Mapa: 32x32 chunks (1024 chunks total, mas vamos usar 1000)
-– Estrutura: Oceano ao redor, deserto no centro (20%), selva e floresta no resto</p>
-<p>– Inserir mapas (Dia e Noite)
-INSERT INTO Mapa (Nome, Turno)
-VALUES</p>
-<blockquote>
-<div><p>(‘Mapa_Principal’, ‘Dia’),
-(‘Mapa_Principal’, ‘Noite’)</p>
-</div></blockquote>
-<p>ON CONFLICT (Nome, Turno) DO NOTHING;</p>
-<p>– Inserir biomas
-INSERT INTO Bioma (NomeBioma)
-VALUES</p>
-<blockquote>
-<div><p>(‘Deserto’),
-(‘Oceano’),
-(‘Selva’),
-(‘Floresta’)</p>
-</div></blockquote>
-<p>ON CONFLICT (NomeBioma) DO NOTHING;</p>
-<p>– Função para gerar chunks com a distribuição especificada
-– Mapa 32x32 com oceano na borda, deserto no centro, selva e floresta no resto
-DO $$
-DECLARE</p>
-<blockquote>
-<div><p>chunk_id INTEGER := 1;
-x INTEGER;
-y INTEGER;
-biome_name VARCHAR(100);
-map_size INTEGER := 32;
-center_start INTEGER := 12; – Início da área central (deserto)
-center_end INTEGER := 20;   – Fim da área central (deserto)
-desert_chunks INTEGER := 0;
-ocean_chunks INTEGER := 0;
-jungle_chunks INTEGER := 0;
-forest_chunks INTEGER := 0;</p>
-</div></blockquote>
-<dl>
-<dt>BEGIN</dt><dd><p>– Gerar chunks para o mapa de dia
-FOR y IN 1..map_size LOOP</p>
-<blockquote>
-<div><dl>
-<dt>FOR x IN 1..map_size LOOP</dt><dd><p>– Determinar bioma baseado na posição
-IF x = 1 OR x = map_size OR y = 1 OR y = map_size THEN</p>
-<blockquote>
-<div><p>– Borda: Oceano
-biome_name := ‘Oceano’;
-ocean_chunks := ocean_chunks + 1;</p>
-</div></blockquote>
-<dl>
-<dt>ELSIF x &gt;= center_start AND x &lt;= center_end AND y &gt;= center_start AND y &lt;= center_end THEN</dt><dd><p>– Centro: Deserto (área 9x9 = 81 chunks, aproximadamente 20% de 1000)
-biome_name := ‘Deserto’;
-desert_chunks := desert_chunks + 1;</p>
-</dd>
-<dt>ELSE</dt><dd><p>– Resto: Alternar entre Selva e Floresta
-IF (x + y) % 2 = 0 THEN</p>
-<blockquote>
-<div><p>biome_name := ‘Selva’;
-jungle_chunks := jungle_chunks + 1;</p>
-</div></blockquote>
-<dl class="simple">
-<dt>ELSE</dt><dd><p>biome_name := ‘Floresta’;
-forest_chunks := forest_chunks + 1;</p>
-</dd>
-</dl>
-<p>END IF;</p>
-</dd>
-</dl>
-<p>END IF;</p>
-<p>– Inserir chunk
-INSERT INTO Chunk (Numero_chunk, Id_bioma, Id_mapa_nome, Id_mapa_turno)
-VALUES (chunk_id, biome_name, ‘Mapa_Principal’, ‘Dia’)
-ON CONFLICT (Numero_chunk) DO NOTHING;</p>
-<p>chunk_id := chunk_id + 1;</p>
-<p>– Parar após 1000 chunks
-IF chunk_id &gt; 1000 THEN</p>
-<blockquote>
-<div><p>EXIT;</p>
-</div></blockquote>
-<p>END IF;</p>
-</dd>
-</dl>
-<p>END LOOP;</p>
-<p>– Parar após 1000 chunks
-IF chunk_id &gt; 1000 THEN</p>
-<blockquote>
-<div><p>EXIT;</p>
-</div></blockquote>
-<p>END IF;</p>
-</div></blockquote>
-<p>END LOOP;</p>
-<p>– Gerar chunks para o mapa de noite (mesma distribuição)
-chunk_id := 1001;
-FOR y IN 1..map_size LOOP</p>
-<blockquote>
-<div><dl>
-<dt>FOR x IN 1..map_size LOOP</dt><dd><p>– Determinar bioma baseado na posição
-IF x = 1 OR x = map_size OR y = 1 OR y = map_size THEN</p>
-<blockquote>
-<div><p>– Borda: Oceano
-biome_name := ‘Oceano’;</p>
-</div></blockquote>
-<dl>
-<dt>ELSIF x &gt;= center_start AND x &lt;= center_end AND y &gt;= center_start AND y &lt;= center_end THEN</dt><dd><p>– Centro: Deserto
-biome_name := ‘Deserto’;</p>
-</dd>
-<dt>ELSE</dt><dd><p>– Resto: Alternar entre Selva e Floresta
-IF (x + y) % 2 = 0 THEN</p>
-<blockquote>
-<div><p>biome_name := ‘Selva’;</p>
-</div></blockquote>
-<dl class="simple">
-<dt>ELSE</dt><dd><p>biome_name := ‘Floresta’;</p>
-</dd>
-</dl>
-<p>END IF;</p>
-</dd>
-</dl>
-<p>END IF;</p>
-<p>– Inserir chunk
-INSERT INTO Chunk (Numero_chunk, Id_bioma, Id_mapa_nome, Id_mapa_turno)
-VALUES (chunk_id, biome_name, ‘Mapa_Principal’, ‘Noite’)
-ON CONFLICT (Numero_chunk) DO NOTHING;</p>
-<p>chunk_id := chunk_id + 1;</p>
-<p>– Parar após 2000 chunks total (1000 para cada turno)
-IF chunk_id &gt; 2000 THEN</p>
-<blockquote>
-<div><p>EXIT;</p>
-</div></blockquote>
-<p>END IF;</p>
-</dd>
-</dl>
-<p>END LOOP;</p>
-<p>– Parar após 2000 chunks total
-IF chunk_id &gt; 2000 THEN</p>
-<blockquote>
-<div><p>EXIT;</p>
-</div></blockquote>
-<p>END IF;</p>
-</div></blockquote>
-<p>END LOOP;</p>
-<p>– Mostrar estatísticas
-RAISE NOTICE ‘Chunks gerados para o mapa de dia:’;
-RAISE NOTICE ‘Deserto: % chunks’, desert_chunks;
-RAISE NOTICE ‘Oceano: % chunks’, ocean_chunks;
-RAISE NOTICE ‘Selva: % chunks’, jungle_chunks;
-RAISE NOTICE ‘Floresta: % chunks’, forest_chunks;
-RAISE NOTICE ‘Total: % chunks’, (desert_chunks + ocean_chunks + jungle_chunks + forest_chunks);</p>
-</dd>
-</dl>
-<p>END
-$$ LANGUAGE plpgsql;</p>
-<p>– Inserir alguns jogadores de exemplo (apenas se não existirem)
-INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
-VALUES</p>
-<blockquote>
-<div><p>(‘Player1’, 100, 100, 0, 10, 1),
-(‘Player2’, 120, 120, 50, 12, 2),
-(‘Player3’, 110, 110, 25, 11, 3)</p>
-</div></blockquote>
-<p>ON CONFLICT (Id_Jogador) DO NOTHING;</p>
+<h1><span class="sectnum">1 </span>Módulo 2<a class="headerlink" href="#modulo-2" title="Link to this heading"></a></h1>
+<p>Documentação do Esquema e Dados do Projeto</p>
+<nav class="contents local" id="sumario">
+<p class="topic-title">Sumário</p>
+<ul class="auto-toc simple">
+<li><p><a class="reference internal" href="#esquema-do-banco-de-dados-ddl" id="id1"><span class="sectnum">1.1 </span>Esquema do Banco de Dados (DDL)</a></p></li>
+<li><p><a class="reference internal" href="#manipulacao-de-dados-dml" id="id2"><span class="sectnum">1.2 </span>Manipulação de Dados (DML)</a></p></li>
+<li><p><a class="reference internal" href="#linguagem-de-consulta-de-dados-dql" id="id3"><span class="sectnum">1.3 </span>Linguagem de Consulta de Dados (DQL)</a></p></li>
+<li><p><a class="reference internal" href="#dml-geracao-de-1000-chunks" id="id4"><span class="sectnum">1.4 </span>DML: Geração de 1000 Chunks</a></p></li>
+<li><p><a class="reference internal" href="#video-de-demonstracao" id="id5"><span class="sectnum">1.5 </span>Vídeo de Demonstração</a></p></li>
+</ul>
+</nav>
+<section id="esquema-do-banco-de-dados-ddl">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="sectnum">1.1 </span>Esquema do Banco de Dados (DDL)</a><a class="headerlink" href="#esquema-do-banco-de-dados-ddl" title="Link to this heading"></a></h2>
+<p>Este é o DDL (Data Definition Language) para criar a estrutura do banco de dados do projeto. Ele define as tabelas, colunas, chaves primárias e estrangeiras necessárias.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Configurações para garantir que os comandos rodem sem parar em erros de &quot;já existe&quot;</span>
+<span class="c1">-- Isso é útil se o script for executado em um ambiente onde partes já foram criadas.</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">client_min_messages</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">WARNING</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Suprime mensagens de NOTICE, mostrando WARNINGs e erros</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">Bioma</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">NomeBioma</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">Mapa</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Turno</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Numero_chunk</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_bioma</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_mapa_nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Id_mapa_turno</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_bioma</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Bioma</span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">RESTRICT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Mapa</span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">RESTRICT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CASCADE</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">Id_Jogador</span><span class="w"> </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Nome</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Vida_max</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Vida_atual</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">xp</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">forca</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="p">);</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">id_jogador</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">id_inventario</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">Instancia_Item</span><span class="w"> </span><span class="nb">TEXT</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ArmaduraEquipada</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+<span class="w">    </span><span class="n">ArmaEquipada</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
+
+<span class="w">    </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">),</span>
+<span class="w">    </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Jogador</span><span class="p">(</span><span class="n">Id_Jogador</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CASCADE</span>
+<span class="p">);</span>
+
+<span class="c1">-- Garante que a coluna e a constraint só sejam adicionadas se não existirem.</span>
+<span class="k">DO</span><span class="w"> </span><span class="err">$$</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Adicionar a coluna Id_Chunk_Atual à tabela Jogador se ela não existir</span>
+<span class="w">    </span><span class="c1">-- Note que este bloco &#39;IF NOT EXISTS&#39; não é padrão SQL, mas é uma extensão comum em PG.</span>
+<span class="w">    </span><span class="c1">-- Ou você pode usar um bloco EXCEPTION WHEN duplicate_column THEN null; como antes</span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">columns</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="k">table_name</span><span class="o">=</span><span class="s1">&#39;jogador&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">column_name</span><span class="o">=</span><span class="s1">&#39;id_chunk_atual&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">Id_Chunk_Atual</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">;</span><span class="w"> </span><span class="c1">-- &lt;--- AGORA É INTEGER</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">-- Adicionar a constraint de chave estrangeira se ela não existir</span>
+<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">pg_constraint</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">conname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;fk_jogador_chunk&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">        </span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="n">fk_jogador_chunk</span>
+<span class="w">        </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">Id_Chunk_Atual</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">Chunk</span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">;</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="k">END</span>
+<span class="err">$$</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">plpgsql</span><span class="p">;</span>
+
+
+<span class="c1">-- Índices para Chaves Estrangeiras (para otimização de performance em consultas)</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_chunk_id_bioma</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Id_bioma</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_chunk_id_mapa</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_inventario_id_jogador</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">);</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">idx_jogador_id_chunk_atual</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Id_Chunk_Atual</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="manipulacao-de-dados-dml">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="sectnum">1.2 </span>Manipulação de Dados (DML)</a><a class="headerlink" href="#manipulacao-de-dados-dml" title="Link to this heading"></a></h2>
+<p>Este script DML (Data Manipulation Language) insere alguns dados iniciais nas tabelas do banco de dados para testes e demonstrações.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Mapa</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Bioma</span><span class="w"> </span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Deserto&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Oceano&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Selva&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Floresta&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">Id_bioma</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Oceano&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Selva&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Floresta&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_atual</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">Id_Chunk_Atual</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player2&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Inventario</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">,</span><span class="w"> </span><span class="n">Instancia_Item</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaduraEquipada</span><span class="p">,</span><span class="w"> </span><span class="n">ArmaEquipada</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 101, &quot;quantidade&quot;: 5}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Capacete de Ferro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Espada de Diamante&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;{&quot;item_id&quot;: 201, &quot;quantidade&quot;: 1}&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Armadura de Couro&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Arco Longo&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">id_jogador</span><span class="p">,</span><span class="w"> </span><span class="n">id_inventario</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="linguagem-de-consulta-de-dados-dql">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="sectnum">1.3 </span>Linguagem de Consulta de Dados (DQL)</a><a class="headerlink" href="#linguagem-de-consulta-de-dados-dql" title="Link to this heading"></a></h2>
+<p>Aqui estão algumas consultas DQL (Data Query Language) para recuperar e analisar os dados armazenados no banco de dados.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- =================================================================</span>
+<span class="c1">--                  Consultas Básicas</span>
+<span class="c1">-- Seleciona todos os dados de cada tabela individualmente.</span>
+<span class="c1">-- =================================================================</span>
+
+<span class="c1">-- Seleciona todos os mapas</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Mapa</span><span class="p">;</span>
+
+<span class="c1">-- Seleciona todos os biomas</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Bioma</span><span class="p">;</span>
+
+<span class="c1">-- Seleciona todos os chunks</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Chunk</span><span class="p">;</span>
+
+<span class="c1">-- Seleciona todos os jogadores</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Jogador</span><span class="p">;</span>
+
+<span class="c1">-- Seleciona todos os inventários</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">Inventario</span><span class="p">;</span>
+
+<span class="c1">-- Consulta 1: Jogadores e sua Localização Atual</span>
+<span class="c1">-- Mostra em qual chunk, bioma, mapa e turno cada jogador está.</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">Nome</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Nome_Jogador</span><span class="p">,</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">Vida_atual</span><span class="p">,</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">xp</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">Numero_chunk</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">Id_bioma</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Bioma</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">Id_mapa_nome</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Mapa</span><span class="p">,</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">Id_mapa_turno</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Turno</span>
+<span class="k">FROM</span>
+<span class="w">    </span><span class="n">Jogador</span><span class="w"> </span><span class="n">j</span>
+<span class="k">JOIN</span>
+<span class="w">    </span><span class="n">Chunk</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">Id_Chunk_Atual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Numero_chunk</span><span class="p">;</span>
+
+
+<span class="c1">-- Consulta 2: Inventário de Cada Jogador</span>
+<span class="c1">-- Lista os itens, armadura e arma equipada para cada jogador.</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="n">j</span><span class="p">.</span><span class="n">Nome</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Nome_Jogador</span><span class="p">,</span>
+<span class="w">    </span><span class="n">i</span><span class="p">.</span><span class="n">Instancia_Item</span><span class="p">,</span>
+<span class="w">    </span><span class="n">i</span><span class="p">.</span><span class="n">ArmaduraEquipada</span><span class="p">,</span>
+<span class="w">    </span><span class="n">i</span><span class="p">.</span><span class="n">ArmaEquipada</span>
+<span class="k">FROM</span>
+<span class="w">    </span><span class="n">Inventario</span><span class="w"> </span><span class="n">i</span>
+<span class="k">JOIN</span>
+<span class="w">    </span><span class="n">Jogador</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">id_jogador</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">j</span><span class="p">.</span><span class="n">Id_jogador</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Assumindo que &#39;Id_jogador&#39; é a chave primária da tabela Jogador.</span>
+
+
+<span class="c1">-- Consulta 3: Detalhes Completos dos Chunks</span>
+<span class="c1">-- Visualiza os detalhes de cada chunk, incluindo o nome do bioma e as informações do mapa.</span>
+<span class="k">SELECT</span>
+<span class="w">    </span><span class="k">c</span><span class="p">.</span><span class="n">Numero_chunk</span><span class="p">,</span>
+<span class="w">    </span><span class="n">b</span><span class="p">.</span><span class="n">NomeBioma</span><span class="p">,</span>
+<span class="w">    </span><span class="n">m</span><span class="p">.</span><span class="n">Nome</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Nome_Mapa</span><span class="p">,</span>
+<span class="w">    </span><span class="n">m</span><span class="p">.</span><span class="n">Turno</span>
+<span class="k">FROM</span>
+<span class="w">    </span><span class="n">Chunk</span><span class="w"> </span><span class="k">c</span>
+<span class="k">JOIN</span>
+<span class="w">    </span><span class="n">Bioma</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Id_bioma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">NomeBioma</span>
+<span class="k">JOIN</span>
+<span class="w">    </span><span class="n">Mapa</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Id_mapa_nome</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">Nome</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">c</span><span class="p">.</span><span class="n">Id_mapa_turno</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="n">Turno</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="dml-geracao-de-1000-chunks">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="sectnum">1.4 </span>DML: Geração de 1000 Chunks</a><a class="headerlink" href="#dml-geracao-de-1000-chunks" title="Link to this heading"></a></h2>
+<p>Este script DML avançado preenche o banco de dados com 1000 “chunks” para simular um mapa maior. Ele inclui lógica para distribuir os biomas (Oceano, Deserto, Selva, Floresta) de forma programática.</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="c1">-- Script DML para popular o banco de dados com 1000 chunks</span>
+<span class="c1">-- Mapa: 32x32 chunks (1024 chunks total, mas vamos usar 1000)</span>
+<span class="c1">-- Estrutura: Oceano ao redor, deserto no centro (20%), selva e floresta no resto</span>
+
+<span class="c1">-- Inserir mapas (Dia e Noite)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Mapa</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Turno</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="c1">-- Inserir biomas</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Bioma</span><span class="w"> </span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Deserto&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Oceano&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Selva&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Floresta&#39;</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">NomeBioma</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="c1">-- Função para gerar chunks com a distribuição especificada</span>
+<span class="c1">-- Mapa 32x32 com oceano na borda, deserto no centro, selva e floresta no resto</span>
+<span class="k">DO</span><span class="w"> </span><span class="err">$$</span>
+<span class="k">DECLARE</span>
+<span class="w">    </span><span class="n">chunk_id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">;</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="nb">INTEGER</span><span class="p">;</span>
+<span class="w">    </span><span class="n">biome_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+<span class="w">    </span><span class="n">map_size</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">;</span>
+<span class="w">    </span><span class="n">center_start</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">;</span><span class="w"> </span><span class="c1">-- Início da área central (deserto)</span>
+<span class="w">    </span><span class="n">center_end</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">   </span><span class="c1">-- Fim da área central (deserto)</span>
+<span class="w">    </span><span class="n">desert_chunks</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ocean_chunks</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">jungle_chunks</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">forest_chunks</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">BEGIN</span>
+<span class="w">    </span><span class="c1">-- Gerar chunks para o mapa de dia</span>
+<span class="w">    </span><span class="k">FOR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="n">map_size</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">        </span><span class="k">FOR</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="n">map_size</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">            </span><span class="c1">-- Determinar bioma baseado na posição</span>
+<span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map_size</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map_size</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="c1">-- Borda: Oceano</span>
+<span class="w">                </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Oceano&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">ocean_chunks</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">ocean_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="k">ELSIF</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">center_start</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">center_end</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">center_start</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">center_end</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="c1">-- Centro: Deserto (área 9x9 = 81 chunks, aproximadamente 20% de 1000)</span>
+<span class="w">                </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="n">desert_chunks</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">desert_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="k">ELSE</span>
+<span class="w">                </span><span class="c1">-- Resto: Alternar entre Selva e Floresta</span>
+<span class="w">                </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                    </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Selva&#39;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">jungle_chunks</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">jungle_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="k">ELSE</span>
+<span class="w">                    </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Floresta&#39;</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">forest_chunks</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">forest_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">            </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">-- Inserir chunk</span>
+<span class="w">            </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">Id_bioma</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span>
+<span class="w">            </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">chunk_id</span><span class="p">,</span><span class="w"> </span><span class="n">biome_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Dia&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">chunk_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">-- Parar após 1000 chunks</span>
+<span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">EXIT</span><span class="p">;</span>
+<span class="w">            </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">-- Parar após 1000 chunks</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">            </span><span class="n">EXIT</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">-- Gerar chunks para o mapa de noite (mesma distribuição)</span>
+<span class="w">    </span><span class="n">chunk_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="mi">1001</span><span class="p">;</span>
+<span class="w">    </span><span class="k">FOR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="n">map_size</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">        </span><span class="k">FOR</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="mi">1</span><span class="p">..</span><span class="n">map_size</span><span class="w"> </span><span class="n">LOOP</span>
+<span class="w">            </span><span class="c1">-- Determinar bioma baseado na posição</span>
+<span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map_size</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">map_size</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="c1">-- Borda: Oceano</span>
+<span class="w">                </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Oceano&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">ELSIF</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">center_start</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">center_end</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">center_start</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">center_end</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="c1">-- Centro: Deserto</span>
+<span class="w">                </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Deserto&#39;</span><span class="p">;</span>
+<span class="w">            </span><span class="k">ELSE</span>
+<span class="w">                </span><span class="c1">-- Resto: Alternar entre Selva e Floresta</span>
+<span class="w">                </span><span class="k">IF</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                    </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Selva&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="k">ELSE</span>
+<span class="w">                    </span><span class="n">biome_name</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Floresta&#39;</span><span class="p">;</span>
+<span class="w">                </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">            </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">-- Inserir chunk</span>
+<span class="w">            </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Chunk</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">,</span><span class="w"> </span><span class="n">Id_bioma</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_nome</span><span class="p">,</span><span class="w"> </span><span class="n">Id_mapa_turno</span><span class="p">)</span>
+<span class="w">            </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">chunk_id</span><span class="p">,</span><span class="w"> </span><span class="n">biome_name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Mapa_Principal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Noite&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Numero_chunk</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">chunk_id</span><span class="w"> </span><span class="p">:</span><span class="o">=</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">-- Parar após 2000 chunks total (1000 para cada turno)</span>
+<span class="w">            </span><span class="k">IF</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">                </span><span class="n">EXIT</span><span class="p">;</span>
+<span class="w">            </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">-- Parar após 2000 chunks total</span>
+<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">chunk_id</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="k">THEN</span>
+<span class="w">            </span><span class="n">EXIT</span><span class="p">;</span>
+<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
+<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="n">LOOP</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1">-- Mostrar estatísticas</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Chunks gerados para o mapa de dia:&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Deserto: % chunks&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">desert_chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Oceano: % chunks&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ocean_chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Selva: % chunks&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">jungle_chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Floresta: % chunks&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">forest_chunks</span><span class="p">;</span>
+<span class="w">    </span><span class="n">RAISE</span><span class="w"> </span><span class="n">NOTICE</span><span class="w"> </span><span class="s1">&#39;Total: % chunks&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">desert_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ocean_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">jungle_chunks</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">forest_chunks</span><span class="p">);</span>
+<span class="k">END</span>
+<span class="err">$$</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">plpgsql</span><span class="p">;</span>
+
+<span class="c1">-- Inserir alguns jogadores de exemplo (apenas se não existirem)</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">Jogador</span><span class="w"> </span><span class="p">(</span><span class="n">Nome</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_max</span><span class="p">,</span><span class="w"> </span><span class="n">Vida_atual</span><span class="p">,</span><span class="w"> </span><span class="n">xp</span><span class="p">,</span><span class="w"> </span><span class="n">forca</span><span class="p">,</span><span class="w"> </span><span class="n">Id_Chunk_Atual</span><span class="p">)</span>
+<span class="k">VALUES</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player1&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player2&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;Player3&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">110</span><span class="p">,</span><span class="w"> </span><span class="mi">25</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">CONFLICT</span><span class="w"> </span><span class="p">(</span><span class="n">Id_Jogador</span><span class="p">)</span><span class="w"> </span><span class="k">DO</span><span class="w"> </span><span class="k">NOTHING</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="video-de-demonstracao">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink"><span class="sectnum">1.5 </span>Vídeo de Demonstração</a><a class="headerlink" href="#video-de-demonstracao" title="Link to this heading"></a></h2>
 <p>Assista ao nosso vídeo de demonstração aqui: <a class="reference external" href="https://youtu.be/Qz7BXkqUX40">Vídeo do módulo 2 no YouTube</a></p>
+</section>
 </section>
 
 
