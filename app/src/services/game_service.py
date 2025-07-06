@@ -129,15 +129,15 @@ class GameServiceImpl(GameService):
             "success": True,
             "message": f"Jogador {player.nome} movido para {player.localizacao}",
             "player": {
-                "id": updated_player.id_jogador,
+                "id": updated_player.id_player,
                 "nome": updated_player.nome,
                 "localizacao": updated_player.localizacao
             },
             "chunk": {
-                "id": chunk.numero_chunk,
+                "id": chunk.id_chunk,
                 "bioma": chunk.id_bioma,
-                "mapa": chunk.id_mapa_nome,
-                "turno": chunk.id_mapa_turno
+                "mapa": chunk.id_mapa,
+                "turno": "N/A"  # Turno agora vem do mapa, não do chunk
             }
         }
 

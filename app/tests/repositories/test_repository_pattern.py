@@ -108,8 +108,8 @@ class TestRepositoryPattern:
             assert info["nome"] == "Mapa_Principal"
             assert info["turno"] == "Dia"
             assert info["total_chunks"] == 3
-            assert info["distribuicao_biomas"]["Deserto"] == 2
-            assert info["distribuicao_biomas"]["Oceano"] == 1
+            assert info["distribuicao_biomas"][1] == 2  # id_bioma=1 (era Deserto)
+            assert info["distribuicao_biomas"][2] == 1  # id_bioma=2 (era Oceano)
     
     def test_game_service_create_new_player(self):
         """Testa criação de novo jogador via service"""
@@ -167,9 +167,9 @@ class TestRepositoryPattern:
             # Assert
             assert result["success"] is True
             assert "movido para" in result["message"]
-            assert result["player"]["localizacao"] == "Mapa_Principal - Chunk 5"
+            assert result["player"]["localizacao"] == "Mapa 1 - Chunk 5"
             assert result["chunk"]["id"] == 5
-            assert result["chunk"]["bioma"] == "Deserto"
+            assert result["chunk"]["bioma"] == 1  # id_bioma=1
     
     def test_game_service_get_map_statistics(self):
         """Testa obtenção de estatísticas dos mapas"""
