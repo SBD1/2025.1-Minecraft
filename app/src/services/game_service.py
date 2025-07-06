@@ -33,7 +33,7 @@ class GameService(ABC):
         pass
 
     @abstractmethod
-    def get_players_in_bioma(self, bioma_id: str) -> List[Dict[str, Any]]:
+    def get_players_in_bioma(self, bioma_id: int) -> List[Dict[str, Any]]:
         pass
 
     @abstractmethod
@@ -101,7 +101,7 @@ class GameServiceImpl(GameService):
 
         vida_percentual = (player.vida_atual / player.vida_maxima) * 100 if player.vida_maxima > 0 else 0
         return {
-            "id": player.id_jogador,
+            "id": player.id_player,
             "nome": player.nome,
             "vida_atual": player.vida_atual,
             "vida_maxima": player.vida_maxima,
@@ -141,16 +141,16 @@ class GameServiceImpl(GameService):
             }
         }
 
-    def get_players_in_bioma(self, bioma_id: str) -> List[Dict[str, Any]]:
+    def get_players_in_bioma(self, bioma_id: int) -> List[Dict[str, Any]]:
         players_in_bioma = []
         chunks = self.chunk_repository.find_by_bioma(bioma_id)
         players = self.player_repository.find_all()
 
         for player in players:
             for chunk in chunks:
-                if f"Chunk {chunk.numero_chunk}" in player.localizacao:
+                if f"Chunk {chunk.id_chunk}" in player.localizacao:
                     players_in_bioma.append({
-                        "id": player.id_jogador,
+                        "id": player.id_player,
                         "nome": player.nome,
                         "localizacao": player.localizacao,
                         "vida_atual": player.vida_atual,

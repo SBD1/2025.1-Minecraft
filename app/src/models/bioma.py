@@ -48,7 +48,7 @@ class Bioma:
         return hash(self.id_bioma)
 
 
-# Biomas predefinidos do jogo (baseados nos dados do banco)
+# Biomas predefinidos do jogo
 BIOMAS_PREDEFINIDOS = {
     BiomaType.DESERTO: Bioma(1, "Deserto", "Um bioma árido com pouca vegetação."),
     BiomaType.SELVA: Bioma(2, "Selva", "Um bioma tropical denso e úmido."),
