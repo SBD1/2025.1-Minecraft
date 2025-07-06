@@ -936,7 +936,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/create_user.sql&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>  <span class="c1"># Arquivo opcional</span>
+            <span class="k">pass</span>
         
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Banco de dados inicializado com sucesso!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
