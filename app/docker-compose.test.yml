@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Serviço para desenvolvimento
+  minecraft-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minecraft-dev
+    volumes:
+      - .:/app
+      - /app/__pycache__
+      - /app/.pytest_cache
+    environment:
+      - PYTHONPATH=/app
+      - ENV=development
+    networks:
+      - minecraft-network
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    command: python main.py
+
+  # Serviço para testes
+  minecraft-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: minecraft-tests
+    volumes:
+      - .:/app
+      - test-artifacts:/app/htmlcov
+      - test-cache:/app/.pytest_cache
+    environment:
+      - PYTHONPATH=/app
+      - ENV=testing
+    networks:
+      - minecraft-network
+    depends_on:
+      - postgres-test
+    command: python run_tests_ci.py
+
+  # Banco de dados para desenvolvimento
+  postgres:
+    image: postgres:15-alpine
+    container_name: minecraft-postgres
+    environment:
+      POSTGRES_DB: minecraft_dev
+      POSTGRES_USER: minecraft_user
+      POSTGRES_PASSWORD: minecraft_pass
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - minecraft-network
+    ports:
+      - "5432:5432"
+
+  # Banco de dados para testes (isolado)
+  postgres-test:
+    image: postgres:15-alpine
+    container_name: minecraft-postgres-test
+    environment:
+      POSTGRES_DB: minecraft_test
+      POSTGRES_USER: minecraft_test_user
+      POSTGRES_PASSWORD: minecraft_test_pass
+    volumes:
+      - postgres-test-data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - minecraft-network
+    ports:
+      - "5433:5432"
+    tmpfs:
+      - /var/lib/postgresql/data  # Banco em memória para testes mais rápidos
+
+volumes:
+  postgres-data:
+    driver: local
+  postgres-test-data:
+    driver: local
+  test-artifacts:
+    driver: local
+  test-cache:
+    driver: local
+
+networks:
+  minecraft-network:
+    driver: bridge
