@@ -35,7 +35,7 @@ class TestInterfaceServiceIntegration:
         
         # Mock do save retornando um jogador criado
         expected_player = Player(
-            id_jogador=1,
+            id_player=1,
             nome="TestPlayer",
             vida_maxima=100,
             vida_atual=100,
@@ -62,7 +62,7 @@ class TestInterfaceServiceIntegration:
         # Arrange
         # Mock do find_by_name retornando um jogador existente
         existing_player = Player(
-            id_jogador=1,
+            id_player=1,
             nome="TestPlayer",
             vida_maxima=100,
             vida_atual=100,
@@ -86,16 +86,17 @@ class TestInterfaceServiceIntegration:
         # Arrange
         # Mock do chunk existente
         chunk = Chunk(
-            numero_chunk=2,
-            id_bioma="Deserto",
-            id_mapa_nome="Mapa_Principal",
-            id_mapa_turno="Dia"
+            id_chunk=2,
+            id_bioma=1,
+            id_mapa=1,
+            x=1,
+            y=0
         )
         self.mock_chunk_repo.find_by_id.return_value = chunk
         
         # Mock do jogador
         player = Player(
-            id_jogador=1,
+            id_player=1,
             nome="TestPlayer",
             vida_maxima=100,
             vida_atual=100,
@@ -132,11 +133,11 @@ class TestInterfaceServiceIntegration:
         # Arrange
         # Mock de jogadores
         players = [
-            Player(id_jogador=1, nome="Player1", vida_maxima=100, vida_atual=80, 
+            Player(id_player=1, nome="Player1", vida_maxima=100, vida_atual=80, 
                    forca=10, localizacao="1", nivel=2, experiencia=150),
-            Player(id_jogador=2, nome="Player2", vida_maxima=100, vida_atual=100, 
+            Player(id_player=2, nome="Player2", vida_maxima=100, vida_atual=100, 
                    forca=12, localizacao="2", nivel=3, experiencia=250),
-            Player(id_jogador=3, nome="Player3", vida_maxima=100, vida_atual=0, 
+            Player(id_player=3, nome="Player3", vida_maxima=100, vida_atual=0, 
                    forca=8, localizacao="3", nivel=1, experiencia=50)
         ]
         
@@ -171,7 +172,7 @@ class TestPlayerManagerIntegration:
             
             # Mock para get_all_players
             players = [
-                Player(id_jogador=1, nome="Player1", vida_maxima=100, vida_atual=80, 
+                Player(id_player=1, nome="Player1", vida_maxima=100, vida_atual=80, 
                        forca=10, localizacao="1", nivel=2, experiencia=150)
             ]
             mock_instance.get_all_players.return_value = players

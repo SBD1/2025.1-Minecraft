@@ -58,8 +58,8 @@ class TestMapa:
     
     def test_turno_checks(self):
         """Testa verificações de turno"""
-        mapa_dia = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa_noite = Mapa("Mapa_Principal", TurnoType.NOITE)
+        mapa_dia = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa_noite = Mapa(2, "Mapa_Principal", TurnoType.NOITE)
         
         assert mapa_dia.is_day_map() is True
         assert mapa_noite.is_night_map() is True
@@ -205,7 +205,7 @@ class TestMapa:
     
     def test_repository_not_configured_error(self):
         """Testa erro quando repository não está configurado"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Testa métodos que requerem repository
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
@@ -215,7 +215,7 @@ class TestMapa:
             mapa.get_display_info()
         
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
-            mapa.get_chunks_by_bioma("Deserto")
+            mapa.get_chunks_by_bioma(1)
         
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
             mapa.get_bioma_distribution()

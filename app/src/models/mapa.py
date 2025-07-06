@@ -56,7 +56,7 @@ class Mapa:
             raise ValueError("Chunk repository não foi configurado")
         
         chunks = self.get_chunks()
-        return [chunk for chunk in chunks if chunk.id_bioma.lower() == bioma.lower()]
+        return [chunk for chunk in chunks if chunk.id_bioma == bioma]
     
     def get_bioma_distribution(self) -> Dict[str, int]:
         """
@@ -161,29 +161,3 @@ class Mapa:
         """Hash baseado na chave primária composta"""
         return hash(self.id_mapa)
 
-
-# Exemplo de uso com Repository Pattern
-def exemplo_uso_repository():
-    """Exemplo de como usar o Mapa com Repository Pattern"""
-    
-    # 1. Configurar repositories (import local para evitar circular import)
-    from ..repositories import ChunkRepositoryImpl
-    chunk_repo = ChunkRepositoryImpl()
-    
-    # 2. Criar mapa e injetar repository
-    mapa = Mapa("Mapa_Principal", TurnoType.DIA)
-    mapa.set_chunk_repository(chunk_repo)
-    
-    # 3. Usar o mapa (agora sem acesso direto ao banco)
-    chunks = mapa.get_chunks()
-    print(f"Mapa tem {len(chunks)} chunks")
-    
-    # 4. Buscar por bioma
-    chunks_deserto = mapa.get_chunks_by_bioma("Deserto")
-    print(f"Chunks de deserto: {len(chunks_deserto)}")
-    
-    # 5. Informações de exibição
-    info = mapa.get_display_info()
-    print(f"Informações: {info}")
-    
-    return mapa

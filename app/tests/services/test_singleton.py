@@ -191,7 +191,7 @@ class TestInterfaceServiceIntegration:
             # Configurar mock para retornar dados
             from src.models.player import Player
             test_player = Player(
-                id_jogador=1,
+                id_player=1,
                 nome="TestPlayer",
                 vida_maxima=100,
                 vida_atual=100,

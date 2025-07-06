@@ -187,7 +187,7 @@ class GameServiceImpl(GameService):
             return {"error": "Nome de jogador já existe"}
         
         player = Player(
-            id_jogador=None,
+            id_player=0,  # Será definido pelo repository
             nome=nome,
             vida_maxima=100,
             vida_atual=100,

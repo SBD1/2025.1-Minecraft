@@ -24,9 +24,9 @@ class TestRepositoryPattern:
         """Testa busca de chunks por mapa usando repository"""
         # Arrange
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),  # id_chunk, id_bioma, id_mapa, x, y
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 1, 2, 0),
         ]
         
         # Mock do repository
@@ -38,16 +38,16 @@ class TestRepositoryPattern:
             
             # Assert
             assert len(chunks) == 3
-            assert chunks[0].id_bioma == "Deserto"
-            assert chunks[1].id_bioma == "Oceano"
-            assert chunks[2].id_bioma == "Deserto"
+            assert chunks[0].id_bioma == 1
+            assert chunks[1].id_bioma == 2
+            assert chunks[2].id_bioma == 1
     
     def test_mapa_repository_find_by_turno(self):
         """Testa busca de mapas por turno usando repository"""
         # Arrange
         mock_mapas = [
-            Mapa("Mapa_Principal", TurnoType.DIA),
-            Mapa("Mapa_Secundario", TurnoType.DIA),
+            Mapa(1, "Mapa_Principal", TurnoType.DIA),
+            Mapa(2, "Mapa_Secundario", TurnoType.DIA),
         ]
         
         # Mock do repository
@@ -88,11 +88,11 @@ class TestRepositoryPattern:
     def test_game_service_get_map_info(self):
         """Testa service usando repositories"""
         # Arrange
-        mock_mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mock_mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 1, 2, 0),
         ]
         
         # Mock dos repositories
@@ -151,7 +151,7 @@ class TestRepositoryPattern:
         """Testa movimento de jogador para chunk"""
         # Arrange
         mock_player = Player(1, "Jogador", 100, 100, 10, "Spawn", 1, 0)
-        mock_chunk = Chunk(5, "Deserto", "Mapa_Principal", "Dia")
+        mock_chunk = Chunk(5, 1, 1, 4, 0)  # id_chunk, id_bioma, id_mapa, x, y
         mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa_Principal - Chunk 5", 1, 0)
         
         # Mock dos repositories
@@ -175,13 +175,13 @@ class TestRepositoryPattern:
         """Testa obtenção de estatísticas dos mapas"""
         # Arrange
         mock_mapas = [
-            Mapa("Mapa_Principal", TurnoType.DIA),
-            Mapa("Mapa_Principal", TurnoType.NOITE),
+            Mapa(1, "Mapa_Principal", TurnoType.DIA),
+            Mapa(2, "Mapa_Principal", TurnoType.NOITE),
         ]
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Noite"),
+            Chunk(1, 1, 1, 0, 0),
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 2, 0, 1),
         ]
         mock_players = [
             Player(1, "Jogador1", 100, 50, 10, "Spawn", 1, 0),  # Vivo
