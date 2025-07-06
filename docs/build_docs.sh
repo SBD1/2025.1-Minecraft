@@ -6,7 +6,7 @@ echo "🔨 Construindo documentação do MINECRAFT - FGA - 2025/1..."
 
 # Verificar se estamos no diretório correto
 if [ ! -f "Makefile" ]; then
-    echo "❌ Erro: Execute este script do diretório docs/"
+    echo "Erro: Execute este script do diretório docs/"
     exit 1
 fi
 
@@ -24,12 +24,12 @@ make html
 
 # Verificar se o build foi bem-sucedido
 if [ $? -eq 0 ]; then
-    echo "✅ Documentação construída com sucesso!"
-    echo "📁 Arquivos gerados em: build/html/"
-    echo "🌐 Para visualizar, abra: build/html/index.html"
+    echo "Documentação construída com sucesso!"
+    echo "Arquivos gerados em: build/html/"
+    echo "Para visualizar, abra: build/html/index.html"
     
     # Perguntar se quer abrir no navegador
-    read -p "🚀 Abrir no navegador? (y/n): " -n 1 -r
+    read -p "Abrir no navegador? (y/n): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         if command -v xdg-open > /dev/null; then
@@ -41,6 +41,6 @@ if [ $? -eq 0 ]; then
         fi
     fi
 else
-    echo "❌ Erro ao construir documentação!"
+    echo "Erro ao construir documentação!"
     exit 1
 fi 

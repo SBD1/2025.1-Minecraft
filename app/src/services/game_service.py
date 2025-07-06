@@ -79,8 +79,10 @@ class GameServiceImpl(GameService):
         mapa = self.mapa_repository.find_by_id(mapa_nome, turno)
         if not mapa:
             return {"error": "Mapa não encontrado"}
+        
         chunks = self.chunk_repository.find_by_mapa(mapa_nome, turno.value)
         bioma_distribution = {}
+        
         for chunk in chunks:
             bioma = chunk.id_bioma
             bioma_distribution[bioma] = bioma_distribution.get(bioma, 0) + 1
@@ -96,6 +98,7 @@ class GameServiceImpl(GameService):
         player = self.player_repository.find_by_id(player_id)
         if not player:
             return {"error": "Jogador não encontrado"}
+
         vida_percentual = (player.vida_atual / player.vida_maxima) * 100 if player.vida_maxima > 0 else 0
         return {
             "id": player.id_jogador,
@@ -112,11 +115,14 @@ class GameServiceImpl(GameService):
 
     def move_player_to_chunk(self, player_id: int, chunk_id: int) -> Dict[str, Any]:
         player = self.player_repository.find_by_id(player_id)
+        chunk = self.chunk_repository.find_by_id(chunk_id)
+
         if not player:
             return {"error": "Jogador não encontrado"}
-        chunk = self.chunk_repository.find_by_id(chunk_id)
+        
         if not chunk:
             return {"error": "Chunk não encontrado"}
+
         player.localizacao = f"{chunk.id_mapa_nome} - Chunk {chunk.numero_chunk}"
         updated_player = self.player_repository.save(player)
         return {
@@ -136,9 +142,10 @@ class GameServiceImpl(GameService):
         }
 
     def get_players_in_bioma(self, bioma_id: str) -> List[Dict[str, Any]]:
+        players_in_bioma = []
         chunks = self.chunk_repository.find_by_bioma(bioma_id)
         players = self.player_repository.find_all()
-        players_in_bioma = []
+
         for player in players:
             for chunk in chunks:
                 if f"Chunk {chunk.numero_chunk}" in player.localizacao:
@@ -156,9 +163,11 @@ class GameServiceImpl(GameService):
         mapas = self.mapa_repository.find_all()
         chunks = self.chunk_repository.find_all()
         players = self.player_repository.find_all()
+
         total_chunks = len(chunks)
         total_players = len(players)
         active_players = len([p for p in players if p.vida_atual > 0])
+
         chunks_por_turno = {}
         for chunk in chunks:
             turno = chunk.id_mapa_turno
@@ -176,6 +185,7 @@ class GameServiceImpl(GameService):
         existing = [p for p in self.player_repository.find_all() if p.nome == nome]
         if existing:
             return {"error": "Nome de jogador já existe"}
+        
         player = Player(
             id_jogador=None,
             nome=nome,
@@ -200,35 +210,3 @@ class GameServiceImpl(GameService):
                 "localizacao": saved.localizacao
             }
         }
-
-
-# Exemplo de uso do service
-def exemplo_uso_service():
-    """Exemplo de como usar o GameService"""
-    
-    service = GameServiceImpl.get_instance()
-    
-    # 1. Obter informações de um mapa
-    mapa_info = service.get_map_info("Mapa_Principal", TurnoType.DIA)
-    print(f"Informações do mapa: {mapa_info}")
-    
-    # 2. Obter estatísticas gerais
-    stats = service.get_map_statistics()
-    print(f"Estatísticas: {stats}")
-    
-    # 3. Criar novo jogador
-    novo_jogador = service.create_new_player("NovoJogador")
-    print(f"Novo jogador: {novo_jogador}")
-    
-    # 4. Buscar jogadores em um bioma
-    if novo_jogador.get("success"):
-        player_id = novo_jogador["player"]["id"]
-        # Move jogador para um chunk
-        move_result = service.move_player_to_chunk(player_id, 1)
-        print(f"Movimento: {move_result}")
-        
-        # Busca jogadores no bioma
-        players_in_bioma = service.get_players_in_bioma("Deserto")
-        print(f"Jogadores no deserto: {players_in_bioma}")
-    
-    return service 
