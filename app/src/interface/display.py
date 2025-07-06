@@ -26,11 +26,11 @@ def mostrar_logo():
     """Exibe o logo na posição especificada."""
 
     largura_terminal = os.get_terminal_size().columns
-    largura_creeper = 10 
-    posicao = largura_terminal // 2 - largura_creeper // 2
+    largura_logo = 10 
+    posicao = largura_terminal // 2 - largura_logo // 2
 
     for linha in MINECRAFT_ART:
-        print(" " * posicao + linha + " " * (largura_terminal - posicao - largura_creeper))
+        print(" " * posicao + linha + " " * (largura_terminal - posicao - largura_logo))
 
 def tela_inicial():
     clear_terminal()

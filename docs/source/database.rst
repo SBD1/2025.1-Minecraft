@@ -29,7 +29,7 @@ Docker Compose
        - "5433:5432"
      volumes:
        - ./db/ddl.sql:/docker-entrypoint-initdb.d/1_ddl.sql
-       - ./db/trigger_SP.sql:/docker-entrypoint-initdb.d/2_trigger_SP.sql
+       - ./db/trigger.sql:/docker-entrypoint-initdb.d/2_trigger.sql
        - ./db/dml.sql:/docker-entrypoint-initdb.d/3_dml.sql
        - ./db/dml_inst.sql:/docker-entrypoint-initdb.d/4_dml_inst.sql
        - ./db/create_user.sql:/docker-entrypoint-initdb.d/5_create_user.sql

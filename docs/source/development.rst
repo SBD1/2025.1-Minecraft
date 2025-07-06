@@ -49,7 +49,7 @@ Estrutura do Projeto
    ├── db/                           # Scripts do banco de dados
    │   ├── Dockerfile.db             # Container do PostgreSQL
    │   ├── ddl.sql                   # Definição das tabelas
-   │   ├── trigger_SP.sql            # Triggers e stored procedures
+   │   ├── trigger.sql               # Triggers e stored procedures
    │   ├── dml.sql                   # Dados iniciais
    │   ├── dml_inst.sql              # Dados de instância
    │   └── create_user.sql           # Criação de usuários
