@@ -10,20 +10,22 @@ class TestBioma:
     
     def test_bioma_creation(self):
         """Testa criação de bioma"""
-        bioma = Bioma("Deserto")
+        bioma = Bioma(1, "Deserto", "Bioma árido")
+        assert bioma.id_bioma == 1
         assert bioma.nome == "Deserto"
+        assert bioma.descricao == "Bioma árido"
     
     def test_bioma_string_representation(self):
         """Testa representação string do bioma"""
-        bioma = Bioma("Selva")
+        bioma = Bioma(2, "Selva", "Bioma tropical")
         assert str(bioma) == "Bioma(Selva)"
-        assert repr(bioma) == "Bioma(nome='Selva')"
+        assert repr(bioma) == "Bioma(id_bioma=2, nome='Selva', descricao='Bioma tropical')"
     
     def test_bioma_equality(self):
         """Testa igualdade entre biomas"""
-        bioma1 = Bioma("Deserto")
-        bioma2 = Bioma("Deserto")
-        bioma3 = Bioma("Selva")
+        bioma1 = Bioma(1, "Deserto", "Bioma árido")
+        bioma2 = Bioma(1, "Deserto", "Bioma árido")
+        bioma3 = Bioma(2, "Selva", "Bioma tropical")
         
         assert bioma1 == bioma2
         assert bioma1 != bioma3
@@ -31,26 +33,26 @@ class TestBioma:
     
     def test_bioma_hash(self):
         """Testa hash do bioma"""
-        bioma1 = Bioma("Deserto")
-        bioma2 = Bioma("Deserto")
-        bioma3 = Bioma("Selva")
+        bioma1 = Bioma(1, "Deserto", "Bioma árido")
+        bioma2 = Bioma(1, "Deserto", "Bioma árido")
+        bioma3 = Bioma(2, "Selva", "Bioma tropical")
         
         assert hash(bioma1) == hash(bioma2)
         assert hash(bioma1) != hash(bioma3)
     
     def test_bioma_in_set(self):
         """Testa uso do bioma em conjuntos"""
-        bioma1 = Bioma("Deserto")
-        bioma2 = Bioma("Deserto")
-        bioma3 = Bioma("Selva")
+        bioma1 = Bioma(1, "Deserto", "Bioma árido")
+        bioma2 = Bioma(1, "Deserto", "Bioma árido")
+        bioma3 = Bioma(2, "Selva", "Bioma tropical")
         
         biomas_set = {bioma1, bioma2, bioma3}
         assert len(biomas_set) == 2  # bioma1 e bioma2 são iguais
     
     def test_bioma_in_dict(self):
         """Testa uso do bioma como chave de dicionário"""
-        bioma1 = Bioma("Deserto")
-        bioma2 = Bioma("Deserto")
+        bioma1 = Bioma(1, "Deserto", "Bioma árido")
+        bioma2 = Bioma(1, "Deserto", "Bioma árido")
         
         biomas_dict = {bioma1: "valor1"}
         assert bioma2 in biomas_dict

@@ -140,7 +140,7 @@ def initialize_database():
         try:
             execute_sql_file("db/create_user.sql")
         except FileNotFoundError:
-            pass  # Arquivo opcional
+            pass
         
         print("Banco de dados inicializado com sucesso!")
         return True

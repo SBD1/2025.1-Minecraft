@@ -24,11 +24,11 @@ def sample_chunks():
     from src.models.chunk import Chunk
     
     return [
-        Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-        Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-        Chunk(3, "Selva", "Mapa_Principal", "Noite"),
-        Chunk(4, "Floresta", "Mapa_Principal", "Noite"),
-        Chunk(5, "Deserto", "Mapa_Principal", "Dia"),
+        Chunk(1, 1, 1, 0, 0),  # id_chunk, id_bioma, id_mapa, x, y
+        Chunk(2, 2, 1, 1, 0),
+        Chunk(3, 3, 2, 0, 1),
+        Chunk(4, 4, 2, 1, 1),
+        Chunk(5, 1, 1, 2, 0),
     ]
 
 @pytest.fixture
@@ -37,10 +37,10 @@ def sample_biomas():
     from src.models.bioma import Bioma
     
     return [
-        Bioma("Deserto"),
-        Bioma("Oceano"),
-        Bioma("Selva"),
-        Bioma("Floresta"),
+        Bioma(1, "Deserto", "Bioma árido com pouca vegetação"),
+        Bioma(2, "Oceano", "Bioma de água salgada"),
+        Bioma(3, "Selva", "Bioma tropical úmido"),
+        Bioma(4, "Floresta", "Bioma temperado com muita vegetação"),
     ]
 
 @pytest.fixture
@@ -49,7 +49,7 @@ def sample_mapas():
     from src.models.mapa import Mapa, TurnoType
     
     return [
-        Mapa("Mapa_Principal", TurnoType.DIA),
-        Mapa("Mapa_Principal", TurnoType.NOITE),
-        Mapa("Mapa_Secundario", TurnoType.DIA),
+        Mapa(1, "Mapa_Principal", TurnoType.DIA),
+        Mapa(2, "Mapa_Principal", TurnoType.NOITE),
+        Mapa(3, "Mapa_Secundario", TurnoType.DIA),
     ] 
