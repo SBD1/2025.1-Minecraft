@@ -8,6 +8,7 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
 .. toctree::
    :maxdepth: 2
    :caption: Conteúdo:
+   :numbered:
 
    modulo_2
    minecraft_legends
@@ -51,4 +52,4 @@ Tecnologias Utilizadas
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search` 
+* :ref:`search`
