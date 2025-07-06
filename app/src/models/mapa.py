@@ -3,7 +3,7 @@ Model do Mapa
 Representa um mapa do jogo com seus chunks e características
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from enum import Enum
 from .chunk import Chunk
@@ -21,12 +21,16 @@ class Mapa:
     Model que representa um mapa do jogo
     
     Attributes:
-        nome: Nome do mapa (parte da chave primária composta)
-        turno: Turno do mapa (parte da chave primária composta)
-        _chunk_repository: Repository para acesso aos chunks (injetado)
+        id_mapa: Identificador único do mapa (chave primária)
+        nome: Nome do mapa
+        turno: Turno do mapa
+        chunks: Lista de chunks relacionados a este mapa
+        _chunk_repository: Repository para acesso aos chunks (injeção de dependência)
     """
+    id_mapa: int
     nome: str
     turno: TurnoType
+    chunks: List[Chunk] = field(default_factory=list)
     _chunk_repository = None  # Será injetado via setter
     
     def __post_init__(self):
@@ -130,7 +134,7 @@ class Mapa:
         chunks = self.get_chunks()
         
         for chunk in chunks:
-            if chunk.numero_chunk == chunk_id:
+            if chunk.id_chunk == chunk_id:
                 return chunk
         return None
     
@@ -151,11 +155,11 @@ class Mapa:
         """Comparação de igualdade baseada na chave primária composta"""
         if not isinstance(other, Mapa):
             return False
-        return self.nome == other.nome and self.turno == other.turno
+        return self.id_mapa == other.id_mapa
     
     def __hash__(self) -> int:
         """Hash baseado na chave primária composta"""
-        return hash((self.nome, self.turno))
+        return hash(self.id_mapa)
 
 
 # Exemplo de uso com Repository Pattern
@@ -182,4 +186,4 @@ def exemplo_uso_repository():
     info = mapa.get_display_info()
     print(f"Informações: {info}")
     
-    return mapa 
+    return mapa

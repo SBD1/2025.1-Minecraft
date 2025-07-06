@@ -3,9 +3,10 @@ Model do Personagem (Player)
 Representa um personagem do jogo com seus atributos e comportamentos
 """
 
-from dataclasses import dataclass
-from typing import Optional, Dict, Any
+from dataclasses import dataclass, field
+from typing import Optional, Dict, Any, List
 from colorama import Fore
+from .inventory import InventoryEntry
 
 
 @dataclass
@@ -14,7 +15,7 @@ class Player:
     Model que representa um personagem no banco de dados
     
     Attributes:
-        id_jogador: ID único do personagem no banco
+        id_player: ID único do personagem no banco
         nome: Nome do personagem
         vida_maxima: Vida máxima do personagem
         vida_atual: Vida atual do personagem
@@ -23,7 +24,7 @@ class Player:
         nivel: Nível do personagem
         experiencia: Experiência acumulada
     """
-    id_jogador: Optional[int]
+    id_player: int
     nome: str
     vida_maxima: int
     vida_atual: int
@@ -31,7 +32,9 @@ class Player:
     localizacao: str
     nivel: int
     experiencia: int
-    
+    current_chunk_id: Optional[int] = None
+    inventario: List[InventoryEntry] = field(default_factory=list)
+
     def __post_init__(self):
         """Validações após inicialização"""
         if self.vida_atual > self.vida_maxima:
@@ -123,11 +126,11 @@ class Player:
     
     def __str__(self) -> str:
         """Representação string do personagem"""
-        return f"Player(id={self.id_jogador}, nome='{self.nome}', vida={self.vida_atual}/{self.vida_maxima})"
+        return f"Player(id={self.id_player}, nome='{self.nome}', vida={self.vida_atual}/{self.vida_maxima})"
     
     def __repr__(self) -> str:
         """Representação detalhada do personagem"""
-        return (f"Player(id_jogador={self.id_jogador}, nome='{self.nome}', "
+        return (f"Player(id_player={self.id_player}, nome='{self.nome}', "
                 f"vida_maxima={self.vida_maxima}, vida_atual={self.vida_atual}, "
                 f"forca={self.forca}, localizacao='{self.localizacao}', "
                 f"nivel={self.nivel}, experiencia={self.experiencia})")
@@ -136,11 +139,11 @@ class Player:
         """Comparação de igualdade baseada no ID"""
         if not isinstance(other, Player):
             return False
-        return self.id_jogador == other.id_jogador
+        return self.id_player == other.id_player
     
     def __hash__(self) -> int:
         """Hash baseado no ID"""
-        return hash(self.id_jogador)
+        return hash(self.id_player)
 
 
 @dataclass
@@ -283,4 +286,4 @@ class PlayerSession:
         return (f"PlayerSession(id_jogador={self.id_jogador}, nome='{self.nome}', "
                 f"vida_max={self.vida_max}, vida_atual={self.vida_atual}, "
                 f"xp={self.xp}, forca={self.forca}, "
-                f"id_chunk_atual={self.id_chunk_atual})") 
+                f"id_chunk_atual={self.id_chunk_atual})")
