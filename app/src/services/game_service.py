@@ -91,7 +91,7 @@ class GameServiceImpl(GameService):
             "turno": mapa.turno.value,
             "total_chunks": len(chunks),
             "distribuicao_biomas": bioma_distribution,
-            "chunks": [chunk.numero_chunk for chunk in chunks[:10]]
+            "chunks": [chunk.id_chunk for chunk in chunks[:10]]
         }
 
     def get_player_status(self, player_id: int) -> Dict[str, Any]:
@@ -123,7 +123,7 @@ class GameServiceImpl(GameService):
         if not chunk:
             return {"error": "Chunk não encontrado"}
 
-        player.localizacao = f"{chunk.id_mapa_nome} - Chunk {chunk.numero_chunk}"
+        player.localizacao = f"Mapa {chunk.id_mapa} - Chunk {chunk.id_chunk}"
         updated_player = self.player_repository.save(player)
         return {
             "success": True,
@@ -170,8 +170,11 @@ class GameServiceImpl(GameService):
 
         chunks_por_turno = {}
         for chunk in chunks:
-            turno = chunk.id_mapa_turno
-            chunks_por_turno[turno] = chunks_por_turno.get(turno, 0) + 1
+            # Como não temos mais id_mapa_turno, vamos buscar o turno do mapa
+            mapa = next((m for m in mapas if m.id_mapa == chunk.id_mapa), None)
+            if mapa:
+                turno = mapa.turno.value
+                chunks_por_turno[turno] = chunks_por_turno.get(turno, 0) + 1
         return {
             "total_mapas": len(mapas),
             "total_chunks": total_chunks,
@@ -200,7 +203,7 @@ class GameServiceImpl(GameService):
         return {
             "success": True,
             "player": {
-                "id": saved.id_jogador,
+                "id": saved.id_player,
                 "nome": saved.nome,
                 "vida_atual": saved.vida_atual,
                 "vida_maxima": saved.vida_maxima,

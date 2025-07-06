@@ -108,7 +108,7 @@ class TestInterfaceServiceIntegration:
         
         # Mock do save retornando jogador atualizado
         updated_player = Player(
-            id_jogador=1,
+            id_player=1,
             nome="TestPlayer",
             vida_maxima=100,
             vida_atual=100,

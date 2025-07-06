@@ -68,7 +68,7 @@ class InterfaceService:
         
         # Criar novo jogador
         new_player = Player(
-            id_jogador=None,
+            id_player=0,  # Será definido pelo repository
             nome=nome,
             vida_maxima=vida_maxima,
             vida_atual=vida_maxima,
