@@ -173,7 +173,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.get_location_display"><code class="docutils literal notranslate"><span class="pre">PlayerSession.get_location_display()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.heal"><code class="docutils literal notranslate"><span class="pre">PlayerSession.heal()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_chunk_atual"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_chunk_atual</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_jogador"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_jogador</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_player"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_player</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.is_alive"><code class="docutils literal notranslate"><span class="pre">PlayerSession.is_alive()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.nome"><code class="docutils literal notranslate"><span class="pre">PlayerSession.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.take_damage"><code class="docutils literal notranslate"><span class="pre">PlayerSession.take_damage()</span></code></a></li>
@@ -309,7 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.get_location_display"><code class="docutils literal notranslate"><span class="pre">PlayerSession.get_location_display()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.heal"><code class="docutils literal notranslate"><span class="pre">PlayerSession.heal()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_chunk_atual"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_chunk_atual</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_jogador"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_jogador</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_player"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_player</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.is_alive"><code class="docutils literal notranslate"><span class="pre">PlayerSession.is_alive()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.nome"><code class="docutils literal notranslate"><span class="pre">PlayerSession.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.take_damage"><code class="docutils literal notranslate"><span class="pre">PlayerSession.take_damage()</span></code></a></li>
@@ -854,19 +854,33 @@
         <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de dia</span>
+        <span class="c1"># Buscar ID dos mapas Dia e Noite</span>
         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Dia&#39;</span>
+<span class="s2">            SELECT id_mapa FROM mapa </span>
+<span class="s2">            WHERE nome = &#39;Mapa_Principal&#39; AND turno = &#39;Dia&#39;</span>
 <span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">day_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">day_map</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
         
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de noite</span>
         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Noite&#39;</span>
+<span class="s2">            SELECT id_mapa FROM mapa </span>
+<span class="s2">            WHERE nome = &#39;Mapa_Principal&#39; AND turno = &#39;Noite&#39;</span>
 <span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">night_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">night_map</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+        
+        <span class="n">day_chunks</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">night_chunks</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">if</span> <span class="n">day_map</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                SELECT COUNT(*) FROM chunk WHERE id_mapa = </span><span class="si">%s</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">day_map</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+            <span class="n">day_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">night_map</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                SELECT COUNT(*) FROM chunk WHERE id_mapa = </span><span class="si">%s</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">night_map</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+            <span class="n">night_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         
         <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
@@ -891,7 +905,7 @@
         <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
         
         <span class="c1"># Verificar se há dados nas tabelas principais</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Jogador&quot;</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Player&quot;</span><span class="p">)</span>
         <span class="n">player_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
         
         <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Chunk&quot;</span><span class="p">)</span>
@@ -923,25 +937,35 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">initialize_database</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Inicializa o banco de dados com dados básicos&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
+        
         <span class="c1"># Executar scripts SQL na ordem correta</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/ddl.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/trigger_SP.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/dml.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/dml_inst.sql&quot;</span><span class="p">)</span>
+        <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/ddl.sql&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Verificar se existe o arquivo de triggers antes de executar</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;db/trigger_SP.sql&quot;</span><span class="p">):</span>
+            <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/trigger_SP.sql&quot;</span><span class="p">)</span>
+        
+        <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/dml.sql&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Verificar se existe o arquivo de instâncias antes de executar</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;db/dml_inst.sql&quot;</span><span class="p">):</span>
+            <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/dml_inst.sql&quot;</span><span class="p">)</span>
         
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Executando script com mapa de 1000 chunks...&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;db/dml_1000_chunks.sql&quot;</span><span class="p">):</span>
+            <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/dml_1000_chunks.sql&quot;</span><span class="p">)</span>
         
         <span class="c1"># Executar script adicional se existir</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/create_user.sql&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;db/create_user.sql&quot;</span><span class="p">):</span>
+            <span class="n">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;db/create_user.sql&quot;</span><span class="p">)</span>
         
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Banco de dados inicializado com sucesso!&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">True</span>
         
     <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Falha na inicialização do banco de dados.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Falha na inicialização do banco de dados: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
 

@@ -173,7 +173,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.get_location_display"><code class="docutils literal notranslate"><span class="pre">PlayerSession.get_location_display()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.heal"><code class="docutils literal notranslate"><span class="pre">PlayerSession.heal()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_chunk_atual"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_chunk_atual</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_jogador"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_jogador</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.id_player"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_player</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.is_alive"><code class="docutils literal notranslate"><span class="pre">PlayerSession.is_alive()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.nome"><code class="docutils literal notranslate"><span class="pre">PlayerSession.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../models.html#models.player.PlayerSession.take_damage"><code class="docutils literal notranslate"><span class="pre">PlayerSession.take_damage()</span></code></a></li>
@@ -309,7 +309,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.get_location_display"><code class="docutils literal notranslate"><span class="pre">PlayerSession.get_location_display()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.heal"><code class="docutils literal notranslate"><span class="pre">PlayerSession.heal()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_chunk_atual"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_chunk_atual</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_jogador"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_jogador</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.id_player"><code class="docutils literal notranslate"><span class="pre">PlayerSession.id_player</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.is_alive"><code class="docutils literal notranslate"><span class="pre">PlayerSession.is_alive()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.nome"><code class="docutils literal notranslate"><span class="pre">PlayerSession.nome</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.player.PlayerSession.take_damage"><code class="docutils literal notranslate"><span class="pre">PlayerSession.take_damage()</span></code></a></li>
@@ -968,7 +968,7 @@
 <span class="sd">    Model que representa um personagem ativo na sessão do jogo</span>
 <span class="sd">    </span>
 <span class="sd">    Attributes:</span>
-<span class="sd">        id_jogador: ID único do personagem no banco</span>
+<span class="sd">        id_player: ID único do personagem no banco</span>
 <span class="sd">        nome: Nome do personagem</span>
 <span class="sd">        vida_max: Vida máxima do personagem</span>
 <span class="sd">        vida_atual: Vida atual do personagem</span>
@@ -979,7 +979,7 @@
 <span class="sd">        chunk_mapa_nome: Nome do mapa atual (cache para performance)</span>
 <span class="sd">        chunk_mapa_turno: Turno atual (Dia/Noite) (cache para performance)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">id_jogador</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">id_player</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">vida_atual</span><span class="p">:</span> <span class="nb">int</span>
@@ -995,7 +995,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Converte o personagem para dicionário&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s1">&#39;id_jogador&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="p">,</span>
+            <span class="s1">&#39;id_player&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="p">,</span>
             <span class="s1">&#39;nome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span>
             <span class="s1">&#39;vida_max&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="p">,</span>
             <span class="s1">&#39;vida_atual&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="p">,</span>
@@ -1124,14 +1124,14 @@
 <a class="viewcode-back" href="../../models.html#models.player.PlayerSession.__str__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do personagem&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PlayerSession(id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, vida=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PlayerSession(id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, vida=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="si">}</span><span class="s2">)&quot;</span></div>
 
     
 <div class="viewcode-block" id="PlayerSession.__repr__">
 <a class="viewcode-back" href="../../models.html#models.player.PlayerSession.__repr__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do personagem&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PlayerSession(id_jogador=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PlayerSession(id_player=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;vida_max=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="si">}</span><span class="s2">, vida_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">, &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;xp=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="si">}</span><span class="s2">, forca=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forca</span><span class="si">}</span><span class="s2">, &quot;</span>
                 <span class="sa">f</span><span class="s2">&quot;id_chunk_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_chunk_atual</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
