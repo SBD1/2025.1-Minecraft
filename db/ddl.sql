@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS Inventario, Item, Player, Chunk, Mapa, Bioma CASCADE;
 -- Bioma
 CREATE TABLE Bioma (
     id_bioma   SERIAL PRIMARY KEY,
-    nome       VARCHAR(100) NOT NULL,
+    nome       VARCHAR(100) NOT NULL UNIQUE,
     descricao  TEXT        NOT NULL
 );
 
@@ -13,7 +13,7 @@ CREATE TABLE Mapa (
     id_mapa  SERIAL PRIMARY KEY,
     nome     VARCHAR(100) NOT NULL,
     turno    VARCHAR(50)  NOT NULL,
-    UNIQUE (nome, turno)
+    CONSTRAINT uk_mapa_nome_turno UNIQUE (nome, turno)
 );
 
 -- Chunk
@@ -28,7 +28,7 @@ CREATE TABLE Chunk (
 -- Player
 CREATE TABLE Player (
     id_player        SERIAL PRIMARY KEY,
-    nome             VARCHAR(100) NOT NULL,
+    nome             VARCHAR(100) NOT NULL UNIQUE,
     vida_maxima      INT    NOT NULL,
     vida_atual       INT    NOT NULL,
     forca            INT    NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Player (
 -- Item
 CREATE TABLE Item (
     id_item     SERIAL PRIMARY KEY,
-    nome        VARCHAR(100) NOT NULL,
+    nome        VARCHAR(100) NOT NULL UNIQUE,
     tipo        VARCHAR(50)  NOT NULL,
     poder       INT,
     durabilidade INT
@@ -52,7 +52,8 @@ CREATE TABLE Inventario (
     id           SERIAL PRIMARY KEY,
     player_id    INT    NOT NULL REFERENCES Player(id_player) ON DELETE CASCADE ON UPDATE CASCADE,
     item_id      INT    NOT NULL REFERENCES Item(id_item)   ON DELETE RESTRICT ON UPDATE CASCADE,
-    quantidade   INT    NOT NULL
+    quantidade   INT    NOT NULL,
+    CONSTRAINT uk_inventario_player_item UNIQUE(player_id, item_id)
 );
 
 -- Índices de performance

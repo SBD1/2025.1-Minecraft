@@ -27,9 +27,8 @@ Criando seu Primeiro Personagem
 #. Confirme a criação
 #. Escolha se deseja selecionar o personagem agora
 
-.. image:: _static/create-character.png
-   :alt: Criando personagem
-   :align: center
+.. note::
+   Novos personagens começam no **Chunk 1** do **Mapa 1** durante o **Dia**, em um ambiente que pode ser qualquer bioma (Deserto, Selva, Floresta, ou Oceano).
 
 Navegando pelo Menu
 ------------------
@@ -59,6 +58,7 @@ Quando você inicia o jogo, pode mover seu personagem:
 #. O sistema informará se houve mudança de bioma
 
 **Exemplo de movimento:**
+
 .. code-block:: text
 
    🚶 OPÇÕES DE MOVIMENTO:
@@ -67,6 +67,21 @@ Quando você inicia o jogo, pode mover seu personagem:
    2. ⬇️ Baixo - 🌴 Selva (Chunk 4)
    3. ⬅️ Esquerda - 🏜️ Deserto (Chunk 1)
    4. ➡️ Direita - 🌲 Floresta (Chunk 3)
+
+.. note::
+   **Novidade**: Agora o sistema exibe o **nome do bioma** em vez do ID numérico! Você verá "🌊 Oceano" em vez de "BIOMA: 4".
+
+Biomas Disponíveis
+------------------
+
+O mundo do jogo possui 4 biomas diferentes:
+
+* **🏜️ Deserto** (ID: 1) - Um bioma árido com pouca vegetação
+* **🌴 Selva** (ID: 2) - Um bioma tropical denso e úmido
+* **🌲 Floresta** (ID: 3) - Um bioma com muitas árvores e vida selvagem
+* **🌊 Oceano** (ID: 4) - Um vasto bioma de água salgada
+
+Cada bioma oferece uma experiência visual e narrativa diferente durante a exploração.
 
 Gerenciando Personagens
 -----------------------
@@ -78,10 +93,10 @@ Listando Personagens
 #. Você verá uma visualização em grid de todos os personagens
 #. Cada personagem mostra:
    * Nome
-   * Vida atual/máxima
+   * Vida atual/máxima com barra visual colorida
    * XP
    * Força
-   * Localização atual
+   * Localização atual (formato: "Mapa X - Chunk Y")
 
 Selecionando um Personagem
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -106,10 +121,24 @@ Para ver informações detalhadas do seu personagem:
 #. Selecione **2. 📊 Ver status detalhado**
 #. Você verá:
    * Nome e ID do personagem
-   * Vida atual e máxima
+   * Vida atual e máxima com barra visual
    * XP e força
-   * Localização (bioma, mapa e turno)
+   * Localização detalhada (bioma, mapa e turno)
    * Status de vida
+
+**Exemplo de status:**
+
+.. code-block:: text
+
+   📊 STATUS DO PERSONAGEM:
+   ========================================
+   👤 Nome: Steve
+   🆔 ID: 1
+   ❤️  Vida: 85/100 [████████████████████░░░]
+   ⚡ Força: 12
+   🎯 XP: 150
+   📍 Localização: 🌊 Oceano (Mapa 1 - Dia)
+   ✅ Status: Vivo
 
 Salvando Progresso
 ------------------
@@ -117,10 +146,57 @@ Salvando Progresso
 O jogo salva automaticamente quando você:
 * Sai do jogo
 * Troca de personagem
+* Move seu personagem
 
 Para salvar manualmente:
 #. Selecione **3. 💾 Salvar progresso**
 #. Confirme que os dados foram salvos
+
+.. tip::
+   **Novidade**: O sistema agora salva tanto a localização formatada ("Mapa X - Chunk Y") quanto o ID do chunk atual para melhor performance.
+
+Resolução de Problemas
+----------------------
+
+**Erro ao Mover Personagem**
+
+Se você receber um erro relacionado à localização do personagem:
+
+#. Verifique se o personagem tem uma localização válida no status
+#. Tente salvar o progresso manualmente
+#. Se o problema persistir, crie um novo personagem
+
+**Bioma Não Aparece**
+
+Se o bioma aparecer como número em vez do nome:
+
+#. Isso pode indicar um problema temporário de conexão
+#. Tente mover para outro chunk e voltar
+#. Reinicie o jogo se necessário
+
+**Problemas de Performance**
+
+Para melhor performance:
+
+#. Salve o progresso regularmente
+#. Evite criar muitos personagens desnecessários
+#. Use a funcionalidade de deletar personagens antigos
+
+Estrutura do Mundo
+------------------
+
+O mundo do jogo é organizado da seguinte forma:
+
+* **Mapas**: Cada mapa tem um nome e um turno (Dia/Noite)
+* **Chunks**: Cada chunk pertence a um mapa e tem um bioma
+* **Coordenadas**: Chunks são organizados em grid com coordenadas X,Y
+* **Biomas**: Cada chunk tem um bioma que define sua aparência e características
+
+**Navegação:**
+
+* Chunks são numerados sequencialmente (1, 2, 3, ...)
+* Movimento entre chunks adjacentes é possível
+* Localização é exibida como "Mapa X - Chunk Y"
 
 Saindo do Jogo
 --------------
@@ -147,5 +223,30 @@ Próximos Passos
 Agora que você conhece o básico:
 
 * :doc:`user_guide` - Aprenda sobre funcionalidades avançadas
+* :doc:`models` - Entenda a estrutura dos dados do jogo
 * :doc:`api_reference` - Explore a documentação da API
-* :doc:`database` - Entenda a estrutura do banco de dados 
+* :doc:`database` - Entenda a estrutura do banco de dados
+* :doc:`relational_algebra` - Aprenda sobre as consultas do sistema
+
+Funcionalidades Avançadas
+-------------------------
+
+Para usuários que desejam explorar mais funcionalidades:
+
+**Desenvolvimento:**
+
+* Examine o código em ``app/src/models/`` para entender a estrutura dos dados
+* Verifique os repositories em ``app/src/repositories/`` para consultas customizadas
+* Analise os services em ``app/src/services/`` para lógica de negócio
+
+**Banco de Dados:**
+
+* Conecte-se diretamente ao PostgreSQL para consultas avançadas
+* Explore os arquivos SQL em ``db/`` para entender a estrutura
+* Use as consultas de álgebra relacional para análise de dados
+
+**Testes:**
+
+* Execute ``python -m pytest`` para rodar os testes unitários
+* Verifique os testes em ``tests/`` para exemplos de uso
+* Adicione novos testes ao modificar funcionalidades

@@ -3,7 +3,7 @@ INSERT INTO Mapa (nome, turno)
 VALUES
   ('Mapa_Principal', 'Dia'),
   ('Mapa_Principal', 'Noite')
-ON CONFLICT (nome, turno) DO NOTHING;
+ON CONFLICT ON CONSTRAINT uk_mapa_nome_turno DO NOTHING;
 
 -- Biomas
 INSERT INTO Bioma (nome, descricao)
@@ -22,19 +22,19 @@ VALUES
   ('Maçã',            'Comida', NULL, NULL)
 ON CONFLICT (nome) DO NOTHING;
 
--- Jogadores
+-- Jogadores (sem current_chunk_id para evitar conflito de FK com chunks)
 INSERT INTO Player (
   nome, vida_maxima, vida_atual, forca,
   localizacao, nivel, experiencia, current_chunk_id
 )
 VALUES
-  ('Player1', 100, 100, 10, NULL, 1, 0, 1),
-  ('Player2', 120, 120, 12, NULL, 1, 50, 2)
-ON CONFLICT (id_player) DO NOTHING;
+  ('Player1', 100, 100, 10, NULL, 1, 0, NULL),
+  ('Player2', 120, 120, 12, NULL, 1, 50, NULL)
+ON CONFLICT (nome) DO NOTHING;
 
 -- Inventário de exemplo
 INSERT INTO Inventario (player_id, item_id, quantidade)
 VALUES
   (1, (SELECT id_item FROM Item WHERE nome='Espada de Ferro'), 1),
   (1, (SELECT id_item FROM Item WHERE nome='Maçã'), 5)
-ON CONFLICT (player_id, item_id) DO NOTHING;
+ON CONFLICT ON CONSTRAINT uk_inventario_player_item DO NOTHING;
