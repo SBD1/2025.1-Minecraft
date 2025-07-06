@@ -4,7 +4,7 @@ Configuração compartilhada para testes
 import pytest
 import sys
 import os
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 # Adiciona o diretório src ao path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -12,10 +12,11 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
 @pytest.fixture
 def mock_db_connection():
     """Mock para conexão com banco de dados"""
-    mock_conn = Mock()
-    mock_cursor = Mock()
+    # Use MagicMock to support context manager magic methods
+    mock_conn = MagicMock()
+    mock_cursor = MagicMock()
     # Setup cursor as context manager
-    mock_cursor_cm = Mock()
+    mock_cursor_cm = MagicMock()
     mock_cursor_cm.__enter__.return_value = mock_cursor
     mock_cursor_cm.__exit__.return_value = None
     mock_conn.cursor.return_value = mock_cursor_cm
