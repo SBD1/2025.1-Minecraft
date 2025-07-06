@@ -57,7 +57,7 @@ def refresh_current_player() -> bool:
     if not current_player:
         return False
     
-    updated_player = load_player_by_id(current_player.id_jogador)
+    updated_player = load_player_by_id(current_player.id_player)
     if updated_player:
         current_player = updated_player
         print("Dados do personagem atualizados!")
@@ -136,7 +136,7 @@ def delete_player(player_id: int) -> bool:
         
         # Verificar se é o personagem ativo
         current_player = get_current_player()
-        if current_player and current_player.id_jogador == player_id:
+        if current_player and current_player.id_player == player_id:
             print(f"Não é possível deletar o personagem ativo '{player.nome}'!")
             print("Dica: Troque de personagem primeiro ou saia da sessão.")
             return False
@@ -241,12 +241,12 @@ def display_players_grid(players_data: List[Player]) -> None:
     
     # Obter personagem atual
     current_player_obj = get_current_player()
-    current_id = current_player_obj.id_jogador if current_player_obj else None
+    current_id = current_player_obj.id_player if current_player_obj else None
     
     # Preparar dados dos jogadores
     player_sessions = []
     for player in players_data:
-        is_current = current_id and player.id_jogador == current_id
+        is_current = current_id and player.id_player == current_id
         player_sessions.append((player, is_current))
     
     # Organizar em linhas

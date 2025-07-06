@@ -321,7 +321,7 @@ def iniciar_jogo():
             elif opcao == "5":
                 # Salvar progresso
                 if interface_service.save_player(current_player):
-                    current_player = interface_service.get_player_by_id(current_player.id_jogador)
+                    current_player = interface_service.get_player_by_id(current_player.id_player)
                     set_current_player(current_player)
                     print(f"{Fore.GREEN}✅ Progresso salvo com sucesso!{Fore.RESET}")
                 else:
@@ -412,9 +412,9 @@ def selecionar_jogador():
             
             # Verificar se é o personagem atual
             current_player = get_current_player()
-            current_id = current_player.id_jogador if current_player else None
+            current_id = current_player.id_player if current_player else None
             
-            if current_id and player.id_jogador == current_id:
+            if current_id and player.id_player == current_id:
                 print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                 input("⏳ Pressione Enter para continuar...")
                 return
@@ -511,11 +511,11 @@ def listar_jogadores():
                 print()
                 
                 current_player = get_current_player()
-                current_id = current_player.id_jogador if current_player else None
+                current_id = current_player.id_player if current_player else None
                 
                 print("Personagens disponíveis:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    status_icon = "🎮" if player.id_player == current_id else "👤"
                     print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
@@ -533,7 +533,7 @@ def listar_jogadores():
                             player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player.id_jogador == current_id:
+                            if current_id and player.id_player == current_id:
                                 print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                                 input("⏳ Pressione Enter para continuar...")
                                 return
@@ -560,11 +560,11 @@ def listar_jogadores():
                 print()
                 
                 current_player = get_current_player()
-                current_id = current_player.id_jogador if current_player else None
+                current_id = current_player.id_player if current_player else None
                 
                 print("Personagens disponíveis para deletar:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    status_icon = "🎮" if player.id_player == current_id else "👤"
                     print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
@@ -582,7 +582,7 @@ def listar_jogadores():
                             player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player.id_jogador == current_id:
+                            if current_id and player.id_player == current_id:
                                 print(f"{Fore.RED}❌ Não é possível deletar o personagem ativo '{player.nome}'!{Fore.RESET}")
                                 print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
                                 input("⏳ Pressione Enter para continuar...")
@@ -591,7 +591,7 @@ def listar_jogadores():
                             # Confirmar deleção
                             if confirm_player_deletion(player.nome):
                                 # Deletar personagem
-                                if interface_service.delete_player(player.id_jogador):
+                                if interface_service.delete_player(player.id_player):
                                     print(f"{Fore.GREEN}✅ Personagem '{player.nome}' deletado com sucesso!{Fore.RESET}")
                                     input("⏳ Pressione Enter para continuar...")
                                     return  # Sair da função e voltar ao menu principal

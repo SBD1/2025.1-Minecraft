@@ -65,19 +65,33 @@ def check_map_with_1000_chunks():
         conn = connection_db()
         cursor = conn.cursor()
         
-        # Verifica se existem pelo menos 1000 chunks no mapa de dia
+        # Buscar ID dos mapas Dia e Noite
         cursor.execute("""
-            SELECT COUNT(*) FROM chunk 
-            WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Dia'
+            SELECT id_mapa FROM mapa 
+            WHERE nome = 'Mapa_Principal' AND turno = 'Dia'
         """)
-        day_chunks = cursor.fetchone()[0]
+        day_map = cursor.fetchone()
         
-        # Verifica se existem pelo menos 1000 chunks no mapa de noite
         cursor.execute("""
-            SELECT COUNT(*) FROM chunk 
-            WHERE id_mapa_nome = 'Mapa_Principal' AND id_mapa_turno = 'Noite'
+            SELECT id_mapa FROM mapa 
+            WHERE nome = 'Mapa_Principal' AND turno = 'Noite'
         """)
-        night_chunks = cursor.fetchone()[0]
+        night_map = cursor.fetchone()
+        
+        day_chunks = 0
+        night_chunks = 0
+        
+        if day_map:
+            cursor.execute("""
+                SELECT COUNT(*) FROM chunk WHERE id_mapa = %s
+            """, (day_map[0],))
+            day_chunks = cursor.fetchone()[0]
+        
+        if night_map:
+            cursor.execute("""
+                SELECT COUNT(*) FROM chunk WHERE id_mapa = %s
+            """, (night_map[0],))
+            night_chunks = cursor.fetchone()[0]
         
         cursor.close()
         conn.close()
@@ -99,7 +113,7 @@ def check_data_seeded():
         cursor = conn.cursor()
         
         # Verificar se há dados nas tabelas principais
-        cursor.execute("SELECT COUNT(*) FROM Jogador")
+        cursor.execute("SELECT COUNT(*) FROM Player")
         player_count = cursor.fetchone()[0]
         
         cursor.execute("SELECT COUNT(*) FROM Chunk")
@@ -128,25 +142,35 @@ def check_data_seeded():
 def initialize_database():
     """Inicializa o banco de dados com dados básicos"""
     try:
+        conn = connection_db()
+        
         # Executar scripts SQL na ordem correta
-        execute_sql_file("db/ddl.sql")
-        execute_sql_file("db/trigger_SP.sql")
-        execute_sql_file("db/dml.sql")
-        execute_sql_file("db/dml_inst.sql")
+        execute_sql_file(conn, "db/ddl.sql")
+        
+        # Verificar se existe o arquivo de triggers antes de executar
+        if os.path.exists("db/trigger_SP.sql"):
+            execute_sql_file(conn, "db/trigger_SP.sql")
+        
+        execute_sql_file(conn, "db/dml.sql")
+        
+        # Verificar se existe o arquivo de instâncias antes de executar
+        if os.path.exists("db/dml_inst.sql"):
+            execute_sql_file(conn, "db/dml_inst.sql")
         
         print("Executando script com mapa de 1000 chunks...")
+        if os.path.exists("db/dml_1000_chunks.sql"):
+            execute_sql_file(conn, "db/dml_1000_chunks.sql")
         
         # Executar script adicional se existir
-        try:
-            execute_sql_file("db/create_user.sql")
-        except FileNotFoundError:
-            pass
+        if os.path.exists("db/create_user.sql"):
+            execute_sql_file(conn, "db/create_user.sql")
         
+        conn.close()
         print("Banco de dados inicializado com sucesso!")
         return True
         
     except Exception as e:
-        print(f"Falha na inicialização do banco de dados.")
+        print(f"Falha na inicialização do banco de dados: {str(e)}")
         return False
 
 def setup_database():

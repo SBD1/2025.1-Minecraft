@@ -164,7 +164,7 @@ class PlayerRepositoryImpl(PlayerRepository):
                 cursor.execute(query, (
                     player.nome, player.vida_maxima, player.vida_atual, 
                     player.experiencia, player.forca, int(player.localizacao) if player.localizacao else 1,
-                    player.id_jogador
+                    player.id_player
                 ))
             else:
                 # Insert

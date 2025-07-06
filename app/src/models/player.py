@@ -152,7 +152,7 @@ class PlayerSession:
     Model que representa um personagem ativo na sessão do jogo
     
     Attributes:
-        id_jogador: ID único do personagem no banco
+        id_player: ID único do personagem no banco
         nome: Nome do personagem
         vida_max: Vida máxima do personagem
         vida_atual: Vida atual do personagem
@@ -163,7 +163,7 @@ class PlayerSession:
         chunk_mapa_nome: Nome do mapa atual (cache para performance)
         chunk_mapa_turno: Turno atual (Dia/Noite) (cache para performance)
     """
-    id_jogador: int
+    id_player: int
     nome: str
     vida_max: int
     vida_atual: int
@@ -177,7 +177,7 @@ class PlayerSession:
     def to_dict(self) -> Dict[str, Any]:
         """Converte o personagem para dicionário"""
         return {
-            'id_jogador': self.id_jogador,
+            'id_player': self.id_player,
             'nome': self.nome,
             'vida_max': self.vida_max,
             'vida_atual': self.vida_atual,
@@ -279,11 +279,11 @@ class PlayerSession:
     
     def __str__(self) -> str:
         """Representação string do personagem"""
-        return f"PlayerSession(id={self.id_jogador}, nome='{self.nome}', vida={self.vida_atual}/{self.vida_max})"
+        return f"PlayerSession(id={self.id_player}, nome='{self.nome}', vida={self.vida_atual}/{self.vida_max})"
     
     def __repr__(self) -> str:
         """Representação detalhada do personagem"""
-        return (f"PlayerSession(id_jogador={self.id_jogador}, nome='{self.nome}', "
+        return (f"PlayerSession(id_player={self.id_player}, nome='{self.nome}', "
                 f"vida_max={self.vida_max}, vida_atual={self.vida_atual}, "
                 f"xp={self.xp}, forca={self.forca}, "
                 f"id_chunk_atual={self.id_chunk_atual})")
