@@ -367,7 +367,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.mapa.TurnoType.NOITE"><code class="docutils literal notranslate"><span class="pre">TurnoType.NOITE</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#models.mapa.exemplo_uso_repository"><code class="docutils literal notranslate"><span class="pre">exemplo_uso_repository()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../api_reference.html#models.bioma.Bioma"><code class="docutils literal notranslate"><span class="pre">Bioma</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.bioma.Bioma.__eq__"><code class="docutils literal notranslate"><span class="pre">Bioma.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../api_reference.html#models.bioma.Bioma.__hash__"><code class="docutils literal notranslate"><span class="pre">Bioma.__hash__()</span></code></a></li>
@@ -845,7 +844,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Chunk repository não foi configurado&quot;</span><span class="p">)</span>
         
         <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">bioma</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">chunk</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_bioma</span> <span class="o">==</span> <span class="n">bioma</span><span class="p">]</span></div>
 
     
 <div class="viewcode-block" id="Mapa.get_bioma_distribution">
@@ -981,35 +980,6 @@
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_mapa</span><span class="p">)</span></div>
 </div>
 
-
-
-<span class="c1"># Exemplo de uso com Repository Pattern</span>
-<div class="viewcode-block" id="exemplo_uso_repository">
-<a class="viewcode-back" href="../../api_reference.html#models.mapa.exemplo_uso_repository">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">exemplo_uso_repository</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exemplo de como usar o Mapa com Repository Pattern&quot;&quot;&quot;</span>
-    
-    <span class="c1"># 1. Configurar repositories (import local para evitar circular import)</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">..repositories</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChunkRepositoryImpl</span>
-    <span class="n">chunk_repo</span> <span class="o">=</span> <span class="n">ChunkRepositoryImpl</span><span class="p">()</span>
-    
-    <span class="c1"># 2. Criar mapa e injetar repository</span>
-    <span class="n">mapa</span> <span class="o">=</span> <span class="n">Mapa</span><span class="p">(</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span> <span class="n">TurnoType</span><span class="o">.</span><span class="n">DIA</span><span class="p">)</span>
-    <span class="n">mapa</span><span class="o">.</span><span class="n">set_chunk_repository</span><span class="p">(</span><span class="n">chunk_repo</span><span class="p">)</span>
-    
-    <span class="c1"># 3. Usar o mapa (agora sem acesso direto ao banco)</span>
-    <span class="n">chunks</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_chunks</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mapa tem </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="s2"> chunks&quot;</span><span class="p">)</span>
-    
-    <span class="c1"># 4. Buscar por bioma</span>
-    <span class="n">chunks_deserto</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_chunks_by_bioma</span><span class="p">(</span><span class="s2">&quot;Deserto&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Chunks de deserto: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunks_deserto</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    
-    <span class="c1"># 5. Informações de exibição</span>
-    <span class="n">info</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_display_info</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Informações: </span><span class="si">{</span><span class="n">info</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">mapa</span></div>
 
 </pre></div>
 
