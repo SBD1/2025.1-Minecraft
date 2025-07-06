@@ -51,12 +51,10 @@ class PlayerRepositoryImpl(PlayerRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT Id_Jogador, Nome, Vida_max, Vida_atual, forca, 
-                               COALESCE(Id_Chunk_Atual, 1) as localizacao,
-                               COALESCE(xp, 0) as experiencia,
-                               1 as nivel
-                        FROM Jogador
-                        ORDER BY Nome
+                        SELECT id_player, nome, vida_maxima, vida_atual, forca,
+                               localizacao, nivel, experiencia, current_chunk_id
+                        FROM Player
+                        ORDER BY nome
                     """)
                     
                     results = cursor.fetchall()
@@ -64,14 +62,15 @@ class PlayerRepositoryImpl(PlayerRepository):
                     
                     for row in results:
                         player = Player(
-                            id_jogador=row[0],
+                            id_player=row[0],
                             nome=row[1],
                             vida_maxima=row[2],
                             vida_atual=row[3],
                             forca=row[4],
-                            localizacao=str(row[5]),
-                            nivel=row[7],
-                            experiencia=row[6]
+                            localizacao=row[5] or "",
+                            nivel=row[6],
+                            experiencia=row[7],
+                            current_chunk_id=row[8]
                         )
                         players.append(player)
                     
@@ -87,9 +86,10 @@ class PlayerRepositoryImpl(PlayerRepository):
             cursor = conn.cursor()
             
             query = """
-                SELECT Id_Jogador, Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual
-                FROM Jogador
-                WHERE Id_Jogador = %s
+                SELECT id_player, nome, vida_maxima, vida_atual, forca, localizacao,
+                       nivel, experiencia, current_chunk_id
+                FROM Player
+                WHERE id_player = %s
             """
             
             cursor.execute(query, (id,))
@@ -100,14 +100,15 @@ class PlayerRepositoryImpl(PlayerRepository):
             
             if result:
                 return Player(
-                    id_jogador=result[0],
+                    id_player=result[0],
                     nome=result[1],
                     vida_maxima=result[2],
                     vida_atual=result[3],
-                    forca=result[5],
-                    localizacao=str(result[6]) if result[6] else "1",
-                    nivel=1,
-                    experiencia=result[4]
+                    forca=result[4],
+                    localizacao=result[5] or "",
+                    nivel=result[6],
+                    experiencia=result[7],
+                    current_chunk_id=result[8]
                 )
             return None
             
@@ -150,13 +151,15 @@ class PlayerRepositoryImpl(PlayerRepository):
             conn = connection_db()
             cursor = conn.cursor()
             
-            if player.id_jogador:
+            if player.id_player:
                 # Update
                 query = """
-                    UPDATE Jogador
-                    SET Nome = %s, Vida_max = %s, Vida_atual = %s, xp = %s, forca = %s, Id_Chunk_Atual = %s
-                    WHERE Id_Jogador = %s
-                    RETURNING Id_Jogador, Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual
+                    UPDATE Player
+                    SET nome = %s, vida_maxima = %s, vida_atual = %s,
+                        experiencia = %s, forca = %s, current_chunk_id = %s
+                    WHERE id_player = %s
+                    RETURNING id_player, nome, vida_maxima, vida_atual,
+                              forca, localizacao, nivel, experiencia, current_chunk_id
                 """
                 cursor.execute(query, (
                     player.nome, player.vida_maxima, player.vida_atual, 
@@ -166,9 +169,10 @@ class PlayerRepositoryImpl(PlayerRepository):
             else:
                 # Insert
                 query = """
-                    INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
+                    INSERT INTO Player (nome, vida_maxima, vida_atual, experiencia, forca, current_chunk_id)
                     VALUES (%s, %s, %s, %s, %s, %s)
-                    RETURNING Id_Jogador, Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual
+                    RETURNING id_player, nome, vida_maxima, vida_atual,
+                              forca, localizacao, nivel, experiencia, current_chunk_id
                 """
                 cursor.execute(query, (
                     player.nome, player.vida_maxima, player.vida_atual, 
@@ -183,14 +187,15 @@ class PlayerRepositoryImpl(PlayerRepository):
             
             if result:
                 return Player(
-                    id_jogador=result[0],
+                    id_player=result[0],
                     nome=result[1],
                     vida_maxima=result[2],
                     vida_atual=result[3],
-                    forca=result[5],
-                    localizacao=str(result[6]) if result[6] else "1",
-                    nivel=1,
-                    experiencia=result[4]
+                    forca=result[4],
+                    localizacao=result[5] or "",
+                    nivel=result[6],
+                    experiencia=result[7],
+                    current_chunk_id=result[8]
                 )
             return None
             
@@ -204,7 +209,7 @@ class PlayerRepositoryImpl(PlayerRepository):
             conn = connection_db()
             cursor = conn.cursor()
             
-            query = "DELETE FROM Jogador WHERE Id_Jogador = %s"
+            query = "DELETE FROM Player WHERE id_player = %s"
             cursor.execute(query, (id,))
             
             deleted = cursor.rowcount > 0
@@ -226,9 +231,10 @@ class PlayerRepositoryImpl(PlayerRepository):
             cursor = conn.cursor()
             
             query = """
-                SELECT Id_Jogador, Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual
-                FROM Jogador
-                WHERE Nome = %s
+                SELECT id_player, nome, vida_maxima, vida_atual, forca,
+                       localizacao, nivel, experiencia, current_chunk_id
+                FROM Player
+                WHERE nome = %s
             """
             
             cursor.execute(query, (name,))
@@ -239,14 +245,15 @@ class PlayerRepositoryImpl(PlayerRepository):
             
             if result:
                 return Player(
-                    id_jogador=result[0],
+                    id_player=result[0],
                     nome=result[1],
                     vida_maxima=result[2],
                     vida_atual=result[3],
-                    forca=result[5],
-                    localizacao=str(result[6]) if result[6] else "1",
-                    nivel=1,
-                    experiencia=result[4]
+                    forca=result[4],
+                    localizacao=result[5] or "",
+                    nivel=result[6],
+                    experiencia=result[7],
+                    current_chunk_id=result[8]
                 )
             return None
             
@@ -261,10 +268,11 @@ class PlayerRepositoryImpl(PlayerRepository):
             cursor = conn.cursor()
             
             query = """
-                SELECT Id_Jogador, Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual
-                FROM Jogador
-                WHERE Vida_atual > 0
-                ORDER BY Nome
+                SELECT id_player, nome, vida_maxima, vida_atual, forca,
+                       localizacao, nivel, experiencia, current_chunk_id
+                FROM Player
+                WHERE vida_atual > 0
+                ORDER BY nome
             """
             
             cursor.execute(query)
@@ -276,14 +284,15 @@ class PlayerRepositoryImpl(PlayerRepository):
             players = []
             for row in results:
                 players.append(Player(
-                    id_jogador=row[0],
+                    id_player=row[0],
                     nome=row[1],
                     vida_maxima=row[2],
                     vida_atual=row[3],
-                    forca=row[5],
-                    localizacao=str(row[6]) if row[6] else "1",
-                    nivel=1,
-                    experiencia=row[4]
+                    forca=row[4],
+                    localizacao=row[5] or "",
+                    nivel=row[6],
+                    experiencia=row[7],
+                    current_chunk_id=row[8]
                 ))
             
             return players

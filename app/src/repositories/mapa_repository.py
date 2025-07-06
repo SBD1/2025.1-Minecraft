@@ -46,7 +46,7 @@ class MapaRepositoryImpl(MapaRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT nome, turno
+                        SELECT id_mapa, nome, turno
                         FROM mapa
                         ORDER BY nome, turno
                     """)
@@ -55,7 +55,7 @@ class MapaRepositoryImpl(MapaRepository):
                     mapas = []
                     
                     for row in results:
-                        mapa = Mapa(nome=row[0], turno=row[1])
+                        mapa = Mapa(id_mapa=row[0], nome=row[1], turno=row[2])
                         mapas.append(mapa)
                     
                     return mapas
@@ -69,14 +69,13 @@ class MapaRepositoryImpl(MapaRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT nome, turno
+                        SELECT id_mapa, nome, turno
                         FROM mapa
                         WHERE nome = %s AND turno = %s
                     """, (nome, turno.value))
-                    
                     result = cursor.fetchone()
                     if result:
-                        return Mapa(nome=result[0], turno=result[1])
+                        return Mapa(id_mapa=result[0], nome=result[1], turno=result[2])
                     return None
         except Exception as e:
             print(f"Erro ao buscar mapa {nome} ({turno.value}): {str(e)}")
@@ -92,11 +91,11 @@ class MapaRepositoryImpl(MapaRepository):
                         VALUES (%s, %s)
                         ON CONFLICT (nome, turno)
                         DO UPDATE SET nome = EXCLUDED.nome, turno = EXCLUDED.turno
-                        RETURNING nome, turno
+                        RETURNING id_mapa, nome, turno
                     """, (mapa.nome, mapa.turno.value))
                     result = cursor.fetchone()
                     conn.commit()
-                    return Mapa(nome=result[0], turno=result[1])
+                    return Mapa(id_mapa=result[0], nome=result[1], turno=result[2])
         except Exception as e:
             if 'conn' in locals():
                 conn.rollback()
@@ -124,7 +123,7 @@ class MapaRepositoryImpl(MapaRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT nome, turno
+                        SELECT id_mapa, nome, turno
                         FROM mapa
                         WHERE turno = %s
                         ORDER BY nome
@@ -134,7 +133,7 @@ class MapaRepositoryImpl(MapaRepository):
                     mapas = []
                     
                     for row in results:
-                        mapa = Mapa(nome=row[0], turno=row[1])
+                        mapa = Mapa(id_mapa=row[0], nome=row[1], turno=row[2])
                         mapas.append(mapa)
                     
                     return mapas
