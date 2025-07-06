@@ -5,12 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>utils.db_helpers &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
+  <title>models.player &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/utils/db_helpers.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/models/player.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=8d563738"></script>
@@ -764,7 +764,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">utils.db_helpers</li>
+      <li class="breadcrumb-item active">models.player</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -773,206 +773,370 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for utils.db_helpers</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg2</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+  <h1>Source code for models.player</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Model do Personagem (Player)</span>
+<span class="sd">Representa um personagem do jogo com seus atributos e comportamentos</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="connection_db">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.connection_db">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">connection_db</span><span class="p">():</span>
-    <span class="k">return</span> <span class="n">psycopg2</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-        <span class="n">user</span><span class="o">=</span><span class="s2">&quot;postgres&quot;</span><span class="p">,</span>
-        <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">,</span>
-        <span class="n">host</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">,</span>
-        <span class="n">port</span><span class="o">=</span><span class="s2">&quot;5432&quot;</span><span class="p">,</span>
-        <span class="n">database</span><span class="o">=</span><span class="s2">&quot;2025_1_Minecraft&quot;</span>
-    <span class="p">)</span></div>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colorama</span><span class="w"> </span><span class="kn">import</span> <span class="n">Fore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.inventory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InventoryEntry</span>
 
 
-<div class="viewcode-block" id="execute_sql_file">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.execute_sql_file">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">execute_sql_file</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">file_path</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executa um arquivo SQL no banco de dados&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-            <span class="n">sql_content</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_content</span><span class="p">)</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Arquivo SQL executado com sucesso: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erro ao executar arquivo SQL </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+<div class="viewcode-block" id="Player">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model que representa um personagem no banco de dados</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id_player: ID único do personagem no banco</span>
+<span class="sd">        nome: Nome do personagem</span>
+<span class="sd">        vida_maxima: Vida máxima do personagem</span>
+<span class="sd">        vida_atual: Vida atual do personagem</span>
+<span class="sd">        forca: Força do personagem</span>
+<span class="sd">        localizacao: Localização atual do personagem</span>
+<span class="sd">        nivel: Nível do personagem</span>
+<span class="sd">        experiencia: Experiência acumulada</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_player</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">vida_maxima</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">vida_atual</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">forca</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">localizacao</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nivel</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">experiencia</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">current_chunk_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">inventario</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">InventoryEntry</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
 
+<div class="viewcode-block" id="Player.__post_init__">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.__post_init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validações após inicialização&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span></div>
 
-<div class="viewcode-block" id="check_database_connection">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_database_connection">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_database_connection</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se é possível conectar ao banco de dados&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Conexão com o banco de dados estabelecida&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erro ao conectar com o banco de dados: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+    
+<div class="viewcode-block" id="Player.is_alive">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.is_alive">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o personagem está vivo&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
 
+    
+<div class="viewcode-block" id="Player.take_damage">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.take_damage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">take_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica dano ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            damage: Quantidade de dano a ser aplicado</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se o personagem ainda está vivo após o dano</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">-</span> <span class="n">damage</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="check_tables_exist">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_tables_exist">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_tables_exist</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se as tabelas principais existem no banco usando repositórios&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Importação local para evitar importação circular</span>
-        <span class="kn">from</span><span class="w"> </span><span class="nn">..repositories</span><span class="w"> </span><span class="kn">import</span> <span class="n">BiomaRepositoryImpl</span><span class="p">,</span> <span class="n">MapaRepositoryImpl</span><span class="p">,</span> <span class="n">ChunkRepositoryImpl</span>
-        
-        <span class="n">bioma_repo</span> <span class="o">=</span> <span class="n">BiomaRepositoryImpl</span><span class="p">()</span>
-        <span class="n">mapa_repo</span> <span class="o">=</span> <span class="n">MapaRepositoryImpl</span><span class="p">()</span>
-        <span class="n">chunk_repo</span> <span class="o">=</span> <span class="n">ChunkRepositoryImpl</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="Player.heal">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.heal">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cura o personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de vida a ser restaurada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span></div>
 
-        <span class="c1"># Verifica se as tabelas têm pelo menos um registro</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">bioma_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">mapa_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">chunk_repo</span><span class="o">.</span><span class="n">find_all</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Algumas tabelas não têm registros&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
+    
+<div class="viewcode-block" id="Player.gain_experience">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.gain_experience">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gain_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona experiência ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de experiência a ser adicionada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span> <span class="o">+=</span> <span class="n">amount</span></div>
 
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Todas as tabelas necessárias têm registros&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erro ao verificar tabelas: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="check_map_with_1000_chunks">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_map_with_1000_chunks">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_map_with_1000_chunks</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se o mapa com 1000 chunks já foi criado&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de dia</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Dia&#39;</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">day_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="c1"># Verifica se existem pelo menos 1000 chunks no mapa de noite</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT COUNT(*) FROM chunk </span>
-<span class="s2">            WHERE id_mapa_nome = &#39;Mapa_Principal&#39; AND id_mapa_turno = &#39;Noite&#39;</span>
-<span class="s2">        &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="n">night_chunks</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        
-        <span class="k">if</span> <span class="n">day_chunks</span> <span class="o">&gt;=</span> <span class="mi">1000</span> <span class="ow">and</span> <span class="n">night_chunks</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mapa com 1000 chunks já existe (Dia: </span><span class="si">{</span><span class="n">day_chunks</span><span class="si">}</span><span class="s2">, Noite: </span><span class="si">{</span><span class="n">night_chunks</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Player.level_up">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.level_up">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">level_up</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tenta fazer o personagem subir de nível</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se subiu de nível</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Lógica simples: a cada 100 XP sobe de nível</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nivel</span> <span class="o">*</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nivel</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="o">+=</span> <span class="mi">10</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span>  <span class="c1"># Cura ao subir de nível</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">forca</span> <span class="o">+=</span> <span class="mi">2</span>
             <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    
+<div class="viewcode-block" id="Player.get_health_percentage">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.get_health_percentage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_percentage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna a porcentagem de vida atual</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Porcentagem de vida (0.0 a 1.0)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span></div>
+
+    
+<div class="viewcode-block" id="Player.get_health_bar">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.get_health_bar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna uma barra de vida visual</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            width: Largura da barra em caracteres</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            String representando a barra de vida</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">percentage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_health_percentage</span><span class="p">()</span>
+        <span class="n">filled</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">)</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="n">width</span> <span class="o">-</span> <span class="n">filled</span>
+        
+        <span class="k">if</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.6</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span>
+        <span class="k">elif</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mapa com 1000 chunks não encontrado (Dia: </span><span class="si">{</span><span class="n">day_chunks</span><span class="si">}</span><span class="s2">, Noite: </span><span class="si">{</span><span class="n">night_chunks</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erro ao verificar mapa com 1000 chunks: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span>
+            
+        <span class="n">bar</span> <span class="o">=</span> <span class="s2">&quot;█&quot;</span> <span class="o">*</span> <span class="n">filled</span> <span class="o">+</span> <span class="s2">&quot;░&quot;</span> <span class="o">*</span> <span class="n">empty</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">bar</span><span class="si">}{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
-
-<div class="viewcode-block" id="check_data_seeded">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.check_data_seeded">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">check_data_seeded</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Verifica se os dados iniciais foram inseridos&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">conn</span> <span class="o">=</span> <span class="n">connection_db</span><span class="p">()</span>
-        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-        
-        <span class="c1"># Verificar se há dados nas tabelas principais</span>
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Jogador&quot;</span><span class="p">)</span>
-        <span class="n">player_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Chunk&quot;</span><span class="p">)</span>
-        <span class="n">chunk_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Bioma&quot;</span><span class="p">)</span>
-        <span class="n">bioma_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT COUNT(*) FROM Mapa&quot;</span><span class="p">)</span>
-        <span class="n">mapa_count</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        
-        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-        
-        <span class="c1"># Verificar se há pelo menos alguns dados</span>
-        <span class="k">if</span> <span class="n">player_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">chunk_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">bioma_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">mapa_count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dados iniciais (seed) não encontrados&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        
-        <span class="k">return</span> <span class="kc">True</span>
-        
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Erro ao verificar dados iniciais: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="initialize_database">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.initialize_database">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">initialize_database</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inicializa o banco de dados com dados básicos&quot;&quot;&quot;</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="c1"># Executar scripts SQL na ordem correta</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/ddl.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/trigger_SP.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/dml.sql&quot;</span><span class="p">)</span>
-        <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/dml_inst.sql&quot;</span><span class="p">)</span>
-        
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Executando script com mapa de 1000 chunks...&quot;</span><span class="p">)</span>
-        
-        <span class="c1"># Executar script adicional se existir</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">execute_sql_file</span><span class="p">(</span><span class="s2">&quot;db/create_user.sql&quot;</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
-            <span class="k">pass</span>  <span class="c1"># Arquivo opcional</span>
-        
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Banco de dados inicializado com sucesso!&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">True</span>
-        
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Falha na inicialização do banco de dados.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="setup_database">
-<a class="viewcode-back" href="../../api_reference.html#utils.db_helpers.setup_database">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">setup_database</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Configura o banco de dados antes da execução da aplicação&quot;&quot;&quot;</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Verificando configuração do banco de dados...&quot;</span><span class="p">)</span>
     
-    <span class="c1"># Verificar conexão</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">check_database_connection</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Erro: Não foi possível conectar ao banco de dados&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span>
+<div class="viewcode-block" id="Player.__str__">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Player(id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, vida=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
     
-    <span class="c1"># Verificar estrutura das tabelas</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">check_tables_exist</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inicializando estrutura e dados do banco...&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">initialize_database</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Falha na inicialização do banco de dados.&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="Player.__repr__">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Player(id_player=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;vida_maxima=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_maxima</span><span class="si">}</span><span class="s2">, vida_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;forca=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forca</span><span class="si">}</span><span class="s2">, localizacao=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">localizacao</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;nivel=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nivel</span><span class="si">}</span><span class="s2">, experiencia=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">experiencia</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Player.__eq__">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.__eq__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Comparação de igualdade baseada no ID&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Player</span><span class="p">):</span>
             <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_player</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id_player</span></div>
+
     
-    <span class="c1"># Verificar dados iniciais</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">check_data_seeded</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inicializando dados básicos...&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">initialize_database</span><span class="p">():</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Falha na inicialização dos dados.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">False</span>
+<div class="viewcode-block" id="Player.__hash__">
+<a class="viewcode-back" href="../../api_reference.html#models.player.Player.__hash__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado no ID&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_player</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="PlayerSession">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlayerSession</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Model que representa um personagem ativo na sessão do jogo</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        id_jogador: ID único do personagem no banco</span>
+<span class="sd">        nome: Nome do personagem</span>
+<span class="sd">        vida_max: Vida máxima do personagem</span>
+<span class="sd">        vida_atual: Vida atual do personagem</span>
+<span class="sd">        xp: Experiência acumulada</span>
+<span class="sd">        forca: Força do personagem</span>
+<span class="sd">        id_chunk_atual: ID do chunk onde o personagem está</span>
+<span class="sd">        chunk_bioma: Nome do bioma atual (cache para performance)</span>
+<span class="sd">        chunk_mapa_nome: Nome do mapa atual (cache para performance)</span>
+<span class="sd">        chunk_mapa_turno: Turno atual (Dia/Noite) (cache para performance)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_jogador</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">vida_atual</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">xp</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">forca</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">id_chunk_atual</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_bioma</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_mapa_nome</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">chunk_mapa_turno</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Banco de dados já configurado e pronto para uso!&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="kc">True</span></div>
+<div class="viewcode-block" id="PlayerSession.to_dict">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converte o personagem para dicionário&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;id_jogador&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="p">,</span>
+            <span class="s1">&#39;nome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="p">,</span>
+            <span class="s1">&#39;vida_max&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="p">,</span>
+            <span class="s1">&#39;vida_atual&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="p">,</span>
+            <span class="s1">&#39;xp&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="p">,</span>
+            <span class="s1">&#39;forca&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">forca</span><span class="p">,</span>
+            <span class="s1">&#39;id_chunk_atual&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_chunk_atual</span><span class="p">,</span>
+            <span class="s1">&#39;chunk_bioma&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_bioma</span><span class="p">,</span>
+            <span class="s1">&#39;chunk_mapa_nome&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_mapa_nome</span><span class="p">,</span>
+            <span class="s1">&#39;chunk_mapa_turno&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_mapa_turno</span>
+        <span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.is_alive">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.is_alive">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_alive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verifica se o personagem está vivo&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">&gt;</span> <span class="mi">0</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.take_damage">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.take_damage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">take_damage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">damage</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Aplica dano ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            damage: Quantidade de dano a ser aplicado</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se o personagem ainda está vivo após o dano</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">-</span> <span class="n">damage</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.heal">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.heal">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">heal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cura o personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de vida a ser restaurada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">+</span> <span class="n">amount</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.gain_xp">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.gain_xp">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">gain_xp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adiciona experiência ao personagem</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            amount: Quantidade de XP a ser adicionada</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xp</span> <span class="o">+=</span> <span class="n">amount</span></div>
+
+
+<div class="viewcode-block" id="PlayerSession.get_location_display">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.get_location_display">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_location_display</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna a localização formatada para exibição</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            String formatada da localização</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">chunk_bioma</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chunk_bioma</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chunk_mapa_nome</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">chunk_mapa_turno</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;Desconhecida&quot;</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.get_health_percentage">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.get_health_percentage">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_percentage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna a porcentagem de vida atual</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Porcentagem de vida (0.0 a 1.0)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.get_health_bar">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.get_health_bar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_health_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retorna uma barra de vida visual</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            width: Largura da barra em caracteres</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            String representando a barra de vida</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">percentage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_health_percentage</span><span class="p">()</span>
+        <span class="n">filled</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span> <span class="o">*</span> <span class="n">percentage</span><span class="p">)</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="n">width</span> <span class="o">-</span> <span class="n">filled</span>
+        
+        <span class="k">if</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.6</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span>
+        <span class="k">elif</span> <span class="n">percentage</span> <span class="o">&gt;</span> <span class="mf">0.3</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span>
+            
+        <span class="n">bar</span> <span class="o">=</span> <span class="s2">&quot;█&quot;</span> <span class="o">*</span> <span class="n">filled</span> <span class="o">+</span> <span class="s2">&quot;░&quot;</span> <span class="o">*</span> <span class="n">empty</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color</span><span class="si">}{</span><span class="n">bar</span><span class="si">}{</span><span class="n">Fore</span><span class="o">.</span><span class="n">RESET</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.can_move">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.can_move">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">can_move</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Verifica se o personagem pode se mover</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            True se pode se mover</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_chunk_atual</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.__str__">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.__str__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;PlayerSession(id=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, vida=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+    
+<div class="viewcode-block" id="PlayerSession.__repr__">
+<a class="viewcode-back" href="../../models.html#models.player.PlayerSession.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do personagem&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PlayerSession(id_jogador=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_jogador</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;vida_max=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_max</span><span class="si">}</span><span class="s2">, vida_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">vida_atual</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;xp=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">xp</span><span class="si">}</span><span class="s2">, forca=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">forca</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;id_chunk_atual=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_chunk_atual</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
 
