@@ -5,12 +5,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>models.bioma &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
+  <title>models.item &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/models/bioma.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/_modules/models/item.html" />
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=8d563738"></script>
@@ -827,7 +827,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">models.bioma</li>
+      <li class="breadcrumb-item active">models.item</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -836,82 +836,42 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for models.bioma</h1><div class="highlight"><pre>
+  <h1>Source code for models.item</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Model do Bioma</span>
-<span class="sd">Representa um bioma do jogo com suas características</span>
+<span class="sd">Model que representa um Item do jogo</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
 
 
-<div class="viewcode-block" id="BiomaType">
-<a class="viewcode-back" href="../../models.html#models.bioma.BiomaType">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">BiomaType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Tipos de bioma disponíveis no jogo&quot;&quot;&quot;</span>
-    <span class="n">DESERTO</span> <span class="o">=</span> <span class="s2">&quot;Deserto&quot;</span>
-    <span class="n">SELVA</span> <span class="o">=</span> <span class="s2">&quot;Selva&quot;</span>
-    <span class="n">FLORESTA</span> <span class="o">=</span> <span class="s2">&quot;Floresta&quot;</span>
-    <span class="n">OCEANO</span> <span class="o">=</span> <span class="s2">&quot;Oceano&quot;</span></div>
-
-
-
-<div class="viewcode-block" id="Bioma">
-<a class="viewcode-back" href="../../models.html#models.bioma.Bioma">[docs]</a>
+<div class="viewcode-block" id="Item">
+<a class="viewcode-back" href="../../models.html#models.item.Item">[docs]</a>
 <span class="nd">@dataclass</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Bioma</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Item</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Model que representa um bioma do jogo</span>
-<span class="sd">    </span>
+<span class="sd">    Representa um item no inventário ou no jogo</span>
+
 <span class="sd">    Attributes:</span>
-<span class="sd">        id_bioma: Identificador único do bioma (chave primária)</span>
-<span class="sd">        nome: Nome do bioma</span>
-<span class="sd">        descricao: Descrição do bioma</span>
+<span class="sd">        id_item: Identificador único do item (chave primária)</span>
+<span class="sd">        nome: Nome do item</span>
+<span class="sd">        tipo: Tipo do item (e.g., &#39;Arma&#39;, &#39;Poção&#39;, &#39;Comida&#39;)</span>
+<span class="sd">        poder: Opcional, poder de ataque ou efeito do item</span>
+<span class="sd">        durabilidade: Opcional, durabilidade restante</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">id_bioma</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">id_item</span><span class="p">:</span> <span class="nb">int</span>
     <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">descricao</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">tipo</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">poder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">durabilidade</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     
-<div class="viewcode-block" id="Bioma.__str__">
-<a class="viewcode-back" href="../../models.html#models.bioma.Bioma.__str__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação string do bioma&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Bioma(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">)&quot;</span></div>
-
-    
-<div class="viewcode-block" id="Bioma.__repr__">
-<a class="viewcode-back" href="../../models.html#models.bioma.Bioma.__repr__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representação detalhada do bioma&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Bioma(id_bioma=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="si">}</span><span class="s2">, nome=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&#39;, descricao=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">descricao</span><span class="si">}</span><span class="s2">&#39;)&quot;</span></div>
-
-    
-<div class="viewcode-block" id="Bioma.__eq__">
-<a class="viewcode-back" href="../../models.html#models.bioma.Bioma.__eq__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Comparação de igualdade baseada na chave primária&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Bioma</span><span class="p">):</span>
-            <span class="k">return</span> <span class="kc">False</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">id_bioma</span></div>
-
-    
-<div class="viewcode-block" id="Bioma.__hash__">
-<a class="viewcode-back" href="../../models.html#models.bioma.Bioma.__hash__">[docs]</a>
+<div class="viewcode-block" id="Item.__hash__">
+<a class="viewcode-back" href="../../models.html#models.item.Item.__hash__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado na chave primária&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_bioma</span><span class="p">)</span></div>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Hash baseado no ID do item&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id_item</span><span class="p">)</span></div>
 </div>
 
-
-
-<span class="c1"># Biomas predefinidos do jogo</span>
-<span class="n">BIOMAS_PREDEFINIDOS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="n">BiomaType</span><span class="o">.</span><span class="n">DESERTO</span><span class="p">:</span> <span class="n">Bioma</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Deserto&quot;</span><span class="p">,</span> <span class="s2">&quot;Um bioma árido com pouca vegetação.&quot;</span><span class="p">),</span>
-    <span class="n">BiomaType</span><span class="o">.</span><span class="n">SELVA</span><span class="p">:</span> <span class="n">Bioma</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Selva&quot;</span><span class="p">,</span> <span class="s2">&quot;Um bioma tropical denso e úmido.&quot;</span><span class="p">),</span>
-    <span class="n">BiomaType</span><span class="o">.</span><span class="n">FLORESTA</span><span class="p">:</span> <span class="n">Bioma</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Floresta&quot;</span><span class="p">,</span> <span class="s2">&quot;Um bioma com muitas árvores e vida selvagem.&quot;</span><span class="p">),</span>
-    <span class="n">BiomaType</span><span class="o">.</span><span class="n">OCEANO</span><span class="p">:</span> <span class="n">Bioma</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;Oceano&quot;</span><span class="p">,</span> <span class="s2">&quot;Um vasto bioma de água salgada.&quot;</span><span class="p">)</span>
-<span class="p">}</span>
 </pre></div>
 
            </div>

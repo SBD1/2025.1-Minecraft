@@ -10,16 +10,64 @@ Estrutura de Models
 
     app/src/models/
     ├── __init__.py          # Exporta todas as models
-    ├── player.py            # Model do personagem
+    ├── player.py            # Models do personagem (Player e PlayerSession)
     ├── chunk.py             # Model do chunk
     ├── bioma.py             # Model do bioma
     ├── mapa.py              # Model do mapa
-    └── example_usage.py     # Exemplos de uso
+    ├── item.py              # Model do item
+    └── inventory.py         # Model do inventário
+
+Player
+------
+
+A model ``Player`` representa um personagem principal do jogo com todos os seus atributos persistentes.
+
+.. autoclass:: models.player.Player
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Exemplo de uso:**
+
+.. code-block:: python
+
+    from src.models.player import Player
+    from src.models.inventory import InventoryEntry
+    
+    # Criar um personagem
+    player = Player(
+        id_player=1,
+        nome="Steve",
+        vida_maxima=100,
+        vida_atual=85,
+        forca=12,
+        localizacao="Mapa 1 - Chunk 1",
+        nivel=1,
+        experiencia=150,
+        current_chunk_id=1
+    )
+    
+    # Verificar se está vivo
+    if player.is_alive():
+        print("Personagem está vivo!")
+    
+    # Aplicar dano
+    sobreviveu = player.take_damage(20)
+    
+    # Ganhar experiência
+    player.gain_experience(50)
+    
+    # Tentar subir de nível
+    if player.level_up():
+        print("Subiu de nível!")
+    
+    # Exibir barra de vida
+    print(player.get_health_bar())
 
 PlayerSession
-------------
+-------------
 
-A model ``PlayerSession`` representa um personagem ativo na sessão do jogo.
+A model ``PlayerSession`` representa um personagem ativo na sessão do jogo com informações otimizadas para performance.
 
 .. autoclass:: models.player.PlayerSession
    :members:
@@ -32,34 +80,34 @@ A model ``PlayerSession`` representa um personagem ativo na sessão do jogo.
 
     from src.models.player import PlayerSession
     
-    # Criar um personagem
-    player = PlayerSession(
-        id_jogador=1,
+    # Criar uma sessão de personagem
+    session = PlayerSession(
+        id_player=1,
         nome="Steve",
         vida_max=100,
         vida_atual=85,
         xp=150,
         forca=12,
         id_chunk_atual=5,
-        chunk_bioma="Floresta",
+        chunk_bioma="Oceano",
         chunk_mapa_nome="Mapa_Principal",
         chunk_mapa_turno="Dia"
     )
     
-    # Verificar se está vivo
-    if player.is_alive():
-        print("Personagem está vivo!")
+    # Verificar se pode se mover
+    if session.can_move():
+        print("Pode se mover!")
     
-    # Aplicar dano
-    sobreviveu = player.take_damage(20)
+    # Obter localização formatada
+    print(session.get_location_display())
     
-    # Exibir barra de vida
-    print(player.get_health_bar())
+    # Converter para dicionário
+    data = session.to_dict()
 
 Chunk
 -----
 
-A model ``Chunk`` representa um chunk do mapa do jogo.
+A model ``Chunk`` representa um chunk do mapa do jogo com suas coordenadas e relacionamentos.
 
 .. autoclass:: models.chunk.Chunk
    :members:
@@ -74,27 +122,31 @@ A model ``Chunk`` representa um chunk do mapa do jogo.
     
     # Criar um chunk
     chunk = Chunk(
-        numero_chunk=1,
-        id_bioma="Floresta",
-        id_mapa_nome="Mapa_Principal",
-        id_mapa_turno="Dia"
+        id_chunk=1,
+        id_bioma=2,  # ID do bioma Oceano
+        id_mapa=1,   # ID do mapa principal
+        x=10,
+        y=15
     )
     
-    # Verificar tipo de bioma
-    if chunk.is_forest():
-        print("É uma floresta!")
+    # Verificar tipo de bioma por ID
+    if chunk.id_bioma == 2:
+        print("É um oceano!")
     
-    # Verificar se pertence a um mapa
-    if chunk.belongs_to_map("Mapa_Principal", "Dia"):
-        print("Pertence ao mapa principal de dia!")
+    # Obter nome formatado
+    print(chunk.get_display_name())
     
     # Obter chunks adjacentes
     adjacentes = chunk.get_adjacent_chunk_ids()
+    
+    # Verificar se é dia ou noite baseado na coordenada
+    if chunk.is_day():
+        print("É dia neste chunk!")
 
 Bioma
 -----
 
-A model ``Bioma`` representa um bioma do jogo.
+A model ``Bioma`` representa um bioma do jogo com suas características.
 
 .. autoclass:: models.bioma.Bioma
    :members:
@@ -110,21 +162,26 @@ A model ``Bioma`` representa um bioma do jogo.
 
 .. code-block:: python
 
-    from src.models.bioma import BIOMAS_PREDEFINIDOS, BiomaType
+    from src.models.bioma import BIOMAS_PREDEFINIDOS, BiomaType, Bioma
     
     # Usar bioma predefinido
     deserto = BIOMAS_PREDEFINIDOS[BiomaType.DESERTO]
     
-    # Obter tipo enum
-    tipo = deserto.get_bioma_type()
+    # Criar bioma personalizado
+    bioma_custom = Bioma(
+        id_bioma=5,
+        nome="Tundra",
+        descricao="Um bioma frio e gelado."
+    )
     
-    # Obter informações para exibição
-    info = deserto.get_display_info()
+    # Comparar biomas
+    if deserto == bioma_custom:
+        print("São o mesmo bioma!")
 
 Mapa
 ----
 
-A model ``Mapa`` representa um mapa do jogo com seus chunks e características.
+A model ``Mapa`` representa um mapa do jogo com seus chunks e características temporais.
 
 .. autoclass:: models.mapa.Mapa
    :members:
@@ -141,28 +198,93 @@ A model ``Mapa`` representa um mapa do jogo com seus chunks e características.
 .. code-block:: python
 
     from src.models.mapa import Mapa, TurnoType
-    from src.models.chunk import Chunk
     
     # Criar mapa
     mapa = Mapa(
+        id_mapa=1,
         nome="Mapa_Principal",
         turno=TurnoType.DIA
     )
     
-    # Criar chunks
-    chunks = [
-        Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-        Chunk(2, "Floresta", "Mapa_Principal", "Dia"),
-    ]
+    # Verificar tipo de turno
+    if mapa.is_day_map():
+        print("É um mapa de dia!")
     
-    # Associar chunks ao mapa
-    mapa.set_chunks(chunks)
+    # Obter informações de exibição
+    info = mapa.get_display_info()
     
-    # Buscar chunk por ID
-    chunk = mapa.get_chunk_by_id(1)
+    # Buscar chunk específico (requer repository configurado)
+    # mapa.set_chunk_repository(chunk_repository)
+    # chunk = mapa.get_chunk_by_id(1)
+
+Item
+----
+
+A model ``Item`` representa um item do jogo que pode ser coletado ou usado.
+
+.. autoclass:: models.item.Item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Exemplo de uso:**
+
+.. code-block:: python
+
+    from src.models.item import Item
     
-    # Obter distribuição de biomas
-    distribuicao = mapa.get_bioma_distribution()
+    # Criar diferentes tipos de itens
+    espada = Item(
+        id_item=1,
+        nome="Espada de Ferro",
+        tipo="Arma",
+        poder=8,
+        durabilidade=200
+    )
+    
+    pocao = Item(
+        id_item=2,
+        nome="Poção de Vida",
+        tipo="Poção",
+        poder=50,
+        durabilidade=None  # Poções não têm durabilidade
+    )
+    
+    madeira = Item(
+        id_item=3,
+        nome="Madeira",
+        tipo="Material",
+        poder=None,
+        durabilidade=None
+    )
+
+InventoryEntry
+--------------
+
+A model ``InventoryEntry`` representa uma entrada no inventário de um jogador.
+
+.. autoclass:: models.inventory.InventoryEntry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+**Exemplo de uso:**
+
+.. code-block:: python
+
+    from src.models.inventory import InventoryEntry
+    
+    # Criar entrada de inventário
+    entrada = InventoryEntry(
+        id=1,
+        player_id=1,
+        item_id=3,  # Madeira
+        quantidade=64
+    )
+    
+    # Modificar quantidade
+    entrada.quantidade += 32
+    print(f"Nova quantidade: {entrada.quantidade}")
 
 Relacionamentos do Banco de Dados
 --------------------------------
@@ -171,16 +293,20 @@ As models refletem exatamente a estrutura do banco de dados:
 
 .. code-block:: text
 
-    Mapa (Nome, Turno) ← Chunk (Id_mapa_nome, Id_mapa_turno)
-    Bioma (NomeBioma) ← Chunk (Id_bioma)
-    Chunk (Numero_chunk) ← Jogador (Id_Chunk_Atual)
+    Mapa (id_mapa, nome, turno) ← Chunk (id_mapa)
+    Bioma (id_bioma, nome) ← Chunk (id_bioma)
+    Chunk (id_chunk) ← Player (current_chunk_id)
+    Player (id_player) ← Inventario (player_id)
+    Item (id_item) ← Inventario (item_id)
 
 **Características dos Relacionamentos:**
 
-- **Mapa**: Chave primária composta (Nome, Turno)
-- **Bioma**: Chave primária simples (NomeBioma)
-- **Chunk**: Chave primária simples (Numero_chunk) com FKs para Bioma e Mapa
-- **Jogador**: Referencia Chunk através de Id_Chunk_Atual
+- **Mapa**: Chave primária simples (id_mapa) com constraint única (nome, turno)
+- **Bioma**: Chave primária simples (id_bioma) com nome único
+- **Chunk**: Chave primária simples (id_chunk) com FKs para Bioma e Mapa
+- **Player**: Referencia Chunk através de current_chunk_id (pode ser NULL)
+- **Item**: Chave primária simples (id_item) com nome único
+- **Inventario**: Relacionamento N:M entre Player e Item com quantidades
 
 Integração com o Sistema
 ------------------------
@@ -189,19 +315,26 @@ As models são utilizadas em conjunto com o sistema de gerenciamento de personag
 
 .. code-block:: python
 
-    from src.models.player import PlayerSession
-    from src.utils.player_manager import load_player_by_id, set_current_player
+    from src.models.player import Player
+    from src.utils.player_manager import get_current_player, set_current_player
+    from src.services.interface_service import InterfaceService
     
-    # Carregar personagem do banco
-    player = load_player_by_id(1)
+    # Obter personagem ativo
+    current_player = get_current_player()
     
-    if player:
-        # Definir como personagem ativo
-        set_current_player(player)
+    if current_player:
+        print(f"Jogando com: {current_player.nome}")
+        print(f"Localização: {current_player.localizacao}")
+        print(f"Vida: {current_player.get_health_bar()}")
         
-        # Usar métodos da model
-        print(f"Localização: {player.get_location_display()}")
-        print(f"Barra de vida: {player.get_health_bar()}")
+        # Usar interface service para operações
+        interface_service = InterfaceService.get_instance()
+        
+        # Mover para outro chunk
+        updated_player = interface_service.move_player_to_chunk(current_player, 2)
+        
+        # Salvar progresso
+        interface_service.save_player(updated_player)
 
 Vantagens da Arquitetura de Models
 ---------------------------------
@@ -213,14 +346,55 @@ Vantagens da Arquitetura de Models
 5. **Documentação**: Models são auto-documentadas com docstrings
 6. **Type Safety**: Uso de type hints para melhor desenvolvimento
 7. **Fidelidade ao Banco**: Models refletem exatamente a estrutura do banco
+8. **Performance**: PlayerSession otimizada para uso em sessões de jogo
 
-Exemplos Completos
------------------
+Padrões de Uso
+--------------
 
-Para ver exemplos completos de uso das models, execute:
+**Player vs PlayerSession:**
+- Use ``Player`` para operações de persistência e dados completos
+- Use ``PlayerSession`` para otimização de performance em sessões ativas
 
-.. code-block:: bash
+**Localização:**
+- ``Player.localizacao`` armazena string formatada ("Mapa 1 - Chunk 1")
+- ``Player.current_chunk_id`` armazena referência direta ao chunk
+- ``PlayerSession`` inclui cache de informações do chunk para performance
 
-    python -m app.src.models.example_usage
+**Inventário:**
+- Relação N:M entre Player e Item através de InventoryEntry
+- Suporte a quantidades e controle de unicidade por constraint
 
-Este comando demonstra todas as funcionalidades das models com exemplos práticos baseados na estrutura real do banco de dados. 
+Exemplos Avançados
+------------------
+
+Para ver exemplos completos de uso das models em cenários reais, consulte os testes unitários e os services do sistema.
+
+**Navegação entre Chunks:**
+
+.. code-block:: python
+
+    # Obter chunk atual do jogador
+    current_chunk = interface_service.get_chunk_by_id(player.current_chunk_id)
+    
+    # Obter chunks adjacentes
+    adjacent_chunks = interface_service.get_adjacent_chunks(current_chunk.id_chunk, 'Dia')
+    
+    # Mover para chunk adjacente
+    if adjacent_chunks:
+        next_chunk_id = adjacent_chunks[0][0]
+        updated_player = interface_service.move_player_to_chunk(player, next_chunk_id)
+
+**Progressão de Personagem:**
+
+.. code-block:: python
+
+    # Sistema de XP e level up
+    player.gain_experience(50)
+    
+    while player.level_up():
+        print(f"Subiu para nível {player.nivel}!")
+        print(f"Nova vida máxima: {player.vida_maxima}")
+        print(f"Nova força: {player.forca}")
+    
+    # Salvar progresso
+    interface_service.save_player(player)

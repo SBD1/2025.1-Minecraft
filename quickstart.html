@@ -93,16 +93,20 @@
 <li class="toctree-l2"><a class="reference internal" href="#criando-seu-primeiro-personagem">4.2. Criando seu Primeiro Personagem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navegando-pelo-menu">4.3. Navegando pelo Menu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sistema-de-movimento">4.4. Sistema de Movimento</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#gerenciando-personagens">4.5. Gerenciando Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#listando-personagens">4.5.1. Listando Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#selecionando-um-personagem">4.5.2. Selecionando um Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deletando-um-personagem">4.5.3. Deletando um Personagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#biomas-disponiveis">4.5. Biomas Disponíveis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gerenciando-personagens">4.6. Gerenciando Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#listando-personagens">4.6.1. Listando Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selecionando-um-personagem">4.6.2. Selecionando um Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deletando-um-personagem">4.6.3. Deletando um Personagem</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#verificando-o-status">4.6. Verificando o Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#salvando-progresso">4.7. Salvando Progresso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#saindo-do-jogo">4.8. Saindo do Jogo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">4.9. Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verificando-o-status">4.7. Verificando o Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#salvando-progresso">4.8. Salvando Progresso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#resolucao-de-problemas">4.9. Resolução de Problemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#estrutura-do-mundo">4.10. Estrutura do Mundo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saindo-do-jogo">4.11. Saindo do Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#proximos-passos">4.12. Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#funcionalidades-avancadas">4.13. Funcionalidades Avançadas</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">5. Guia do Usuário</a><ul>
@@ -161,7 +165,35 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="models.html">6. Modelos</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="models.html#estrutura-de-models">6.1. Estrutura de Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#playersession">6.2. PlayerSession</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#player">6.2. Player</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#models.player.Player"><code class="docutils literal notranslate"><span class="pre">Player</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.__eq__"><code class="docutils literal notranslate"><span class="pre">Player.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.__hash__"><code class="docutils literal notranslate"><span class="pre">Player.__hash__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.__post_init__"><code class="docutils literal notranslate"><span class="pre">Player.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.__repr__"><code class="docutils literal notranslate"><span class="pre">Player.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.__str__"><code class="docutils literal notranslate"><span class="pre">Player.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.current_chunk_id"><code class="docutils literal notranslate"><span class="pre">Player.current_chunk_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.experiencia"><code class="docutils literal notranslate"><span class="pre">Player.experiencia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.forca"><code class="docutils literal notranslate"><span class="pre">Player.forca</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.gain_experience"><code class="docutils literal notranslate"><span class="pre">Player.gain_experience()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.get_health_bar"><code class="docutils literal notranslate"><span class="pre">Player.get_health_bar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.get_health_percentage"><code class="docutils literal notranslate"><span class="pre">Player.get_health_percentage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.heal"><code class="docutils literal notranslate"><span class="pre">Player.heal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.id_player"><code class="docutils literal notranslate"><span class="pre">Player.id_player</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.inventario"><code class="docutils literal notranslate"><span class="pre">Player.inventario</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.is_alive"><code class="docutils literal notranslate"><span class="pre">Player.is_alive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.level_up"><code class="docutils literal notranslate"><span class="pre">Player.level_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.localizacao"><code class="docutils literal notranslate"><span class="pre">Player.localizacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.nivel"><code class="docutils literal notranslate"><span class="pre">Player.nivel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.nome"><code class="docutils literal notranslate"><span class="pre">Player.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.take_damage"><code class="docutils literal notranslate"><span class="pre">Player.take_damage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.vida_atual"><code class="docutils literal notranslate"><span class="pre">Player.vida_atual</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.player.Player.vida_maxima"><code class="docutils literal notranslate"><span class="pre">Player.vida_maxima</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#playersession">6.3. PlayerSession</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#models.player.PlayerSession"><code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.player.PlayerSession.__repr__"><code class="docutils literal notranslate"><span class="pre">PlayerSession.__repr__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.player.PlayerSession.__str__"><code class="docutils literal notranslate"><span class="pre">PlayerSession.__str__()</span></code></a></li>
@@ -188,7 +220,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#chunk">6.3. Chunk</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#chunk">6.4. Chunk</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#models.chunk.Chunk"><code class="docutils literal notranslate"><span class="pre">Chunk</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.chunk.Chunk.__eq__"><code class="docutils literal notranslate"><span class="pre">Chunk.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.chunk.Chunk.__hash__"><code class="docutils literal notranslate"><span class="pre">Chunk.__hash__()</span></code></a></li>
@@ -214,7 +246,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#bioma">6.4. Bioma</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#bioma">6.5. Bioma</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#models.bioma.Bioma"><code class="docutils literal notranslate"><span class="pre">Bioma</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.bioma.Bioma.__eq__"><code class="docutils literal notranslate"><span class="pre">Bioma.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.bioma.Bioma.__hash__"><code class="docutils literal notranslate"><span class="pre">Bioma.__hash__()</span></code></a></li>
@@ -234,7 +266,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#mapa">6.5. Mapa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#mapa">6.6. Mapa</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#models.mapa.Mapa"><code class="docutils literal notranslate"><span class="pre">Mapa</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.mapa.Mapa.__eq__"><code class="docutils literal notranslate"><span class="pre">Mapa.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="models.html#models.mapa.Mapa.__hash__"><code class="docutils literal notranslate"><span class="pre">Mapa.__hash__()</span></code></a></li>
@@ -262,10 +294,33 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#relacionamentos-do-banco-de-dados">6.6. Relacionamentos do Banco de Dados</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#integracao-com-o-sistema">6.7. Integração com o Sistema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#vantagens-da-arquitetura-de-models">6.8. Vantagens da Arquitetura de Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="models.html#exemplos-completos">6.9. Exemplos Completos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#item">6.7. Item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#models.item.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.__hash__"><code class="docutils literal notranslate"><span class="pre">Item.__hash__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.durabilidade"><code class="docutils literal notranslate"><span class="pre">Item.durabilidade</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.id_item"><code class="docutils literal notranslate"><span class="pre">Item.id_item</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.nome"><code class="docutils literal notranslate"><span class="pre">Item.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.poder"><code class="docutils literal notranslate"><span class="pre">Item.poder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.item.Item.tipo"><code class="docutils literal notranslate"><span class="pre">Item.tipo</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#inventoryentry">6.8. InventoryEntry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="models.html#models.inventory.InventoryEntry"><code class="docutils literal notranslate"><span class="pre">InventoryEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.inventory.InventoryEntry.id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.inventory.InventoryEntry.item_id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.item_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.inventory.InventoryEntry.player_id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.player_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="models.html#models.inventory.InventoryEntry.quantidade"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.quantidade</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#relacionamentos-do-banco-de-dados">6.9. Relacionamentos do Banco de Dados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#integracao-com-o-sistema">6.10. Integração com o Sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#vantagens-da-arquitetura-de-models">6.11. Vantagens da Arquitetura de Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#padroes-de-uso">6.12. Padrões de Uso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#exemplos-avancados">6.13. Exemplos Avançados</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">7. Referência da API</a><ul>
@@ -647,8 +702,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="relational_algebra.html">9. Álgebra Relacional</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#operadores-fundamentais">9.1. Operadores Fundamentais</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-relacionais-no-banco-minecraft">9.2. Consultas Relacionais no Banco Minecraft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-compostas">9.3. Consultas Compostas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#estrutura-atual-do-banco-de-dados">9.2. Estrutura Atual do Banco de Dados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-basicas">9.3. Consultas Básicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-filtragem">9.4. Consultas de Filtragem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-com-juncoes">9.5. Consultas com Junções</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-agregacao-conceitual">9.6. Consultas de Agregação (Conceitual)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-avancadas">9.7. Consultas Avançadas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-diferenca-e-uniao">9.8. Consultas de Diferença e União</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-otimizacao-de-jogabilidade">9.9. Consultas de Otimização de Jogabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#equivalencias-de-consulta">9.10. Equivalências de Consulta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consideracoes-de-performance">9.11. Considerações de Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#aplicacoes-praticas">9.12. Aplicações Práticas</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">10. Desenvolvimento</a><ul>
@@ -801,7 +865,10 @@
 <li><p>Confirme a criação</p></li>
 <li><p>Escolha se deseja selecionar o personagem agora</p></li>
 </ol>
-<img alt="Criando personagem" class="align-center" src="_static/create-character.png" />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Novos personagens começam no <strong>Chunk 1</strong> do <strong>Mapa 1</strong> durante o <strong>Dia</strong>, em um ambiente que pode ser qualquer bioma (Deserto, Selva, Floresta, ou Oceano).</p>
+</div>
 </section>
 <section id="navegando-pelo-menu">
 <h2><span class="section-number">4.3. </span>Navegando pelo Menu<a class="headerlink" href="#navegando-pelo-menu" title="Link to this heading"></a></h2>
@@ -829,34 +896,48 @@
 <li><p>Escolha uma direção (1-4)</p></li>
 <li><p>O sistema informará se houve mudança de bioma</p></li>
 </ol>
-<p><strong>Exemplo de movimento:</strong>
-.. code-block:: text</p>
-<blockquote>
-<div><ol class="arabic simple">
-<li><p>⬆️ Cima - 🌊 Oceano (Chunk 2)</p></li>
-<li><p>⬇️ Baixo - 🌴 Selva (Chunk 4)</p></li>
-<li><p>⬅️ Esquerda - 🏜️ Deserto (Chunk 1)</p></li>
-<li><p>➡️ Direita - 🌲 Floresta (Chunk 3)</p></li>
-</ol>
-</div></blockquote>
+<p><strong>Exemplo de movimento:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>🚶 OPÇÕES DE MOVIMENTO:
+----------------------------------------
+1. ⬆️ Cima - 🌊 Oceano (Chunk 2)
+2. ⬇️ Baixo - 🌴 Selva (Chunk 4)
+3. ⬅️ Esquerda - 🏜️ Deserto (Chunk 1)
+4. ➡️ Direita - 🌲 Floresta (Chunk 3)
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Novidade</strong>: Agora o sistema exibe o <strong>nome do bioma</strong> em vez do ID numérico! Você verá “🌊 Oceano” em vez de “BIOMA: 4”.</p>
+</div>
+</section>
+<section id="biomas-disponiveis">
+<h2><span class="section-number">4.5. </span>Biomas Disponíveis<a class="headerlink" href="#biomas-disponiveis" title="Link to this heading"></a></h2>
+<p>O mundo do jogo possui 4 biomas diferentes:</p>
+<ul class="simple">
+<li><p><strong>🏜️ Deserto</strong> (ID: 1) - Um bioma árido com pouca vegetação</p></li>
+<li><p><strong>🌴 Selva</strong> (ID: 2) - Um bioma tropical denso e úmido</p></li>
+<li><p><strong>🌲 Floresta</strong> (ID: 3) - Um bioma com muitas árvores e vida selvagem</p></li>
+<li><p><strong>🌊 Oceano</strong> (ID: 4) - Um vasto bioma de água salgada</p></li>
+</ul>
+<p>Cada bioma oferece uma experiência visual e narrativa diferente durante a exploração.</p>
 </section>
 <section id="gerenciando-personagens">
-<h2><span class="section-number">4.5. </span>Gerenciando Personagens<a class="headerlink" href="#gerenciando-personagens" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.6. </span>Gerenciando Personagens<a class="headerlink" href="#gerenciando-personagens" title="Link to this heading"></a></h2>
 <section id="listando-personagens">
-<h3><span class="section-number">4.5.1. </span>Listando Personagens<a class="headerlink" href="#listando-personagens" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.6.1. </span>Listando Personagens<a class="headerlink" href="#listando-personagens" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Selecione <strong>5. 📋 Lista de personagens</strong></p></li>
 <li><p>Você verá uma visualização em grid de todos os personagens</p></li>
 <li><p>Cada personagem mostra:
 * Nome
-* Vida atual/máxima
+* Vida atual/máxima com barra visual colorida
 * XP
 * Força
-* Localização atual</p></li>
+* Localização atual (formato: “Mapa X - Chunk Y”)</p></li>
 </ol>
 </section>
 <section id="selecionando-um-personagem">
-<h3><span class="section-number">4.5.2. </span>Selecionando um Personagem<a class="headerlink" href="#selecionando-um-personagem" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.6.2. </span>Selecionando um Personagem<a class="headerlink" href="#selecionando-um-personagem" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Na lista de personagens, escolha <strong>1. 🎮 Selecionar personagem</strong></p></li>
 <li><p>Digite o número do personagem desejado</p></li>
@@ -864,7 +945,7 @@
 </ol>
 </section>
 <section id="deletando-um-personagem">
-<h3><span class="section-number">4.5.3. </span>Deletando um Personagem<a class="headerlink" href="#deletando-um-personagem" title="Link to this heading"></a></h3>
+<h3><span class="section-number">4.6.3. </span>Deletando um Personagem<a class="headerlink" href="#deletando-um-personagem" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p>Na lista de personagens, escolha <strong>2. 🗑️ Deletar personagem</strong></p></li>
 <li><p>Digite o número do personagem a ser deletado</p></li>
@@ -874,29 +955,86 @@
 </section>
 </section>
 <section id="verificando-o-status">
-<h2><span class="section-number">4.6. </span>Verificando o Status<a class="headerlink" href="#verificando-o-status" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.7. </span>Verificando o Status<a class="headerlink" href="#verificando-o-status" title="Link to this heading"></a></h2>
 <p>Para ver informações detalhadas do seu personagem:</p>
 <ol class="arabic simple">
 <li><p>Selecione <strong>2. 📊 Ver status detalhado</strong></p></li>
 <li><p>Você verá:
 * Nome e ID do personagem
-* Vida atual e máxima
+* Vida atual e máxima com barra visual
 * XP e força
-* Localização (bioma, mapa e turno)
+* Localização detalhada (bioma, mapa e turno)
 * Status de vida</p></li>
 </ol>
+<p><strong>Exemplo de status:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>📊 STATUS DO PERSONAGEM:
+========================================
+👤 Nome: Steve
+🆔 ID: 1
+❤️  Vida: 85/100 [████████████████████░░░]
+⚡ Força: 12
+🎯 XP: 150
+📍 Localização: 🌊 Oceano (Mapa 1 - Dia)
+✅ Status: Vivo
+</pre></div>
+</div>
 </section>
 <section id="salvando-progresso">
-<h2><span class="section-number">4.7. </span>Salvando Progresso<a class="headerlink" href="#salvando-progresso" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.8. </span>Salvando Progresso<a class="headerlink" href="#salvando-progresso" title="Link to this heading"></a></h2>
 <p>O jogo salva automaticamente quando você:
 * Sai do jogo
-* Troca de personagem</p>
+* Troca de personagem
+* Move seu personagem</p>
 <p>Para salvar manualmente:
 #. Selecione <strong>3. 💾 Salvar progresso</strong>
 #. Confirme que os dados foram salvos</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Novidade</strong>: O sistema agora salva tanto a localização formatada (“Mapa X - Chunk Y”) quanto o ID do chunk atual para melhor performance.</p>
+</div>
+</section>
+<section id="resolucao-de-problemas">
+<h2><span class="section-number">4.9. </span>Resolução de Problemas<a class="headerlink" href="#resolucao-de-problemas" title="Link to this heading"></a></h2>
+<p><strong>Erro ao Mover Personagem</strong></p>
+<p>Se você receber um erro relacionado à localização do personagem:</p>
+<ol class="arabic simple">
+<li><p>Verifique se o personagem tem uma localização válida no status</p></li>
+<li><p>Tente salvar o progresso manualmente</p></li>
+<li><p>Se o problema persistir, crie um novo personagem</p></li>
+</ol>
+<p><strong>Bioma Não Aparece</strong></p>
+<p>Se o bioma aparecer como número em vez do nome:</p>
+<ol class="arabic simple">
+<li><p>Isso pode indicar um problema temporário de conexão</p></li>
+<li><p>Tente mover para outro chunk e voltar</p></li>
+<li><p>Reinicie o jogo se necessário</p></li>
+</ol>
+<p><strong>Problemas de Performance</strong></p>
+<p>Para melhor performance:</p>
+<ol class="arabic simple">
+<li><p>Salve o progresso regularmente</p></li>
+<li><p>Evite criar muitos personagens desnecessários</p></li>
+<li><p>Use a funcionalidade de deletar personagens antigos</p></li>
+</ol>
+</section>
+<section id="estrutura-do-mundo">
+<h2><span class="section-number">4.10. </span>Estrutura do Mundo<a class="headerlink" href="#estrutura-do-mundo" title="Link to this heading"></a></h2>
+<p>O mundo do jogo é organizado da seguinte forma:</p>
+<ul class="simple">
+<li><p><strong>Mapas</strong>: Cada mapa tem um nome e um turno (Dia/Noite)</p></li>
+<li><p><strong>Chunks</strong>: Cada chunk pertence a um mapa e tem um bioma</p></li>
+<li><p><strong>Coordenadas</strong>: Chunks são organizados em grid com coordenadas X,Y</p></li>
+<li><p><strong>Biomas</strong>: Cada chunk tem um bioma que define sua aparência e características</p></li>
+</ul>
+<p><strong>Navegação:</strong></p>
+<ul class="simple">
+<li><p>Chunks são numerados sequencialmente (1, 2, 3, …)</p></li>
+<li><p>Movimento entre chunks adjacentes é possível</p></li>
+<li><p>Localização é exibida como “Mapa X - Chunk Y”</p></li>
+</ul>
 </section>
 <section id="saindo-do-jogo">
-<h2><span class="section-number">4.8. </span>Saindo do Jogo<a class="headerlink" href="#saindo-do-jogo" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.11. </span>Saindo do Jogo<a class="headerlink" href="#saindo-do-jogo" title="Link to this heading"></a></h2>
 <p>Para sair do jogo:</p>
 <ol class="arabic simple">
 <li><p>Selecione <strong>7. 🚪 Sair</strong></p></li>
@@ -915,12 +1053,36 @@
 </ol>
 </section>
 <section id="proximos-passos">
-<h2><span class="section-number">4.9. </span>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
+<h2><span class="section-number">4.12. </span>Próximos Passos<a class="headerlink" href="#proximos-passos" title="Link to this heading"></a></h2>
 <p>Agora que você conhece o básico:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="user_guide.html"><span class="doc">Guia do Usuário</span></a> - Aprenda sobre funcionalidades avançadas</p></li>
+<li><p><a class="reference internal" href="models.html"><span class="doc">Modelos</span></a> - Entenda a estrutura dos dados do jogo</p></li>
 <li><p><a class="reference internal" href="api_reference.html"><span class="doc">Referência da API</span></a> - Explore a documentação da API</p></li>
 <li><p><a class="reference internal" href="database.html"><span class="doc">Banco de Dados</span></a> - Entenda a estrutura do banco de dados</p></li>
+<li><p><a class="reference internal" href="relational_algebra.html"><span class="doc">Álgebra Relacional</span></a> - Aprenda sobre as consultas do sistema</p></li>
+</ul>
+</section>
+<section id="funcionalidades-avancadas">
+<h2><span class="section-number">4.13. </span>Funcionalidades Avançadas<a class="headerlink" href="#funcionalidades-avancadas" title="Link to this heading"></a></h2>
+<p>Para usuários que desejam explorar mais funcionalidades:</p>
+<p><strong>Desenvolvimento:</strong></p>
+<ul class="simple">
+<li><p>Examine o código em <code class="docutils literal notranslate"><span class="pre">app/src/models/</span></code> para entender a estrutura dos dados</p></li>
+<li><p>Verifique os repositories em <code class="docutils literal notranslate"><span class="pre">app/src/repositories/</span></code> para consultas customizadas</p></li>
+<li><p>Analise os services em <code class="docutils literal notranslate"><span class="pre">app/src/services/</span></code> para lógica de negócio</p></li>
+</ul>
+<p><strong>Banco de Dados:</strong></p>
+<ul class="simple">
+<li><p>Conecte-se diretamente ao PostgreSQL para consultas avançadas</p></li>
+<li><p>Explore os arquivos SQL em <code class="docutils literal notranslate"><span class="pre">db/</span></code> para entender a estrutura</p></li>
+<li><p>Use as consultas de álgebra relacional para análise de dados</p></li>
+</ul>
+<p><strong>Testes:</strong></p>
+<ul class="simple">
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code> para rodar os testes unitários</p></li>
+<li><p>Verifique os testes em <code class="docutils literal notranslate"><span class="pre">tests/</span></code> para exemplos de uso</p></li>
+<li><p>Adicione novos testes ao modificar funcionalidades</p></li>
 </ul>
 </section>
 </section>

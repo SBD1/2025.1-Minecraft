@@ -93,16 +93,20 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#criando-seu-primeiro-personagem">4.2. Criando seu Primeiro Personagem</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#navegando-pelo-menu">4.3. Navegando pelo Menu</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#sistema-de-movimento">4.4. Sistema de Movimento</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">4.5. Gerenciando Personagens</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">4.5.1. Listando Personagens</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">4.5.2. Selecionando um Personagem</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">4.5.3. Deletando um Personagem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#biomas-disponiveis">4.5. Biomas Disponíveis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#gerenciando-personagens">4.6. Gerenciando Personagens</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#listando-personagens">4.6.1. Listando Personagens</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#selecionando-um-personagem">4.6.2. Selecionando um Personagem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#deletando-um-personagem">4.6.3. Deletando um Personagem</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">4.6. Verificando o Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">4.7. Salvando Progresso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">4.8. Saindo do Jogo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">4.9. Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#verificando-o-status">4.7. Verificando o Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#salvando-progresso">4.8. Salvando Progresso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#resolucao-de-problemas">4.9. Resolução de Problemas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#estrutura-do-mundo">4.10. Estrutura do Mundo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#saindo-do-jogo">4.11. Saindo do Jogo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#proximos-passos">4.12. Próximos Passos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#funcionalidades-avancadas">4.13. Funcionalidades Avançadas</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide.html">5. Guia do Usuário</a><ul>
@@ -161,7 +165,35 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">6. Modelos</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#estrutura-de-models">6.1. Estrutura de Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#playersession">6.2. PlayerSession</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#player">6.2. Player</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models.player.Player"><code class="docutils literal notranslate"><span class="pre">Player</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.__eq__"><code class="docutils literal notranslate"><span class="pre">Player.__eq__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.__hash__"><code class="docutils literal notranslate"><span class="pre">Player.__hash__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.__post_init__"><code class="docutils literal notranslate"><span class="pre">Player.__post_init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.__repr__"><code class="docutils literal notranslate"><span class="pre">Player.__repr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.__str__"><code class="docutils literal notranslate"><span class="pre">Player.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.current_chunk_id"><code class="docutils literal notranslate"><span class="pre">Player.current_chunk_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.experiencia"><code class="docutils literal notranslate"><span class="pre">Player.experiencia</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.forca"><code class="docutils literal notranslate"><span class="pre">Player.forca</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.gain_experience"><code class="docutils literal notranslate"><span class="pre">Player.gain_experience()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.get_health_bar"><code class="docutils literal notranslate"><span class="pre">Player.get_health_bar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.get_health_percentage"><code class="docutils literal notranslate"><span class="pre">Player.get_health_percentage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.heal"><code class="docutils literal notranslate"><span class="pre">Player.heal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.id_player"><code class="docutils literal notranslate"><span class="pre">Player.id_player</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.inventario"><code class="docutils literal notranslate"><span class="pre">Player.inventario</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.is_alive"><code class="docutils literal notranslate"><span class="pre">Player.is_alive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.level_up"><code class="docutils literal notranslate"><span class="pre">Player.level_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.localizacao"><code class="docutils literal notranslate"><span class="pre">Player.localizacao</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.nivel"><code class="docutils literal notranslate"><span class="pre">Player.nivel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.nome"><code class="docutils literal notranslate"><span class="pre">Player.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.take_damage"><code class="docutils literal notranslate"><span class="pre">Player.take_damage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.vida_atual"><code class="docutils literal notranslate"><span class="pre">Player.vida_atual</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.player.Player.vida_maxima"><code class="docutils literal notranslate"><span class="pre">Player.vida_maxima</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#playersession">6.3. PlayerSession</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#models.player.PlayerSession"><code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#models.player.PlayerSession.__repr__"><code class="docutils literal notranslate"><span class="pre">PlayerSession.__repr__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.player.PlayerSession.__str__"><code class="docutils literal notranslate"><span class="pre">PlayerSession.__str__()</span></code></a></li>
@@ -188,7 +220,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#chunk">6.3. Chunk</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#chunk">6.4. Chunk</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#models.chunk.Chunk"><code class="docutils literal notranslate"><span class="pre">Chunk</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#models.chunk.Chunk.__eq__"><code class="docutils literal notranslate"><span class="pre">Chunk.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.chunk.Chunk.__hash__"><code class="docutils literal notranslate"><span class="pre">Chunk.__hash__()</span></code></a></li>
@@ -214,7 +246,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#bioma">6.4. Bioma</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bioma">6.5. Bioma</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#models.bioma.Bioma"><code class="docutils literal notranslate"><span class="pre">Bioma</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#models.bioma.Bioma.__eq__"><code class="docutils literal notranslate"><span class="pre">Bioma.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.bioma.Bioma.__hash__"><code class="docutils literal notranslate"><span class="pre">Bioma.__hash__()</span></code></a></li>
@@ -234,7 +266,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#mapa">6.5. Mapa</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mapa">6.6. Mapa</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#models.mapa.Mapa"><code class="docutils literal notranslate"><span class="pre">Mapa</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.__eq__"><code class="docutils literal notranslate"><span class="pre">Mapa.__eq__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#models.mapa.Mapa.__hash__"><code class="docutils literal notranslate"><span class="pre">Mapa.__hash__()</span></code></a></li>
@@ -262,10 +294,33 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#relacionamentos-do-banco-de-dados">6.6. Relacionamentos do Banco de Dados</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#integracao-com-o-sistema">6.7. Integração com o Sistema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vantagens-da-arquitetura-de-models">6.8. Vantagens da Arquitetura de Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#exemplos-completos">6.9. Exemplos Completos</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#item">6.7. Item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models.item.Item"><code class="docutils literal notranslate"><span class="pre">Item</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.__hash__"><code class="docutils literal notranslate"><span class="pre">Item.__hash__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.durabilidade"><code class="docutils literal notranslate"><span class="pre">Item.durabilidade</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.id_item"><code class="docutils literal notranslate"><span class="pre">Item.id_item</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.nome"><code class="docutils literal notranslate"><span class="pre">Item.nome</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.poder"><code class="docutils literal notranslate"><span class="pre">Item.poder</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.item.Item.tipo"><code class="docutils literal notranslate"><span class="pre">Item.tipo</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inventoryentry">6.8. InventoryEntry</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models.inventory.InventoryEntry"><code class="docutils literal notranslate"><span class="pre">InventoryEntry</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models.inventory.InventoryEntry.id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.inventory.InventoryEntry.item_id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.item_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.inventory.InventoryEntry.player_id"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.player_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.inventory.InventoryEntry.quantidade"><code class="docutils literal notranslate"><span class="pre">InventoryEntry.quantidade</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#relacionamentos-do-banco-de-dados">6.9. Relacionamentos do Banco de Dados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#integracao-com-o-sistema">6.10. Integração com o Sistema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vantagens-da-arquitetura-de-models">6.11. Vantagens da Arquitetura de Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#padroes-de-uso">6.12. Padrões de Uso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exemplos-avancados">6.13. Exemplos Avançados</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api_reference.html">7. Referência da API</a><ul>
@@ -647,8 +702,17 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="relational_algebra.html">9. Álgebra Relacional</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#operadores-fundamentais">9.1. Operadores Fundamentais</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-relacionais-no-banco-minecraft">9.2. Consultas Relacionais no Banco Minecraft</a></li>
-<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-compostas">9.3. Consultas Compostas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#estrutura-atual-do-banco-de-dados">9.2. Estrutura Atual do Banco de Dados</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-basicas">9.3. Consultas Básicas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-filtragem">9.4. Consultas de Filtragem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-com-juncoes">9.5. Consultas com Junções</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-agregacao-conceitual">9.6. Consultas de Agregação (Conceitual)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-avancadas">9.7. Consultas Avançadas</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-diferenca-e-uniao">9.8. Consultas de Diferença e União</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consultas-de-otimizacao-de-jogabilidade">9.9. Consultas de Otimização de Jogabilidade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#equivalencias-de-consulta">9.10. Equivalências de Consulta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#consideracoes-de-performance">9.11. Considerações de Performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="relational_algebra.html#aplicacoes-praticas">9.12. Aplicações Práticas</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">10. Desenvolvimento</a><ul>
@@ -782,17 +846,258 @@
 <h2><span class="section-number">6.1. </span>Estrutura de Models<a class="headerlink" href="#estrutura-de-models" title="Link to this heading"></a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>app/src/models/
 ├── __init__.py          # Exporta todas as models
-├── player.py            # Model do personagem
+├── player.py            # Models do personagem (Player e PlayerSession)
 ├── chunk.py             # Model do chunk
 ├── bioma.py             # Model do bioma
 ├── mapa.py              # Model do mapa
-└── example_usage.py     # Exemplos de uso
+├── item.py              # Model do item
+└── inventory.py         # Model do inventário
+</pre></div>
+</div>
+</section>
+<section id="player">
+<h2><span class="section-number">6.2. </span>Player<a class="headerlink" href="#player" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">Player</span></code> representa um personagem principal do jogo com todos os seus atributos persistentes.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.player.Player">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.player.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vida_maxima</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vida_atual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forca</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">localizacao</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nivel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">experiencia</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_chunk_id=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inventario=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Model que representa um personagem no banco de dados</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_player</strong> (<em>int</em>) – ID único do personagem no banco</p></li>
+<li><p><strong>nome</strong> (<em>str</em>) – Nome do personagem</p></li>
+<li><p><strong>vida_maxima</strong> (<em>int</em>) – Vida máxima do personagem</p></li>
+<li><p><strong>vida_atual</strong> (<em>int</em>) – Vida atual do personagem</p></li>
+<li><p><strong>forca</strong> (<em>int</em>) – Força do personagem</p></li>
+<li><p><strong>localizacao</strong> (<em>str</em>) – Localização atual do personagem</p></li>
+<li><p><strong>nivel</strong> (<em>int</em>) – Nível do personagem</p></li>
+<li><p><strong>experiencia</strong> (<em>int</em>) – Experiência acumulada</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.__eq__">
+<span class="sig-name descname"><span class="pre">__eq__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.__eq__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.__eq__" title="Link to this definition"></a></dt>
+<dd><p>Comparação de igualdade baseada no ID</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.__hash__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.__hash__" title="Link to this definition"></a></dt>
+<dd><p>Hash baseado no ID</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.__post_init__">
+<span class="sig-name descname"><span class="pre">__post_init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.__post_init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.__post_init__" title="Link to this definition"></a></dt>
+<dd><p>Validações após inicialização</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.__repr__">
+<span class="sig-name descname"><span class="pre">__repr__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.__repr__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.__repr__" title="Link to this definition"></a></dt>
+<dd><p>Representação detalhada do personagem</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.__str__" title="Link to this definition"></a></dt>
+<dd><p>Representação string do personagem</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.current_chunk_id">
+<span class="sig-name descname"><span class="pre">current_chunk_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#models.player.Player.current_chunk_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.experiencia">
+<span class="sig-name descname"><span class="pre">experiencia</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.experiencia" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.forca">
+<span class="sig-name descname"><span class="pre">forca</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.forca" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.gain_experience">
+<span class="sig-name descname"><span class="pre">gain_experience</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.gain_experience"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.gain_experience" title="Link to this definition"></a></dt>
+<dd><p>Adiciona experiência ao personagem</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amount</strong> (<em>int</em>) – Quantidade de experiência a ser adicionada</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.get_health_bar">
+<span class="sig-name descname"><span class="pre">get_health_bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.get_health_bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.get_health_bar" title="Link to this definition"></a></dt>
+<dd><p>Retorna uma barra de vida visual</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>width</strong> (<em>int</em>) – Largura da barra em caracteres</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>String representando a barra de vida</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.get_health_percentage">
+<span class="sig-name descname"><span class="pre">get_health_percentage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.get_health_percentage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.get_health_percentage" title="Link to this definition"></a></dt>
+<dd><p>Retorna a porcentagem de vida atual</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Porcentagem de vida (0.0 a 1.0)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.heal">
+<span class="sig-name descname"><span class="pre">heal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.heal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.heal" title="Link to this definition"></a></dt>
+<dd><p>Cura o personagem</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amount</strong> (<em>int</em>) – Quantidade de vida a ser restaurada</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.id_player">
+<span class="sig-name descname"><span class="pre">id_player</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.id_player" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.inventario">
+<span class="sig-name descname"><span class="pre">inventario</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#models.inventory.InventoryEntry" title="models.inventory.InventoryEntry"><span class="pre">InventoryEntry</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#models.player.Player.inventario" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.is_alive">
+<span class="sig-name descname"><span class="pre">is_alive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.is_alive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.is_alive" title="Link to this definition"></a></dt>
+<dd><p>Verifica se o personagem está vivo</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.level_up">
+<span class="sig-name descname"><span class="pre">level_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.level_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.level_up" title="Link to this definition"></a></dt>
+<dd><p>Tenta fazer o personagem subir de nível</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True se subiu de nível</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.localizacao">
+<span class="sig-name descname"><span class="pre">localizacao</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#models.player.Player.localizacao" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.nivel">
+<span class="sig-name descname"><span class="pre">nivel</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.nivel" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#models.player.Player.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="models.player.Player.take_damage">
+<span class="sig-name descname"><span class="pre">take_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">damage</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#Player.take_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.Player.take_damage" title="Link to this definition"></a></dt>
+<dd><p>Aplica dano ao personagem</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>damage</strong> (<em>int</em>) – Quantidade de dano a ser aplicado</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True se o personagem ainda está vivo após o dano</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.vida_atual">
+<span class="sig-name descname"><span class="pre">vida_atual</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.vida_atual" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.player.Player.vida_maxima">
+<span class="sig-name descname"><span class="pre">vida_maxima</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.player.Player.vida_maxima" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p><strong>Exemplo de uso:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.player</span><span class="w"> </span><span class="kn">import</span> <span class="n">Player</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.models.inventory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InventoryEntry</span>
+
+<span class="c1"># Criar um personagem</span>
+<span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span>
+    <span class="n">id_player</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Steve&quot;</span><span class="p">,</span>
+    <span class="n">vida_maxima</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">vida_atual</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span>
+    <span class="n">forca</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+    <span class="n">localizacao</span><span class="o">=</span><span class="s2">&quot;Mapa 1 - Chunk 1&quot;</span><span class="p">,</span>
+    <span class="n">nivel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">experiencia</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
+    <span class="n">current_chunk_id</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
+
+<span class="c1"># Verificar se está vivo</span>
+<span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Personagem está vivo!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Aplicar dano</span>
+<span class="n">sobreviveu</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">take_damage</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Ganhar experiência</span>
+<span class="n">player</span><span class="o">.</span><span class="n">gain_experience</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Tentar subir de nível</span>
+<span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">level_up</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Subiu de nível!&quot;</span><span class="p">)</span>
+
+<span class="c1"># Exibir barra de vida</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">get_health_bar</span><span class="p">())</span>
 </pre></div>
 </div>
 </section>
 <section id="playersession">
-<h2><span class="section-number">6.2. </span>PlayerSession<a class="headerlink" href="#playersession" title="Link to this heading"></a></h2>
-<p>A model <code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code> representa um personagem ativo na sessão do jogo.</p>
+<h2><span class="section-number">6.3. </span>PlayerSession<a class="headerlink" href="#playersession" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code> representa um personagem ativo na sessão do jogo com informações otimizadas para performance.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="models.player.PlayerSession">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.player.</span></span><span class="sig-name descname"><span class="pre">PlayerSession</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vida_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vida_atual</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forca</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_chunk_atual</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_bioma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_mapa_nome</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_mapa_turno</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/player.html#PlayerSession"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.player.PlayerSession" title="Link to this definition"></a></dt>
@@ -999,35 +1304,35 @@
 <p><strong>Exemplo de uso:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.player</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayerSession</span>
 
-<span class="c1"># Criar um personagem</span>
-<span class="n">player</span> <span class="o">=</span> <span class="n">PlayerSession</span><span class="p">(</span>
-    <span class="n">id_jogador</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="c1"># Criar uma sessão de personagem</span>
+<span class="n">session</span> <span class="o">=</span> <span class="n">PlayerSession</span><span class="p">(</span>
+    <span class="n">id_player</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Steve&quot;</span><span class="p">,</span>
     <span class="n">vida_max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
     <span class="n">vida_atual</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span>
     <span class="n">xp</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span>
     <span class="n">forca</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
     <span class="n">id_chunk_atual</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-    <span class="n">chunk_bioma</span><span class="o">=</span><span class="s2">&quot;Floresta&quot;</span><span class="p">,</span>
+    <span class="n">chunk_bioma</span><span class="o">=</span><span class="s2">&quot;Oceano&quot;</span><span class="p">,</span>
     <span class="n">chunk_mapa_nome</span><span class="o">=</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span>
     <span class="n">chunk_mapa_turno</span><span class="o">=</span><span class="s2">&quot;Dia&quot;</span>
 <span class="p">)</span>
 
-<span class="c1"># Verificar se está vivo</span>
-<span class="k">if</span> <span class="n">player</span><span class="o">.</span><span class="n">is_alive</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Personagem está vivo!&quot;</span><span class="p">)</span>
+<span class="c1"># Verificar se pode se mover</span>
+<span class="k">if</span> <span class="n">session</span><span class="o">.</span><span class="n">can_move</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pode se mover!&quot;</span><span class="p">)</span>
 
-<span class="c1"># Aplicar dano</span>
-<span class="n">sobreviveu</span> <span class="o">=</span> <span class="n">player</span><span class="o">.</span><span class="n">take_damage</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="c1"># Obter localização formatada</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">get_location_display</span><span class="p">())</span>
 
-<span class="c1"># Exibir barra de vida</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">get_health_bar</span><span class="p">())</span>
+<span class="c1"># Converter para dicionário</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 </pre></div>
 </div>
 </section>
 <section id="chunk">
-<h2><span class="section-number">6.3. </span>Chunk<a class="headerlink" href="#chunk" title="Link to this heading"></a></h2>
-<p>A model <code class="docutils literal notranslate"><span class="pre">Chunk</span></code> representa um chunk do mapa do jogo.</p>
+<h2><span class="section-number">6.4. </span>Chunk<a class="headerlink" href="#chunk" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">Chunk</span></code> representa um chunk do mapa do jogo com suas coordenadas e relacionamentos.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="models.chunk.Chunk">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.chunk.</span></span><span class="sig-name descname"><span class="pre">Chunk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_chunk</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_bioma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_mapa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/chunk.html#Chunk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.chunk.Chunk" title="Link to this definition"></a></dt>
@@ -1236,28 +1541,32 @@ Baseado na lógica de grid do mapa</p>
 
 <span class="c1"># Criar um chunk</span>
 <span class="n">chunk</span> <span class="o">=</span> <span class="n">Chunk</span><span class="p">(</span>
-    <span class="n">numero_chunk</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">id_bioma</span><span class="o">=</span><span class="s2">&quot;Floresta&quot;</span><span class="p">,</span>
-    <span class="n">id_mapa_nome</span><span class="o">=</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span>
-    <span class="n">id_mapa_turno</span><span class="o">=</span><span class="s2">&quot;Dia&quot;</span>
+    <span class="n">id_chunk</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">id_bioma</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># ID do bioma Oceano</span>
+    <span class="n">id_mapa</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>   <span class="c1"># ID do mapa principal</span>
+    <span class="n">x</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="mi">15</span>
 <span class="p">)</span>
 
-<span class="c1"># Verificar tipo de bioma</span>
-<span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">is_forest</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;É uma floresta!&quot;</span><span class="p">)</span>
+<span class="c1"># Verificar tipo de bioma por ID</span>
+<span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">id_bioma</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;É um oceano!&quot;</span><span class="p">)</span>
 
-<span class="c1"># Verificar se pertence a um mapa</span>
-<span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">belongs_to_map</span><span class="p">(</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span> <span class="s2">&quot;Dia&quot;</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pertence ao mapa principal de dia!&quot;</span><span class="p">)</span>
+<span class="c1"># Obter nome formatado</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">get_display_name</span><span class="p">())</span>
 
 <span class="c1"># Obter chunks adjacentes</span>
 <span class="n">adjacentes</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">get_adjacent_chunk_ids</span><span class="p">()</span>
+
+<span class="c1"># Verificar se é dia ou noite baseado na coordenada</span>
+<span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">is_day</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;É dia neste chunk!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="bioma">
-<h2><span class="section-number">6.4. </span>Bioma<a class="headerlink" href="#bioma" title="Link to this heading"></a></h2>
-<p>A model <code class="docutils literal notranslate"><span class="pre">Bioma</span></code> representa um bioma do jogo.</p>
+<h2><span class="section-number">6.5. </span>Bioma<a class="headerlink" href="#bioma" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">Bioma</span></code> representa um bioma do jogo com suas características.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="models.bioma.Bioma">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.bioma.</span></span><span class="sig-name descname"><span class="pre">Bioma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_bioma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">descricao</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/bioma.html#Bioma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.bioma.Bioma" title="Link to this definition"></a></dt>
@@ -1349,22 +1658,27 @@ Baseado na lógica de grid do mapa</p>
 </dd></dl>
 
 <p><strong>Biomas Predefinidos:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.bioma</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIOMAS_PREDEFINIDOS</span><span class="p">,</span> <span class="n">BiomaType</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.bioma</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIOMAS_PREDEFINIDOS</span><span class="p">,</span> <span class="n">BiomaType</span><span class="p">,</span> <span class="n">Bioma</span>
 
 <span class="c1"># Usar bioma predefinido</span>
 <span class="n">deserto</span> <span class="o">=</span> <span class="n">BIOMAS_PREDEFINIDOS</span><span class="p">[</span><span class="n">BiomaType</span><span class="o">.</span><span class="n">DESERTO</span><span class="p">]</span>
 
-<span class="c1"># Obter tipo enum</span>
-<span class="n">tipo</span> <span class="o">=</span> <span class="n">deserto</span><span class="o">.</span><span class="n">get_bioma_type</span><span class="p">()</span>
+<span class="c1"># Criar bioma personalizado</span>
+<span class="n">bioma_custom</span> <span class="o">=</span> <span class="n">Bioma</span><span class="p">(</span>
+    <span class="n">id_bioma</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Tundra&quot;</span><span class="p">,</span>
+    <span class="n">descricao</span><span class="o">=</span><span class="s2">&quot;Um bioma frio e gelado.&quot;</span>
+<span class="p">)</span>
 
-<span class="c1"># Obter informações para exibição</span>
-<span class="n">info</span> <span class="o">=</span> <span class="n">deserto</span><span class="o">.</span><span class="n">get_display_info</span><span class="p">()</span>
+<span class="c1"># Comparar biomas</span>
+<span class="k">if</span> <span class="n">deserto</span> <span class="o">==</span> <span class="n">bioma_custom</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;São o mesmo bioma!&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="mapa">
-<h2><span class="section-number">6.5. </span>Mapa<a class="headerlink" href="#mapa" title="Link to this heading"></a></h2>
-<p>A model <code class="docutils literal notranslate"><span class="pre">Mapa</span></code> representa um mapa do jogo com seus chunks e características.</p>
+<h2><span class="section-number">6.6. </span>Mapa<a class="headerlink" href="#mapa" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">Mapa</span></code> representa um mapa do jogo com seus chunks e características temporais.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="models.mapa.Mapa">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.mapa.</span></span><span class="sig-name descname"><span class="pre">Mapa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_mapa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">turno</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/mapa.html#Mapa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.mapa.Mapa" title="Link to this definition"></a></dt>
@@ -1552,68 +1866,216 @@ Baseado na lógica de grid do mapa</p>
 
 <p><strong>Exemplo de uso:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.mapa</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapa</span><span class="p">,</span> <span class="n">TurnoType</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">src.models.chunk</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chunk</span>
 
 <span class="c1"># Criar mapa</span>
 <span class="n">mapa</span> <span class="o">=</span> <span class="n">Mapa</span><span class="p">(</span>
+    <span class="n">id_mapa</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span>
     <span class="n">turno</span><span class="o">=</span><span class="n">TurnoType</span><span class="o">.</span><span class="n">DIA</span>
 <span class="p">)</span>
 
-<span class="c1"># Criar chunks</span>
-<span class="n">chunks</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">Chunk</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Deserto&quot;</span><span class="p">,</span> <span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span> <span class="s2">&quot;Dia&quot;</span><span class="p">),</span>
-    <span class="n">Chunk</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;Floresta&quot;</span><span class="p">,</span> <span class="s2">&quot;Mapa_Principal&quot;</span><span class="p">,</span> <span class="s2">&quot;Dia&quot;</span><span class="p">),</span>
-<span class="p">]</span>
+<span class="c1"># Verificar tipo de turno</span>
+<span class="k">if</span> <span class="n">mapa</span><span class="o">.</span><span class="n">is_day_map</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;É um mapa de dia!&quot;</span><span class="p">)</span>
 
-<span class="c1"># Associar chunks ao mapa</span>
-<span class="n">mapa</span><span class="o">.</span><span class="n">set_chunks</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+<span class="c1"># Obter informações de exibição</span>
+<span class="n">info</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_display_info</span><span class="p">()</span>
 
-<span class="c1"># Buscar chunk por ID</span>
-<span class="n">chunk</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_chunk_by_id</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Buscar chunk específico (requer repository configurado)</span>
+<span class="c1"># mapa.set_chunk_repository(chunk_repository)</span>
+<span class="c1"># chunk = mapa.get_chunk_by_id(1)</span>
+</pre></div>
+</div>
+</section>
+<section id="item">
+<h2><span class="section-number">6.7. </span>Item<a class="headerlink" href="#item" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">Item</span></code> representa um item do jogo que pode ser coletado ou usado.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.item.Item">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.item.</span></span><span class="sig-name descname"><span class="pre">Item</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_item</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nome</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tipo</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">durabilidade</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/item.html#Item"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.item.Item" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Representa um item no inventário ou no jogo</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_item</strong> (<em>int</em>) – Identificador único do item (chave primária)</p></li>
+<li><p><strong>nome</strong> (<em>str</em>) – Nome do item</p></li>
+<li><p><strong>tipo</strong> (<em>str</em>) – Tipo do item (e.g., ‘Arma’, ‘Poção’, ‘Comida’)</p></li>
+<li><p><strong>poder</strong> (<em>int</em><em> | </em><em>None</em>) – Opcional, poder de ataque ou efeito do item</p></li>
+<li><p><strong>durabilidade</strong> (<em>int</em><em> | </em><em>None</em>) – Opcional, durabilidade restante</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="models.item.Item.__hash__">
+<span class="sig-name descname"><span class="pre">__hash__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/item.html#Item.__hash__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.item.Item.__hash__" title="Link to this definition"></a></dt>
+<dd><p>Hash baseado no ID do item</p>
+<dl class="field-list simple">
+</dl>
+</dd></dl>
 
-<span class="c1"># Obter distribuição de biomas</span>
-<span class="n">distribuicao</span> <span class="o">=</span> <span class="n">mapa</span><span class="o">.</span><span class="n">get_bioma_distribution</span><span class="p">()</span>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.item.Item.durabilidade">
+<span class="sig-name descname"><span class="pre">durabilidade</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#models.item.Item.durabilidade" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.item.Item.id_item">
+<span class="sig-name descname"><span class="pre">id_item</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.item.Item.id_item" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.item.Item.nome">
+<span class="sig-name descname"><span class="pre">nome</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#models.item.Item.nome" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.item.Item.poder">
+<span class="sig-name descname"><span class="pre">poder</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#models.item.Item.poder" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.item.Item.tipo">
+<span class="sig-name descname"><span class="pre">tipo</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#models.item.Item.tipo" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p><strong>Exemplo de uso:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.item</span><span class="w"> </span><span class="kn">import</span> <span class="n">Item</span>
+
+<span class="c1"># Criar diferentes tipos de itens</span>
+<span class="n">espada</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span>
+    <span class="n">id_item</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Espada de Ferro&quot;</span><span class="p">,</span>
+    <span class="n">tipo</span><span class="o">=</span><span class="s2">&quot;Arma&quot;</span><span class="p">,</span>
+    <span class="n">poder</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">durabilidade</span><span class="o">=</span><span class="mi">200</span>
+<span class="p">)</span>
+
+<span class="n">pocao</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span>
+    <span class="n">id_item</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Poção de Vida&quot;</span><span class="p">,</span>
+    <span class="n">tipo</span><span class="o">=</span><span class="s2">&quot;Poção&quot;</span><span class="p">,</span>
+    <span class="n">poder</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">durabilidade</span><span class="o">=</span><span class="kc">None</span>  <span class="c1"># Poções não têm durabilidade</span>
+<span class="p">)</span>
+
+<span class="n">madeira</span> <span class="o">=</span> <span class="n">Item</span><span class="p">(</span>
+    <span class="n">id_item</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">nome</span><span class="o">=</span><span class="s2">&quot;Madeira&quot;</span><span class="p">,</span>
+    <span class="n">tipo</span><span class="o">=</span><span class="s2">&quot;Material&quot;</span><span class="p">,</span>
+    <span class="n">poder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">durabilidade</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="inventoryentry">
+<h2><span class="section-number">6.8. </span>InventoryEntry<a class="headerlink" href="#inventoryentry" title="Link to this heading"></a></h2>
+<p>A model <code class="docutils literal notranslate"><span class="pre">InventoryEntry</span></code> representa uma entrada no inventário de um jogador.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.inventory.InventoryEntry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.inventory.</span></span><span class="sig-name descname"><span class="pre">InventoryEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">player_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">item_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">quantidade</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models/inventory.html#InventoryEntry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.inventory.InventoryEntry" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Representa uma entrada de inventário (itens de um jogador)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – Identificador único da entrada (chave primária)</p></li>
+<li><p><strong>player_id</strong> (<em>int</em>) – FK para Player.id_player</p></li>
+<li><p><strong>item_id</strong> (<em>int</em>) – FK para Item.id_item</p></li>
+<li><p><strong>quantidade</strong> (<em>int</em>) – Quantidade do item possuído</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.inventory.InventoryEntry.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.inventory.InventoryEntry.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.inventory.InventoryEntry.item_id">
+<span class="sig-name descname"><span class="pre">item_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.inventory.InventoryEntry.item_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.inventory.InventoryEntry.player_id">
+<span class="sig-name descname"><span class="pre">player_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.inventory.InventoryEntry.player_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.inventory.InventoryEntry.quantidade">
+<span class="sig-name descname"><span class="pre">quantidade</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#models.inventory.InventoryEntry.quantidade" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<p><strong>Exemplo de uso:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.inventory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InventoryEntry</span>
+
+<span class="c1"># Criar entrada de inventário</span>
+<span class="n">entrada</span> <span class="o">=</span> <span class="n">InventoryEntry</span><span class="p">(</span>
+    <span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">player_id</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">item_id</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>  <span class="c1"># Madeira</span>
+    <span class="n">quantidade</span><span class="o">=</span><span class="mi">64</span>
+<span class="p">)</span>
+
+<span class="c1"># Modificar quantidade</span>
+<span class="n">entrada</span><span class="o">.</span><span class="n">quantidade</span> <span class="o">+=</span> <span class="mi">32</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nova quantidade: </span><span class="si">{</span><span class="n">entrada</span><span class="o">.</span><span class="n">quantidade</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="relacionamentos-do-banco-de-dados">
-<h2><span class="section-number">6.6. </span>Relacionamentos do Banco de Dados<a class="headerlink" href="#relacionamentos-do-banco-de-dados" title="Link to this heading"></a></h2>
+<h2><span class="section-number">6.9. </span>Relacionamentos do Banco de Dados<a class="headerlink" href="#relacionamentos-do-banco-de-dados" title="Link to this heading"></a></h2>
 <p>As models refletem exatamente a estrutura do banco de dados:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Mapa (Nome, Turno) ← Chunk (Id_mapa_nome, Id_mapa_turno)
-Bioma (NomeBioma) ← Chunk (Id_bioma)
-Chunk (Numero_chunk) ← Jogador (Id_Chunk_Atual)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Mapa (id_mapa, nome, turno) ← Chunk (id_mapa)
+Bioma (id_bioma, nome) ← Chunk (id_bioma)
+Chunk (id_chunk) ← Player (current_chunk_id)
+Player (id_player) ← Inventario (player_id)
+Item (id_item) ← Inventario (item_id)
 </pre></div>
 </div>
 <p><strong>Características dos Relacionamentos:</strong></p>
 <ul class="simple">
-<li><p><strong>Mapa</strong>: Chave primária composta (Nome, Turno)</p></li>
-<li><p><strong>Bioma</strong>: Chave primária simples (NomeBioma)</p></li>
-<li><p><strong>Chunk</strong>: Chave primária simples (Numero_chunk) com FKs para Bioma e Mapa</p></li>
-<li><p><strong>Jogador</strong>: Referencia Chunk através de Id_Chunk_Atual</p></li>
+<li><p><strong>Mapa</strong>: Chave primária simples (id_mapa) com constraint única (nome, turno)</p></li>
+<li><p><strong>Bioma</strong>: Chave primária simples (id_bioma) com nome único</p></li>
+<li><p><strong>Chunk</strong>: Chave primária simples (id_chunk) com FKs para Bioma e Mapa</p></li>
+<li><p><strong>Player</strong>: Referencia Chunk através de current_chunk_id (pode ser NULL)</p></li>
+<li><p><strong>Item</strong>: Chave primária simples (id_item) com nome único</p></li>
+<li><p><strong>Inventario</strong>: Relacionamento N:M entre Player e Item com quantidades</p></li>
 </ul>
 </section>
 <section id="integracao-com-o-sistema">
-<h2><span class="section-number">6.7. </span>Integração com o Sistema<a class="headerlink" href="#integracao-com-o-sistema" title="Link to this heading"></a></h2>
+<h2><span class="section-number">6.10. </span>Integração com o Sistema<a class="headerlink" href="#integracao-com-o-sistema" title="Link to this heading"></a></h2>
 <p>As models são utilizadas em conjunto com o sistema de gerenciamento de personagens:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.player</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayerSession</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">src.utils.player_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_player_by_id</span><span class="p">,</span> <span class="n">set_current_player</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">src.models.player</span><span class="w"> </span><span class="kn">import</span> <span class="n">Player</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.utils.player_manager</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_current_player</span><span class="p">,</span> <span class="n">set_current_player</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">src.services.interface_service</span><span class="w"> </span><span class="kn">import</span> <span class="n">InterfaceService</span>
 
-<span class="c1"># Carregar personagem do banco</span>
-<span class="n">player</span> <span class="o">=</span> <span class="n">load_player_by_id</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Obter personagem ativo</span>
+<span class="n">current_player</span> <span class="o">=</span> <span class="n">get_current_player</span><span class="p">()</span>
 
-<span class="k">if</span> <span class="n">player</span><span class="p">:</span>
-    <span class="c1"># Definir como personagem ativo</span>
-    <span class="n">set_current_player</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">current_player</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jogando com: </span><span class="si">{</span><span class="n">current_player</span><span class="o">.</span><span class="n">nome</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Localização: </span><span class="si">{</span><span class="n">current_player</span><span class="o">.</span><span class="n">localizacao</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vida: </span><span class="si">{</span><span class="n">current_player</span><span class="o">.</span><span class="n">get_health_bar</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="c1"># Usar métodos da model</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Localização: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">get_location_display</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Barra de vida: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">get_health_bar</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Usar interface service para operações</span>
+    <span class="n">interface_service</span> <span class="o">=</span> <span class="n">InterfaceService</span><span class="o">.</span><span class="n">get_instance</span><span class="p">()</span>
+
+    <span class="c1"># Mover para outro chunk</span>
+    <span class="n">updated_player</span> <span class="o">=</span> <span class="n">interface_service</span><span class="o">.</span><span class="n">move_player_to_chunk</span><span class="p">(</span><span class="n">current_player</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Salvar progresso</span>
+    <span class="n">interface_service</span><span class="o">.</span><span class="n">save_player</span><span class="p">(</span><span class="n">updated_player</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="vantagens-da-arquitetura-de-models">
-<h2><span class="section-number">6.8. </span>Vantagens da Arquitetura de Models<a class="headerlink" href="#vantagens-da-arquitetura-de-models" title="Link to this heading"></a></h2>
+<h2><span class="section-number">6.11. </span>Vantagens da Arquitetura de Models<a class="headerlink" href="#vantagens-da-arquitetura-de-models" title="Link to this heading"></a></h2>
 <ol class="arabic simple">
 <li><p><strong>Separação de Responsabilidades</strong>: Cada model tem responsabilidades bem definidas</p></li>
 <li><p><strong>Reutilização</strong>: Models podem ser usadas em diferentes partes do sistema</p></li>
@@ -1622,15 +2084,51 @@ Chunk (Numero_chunk) ← Jogador (Id_Chunk_Atual)
 <li><p><strong>Documentação</strong>: Models são auto-documentadas com docstrings</p></li>
 <li><p><strong>Type Safety</strong>: Uso de type hints para melhor desenvolvimento</p></li>
 <li><p><strong>Fidelidade ao Banco</strong>: Models refletem exatamente a estrutura do banco</p></li>
+<li><p><strong>Performance</strong>: PlayerSession otimizada para uso em sessões de jogo</p></li>
 </ol>
 </section>
-<section id="exemplos-completos">
-<h2><span class="section-number">6.9. </span>Exemplos Completos<a class="headerlink" href="#exemplos-completos" title="Link to this heading"></a></h2>
-<p>Para ver exemplos completos de uso das models, execute:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>app.src.models.example_usage
+<section id="padroes-de-uso">
+<h2><span class="section-number">6.12. </span>Padrões de Uso<a class="headerlink" href="#padroes-de-uso" title="Link to this heading"></a></h2>
+<p><strong>Player vs PlayerSession:</strong>
+- Use <code class="docutils literal notranslate"><span class="pre">Player</span></code> para operações de persistência e dados completos
+- Use <code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code> para otimização de performance em sessões ativas</p>
+<p><strong>Localização:</strong>
+- <code class="docutils literal notranslate"><span class="pre">Player.localizacao</span></code> armazena string formatada (“Mapa 1 - Chunk 1”)
+- <code class="docutils literal notranslate"><span class="pre">Player.current_chunk_id</span></code> armazena referência direta ao chunk
+- <code class="docutils literal notranslate"><span class="pre">PlayerSession</span></code> inclui cache de informações do chunk para performance</p>
+<p><strong>Inventário:</strong>
+- Relação N:M entre Player e Item através de InventoryEntry
+- Suporte a quantidades e controle de unicidade por constraint</p>
+</section>
+<section id="exemplos-avancados">
+<h2><span class="section-number">6.13. </span>Exemplos Avançados<a class="headerlink" href="#exemplos-avancados" title="Link to this heading"></a></h2>
+<p>Para ver exemplos completos de uso das models em cenários reais, consulte os testes unitários e os services do sistema.</p>
+<p><strong>Navegação entre Chunks:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obter chunk atual do jogador</span>
+<span class="n">current_chunk</span> <span class="o">=</span> <span class="n">interface_service</span><span class="o">.</span><span class="n">get_chunk_by_id</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">current_chunk_id</span><span class="p">)</span>
+
+<span class="c1"># Obter chunks adjacentes</span>
+<span class="n">adjacent_chunks</span> <span class="o">=</span> <span class="n">interface_service</span><span class="o">.</span><span class="n">get_adjacent_chunks</span><span class="p">(</span><span class="n">current_chunk</span><span class="o">.</span><span class="n">id_chunk</span><span class="p">,</span> <span class="s1">&#39;Dia&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mover para chunk adjacente</span>
+<span class="k">if</span> <span class="n">adjacent_chunks</span><span class="p">:</span>
+    <span class="n">next_chunk_id</span> <span class="o">=</span> <span class="n">adjacent_chunks</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">updated_player</span> <span class="o">=</span> <span class="n">interface_service</span><span class="o">.</span><span class="n">move_player_to_chunk</span><span class="p">(</span><span class="n">player</span><span class="p">,</span> <span class="n">next_chunk_id</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Este comando demonstra todas as funcionalidades das models com exemplos práticos baseados na estrutura real do banco de dados.</p>
+<p><strong>Progressão de Personagem:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Sistema de XP e level up</span>
+<span class="n">player</span><span class="o">.</span><span class="n">gain_experience</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="k">while</span> <span class="n">player</span><span class="o">.</span><span class="n">level_up</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subiu para nível </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">nivel</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nova vida máxima: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">vida_maxima</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nova força: </span><span class="si">{</span><span class="n">player</span><span class="o">.</span><span class="n">forca</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Salvar progresso</span>
+<span class="n">interface_service</span><span class="o">.</span><span class="n">save_player</span><span class="p">(</span><span class="n">player</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
