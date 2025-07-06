@@ -1,32 +1,40 @@
-INSERT INTO Mapa (Nome, Turno)
+-- Mapas
+INSERT INTO Mapa (nome, turno)
 VALUES
-    ('Mapa_Principal', 'Dia'),
-    ('Mapa_Principal', 'Noite')
-ON CONFLICT (Nome, Turno) DO NOTHING; 
+  ('Mapa_Principal', 'Dia'),
+  ('Mapa_Principal', 'Noite')
+ON CONFLICT (nome, turno) DO NOTHING;
 
-INSERT INTO Bioma (NomeBioma)
+-- Biomas
+INSERT INTO Bioma (nome, descricao)
 VALUES
-    ('Deserto'),
-    ('Oceano'),
-    ('Selva'),
-    ('Floresta')
-ON CONFLICT (NomeBioma) DO NOTHING; 
+  ('Deserto',   'Bioma árido com pouca vegetação.'),
+  ('Oceano',    'Bioma de água salgada.'),
+  ('Selva',     'Bioma tropical úmido.'),
+  ('Floresta',  'Bioma temperado com muita vegetação.')
+ON CONFLICT (nome) DO NOTHING;
 
-INSERT INTO Chunk (Numero_chunk, Id_bioma, Id_mapa_nome, Id_mapa_turno)
+-- Itens de exemplo
+INSERT INTO Item (nome, tipo, poder, durabilidade)
 VALUES
-    (1, 'Deserto', 'Mapa_Principal', 'Dia'),
-    (2, 'Oceano', 'Mapa_Principal', 'Dia'),
-    (3, 'Selva', 'Mapa_Principal', 'Noite'),
-    (4, 'Floresta', 'Mapa_Principal', 'Noite')
-ON CONFLICT (Numero_chunk) DO NOTHING;
+  ('Espada de Ferro', 'Arma', 8, 200),
+  ('Poção de Vida',   'Poção', 50, NULL),
+  ('Maçã',            'Comida', NULL, NULL)
+ON CONFLICT (nome) DO NOTHING;
 
-INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
+-- Jogadores
+INSERT INTO Player (
+  nome, vida_maxima, vida_atual, forca,
+  localizacao, nivel, experiencia, current_chunk_id
+)
 VALUES
-    ('Player1', 100, 100, 0, 10, 1), 
-    ('Player2', 120, 120, 50, 12, 2); 
+  ('Player1', 100, 100, 10, NULL, 1, 0, 1),
+  ('Player2', 120, 120, 12, NULL, 1, 50, 2)
+ON CONFLICT (id_player) DO NOTHING;
 
-INSERT INTO Inventario (id_jogador, id_inventario, Instancia_Item, ArmaduraEquipada, ArmaEquipada)
+-- Inventário de exemplo
+INSERT INTO Inventario (player_id, item_id, quantidade)
 VALUES
-    (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
-    (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo')
-ON CONFLICT (id_jogador, id_inventario) DO NOTHING; 
+  (1, (SELECT id_item FROM Item WHERE nome='Espada de Ferro'), 1),
+  (1, (SELECT id_item FROM Item WHERE nome='Maçã'), 5)
+ON CONFLICT (player_id, item_id) DO NOTHING;
