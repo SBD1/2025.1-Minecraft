@@ -6,6 +6,7 @@ from typing import List, Optional
 from ..utils.db_helpers import connection_db
 from ..models.player import Player
 from abc import ABC, abstractmethod
+import re
 
 
 class PlayerRepository(ABC):
@@ -44,6 +45,22 @@ class PlayerRepository(ABC):
 
 class PlayerRepositoryImpl(PlayerRepository):
     """Implementação PostgreSQL do PlayerRepository"""
+    
+    def _extract_chunk_id_from_location(self, location: str) -> int:
+        """Extract chunk ID from location string like 'Mapa 1 - Chunk 364'"""
+        if not location:
+            return 1  # Default chunk
+            
+        # Try to extract chunk ID using regex
+        match = re.search(r'Chunk (\d+)', location)
+        if match:
+            return int(match.group(1))
+        
+        # If no match found, try to convert the entire string to int (backwards compatibility)
+        try:
+            return int(location)
+        except ValueError:
+            return 1  # Default chunk if conversion fails
     
     def find_all(self) -> List[Player]:
         """Retorna todos os jogadores"""
@@ -156,27 +173,27 @@ class PlayerRepositoryImpl(PlayerRepository):
                 query = """
                     UPDATE Player
                     SET nome = %s, vida_maxima = %s, vida_atual = %s,
-                        experiencia = %s, forca = %s, current_chunk_id = %s
+                        experiencia = %s, forca = %s, localizacao = %s, current_chunk_id = %s
                     WHERE id_player = %s
                     RETURNING id_player, nome, vida_maxima, vida_atual,
                               forca, localizacao, nivel, experiencia, current_chunk_id
                 """
                 cursor.execute(query, (
                     player.nome, player.vida_maxima, player.vida_atual, 
-                    player.experiencia, player.forca, int(player.localizacao) if player.localizacao else 1,
+                    player.experiencia, player.forca, player.localizacao, self._extract_chunk_id_from_location(player.localizacao),
                     player.id_player
                 ))
             else:
                 # Insert
                 query = """
-                    INSERT INTO Player (nome, vida_maxima, vida_atual, experiencia, forca, current_chunk_id)
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    INSERT INTO Player (nome, vida_maxima, vida_atual, experiencia, forca, nivel, localizacao, current_chunk_id)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     RETURNING id_player, nome, vida_maxima, vida_atual,
                               forca, localizacao, nivel, experiencia, current_chunk_id
                 """
                 cursor.execute(query, (
                     player.nome, player.vida_maxima, player.vida_atual, 
-                    player.experiencia, player.forca, int(player.localizacao) if player.localizacao else 1
+                    player.experiencia, player.forca, player.nivel, player.localizacao, self._extract_chunk_id_from_location(player.localizacao)
                 ))
             
             result = cursor.fetchone()

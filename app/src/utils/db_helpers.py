@@ -3,12 +3,18 @@ import os
 import sys
 
 def connection_db():
+    # Configurar parâmetros via variáveis de ambiente para suportar conexões locais e Docker
+    user = os.getenv("DB_USER", "postgres")
+    password = os.getenv("DB_PASSWORD", "password")
+    host = os.getenv("DB_HOST", "db")
+    port = os.getenv("DB_PORT", "5432")
+    database = os.getenv("DB_NAME", "2025_1_Minecraft")
     return psycopg2.connect(
-        user="postgres",
-        password="password",
-        host="db",
-        port="5432",
-        database="2025_1_Minecraft"
+        user=user,
+        password=password,
+        host=host,
+        port=port,
+        database=database
     )
 
 def execute_sql_file(conn, file_path):

@@ -6,6 +6,7 @@ Implementa o padrão Singleton para garantir uma única instância
 
 from typing import List, Optional, Dict, Any
 from ..models.player import Player
+from ..models.chunk import Chunk
 from ..models.mapa import TurnoType
 from .game_service import GameServiceImpl
 
@@ -60,7 +61,16 @@ class InterfaceService:
         """Cria um novo jogador"""
         result = self.game_service.create_new_player(nome)
         if result.get("success"):
-            return result["player"]
+            # O game_service já retorna o player salvo no dicionário
+            player_data = result["player"]
+            
+            # Se player_data é uma instância de Player (para compatibilidade com testes)
+            if isinstance(player_data, Player):
+                return player_data
+            
+            # Se player_data é um dicionário (comportamento normal)
+            if isinstance(player_data, dict):
+                return self.game_service.player_repository.find_by_id(player_data["id"])
         return None
 
     def save_player(self, player: Player) -> Optional[Player]:
@@ -143,3 +153,34 @@ class InterfaceService:
             'average_level': 1,  # Valor padrão já que não temos essa estatística no game_service
             'average_health': 50  # Valor padrão já que não temos essa estatística no game_service
         }
+
+    def get_chunk_by_id(self, chunk_id: int) -> Optional[Chunk]:
+        """Busca chunk por ID"""
+        return self.game_service.chunk_repository.find_by_id(chunk_id)
+
+    def get_map_by_id(self, map_id: int) -> Optional['Mapa']:
+        """Busca mapa por ID"""
+        from ..models.mapa import Mapa, TurnoType
+        
+        try:
+            # Try to find the map by ID from the mapa repository
+            mapas = self.game_service.mapa_repository.find_all()
+            for mapa in mapas:
+                if mapa.id_mapa == map_id:
+                    return mapa
+            return None
+        except Exception as e:
+            print(f"Erro ao buscar mapa {map_id}: {str(e)}")
+            return None
+
+    def get_bioma_by_id(self, bioma_id: int) -> Optional['Bioma']:
+        """Busca bioma por ID"""
+        from ..models.bioma import Bioma
+        
+        try:
+            # Use the bioma repository from game_service
+            bioma = self.game_service.bioma_repository.find_by_id(bioma_id)
+            return bioma
+        except Exception as e:
+            print(f"Erro ao buscar bioma {bioma_id}: {str(e)}")
+            return None

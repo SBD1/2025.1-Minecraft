@@ -59,6 +59,7 @@ class GameServiceImpl(GameService):
 
     def __init__(self):
         if not GameServiceImpl._initialized:
+            self.bioma_repository = BiomaRepositoryImpl()
             self.chunk_repository = ChunkRepositoryImpl()
             self.mapa_repository = MapaRepositoryImpl()
             self.player_repository = PlayerRepositoryImpl()
@@ -184,10 +185,15 @@ class GameServiceImpl(GameService):
             "chunks_por_turno": chunks_por_turno
         }
 
-    def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
+    def create_new_player(self, nome: str, localizacao: str = "1") -> Dict[str, Any]:
+        # O chunk 1 é o inicial do deserto (ver docs/database.rst)
         existing = [p for p in self.player_repository.find_all() if p.nome == nome]
         if existing:
             return {"error": "Nome de jogador já existe"}
+        
+        # Get the chunk to format the location properly
+        chunk = self.chunk_repository.find_by_id(1)  # Chunk 1 (Deserto)
+        initial_location = f"Mapa {chunk.id_mapa} - Chunk {chunk.id_chunk}" if chunk else "1"
         
         player = Player(
             id_player=0,  # Será definido pelo repository
@@ -195,7 +201,7 @@ class GameServiceImpl(GameService):
             vida_maxima=100,
             vida_atual=100,
             forca=10,
-            localizacao=localizacao,
+            localizacao=initial_location,  # Use proper format
             nivel=1,
             experiencia=0
         )
