@@ -152,8 +152,8 @@ class TestRepositoryPattern:
         # Arrange
         mock_player = Player(1, "Jogador", 100, 100, 10, "Spawn", 1, 0)
         mock_chunk = Chunk(5, 1, 1, 4, 0)  # id_chunk, id_bioma, id_mapa, x, y
-        mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa_Principal - Chunk 5", 1, 0)
-        
+        mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa 1 - Chunk 5", 1, 0)
+                
         # Mock dos repositories
         with patch.object(PlayerRepositoryImpl, 'find_by_id', return_value=mock_player), \
              patch.object(ChunkRepositoryImpl, 'find_by_id', return_value=mock_chunk), \
