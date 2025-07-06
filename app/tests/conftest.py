@@ -14,8 +14,14 @@ def mock_db_connection():
     """Mock para conexão com banco de dados"""
     mock_conn = Mock()
     mock_cursor = Mock()
-    mock_conn.cursor.return_value.__enter__.return_value = mock_cursor
+    # Setup cursor as context manager
+    mock_cursor_cm = Mock()
+    mock_cursor_cm.__enter__.return_value = mock_cursor
+    mock_cursor_cm.__exit__.return_value = None
+    mock_conn.cursor.return_value = mock_cursor_cm
+    # Setup connection as context manager
     mock_conn.__enter__.return_value = mock_conn
+    mock_conn.__exit__.return_value = None
     return mock_conn, mock_cursor
 
 @pytest.fixture

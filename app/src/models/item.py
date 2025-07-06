@@ -23,3 +23,7 @@ class Item:
     tipo: str
     poder: Optional[int] = None
     durabilidade: Optional[int] = None
+    
+    def __hash__(self) -> int:
+        """Hash baseado no ID do item"""
+        return hash(self.id_item)
