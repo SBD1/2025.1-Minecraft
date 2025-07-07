@@ -13,38 +13,66 @@ SELECT * FROM Bioma;
 SELECT * FROM Chunk;
 
 -- Seleciona todos os jogadores
-SELECT * FROM Jogador;
+SELECT * FROM Player;
 
 -- Seleciona todos os inventários
 SELECT * FROM Inventario;
 
+-- Seleciona todos os aldeões
+SELECT * FROM Aldeao;
+
 -- Consulta 1: Jogadores e sua Localização Atual
 -- Mostra em qual chunk, bioma, mapa e turno cada jogador está.
 SELECT
-    j.Nome AS Nome_Jogador,
-    j.Vida_atual,
-    j.xp,
-    c.Numero_chunk,
-    c.Id_bioma AS Bioma,
-    c.Id_mapa_nome AS Mapa,
-    c.Id_mapa_turno AS Turno
+    p.nome AS Nome_Jogador,
+    p.vida_atual,
+    p.experiencia,
+    c.id_chunk,
+    b.nome AS Bioma,
+    m.nome AS Mapa,
+    m.turno AS Turno
 FROM
-    Jogador j
-JOIN
-    Chunk c ON j.Id_Chunk_Atual = c.Numero_chunk;
+    Player p
+LEFT JOIN
+    Chunk c ON p.current_chunk_id = c.id_chunk
+LEFT JOIN
+    Bioma b ON c.id_bioma = b.id_bioma
+LEFT JOIN
+    Mapa m ON c.id_mapa = m.id_mapa;
 
 
 -- Consulta 2: Inventário de Cada Jogador
--- Lista os itens, armadura e arma equipada para cada jogador.
+-- Lista os itens e quantidades para cada jogador.
 SELECT
-    j.Nome AS Nome_Jogador,
-    i.Instancia_Item,
-    i.ArmaduraEquipada,
-    i.ArmaEquipada
+    p.nome AS Nome_Jogador,
+    i.nome AS Item,
+    inv.quantidade
 FROM
-    Inventario i
+    Inventario inv
 JOIN
-    Jogador j ON i.id_jogador = j.Id_jogador; -- Assumindo que 'Id_jogador' é a chave primária da tabela Jogador.
+    Player p ON inv.player_id = p.id_player
+JOIN
+    Item i ON inv.item_id = i.id_item;
+
+
+-- Consulta 3: Aldeões por Chunk
+-- Lista aldeões e suas localizações
+SELECT
+    a.nome AS Nome_Aldeao,
+    a.profissao AS Profissao,
+    a.nivel_profissao AS Nivel,
+    a.vida_atual AS Vida,
+    c.x AS Chunk_X,
+    c.y AS Chunk_Y,
+    b.nome AS Bioma
+FROM
+    Aldeao a
+JOIN
+    Chunk c ON a.id_chunk = c.id_chunk
+JOIN
+    Bioma b ON c.id_bioma = b.id_bioma
+WHERE
+    a.ativo = TRUE;
 
 
 -- Consulta 3: Detalhes Completos dos Chunks

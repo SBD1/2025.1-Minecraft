@@ -12,11 +12,21 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ./db/ddl.sql:/docker-entrypoint-initdb.d/1_ddl.sql
-      - ./db/dml.sql:/docker-entrypoint-initdb.d/3_dml.sql
-      - ./db/dml_1000_chunks.sql:/docker-entrypoint-initdb.d/6_dml_1000_chunks.sql
-      - ./db/dml_inst.sql:/docker-entrypoint-initdb.d/4_dml_inst.sql
-      - ./db/create_user.sql:/docker-entrypoint-initdb.d/5_create_user.sql
+      # Estrutura organizada e faseada
+      - ./db/init/01_users/create_users.sql:/docker-entrypoint-initdb.d/01_create_users.sql
+      - ./db/init/02_schema/01_drop_tables.sql:/docker-entrypoint-initdb.d/02_drop_tables.sql
+      - ./db/init/02_schema/02_base_tables.sql:/docker-entrypoint-initdb.d/03_base_tables.sql
+      - ./db/init/02_schema/03_dependent_tables.sql:/docker-entrypoint-initdb.d/04_dependent_tables.sql
+      - ./db/init/02_schema/03_5_aldeao_table.sql:/docker-entrypoint-initdb.d/04_5_aldeao_table.sql
+      - ./db/init/02_schema/04_relationship_tables.sql:/docker-entrypoint-initdb.d/05_relationship_tables.sql
+      - ./db/init/02_schema/05_game_tables.sql:/docker-entrypoint-initdb.d/06_game_tables.sql
+      - ./db/init/02_schema/06_indexes.sql:/docker-entrypoint-initdb.d/07_indexes.sql
+      - ./db/init/03_data/01_basic_data.sql:/docker-entrypoint-initdb.d/08_basic_data.sql
+      - ./db/init/03_data/02_chunks.sql:/docker-entrypoint-initdb.d/09_chunks.sql
+      - ./db/init/03_data/03_players.sql:/docker-entrypoint-initdb.d/10_players.sql
+      - ./db/init/03_data/03_5_aldeao_data.sql:/docker-entrypoint-initdb.d/10_5_aldeao_data.sql
+      - ./db/init/03_data/04_inventory.sql:/docker-entrypoint-initdb.d/11_inventory.sql
+      - ./db/init/03_data/05_game_data.sql:/docker-entrypoint-initdb.d/12_game_data.sql
       - db_data:/var/lib/postgresql/data
 
   app:

@@ -185,10 +185,13 @@ A documentação será gerada em `docs/build/html/`.
 │           └── db_helpers.py
 ├── db/                   # Scripts do banco de dados
 │   ├── Dockerfile.db      # Container do PostgreSQL
-│   ├── ddl.sql           # Definição das tabelas
-│   ├── trigger_SP.sql    # Triggers e stored procedures
-│   ├── dml.sql           # Dados iniciais
-│   └── dml_inst.sql      # Dados de instância
+│   ├── init_database.sh   # Script de inicialização
+│   ├── README_STRUCTURE.md # Documentação da nova estrutura
+│   ├── init/             # Estrutura organizada de inicialização
+│   │   ├── 01_users/     # Criação de usuários
+│   │   ├── 02_schema/    # Definição de tabelas e índices
+│   │   └── 03_data/      # Inserção de dados
+│   └── dql.sql           # Consultas de exemplo
 ├── docs/                 # Documentação
 │   ├── source/           # Arquivos fonte da documentação
 │   ├── build/            # Documentação gerada

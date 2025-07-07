@@ -65,6 +65,42 @@ def check_tables_exist():
         print(f"Erro ao verificar tabelas: {str(e)}")
         return False
 
+def check_new_structure_tables():
+    """Verifica se todas as tabelas da nova estrutura existem"""
+    try:
+        conn = connection_db()
+        cursor = conn.cursor()
+        
+        # Lista de tabelas esperadas na nova estrutura
+        expected_tables = [
+            'bioma', 'mapa', 'item', 'chunk', 'player', 
+            'inventario', 'fantasma', 'pontes', 'totem', 'aldeao'
+        ]
+        
+        for table in expected_tables:
+            cursor.execute("""
+                SELECT EXISTS (
+                    SELECT 1 FROM information_schema.tables 
+                    WHERE table_name = %s
+                )
+            """, (table,))
+            
+            exists = cursor.fetchone()[0]
+            if not exists:
+                print(f"Tabela '{table}' não encontrada")
+                cursor.close()
+                conn.close()
+                return False
+        
+        cursor.close()
+        conn.close()
+        print("Todas as tabelas da nova estrutura existem")
+        return True
+        
+    except Exception as e:
+        print(f"Erro ao verificar estrutura das tabelas: {str(e)}")
+        return False
+
 def check_map_with_1000_chunks():
     """Verifica se o mapa com 1000 chunks já foi criado"""
     try:
@@ -113,7 +149,7 @@ def check_map_with_1000_chunks():
         return False
 
 def check_data_seeded():
-    """Verifica se os dados iniciais foram inseridos"""
+    """Verifica se os dados iniciais foram inseridos (incluindo novas tabelas)"""
     try:
         conn = connection_db()
         cursor = conn.cursor()
@@ -131,13 +167,34 @@ def check_data_seeded():
         cursor.execute("SELECT COUNT(*) FROM Mapa")
         mapa_count = cursor.fetchone()[0]
         
+        cursor.execute("SELECT COUNT(*) FROM Item")
+        item_count = cursor.fetchone()[0]
+        
+        # Verificar novas tabelas
+        cursor.execute("SELECT COUNT(*) FROM fantasma")
+        fantasma_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM pontes")
+        pontes_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM totem")
+        totem_count = cursor.fetchone()[0]
+        
+        cursor.execute("SELECT COUNT(*) FROM Aldeao")
+        aldeao_count = cursor.fetchone()[0]
+        
         cursor.close()
         conn.close()
         
-        # Verificar se há pelo menos alguns dados
-        if player_count == 0 and chunk_count == 0 and bioma_count == 0 and mapa_count == 0:
-            print("Dados iniciais (seed) não encontrados")
+        # Verificar se há pelo menos alguns dados nas tabelas básicas
+        if bioma_count == 0 or mapa_count == 0 or item_count == 0:
+            print("Dados iniciais básicos não encontrados")
             return False
+        
+        print(f"Dados encontrados - Players: {player_count}, Chunks: {chunk_count}, "
+              f"Biomas: {bioma_count}, Mapas: {mapa_count}, Items: {item_count}, "
+              f"Fantasmas: {fantasma_count}, Pontes: {pontes_count}, Totens: {totem_count}, "
+              f"Aldeões: {aldeao_count}")
         
         return True
         
@@ -146,33 +203,43 @@ def check_data_seeded():
         return False
 
 def initialize_database():
-    """Inicializa o banco de dados com dados básicos"""
+    """Inicializa o banco de dados com a nova estrutura organizada"""
     try:
         conn = connection_db()
         
-        # Executar scripts SQL na ordem correta
-        execute_sql_file(conn, "db/ddl.sql")
+        # Executar scripts SQL na ordem correta da nova estrutura
+        script_order = [
+            # Fase 1: Usuários
+            "db/init/01_users/create_users.sql",
+            
+            # Fase 2: Schema
+            "db/init/02_schema/01_drop_tables.sql",
+            "db/init/02_schema/02_base_tables.sql",
+            "db/init/02_schema/03_dependent_tables.sql",
+            "db/init/02_schema/03_5_aldeao_table.sql",
+            "db/init/02_schema/04_relationship_tables.sql",
+            "db/init/02_schema/05_game_tables.sql",
+            "db/init/02_schema/06_indexes.sql",
+            
+            # Fase 3: Dados
+            "db/init/03_data/01_basic_data.sql",
+            "db/init/03_data/02_chunks.sql",
+            "db/init/03_data/03_players.sql",
+            "db/init/03_data/03_5_aldeao_data.sql",
+            "db/init/03_data/04_inventory.sql",
+            "db/init/03_data/05_game_data.sql"
+        ]
         
-        # Verificar se existe o arquivo de triggers antes de executar
-        if os.path.exists("db/trigger_SP.sql"):
-            execute_sql_file(conn, "db/trigger_SP.sql")
-        
-        execute_sql_file(conn, "db/dml.sql")
-        
-        # Verificar se existe o arquivo de instâncias antes de executar
-        if os.path.exists("db/dml_inst.sql"):
-            execute_sql_file(conn, "db/dml_inst.sql")
-        
-        print("Executando script com mapa de 1000 chunks...")
-        if os.path.exists("db/dml_1000_chunks.sql"):
-            execute_sql_file(conn, "db/dml_1000_chunks.sql")
-        
-        # Executar script adicional se existir
-        if os.path.exists("db/create_user.sql"):
-            execute_sql_file(conn, "db/create_user.sql")
+        for script_path in script_order:
+            if os.path.exists(script_path):
+                if not execute_sql_file(conn, script_path):
+                    print(f"Falha ao executar {script_path}")
+                    return False
+            else:
+                print(f"Arquivo não encontrado: {script_path}")
         
         conn.close()
-        print("Banco de dados inicializado com sucesso!")
+        print("Banco de dados inicializado com sucesso usando nova estrutura!")
         return True
         
     except Exception as e:
@@ -188,19 +255,24 @@ def setup_database():
         print("Erro: Não foi possível conectar ao banco de dados")
         return False
     
-    # Verificar estrutura das tabelas
-    if not check_tables_exist():
-        print("Inicializando estrutura e dados do banco...")
+    # Verificar estrutura das tabelas da nova organização
+    if not check_new_structure_tables():
+        print("Inicializando estrutura e dados do banco com nova organização...")
         if not initialize_database():
             print("Falha na inicialização do banco de dados.")
             return False
     
-    # Verificar dados iniciais
+    # Verificar se há dados nas tabelas (fallback para método antigo se necessário)
     if not check_data_seeded():
-        print("Inicializando dados básicos...")
-        if not initialize_database():
-            print("Falha na inicialização dos dados.")
-            return False
+        try:
+            # Tentar usar repositórios se estiverem disponíveis
+            if not check_tables_exist():
+                print("Inicializando dados básicos...")
+                if not initialize_database():
+                    print("Falha na inicialização dos dados.")
+                    return False
+        except Exception as e:
+            print(f"Repositórios não disponíveis, usando verificação direta: {str(e)}")
     
-    print("Banco de dados já configurado e pronto para uso!")
+    print("Banco de dados configurado e pronto para uso!")
     return True

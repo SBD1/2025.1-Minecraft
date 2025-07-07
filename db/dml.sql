@@ -32,18 +32,14 @@ VALUES
   ('Player2', 120, 120, 12, NULL, 1, 50, NULL)
 ON CONFLICT (nome) DO NOTHING;
 
--- Inventário de exemplo
+-- Inventário de exemplo (corrigido)
 INSERT INTO Inventario (player_id, item_id, quantidade)
 VALUES
   (1, (SELECT id_item FROM Item WHERE nome='Espada de Ferro'), 1),
   (1, (SELECT id_item FROM Item WHERE nome='Maçã'), 5)
-ON CONFLICT ON CONSTRAINT uk_inventario_player_item DO NOTHING;
-    (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
-    (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo')
-ON CONFLICT (id_jogador, id_inventario) DO NOTHING; 
+ON CONFLICT ON CONSTRAINT uk_inventario_player_item DO NOTHING; 
 
--- Fantasmas construtores
-Fantasmas construtores (máx 5)
+-- Fantasmas construtores (máx 5)
 INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
 ('Construtor 1', 'construtor', 'Chunk-001', TRUE),
 ('Construtor 2', 'construtor', 'Chunk-002', TRUE),
@@ -60,7 +56,7 @@ INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
 ('Minerador 5', 'minerador', 'Chunk-005', TRUE);
 
 -- Inserindo pontes
-INSERT INTO ponte (chunk_origem, chunk_destino, durabilidade) VALUES
+INSERT INTO pontes (chunk_origem, chunk_destino, durabilidade) VALUES
 ('Chunk-001', 'Chunk-002', 100),
 ('Chunk-002', 'Chunk-003', 80),
 ('Chunk-004', 'Chunk-005', 90);

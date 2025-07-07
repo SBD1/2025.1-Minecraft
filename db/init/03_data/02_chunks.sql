@@ -1,4 +1,4 @@
--- Gera 1000 chunks para Dia e Noite
+-- Gera chunks (1000 para Dia e 1000 para Noite)
 DO $$
 DECLARE
   chunk_id INTEGER := 1;
@@ -21,13 +21,14 @@ BEGIN
         ELSE
           biome_name := CASE WHEN (x+y)%2=0 THEN 'Selva' ELSE 'Floresta' END;
         END IF;
+        
         INSERT INTO Chunk (id_bioma, id_mapa, x, y)
         VALUES (
           (SELECT id_bioma FROM Bioma WHERE nome=biome_name),
           (SELECT id_mapa  FROM Mapa  WHERE nome='Mapa_Principal' AND turno=current_turno),
           x-1, y-1
-        )
-        ON CONFLICT (id_chunk) DO NOTHING;
+        );
+        
         chunk_id := chunk_id + 1;
         EXIT WHEN chunk_id > (CASE WHEN current_turno='Noite' THEN 2000 ELSE 1000 END);
       END LOOP;
