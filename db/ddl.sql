@@ -42,20 +42,18 @@ CREATE TABLE IF NOT EXISTS Inventario (
     FOREIGN KEY (id_jogador) REFERENCES Jogador(Id_Jogador) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS fantasmas_construtores (
+-- DDL: criação da tabela fantasma
+CREATE TABLE fantasma (
     id SERIAL PRIMARY KEY,
-    nome TEXT NOT NULL,
-    chunk TEXT NOT NULL,
-    tipo_obra TEXT CHECK (tipo_obra IN ('totem', 'ponte')),
-    ativo BOOLEAN DEFAULT TRUE
+    nome VARCHAR(100) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,         -- 'minerador' ou 'construtor'
+    chunk VARCHAR(50) NOT NULL,        -- nome ou id do chunk onde está o fantasma
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-CREATE TABLE IF NOT EXISTS fantasmas_mineradores (
-    id SERIAL PRIMARY KEY,
-    nome TEXT NOT NULL,
-    chunk TEXT NOT NULL,
-    ativo BOOLEAN DEFAULT TRUE
-);
+-- Índices para melhorar busca
+CREATE INDEX idx_fantasma_tipo ON fantasma(tipo);
+CREATE INDEX idx_fantasma_chunk ON fantasma(chunk);
 
 CREATE TABLE IF NOT EXISTS pontes (
     id SERIAL PRIMARY KEY,
