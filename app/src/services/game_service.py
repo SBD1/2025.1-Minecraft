@@ -15,6 +15,14 @@ from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
 from ..models.chunk import Chunk
 
+# Imports adicionais para funcionalidade do mundo
+try:
+    from ..repositories.mundo_repository import MundoRepositoryImpl
+    from ..models.mundo import Mundo
+    MUNDO_AVAILABLE = True
+except ImportError:
+    MUNDO_AVAILABLE = False
+
 
 class GameService(ABC):
     """
@@ -44,6 +52,17 @@ class GameService(ABC):
     def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
         pass
 
+    # Métodos adicionais para funcionalidade do mundo
+    @abstractmethod
+    def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
+        """Retorna o estado atual do mundo (turno, ticks)"""
+        pass
+
+    @abstractmethod
+    def avancar_tempo(self) -> Dict[str, Any]:
+        """Avança o tempo do mundo e retorna o novo estado"""
+        pass
+
 
 class GameServiceImpl(GameService):
     """
@@ -63,6 +82,14 @@ class GameServiceImpl(GameService):
             self.chunk_repository = ChunkRepositoryImpl()
             self.mapa_repository = MapaRepositoryImpl()
             self.player_repository = PlayerRepositoryImpl()
+            
+            # Inicializa repositório do mundo se disponível
+            if MUNDO_AVAILABLE:
+                self.mundo_repository = MundoRepositoryImpl()
+                self.TEMPO_MAX_TURNO = 20  # Turno dura 20 ações
+            else:
+                self.mundo_repository = None
+                
             GameServiceImpl._initialized = True
 
     @classmethod
@@ -219,3 +246,74 @@ class GameServiceImpl(GameService):
                 "localizacao": saved.localizacao
             }
         }
+
+    def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
+        """Retorna o estado atual do mundo (turno, ticks)"""
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return {"error": "Funcionalidade do mundo não disponível"}
+        
+        mundo = self.mundo_repository.get_estado()
+        if not mundo:
+            return {"error": "Estado do mundo não encontrado"}
+        
+        return {
+            "turno_atual": mundo.turno_atual,
+            "ticks_no_turno": mundo.ticks_no_turno,
+            "tempo_max_turno": self.TEMPO_MAX_TURNO,
+            "progresso": f"{mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO}"
+        }
+
+    def avancar_tempo(self) -> Dict[str, Any]:
+        """Avança o tempo do mundo e retorna o novo estado"""
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return {"error": "Funcionalidade do mundo não disponível"}
+        
+        mundo = self.mundo_repository.get_estado()
+        if not mundo:
+            return {"error": "Estado do mundo não encontrado"}
+        
+        # Incrementa o contador de tempo
+        mundo.ticks_no_turno += 1
+        turno_mudou = False
+
+        # Verifica se o tempo do turno acabou
+        if mundo.ticks_no_turno >= self.TEMPO_MAX_TURNO:
+            turno_mudou = True
+            # Muda o turno
+            if mundo.turno_atual == 'Dia':
+                mundo.turno_atual = 'Noite'
+                mensagem = "O sol se pôs. A noite chegou trazendo perigos..."
+            else:
+                mundo.turno_atual = 'Dia'
+                mensagem = "O sol nasce em um novo dia."
+            
+            # Reseta o contador
+            mundo.ticks_no_turno = 0
+        else:
+            mensagem = f"Tempo avança... ({mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO})"
+
+        # Salva o novo estado do mundo no banco
+        if self.mundo_repository.update_estado(mundo):
+            return {
+                "success": True,
+                "turno_atual": mundo.turno_atual,
+                "ticks_no_turno": mundo.ticks_no_turno,
+                "turno_mudou": turno_mudou,
+                "mensagem": mensagem,
+                "progresso": f"{mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO}"
+            }
+        else:
+            return {"error": "Falha ao atualizar estado do mundo"}
+
+    def _avancar_relogio_mundo(self) -> Optional['Mundo']:
+        """
+        Método privado para incrementar o tempo automaticamente em ações que consomem tempo.
+        É chamado por ações como mover-se.
+        """
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return None
+        
+        resultado = self.avancar_tempo()
+        if resultado.get("success"):
+            return self.mundo_repository.get_estado()
+        return None
