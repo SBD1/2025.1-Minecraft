@@ -17,7 +17,6 @@ from ..repositories import (
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
 from ..models.chunk import Chunk
-<<<<<<< HEAD
 
 # Imports adicionais para funcionalidade do mundo
 try:
@@ -27,11 +26,9 @@ try:
 except ImportError:
     MUNDO_AVAILABLE = False
 
-=======
 from ..models.fantasma import Fantasma
 from ..models.totem import Totem 
 from ..models.ponte import Ponte
->>>>>>> feature/fantasma
 
 class GameService(ABC):
     """
@@ -61,7 +58,6 @@ class GameService(ABC):
     def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
         pass
 
-<<<<<<< HEAD
     # Métodos adicionais para funcionalidade do mundo
     @abstractmethod
     def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
@@ -73,7 +69,6 @@ class GameService(ABC):
         """Avança o tempo do mundo e retorna o novo estado"""
         pass
 
-=======
     @abstractmethod
     def get_all_totens(self) -> List[Dict[str, Any]]:
         pass
@@ -81,7 +76,6 @@ class GameService(ABC):
     @abstractmethod
     def get_all_pontes(self) -> List[Dict[str, Any]]:
         pass
->>>>>>> feature/fantasma
 
 class GameServiceImpl(GameService):
     """
@@ -101,7 +95,6 @@ class GameServiceImpl(GameService):
             self.chunk_repository = ChunkRepositoryImpl()
             self.mapa_repository = MapaRepositoryImpl()
             self.player_repository = PlayerRepositoryImpl()
-<<<<<<< HEAD
             
             # Inicializa repositório do mundo se disponível
             if MUNDO_AVAILABLE:
@@ -110,11 +103,9 @@ class GameServiceImpl(GameService):
             else:
                 self.mundo_repository = None
                 
-=======
             self.fantasma_repository = FantasmaRepositoryImpl()
             self.totem_repository = TotemRepositoryImpl()  
             self.ponte_repository = PonteRepositoryImpl()
->>>>>>> feature/fantasma
             GameServiceImpl._initialized = True
 
     @classmethod
