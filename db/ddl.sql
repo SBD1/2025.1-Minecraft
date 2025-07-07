@@ -55,6 +55,35 @@ CREATE TABLE Inventario (
     quantidade   INT    NOT NULL,
     CONSTRAINT uk_inventario_player_item UNIQUE(player_id, item_id)
 );
+-- DDL: criação da tabela fantasma
+CREATE TABLE fantasma (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    tipo VARCHAR(20) NOT NULL,         -- 'minerador' ou 'construtor'
+    chunk VARCHAR(50) NOT NULL,        -- nome ou id do chunk onde está o fantasma
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- Índices para melhorar busca
+CREATE INDEX idx_fantasma_tipo ON fantasma(tipo);
+CREATE INDEX idx_fantasma_chunk ON fantasma(chunk);
+
+CREATE TABLE IF NOT EXISTS pontes (
+    id SERIAL PRIMARY KEY,
+    chunk_origem TEXT NOT NULL,
+    chunk_destino TEXT NOT NULL,
+    construida BOOLEAN DEFAULT FALSE
+);
+
+-- Garante que a coluna e a constraint só sejam adicionadas se não existirem.
+DO $$
+BEGIN
+    -- Adicionar a coluna Id_Chunk_Atual à tabela Jogador se ela não existir
+    -- Note que este bloco 'IF NOT EXISTS' não é padrão SQL, mas é uma extensão comum em PG.
+    -- Ou você pode usar um bloco EXCEPTION WHEN duplicate_column THEN null; como antes
+    IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='jogador' AND column_name='id_chunk_atual') THEN
+        ALTER TABLE Jogador ADD COLUMN Id_Chunk_Atual INTEGER; -- <--- AGORA É INTEGER
+    END IF;
 
 -- Índices de performance
 CREATE INDEX idx_chunk_bioma    ON Chunk (id_bioma);

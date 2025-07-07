@@ -9,11 +9,15 @@ from ..repositories import (
     BiomaRepositoryImpl,
     ChunkRepositoryImpl,
     MapaRepositoryImpl,
-    PlayerRepositoryImpl
+    PlayerRepositoryImpl,
+    FantasmaRepositoryImpl,
+    TotemRepositoryImpl,
+    PonteRepositoryImpl
 )
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
 from ..models.chunk import Chunk
+<<<<<<< HEAD
 
 # Imports adicionais para funcionalidade do mundo
 try:
@@ -23,6 +27,11 @@ try:
 except ImportError:
     MUNDO_AVAILABLE = False
 
+=======
+from ..models.fantasma import Fantasma
+from ..models.totem import Totem 
+from ..models.ponte import Ponte
+>>>>>>> feature/fantasma
 
 class GameService(ABC):
     """
@@ -52,6 +61,7 @@ class GameService(ABC):
     def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
         pass
 
+<<<<<<< HEAD
     # Métodos adicionais para funcionalidade do mundo
     @abstractmethod
     def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
@@ -63,6 +73,15 @@ class GameService(ABC):
         """Avança o tempo do mundo e retorna o novo estado"""
         pass
 
+=======
+    @abstractmethod
+    def get_all_totens(self) -> List[Dict[str, Any]]:
+        pass
+
+    @abstractmethod
+    def get_all_pontes(self) -> List[Dict[str, Any]]:
+        pass
+>>>>>>> feature/fantasma
 
 class GameServiceImpl(GameService):
     """
@@ -82,6 +101,7 @@ class GameServiceImpl(GameService):
             self.chunk_repository = ChunkRepositoryImpl()
             self.mapa_repository = MapaRepositoryImpl()
             self.player_repository = PlayerRepositoryImpl()
+<<<<<<< HEAD
             
             # Inicializa repositório do mundo se disponível
             if MUNDO_AVAILABLE:
@@ -90,6 +110,11 @@ class GameServiceImpl(GameService):
             else:
                 self.mundo_repository = None
                 
+=======
+            self.fantasma_repository = FantasmaRepositoryImpl()
+            self.totem_repository = TotemRepositoryImpl()  
+            self.ponte_repository = PonteRepositoryImpl()
+>>>>>>> feature/fantasma
             GameServiceImpl._initialized = True
 
     @classmethod
@@ -246,6 +271,78 @@ class GameServiceImpl(GameService):
                 "localizacao": saved.localizacao
             }
         }
+    
+    def get_all_totens(self) -> List[Dict[str, Any]]:
+        totens = self.totem_repository.find_all()
+        return [
+            {
+                "id": totem.id_totem,
+                "id_jogador": totem.id_jogador,
+                "id_chunk": totem.id_chunk,
+                "ativo": totem.ativo
+            }
+            for totem in totens
+        ]
+
+    def get_all_pontes(self) -> List[Dict[str, Any]]:
+        pontes = self.ponte_repository.find_all()
+        return [
+            {
+                "id": ponte.id_ponte,
+                "chunk_origem": ponte.chunk_origem,
+                "chunk_destino": ponte.chunk_destino,
+                "durabilidade": ponte.durabilidade
+            }
+            for ponte in pontes
+        ]
+    
+    def get_all_fantasmas(self) -> List[Dict[str, Any]]:
+        fantasmas = self.fantasma_repository.find_all()
+        return [f.to_dict() for f in fantasmas]
+
+    def realizar_acao_fantasma(self, fantasma_id: int, acao: str, **kwargs) -> Dict[str, Any]:
+        fantasma = self.fantasma_repository.find_by_id(fantasma_id)
+        if not fantasma:
+            return {"error": "Fantasma não encontrado"}
+
+        if fantasma.acao_realizada:
+            return {"error": "Fantasma já realizou sua ação"}
+
+        # Minerador
+        if fantasma.tipo == "minerador" and acao == "minerar":
+            material = kwargs.get("material")
+            if not material:
+                return {"error": "Material não especificado"}
+            resultado = fantasma.minerar(material)
+            self.fantasma_repository.save(fantasma)
+            return {
+                "success": True,
+                "acao": "minerar",
+                "fantasma_id": fantasma.id,
+                "resultado": resultado
+            }
+
+        # Construtor
+        elif fantasma.tipo == "construtor" and acao == "construir":
+            tipo_construcao = kwargs.get("tipo")
+            recursos = kwargs.get("recursos")
+            destino_chunk = kwargs.get("destino_chunk", None)
+            if not tipo_construcao or not recursos:
+                return {"error": "Tipo de construção ou recursos ausentes"}
+            resposta = fantasma.construir(tipo_construcao, recursos, destino_chunk)
+            self.fantasma_repository.save(fantasma)
+            return {
+                "success": True,
+                "acao": "construir",
+                "fantasma_id": fantasma.id,
+                "resultado": resposta,
+                "recursos_atuais": recursos
+            }
+
+        return {"error": "Ação ou tipo de fantasma inválido"}
+
+
+    
 
     def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
         """Retorna o estado atual do mundo (turno, ticks)"""
@@ -317,3 +414,28 @@ class GameServiceImpl(GameService):
         if resultado.get("success"):
             return self.mundo_repository.get_estado()
         return None
+        # Busca jogadores no bioma
+        players_in_bioma = service.get_players_in_bioma("Deserto")
+        print(f"Jogadores no deserto: {players_in_bioma}")
+
+    # 5. Listar todos os totens
+    totens = service.get_all_totens()
+    print(f"Totens: {totens}")
+
+    # 6. Listar todas as pontes
+    pontes = service.get_all_pontes()
+    print(f"Pontes: {pontes}")
+
+     # 7. Listar fantasmas
+    fantasmas = service.get_all_fantasmas()
+    print(f"Fantasmas: {fantasmas}")
+
+    # 8. Fazer fantasma minerar madeira
+    if fantasmas:
+        f1 = fantasmas[0]
+        if f1["tipo"] == "minerador":
+            resultado_mineracao = service.realizar_acao_fantasma(f1["id"], acao="minerar", material="madeira")
+            print(f"Ação de mineração: {resultado_mineracao}")
+
+    
+    return service 

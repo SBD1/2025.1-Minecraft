@@ -38,3 +38,35 @@ VALUES
   (1, (SELECT id_item FROM Item WHERE nome='Espada de Ferro'), 1),
   (1, (SELECT id_item FROM Item WHERE nome='Maçã'), 5)
 ON CONFLICT ON CONSTRAINT uk_inventario_player_item DO NOTHING;
+    (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
+    (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo')
+ON CONFLICT (id_jogador, id_inventario) DO NOTHING; 
+
+-- Fantasmas construtores
+Fantasmas construtores (máx 5)
+INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
+('Construtor 1', 'construtor', 'Chunk-001', TRUE),
+('Construtor 2', 'construtor', 'Chunk-002', TRUE),
+('Construtor 3', 'construtor', 'Chunk-003', TRUE),
+('Construtor 4', 'construtor', 'Chunk-004', TRUE),
+('Construtor 5', 'construtor', 'Chunk-005', TRUE);
+
+-- Fantasmas mineradores (máx 5)
+INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
+('Minerador 1', 'minerador', 'Chunk-001', TRUE),
+('Minerador 2', 'minerador', 'Chunk-002', TRUE),
+('Minerador 3', 'minerador', 'Chunk-003', TRUE),
+('Minerador 4', 'minerador', 'Chunk-004', TRUE),
+('Minerador 5', 'minerador', 'Chunk-005', TRUE);
+
+-- Inserindo pontes
+INSERT INTO ponte (chunk_origem, chunk_destino, durabilidade) VALUES
+('Chunk-001', 'Chunk-002', 100),
+('Chunk-002', 'Chunk-003', 80),
+('Chunk-004', 'Chunk-005', 90);
+
+-- Inserindo totens
+INSERT INTO totem (nome, localizacao, tipo, ativo) VALUES
+('Totem do Norte', 'Chunk-001', 'ancestral', TRUE),
+('Totem do Sul', 'Chunk-004', 'protetor', TRUE),
+('Totem Central', 'Chunk-003', 'ancestral', TRUE);
