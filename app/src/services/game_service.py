@@ -409,24 +409,30 @@ class GameServiceImpl(GameService):
         players_in_bioma = service.get_players_in_bioma("Deserto")
         print(f"Jogadores no deserto: {players_in_bioma}")
 
-    # 5. Listar todos os totens
+def exemplo_uso_service():
+    service = GameServiceImpl.get_instance()
+
+    # 1. Listar todos os totens
     totens = service.get_all_totens()
     print(f"Totens: {totens}")
 
-    # 6. Listar todas as pontes
+    # 2. Listar todas as pontes
     pontes = service.get_all_pontes()
     print(f"Pontes: {pontes}")
 
-     # 7. Listar fantasmas
+    # 3. Listar fantasmas
     fantasmas = service.get_all_fantasmas()
     print(f"Fantasmas: {fantasmas}")
 
-    # 8. Fazer fantasma minerar madeira
+    # 4. Fazer fantasma minerar madeira
     if fantasmas:
         f1 = fantasmas[0]
         if f1["tipo"] == "minerador":
-            resultado_mineracao = service.realizar_acao_fantasma(f1["id"], acao="minerar", material="madeira")
+            resultado_mineracao = service.realizar_acao_fantasma(
+                f1["id"], acao="minerar", material="madeira"
+            )
             print(f"Ação de mineração: {resultado_mineracao}")
 
-    
-    return service 
+    return service
+
+
