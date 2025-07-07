@@ -24,9 +24,9 @@ class TestRepositoryPattern:
         """Testa busca de chunks por mapa usando repository"""
         # Arrange
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),  # id_chunk, id_bioma, id_mapa, x, y
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 1, 2, 0),
         ]
         
         # Mock do repository
@@ -38,16 +38,16 @@ class TestRepositoryPattern:
             
             # Assert
             assert len(chunks) == 3
-            assert chunks[0].id_bioma == "Deserto"
-            assert chunks[1].id_bioma == "Oceano"
-            assert chunks[2].id_bioma == "Deserto"
+            assert chunks[0].id_bioma == 1
+            assert chunks[1].id_bioma == 2
+            assert chunks[2].id_bioma == 1
     
     def test_mapa_repository_find_by_turno(self):
         """Testa busca de mapas por turno usando repository"""
         # Arrange
         mock_mapas = [
-            Mapa("Mapa_Principal", TurnoType.DIA),
-            Mapa("Mapa_Secundario", TurnoType.DIA),
+            Mapa(1, "Mapa_Principal", TurnoType.DIA),
+            Mapa(2, "Mapa_Secundario", TurnoType.DIA),
         ]
         
         # Mock do repository
@@ -88,11 +88,11 @@ class TestRepositoryPattern:
     def test_game_service_get_map_info(self):
         """Testa service usando repositories"""
         # Arrange
-        mock_mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mock_mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 1, 2, 0),
         ]
         
         # Mock dos repositories
@@ -108,8 +108,8 @@ class TestRepositoryPattern:
             assert info["nome"] == "Mapa_Principal"
             assert info["turno"] == "Dia"
             assert info["total_chunks"] == 3
-            assert info["distribuicao_biomas"]["Deserto"] == 2
-            assert info["distribuicao_biomas"]["Oceano"] == 1
+            assert info["distribuicao_biomas"][1] == 2  # id_bioma=1 (era Deserto)
+            assert info["distribuicao_biomas"][2] == 1  # id_bioma=2 (era Oceano)
     
     def test_game_service_create_new_player(self):
         """Testa criação de novo jogador via service"""
@@ -151,9 +151,9 @@ class TestRepositoryPattern:
         """Testa movimento de jogador para chunk"""
         # Arrange
         mock_player = Player(1, "Jogador", 100, 100, 10, "Spawn", 1, 0)
-        mock_chunk = Chunk(5, "Deserto", "Mapa_Principal", "Dia")
-        mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa_Principal - Chunk 5", 1, 0)
-        
+        mock_chunk = Chunk(5, 1, 1, 4, 0)  # id_chunk, id_bioma, id_mapa, x, y
+        mock_updated_player = Player(1, "Jogador", 100, 100, 10, "Mapa 1 - Chunk 5", 1, 0)
+                
         # Mock dos repositories
         with patch.object(PlayerRepositoryImpl, 'find_by_id', return_value=mock_player), \
              patch.object(ChunkRepositoryImpl, 'find_by_id', return_value=mock_chunk), \
@@ -167,21 +167,21 @@ class TestRepositoryPattern:
             # Assert
             assert result["success"] is True
             assert "movido para" in result["message"]
-            assert result["player"]["localizacao"] == "Mapa_Principal - Chunk 5"
+            assert result["player"]["localizacao"] == "Mapa 1 - Chunk 5"
             assert result["chunk"]["id"] == 5
-            assert result["chunk"]["bioma"] == "Deserto"
+            assert result["chunk"]["bioma"] == 1  # id_bioma=1
     
     def test_game_service_get_map_statistics(self):
         """Testa obtenção de estatísticas dos mapas"""
         # Arrange
         mock_mapas = [
-            Mapa("Mapa_Principal", TurnoType.DIA),
-            Mapa("Mapa_Principal", TurnoType.NOITE),
+            Mapa(1, "Mapa_Principal", TurnoType.DIA),
+            Mapa(2, "Mapa_Principal", TurnoType.NOITE),
         ]
         mock_chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Noite"),
+            Chunk(1, 1, 1, 0, 0),
+            Chunk(2, 2, 1, 1, 0),
+            Chunk(3, 1, 2, 0, 1),
         ]
         mock_players = [
             Player(1, "Jogador1", 100, 50, 10, "Spawn", 1, 0),  # Vivo

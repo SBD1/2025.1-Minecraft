@@ -37,7 +37,7 @@ class ChunkRepository(ABC):
         pass
     
     @abstractmethod
-    def find_by_bioma(self, bioma_id: str) -> List[Chunk]:
+    def find_by_bioma(self, bioma_id: int) -> List[Chunk]:
         """Busca chunks por bioma"""
         pass
 
@@ -51,9 +51,9 @@ class ChunkRepositoryImpl(ChunkRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno
+                        SELECT id_chunk, id_bioma, id_mapa, x, y
                         FROM chunk
-                        ORDER BY numero_chunk
+                        ORDER BY id_chunk
                     """)
                     
                     results = cursor.fetchall()
@@ -61,10 +61,11 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     for row in results:
                         chunk = Chunk(
-                            numero_chunk=row[0],
+                            id_chunk=row[0],
                             id_bioma=row[1],
-                            id_mapa_nome=row[2],
-                            id_mapa_turno=row[3]
+                            id_mapa=row[2],
+                            x=row[3],
+                            y=row[4]
                         )
                         chunks.append(chunk)
                     
@@ -79,18 +80,18 @@ class ChunkRepositoryImpl(ChunkRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno
+                        SELECT id_chunk, id_bioma, id_mapa, x, y
                         FROM chunk
-                        WHERE numero_chunk = %s
+                        WHERE id_chunk = %s
                     """, (id,))
-                    
                     result = cursor.fetchone()
                     if result:
                         return Chunk(
-                            numero_chunk=result[0],
+                            id_chunk=result[0],
                             id_bioma=result[1],
-                            id_mapa_nome=result[2],
-                            id_mapa_turno=result[3]
+                            id_mapa=result[2],
+                            x=result[3],
+                            y=result[4]
                         )
                     return None
         except Exception as e:
@@ -103,19 +104,23 @@ class ChunkRepositoryImpl(ChunkRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        INSERT INTO chunk (numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno)
-                        VALUES (%s, %s, %s, %s)
-                        ON CONFLICT (numero_chunk, id_mapa_nome, id_mapa_turno)
-                        DO UPDATE SET id_bioma = EXCLUDED.id_bioma
-                        RETURNING numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno
-                    """, (chunk.numero_chunk, chunk.id_bioma, chunk.id_mapa_nome, chunk.id_mapa_turno))
+                        INSERT INTO chunk (id_chunk, id_bioma, id_mapa, x, y)
+                        VALUES (%s, %s, %s, %s, %s)
+                        ON CONFLICT (id_chunk)
+                        DO UPDATE SET id_bioma = EXCLUDED.id_bioma,
+                                       id_mapa  = EXCLUDED.id_mapa,
+                                       x        = EXCLUDED.x,
+                                       y        = EXCLUDED.y
+                        RETURNING id_chunk, id_bioma, id_mapa, x, y
+                    """, (chunk.id_chunk, chunk.id_bioma, chunk.id_mapa, chunk.x, chunk.y))
                     result = cursor.fetchone()
                     conn.commit()
                     return Chunk(
-                        numero_chunk=result[0],
+                        id_chunk=result[0],
                         id_bioma=result[1],
-                        id_mapa_nome=result[2],
-                        id_mapa_turno=result[3]
+                        id_mapa=result[2],
+                        x=result[3],
+                        y=result[4]
                     )
         except Exception as e:
             if 'conn' in locals():
@@ -128,7 +133,7 @@ class ChunkRepositoryImpl(ChunkRepository):
         try:
             with connection_db() as conn:
                 with conn.cursor() as cursor:
-                    cursor.execute("DELETE FROM chunk WHERE numero_chunk = %s", (id,))
+                    cursor.execute("DELETE FROM chunk WHERE id_chunk = %s", (id,))
                     deleted = cursor.rowcount > 0
                     conn.commit()
                     return deleted
@@ -144,10 +149,11 @@ class ChunkRepositoryImpl(ChunkRepository):
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno
-                        FROM chunk
-                        WHERE id_mapa_nome = %s AND id_mapa_turno = %s
-                        ORDER BY numero_chunk
+                        SELECT c.id_chunk, c.id_bioma, c.id_mapa, c.x, c.y
+                        FROM chunk c
+                        JOIN mapa m ON c.id_mapa = m.id_mapa
+                        WHERE m.nome = %s AND m.turno = %s
+                        ORDER BY c.id_chunk
                     """, (mapa_nome, mapa_turno))
                     
                     results = cursor.fetchall()
@@ -155,10 +161,11 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     for row in results:
                         chunk = Chunk(
-                            numero_chunk=row[0],
+                            id_chunk=row[0],
                             id_bioma=row[1],
-                            id_mapa_nome=row[2],
-                            id_mapa_turno=row[3]
+                            id_mapa=row[2],
+                            x=row[3],
+                            y=row[4]
                         )
                         chunks.append(chunk)
                     
@@ -167,16 +174,16 @@ class ChunkRepositoryImpl(ChunkRepository):
             print(f"Erro ao buscar chunks do mapa {mapa_nome} ({mapa_turno}): {str(e)}")
             return []
     
-    def find_by_bioma(self, bioma_id: str) -> List[Chunk]:
+    def find_by_bioma(self, bioma_id: int) -> List[Chunk]:
         """Busca chunks por bioma"""
         try:
             with connection_db() as conn:
                 with conn.cursor() as cursor:
                     cursor.execute("""
-                        SELECT numero_chunk, id_bioma, id_mapa_nome, id_mapa_turno
+                        SELECT id_chunk, id_bioma, id_mapa, x, y
                         FROM chunk
                         WHERE id_bioma = %s
-                        ORDER BY numero_chunk
+                        ORDER BY id_chunk
                     """, (bioma_id,))
                     
                     results = cursor.fetchall()
@@ -184,10 +191,11 @@ class ChunkRepositoryImpl(ChunkRepository):
                     
                     for row in results:
                         chunk = Chunk(
-                            numero_chunk=row[0],
+                            id_chunk=row[0],
                             id_bioma=row[1],
-                            id_mapa_nome=row[2],
-                            id_mapa_turno=row[3]
+                            id_mapa=row[2],
+                            x=row[3],
+                            y=row[4]
                         )
                         chunks.append(chunk)
                     

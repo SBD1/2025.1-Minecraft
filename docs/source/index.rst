@@ -8,8 +8,10 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
 .. toctree::
    :maxdepth: 2
    :caption: Conteúdo:
+   :numbered:
 
    modulo_2
+   minecraft_legends
    installation
    quickstart
    user_guide
@@ -19,6 +21,7 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    relational_algebra 
    development
    contributing
+   changelog
 
 .. image:: _static/banner.png
    :alt: MINECRAFT - FGA - 2025/1 Banner
@@ -50,4 +53,4 @@ Tecnologias Utilizadas
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search` 
+* :ref:`search`

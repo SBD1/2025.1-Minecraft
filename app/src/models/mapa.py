@@ -3,7 +3,7 @@ Model do Mapa
 Representa um mapa do jogo com seus chunks e características
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import List, Dict, Any, Optional
 from enum import Enum
 from .chunk import Chunk
@@ -21,12 +21,16 @@ class Mapa:
     Model que representa um mapa do jogo
     
     Attributes:
-        nome: Nome do mapa (parte da chave primária composta)
-        turno: Turno do mapa (parte da chave primária composta)
-        _chunk_repository: Repository para acesso aos chunks (injetado)
+        id_mapa: Identificador único do mapa (chave primária)
+        nome: Nome do mapa
+        turno: Turno do mapa
+        chunks: Lista de chunks relacionados a este mapa
+        _chunk_repository: Repository para acesso aos chunks (injeção de dependência)
     """
+    id_mapa: int
     nome: str
     turno: TurnoType
+    chunks: List[Chunk] = field(default_factory=list)
     _chunk_repository = None  # Será injetado via setter
     
     def __post_init__(self):
@@ -52,7 +56,7 @@ class Mapa:
             raise ValueError("Chunk repository não foi configurado")
         
         chunks = self.get_chunks()
-        return [chunk for chunk in chunks if chunk.id_bioma.lower() == bioma.lower()]
+        return [chunk for chunk in chunks if chunk.id_bioma == bioma]
     
     def get_bioma_distribution(self) -> Dict[str, int]:
         """
@@ -130,7 +134,7 @@ class Mapa:
         chunks = self.get_chunks()
         
         for chunk in chunks:
-            if chunk.numero_chunk == chunk_id:
+            if chunk.id_chunk == chunk_id:
                 return chunk
         return None
     
@@ -151,35 +155,9 @@ class Mapa:
         """Comparação de igualdade baseada na chave primária composta"""
         if not isinstance(other, Mapa):
             return False
-        return self.nome == other.nome and self.turno == other.turno
+        return self.id_mapa == other.id_mapa
     
     def __hash__(self) -> int:
         """Hash baseado na chave primária composta"""
-        return hash((self.nome, self.turno))
+        return hash(self.id_mapa)
 
-
-# Exemplo de uso com Repository Pattern
-def exemplo_uso_repository():
-    """Exemplo de como usar o Mapa com Repository Pattern"""
-    
-    # 1. Configurar repositories (import local para evitar circular import)
-    from ..repositories import ChunkRepositoryImpl
-    chunk_repo = ChunkRepositoryImpl()
-    
-    # 2. Criar mapa e injetar repository
-    mapa = Mapa("Mapa_Principal", TurnoType.DIA)
-    mapa.set_chunk_repository(chunk_repo)
-    
-    # 3. Usar o mapa (agora sem acesso direto ao banco)
-    chunks = mapa.get_chunks()
-    print(f"Mapa tem {len(chunks)} chunks")
-    
-    # 4. Buscar por bioma
-    chunks_deserto = mapa.get_chunks_by_bioma("Deserto")
-    print(f"Chunks de deserto: {len(chunks_deserto)}")
-    
-    # 5. Informações de exibição
-    info = mapa.get_display_info()
-    print(f"Informações: {info}")
-    
-    return mapa 

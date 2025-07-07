@@ -13,15 +13,17 @@ class Chunk:
     Model que representa um chunk do mapa
     
     Attributes:
-        numero_chunk: ID único do chunk (chave primária)
-        id_bioma: Nome do bioma do chunk (FK para Bioma.NomeBioma)
-        id_mapa_nome: Nome do mapa (parte da FK para Mapa)
-        id_mapa_turno: Turno do mapa (parte da FK para Mapa)
+        id_chunk: Identificador único do chunk (chave primária)
+        id_bioma: FK para Bioma.id_bioma
+        id_mapa: FK para Mapa.id_mapa
+        x: Coordenada X do chunk no grid
+        y: Coordenada Y do chunk no grid
     """
-    numero_chunk: int
-    id_bioma: str
-    id_mapa_nome: str
-    id_mapa_turno: str
+    id_chunk: int
+    id_bioma: int
+    id_mapa: int
+    x: int
+    y: int
     
     def get_display_name(self) -> str:
         """
@@ -30,31 +32,31 @@ class Chunk:
         Returns:
             String formatada do chunk
         """
-        return f"{self.id_bioma} ({self.id_mapa_nome} - {self.id_mapa_turno})"
+        return f"{self.id_bioma} ({self.id_mapa} - {self.x}, {self.y})"
     
     def is_desert(self) -> bool:
         """Verifica se o chunk é um deserto"""
-        return self.id_bioma.lower() == 'deserto'
+        return self.id_bioma == 'deserto'
     
     def is_jungle(self) -> bool:
         """Verifica se o chunk é uma selva"""
-        return self.id_bioma.lower() == 'selva'
+        return self.id_bioma == 'selva'
     
     def is_forest(self) -> bool:
         """Verifica se o chunk é uma floresta"""
-        return self.id_bioma.lower() == 'floresta'
+        return self.id_bioma == 'floresta'
     
     def is_ocean(self) -> bool:
         """Verifica se o chunk é um oceano"""
-        return self.id_bioma.lower() == 'oceano'
+        return self.id_bioma == 'oceano'
     
     def is_day(self) -> bool:
         """Verifica se é dia no chunk"""
-        return self.id_mapa_turno.lower() == 'dia'
+        return self.x % 2 == 0
     
     def is_night(self) -> bool:
         """Verifica se é noite no chunk"""
-        return self.id_mapa_turno.lower() == 'noite'
+        return self.x % 2 != 0
     
     def get_adjacent_chunk_ids(self, map_size: int = 32) -> List[int]:
         """
@@ -70,16 +72,16 @@ class Chunk:
         adjacent = []
         
         # Horizontal
-        if self.numero_chunk > 1:
-            adjacent.append(self.numero_chunk - 1)
-        if self.numero_chunk < 1000:  # Assumindo 1000 chunks
-            adjacent.append(self.numero_chunk + 1)
+        if self.id_chunk > 1:
+            adjacent.append(self.id_chunk - 1)
+        if self.id_chunk < 1000:  # Assumindo 1000 chunks
+            adjacent.append(self.id_chunk + 1)
         
         # Vertical
-        if self.numero_chunk > map_size:
-            adjacent.append(self.numero_chunk - map_size)
-        if self.numero_chunk <= 1000 - map_size:
-            adjacent.append(self.numero_chunk + map_size)
+        if self.id_chunk > map_size:
+            adjacent.append(self.id_chunk - map_size)
+        if self.id_chunk <= 1000 - map_size:
+            adjacent.append(self.id_chunk + map_size)
         
         return adjacent
     
@@ -94,7 +96,7 @@ class Chunk:
         Returns:
             True se o chunk pertence ao mapa
         """
-        return self.id_mapa_nome == mapa_nome and self.id_mapa_turno == mapa_turno
+        return self.id_mapa == mapa_nome and self.x == mapa_turno
     
     def get_bioma_type(self) -> str:
         """
@@ -112,25 +114,26 @@ class Chunk:
         Returns:
             Tupla (nome_mapa, turno_mapa)
         """
-        return (self.id_mapa_nome, self.id_mapa_turno)
+        return (self.id_mapa, self.x)
     
     def __str__(self) -> str:
         """Representação string do chunk"""
-        return f"Chunk({self.numero_chunk}: {self.get_display_name()})"
+        return f"Chunk({self.id_chunk}: {self.get_display_name()})"
     
     def __repr__(self) -> str:
         """Representação detalhada do chunk"""
-        return (f"Chunk(numero_chunk={self.numero_chunk}, "
-                f"id_bioma='{self.id_bioma}', "
-                f"id_mapa_nome='{self.id_mapa_nome}', "
-                f"id_mapa_turno='{self.id_mapa_turno}')")
+        return (f"Chunk(id_chunk={self.id_chunk}, "
+                f"id_bioma={self.id_bioma}, "
+                f"id_mapa={self.id_mapa}, "
+                f"x={self.x}, "
+                f"y={self.y})")
     
     def __eq__(self, other) -> bool:
         """Comparação de igualdade baseada na chave primária"""
         if not isinstance(other, Chunk):
             return False
-        return self.numero_chunk == other.numero_chunk
+        return self.id_chunk == other.id_chunk
     
     def __hash__(self) -> int:
         """Hash baseado na chave primária"""
-        return hash(self.numero_chunk) 
+        return hash(self.id_chunk)

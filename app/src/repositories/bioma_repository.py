@@ -17,7 +17,7 @@ class BiomaRepository(ABC):
         pass
     
     @abstractmethod
-    def find_by_id(self, id: str) -> Optional[Bioma]:
+    def find_by_id(self, id: int) -> Optional[Bioma]:
         """Busca bioma por ID"""
         pass
     
@@ -27,7 +27,7 @@ class BiomaRepository(ABC):
         pass
     
     @abstractmethod
-    def delete(self, id: str) -> bool:
+    def delete(self, id: int) -> bool:
         """Deleta um bioma por ID"""
         pass
 
@@ -62,7 +62,7 @@ class BiomaRepositoryImpl(BiomaRepository):
             print(f"Erro ao buscar biomas: {str(e)}")
             return []
     
-    def find_by_id(self, id: str) -> Optional[Bioma]:
+    def find_by_id(self, id: int) -> Optional[Bioma]:
         """Busca bioma por ID"""
         try:
             with connection_db() as conn:
@@ -110,7 +110,7 @@ class BiomaRepositoryImpl(BiomaRepository):
             print(f"Erro ao salvar bioma: {str(e)}")
             return bioma
     
-    def delete(self, id: str) -> bool:
+    def delete(self, id: int) -> bool:
         """Deleta um bioma por ID"""
         try:
             with connection_db() as conn:

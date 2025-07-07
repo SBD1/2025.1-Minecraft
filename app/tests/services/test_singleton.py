@@ -57,22 +57,25 @@ class TestInterfaceServiceSingleton:
         # Reset da instância para teste limpo
         InterfaceService.reset_instance()
         
-        # Mock dos repositórios
-        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
-            
-            mock_player_repo.return_value = Mock()
-            mock_chunk_repo.return_value = Mock()
-            mock_mapa_repo.return_value = Mock()
+        # Mock do GameServiceImpl
+        with patch('src.services.interface_service.GameServiceImpl') as mock_game_service:
+            mock_instance = Mock()
+            mock_game_service.return_value = mock_instance
             
             # Criar primeira instância
             instance1 = InterfaceService()
             
-            # Verificar se os repositórios foram criados
-            assert hasattr(instance1, 'player_repository')
-            assert hasattr(instance1, 'chunk_repository')
-            assert hasattr(instance1, 'mapa_repository')
+            # Criar segunda instância
+            instance2 = InterfaceService()
+            
+            # Verificar se GameServiceImpl foi chamado apenas uma vez
+            assert mock_game_service.call_count == 1
+            
+            # Verificar se são a mesma instância
+            assert instance1 is instance2
+            
+            # Verificar se o game_service foi criado
+            assert hasattr(instance1, 'game_service')
             
             # Criar segunda instância
             instance2 = InterfaceService()
@@ -80,10 +83,8 @@ class TestInterfaceServiceSingleton:
             # Verificar se são a mesma instância
             assert instance1 is instance2
             
-            # Verificar se os repositórios são os mesmos
-            assert instance1.player_repository is instance2.player_repository
-            assert instance1.chunk_repository is instance2.chunk_repository
-            assert instance1.mapa_repository is instance2.mapa_repository
+            # Verificar se o game_service é o mesmo
+            assert instance1.game_service is instance2.game_service
     
     def test_reset_instance(self):
         """Testa se reset_instance() funciona corretamente"""
@@ -101,31 +102,31 @@ class TestInterfaceServiceSingleton:
         assert id(instance1) != id(instance2)
     
     def test_singleton_with_mocks(self):
-        """Testa o Singleton com mocks dos repositórios"""
+        """Testa o Singleton com mocks do GameService"""
         # Reset da instância para teste limpo
         InterfaceService.reset_instance()
         
-        # Mock dos repositórios ANTES de instanciar o InterfaceService
-        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
-            
-            mock_player_repo.return_value = Mock()
-            mock_chunk_repo.return_value = Mock()
-            mock_mapa_repo.return_value = Mock()
+        # Mock do GameServiceImpl ANTES de instanciar o InterfaceService
+        with patch('src.services.interface_service.GameServiceImpl') as mock_game_service:
+            mock_instance = Mock()
+            mock_game_service.return_value = mock_instance
             
             # Obter instância
             service = InterfaceService.get_instance()
             
-            # Verificar se os repositórios foram criados
-            assert hasattr(service, 'player_repository')
-            assert hasattr(service, 'chunk_repository')
-            assert hasattr(service, 'mapa_repository')
+            # Verificar se o game_service foi criado
+            assert hasattr(service, 'game_service')
+            assert service.game_service is mock_instance
             
-            # Verificar se os mocks foram chamados (apenas uma vez devido ao Singleton)
-            assert mock_player_repo.call_count >= 1
-            assert mock_chunk_repo.call_count >= 1
-            assert mock_mapa_repo.call_count >= 1
+            # Verificar se o mock foi chamado
+            assert mock_game_service.call_count == 1
+            
+            # Obter instância novamente
+            service2 = InterfaceService.get_instance()
+            
+            # Verificar se é a mesma instância e o mock não foi chamado novamente
+            assert service is service2
+            assert mock_game_service.call_count == 1
     
     def test_multiple_calls_same_instance(self):
         """Testa se múltiplas chamadas retornam a mesma instância"""
@@ -154,44 +155,31 @@ class TestInterfaceServiceIntegration:
         # Reset da instância para teste limpo
         InterfaceService.reset_instance()
         
-        # Mock dos repositórios
-        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
-            
-            self.mock_player_repo = Mock()
-            self.mock_chunk_repo = Mock()
-            self.mock_mapa_repo = Mock()
-            
-            mock_player_repo.return_value = self.mock_player_repo
-            mock_chunk_repo.return_value = self.mock_chunk_repo
-            mock_mapa_repo.return_value = self.mock_mapa_repo
+        # Mock do GameService
+        self.mock_game_service = Mock()
+        self.mock_player_repo = Mock()
+        self.mock_chunk_repo = Mock()
+        self.mock_mapa_repo = Mock()
+        
+        # Configurar mocks dos repositórios no game_service
+        self.mock_game_service.player_repository = self.mock_player_repo
+        self.mock_game_service.chunk_repository = self.mock_chunk_repo
+        self.mock_game_service.mapa_repository = self.mock_mapa_repo
     
     def test_singleton_persistence_across_calls(self):
         """Testa se o Singleton mantém estado entre chamadas"""
         # Reset da instância para teste limpo
         InterfaceService.reset_instance()
         
-        # Mock dos repositórios ANTES de instanciar o InterfaceService
-        with patch('src.services.interface_service.PlayerRepositoryImpl') as mock_player_repo, \
-             patch('src.services.interface_service.ChunkRepositoryImpl') as mock_chunk_repo, \
-             patch('src.services.interface_service.MapaRepositoryImpl') as mock_mapa_repo:
-            
-            self.mock_player_repo = Mock()
-            self.mock_chunk_repo = Mock()
-            self.mock_mapa_repo = Mock()
-            
-            mock_player_repo.return_value = self.mock_player_repo
-            mock_chunk_repo.return_value = self.mock_chunk_repo
-            mock_mapa_repo.return_value = self.mock_mapa_repo
-            
+        # Mock do GameServiceImpl
+        with patch('src.services.interface_service.GameServiceImpl', return_value=self.mock_game_service):
             # Obter primeira instância
             service1 = InterfaceService.get_instance()
             
             # Configurar mock para retornar dados
             from src.models.player import Player
             test_player = Player(
-                id_jogador=1,
+                id_player=1,
                 nome="TestPlayer",
                 vida_maxima=100,
                 vida_atual=100,
@@ -211,9 +199,9 @@ class TestInterfaceServiceIntegration:
             # Usar a segunda instância para buscar jogador
             result = service2.get_player_by_id(1)
             
-            # Verificar se o mock foi chamado
-            self.mock_player_repo.find_by_id.assert_called_once_with(1)
+            # Verificar se os repositórios são os mesmos
             assert result == test_player
+            self.mock_player_repo.find_by_id.assert_called_once_with(1)
 
 
 if __name__ == "__main__":

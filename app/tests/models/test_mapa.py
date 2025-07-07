@@ -12,23 +12,25 @@ class TestMapa:
     
     def test_mapa_creation(self):
         """Testa criação de mapa"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        assert mapa.id_mapa == 1
         assert mapa.nome == "Mapa_Principal"
         assert mapa.turno == TurnoType.DIA
     
     def test_mapa_creation_with_string(self):
         """Testa criação de mapa com string para turno"""
-        mapa = Mapa("Mapa_Principal", "Dia")
+        mapa = Mapa(1, "Mapa_Principal", "Dia")
+        assert mapa.id_mapa == 1
         assert mapa.nome == "Mapa_Principal"
         assert mapa.turno == TurnoType.DIA
     
     def test_mapa_string_representation(self):
         """Testa representação string do mapa"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
-        mock_chunks = [Chunk(i, "Deserto", "Mapa_Principal", "Dia") for i in range(1, 1001)]
+        mock_chunks = [Chunk(i, 1, 1, i%32, i//32) for i in range(1, 1001)]
         mock_repo.find_by_mapa.return_value = mock_chunks
         mapa.set_chunk_repository(mock_repo)
         
@@ -37,9 +39,9 @@ class TestMapa:
     
     def test_mapa_equality(self):
         """Testa igualdade entre mapas"""
-        mapa1 = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa2 = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa3 = Mapa("Mapa_Principal", TurnoType.NOITE)
+        mapa1 = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa2 = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa3 = Mapa(2, "Mapa_Principal", TurnoType.NOITE)
         
         assert mapa1 == mapa2
         assert mapa1 != mapa3
@@ -47,17 +49,17 @@ class TestMapa:
     
     def test_mapa_hash(self):
         """Testa hash do mapa"""
-        mapa1 = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa2 = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa3 = Mapa("Mapa_Principal", TurnoType.NOITE)
+        mapa1 = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa2 = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa3 = Mapa(2, "Mapa_Principal", TurnoType.NOITE)
         
         assert hash(mapa1) == hash(mapa2)
         assert hash(mapa1) != hash(mapa3)
     
     def test_turno_checks(self):
         """Testa verificações de turno"""
-        mapa_dia = Mapa("Mapa_Principal", TurnoType.DIA)
-        mapa_noite = Mapa("Mapa_Principal", TurnoType.NOITE)
+        mapa_dia = Mapa(1, "Mapa_Principal", TurnoType.DIA)
+        mapa_noite = Mapa(2, "Mapa_Principal", TurnoType.NOITE)
         
         assert mapa_dia.is_day_map() is True
         assert mapa_noite.is_night_map() is True
@@ -68,11 +70,11 @@ class TestMapa:
     
     def test_get_display_info_empty(self):
         """Testa informações de exibição sem chunks"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
-        mock_chunks = [Chunk(i, "Deserto", "Mapa_Principal", "Dia") for i in range(1, 1001)]
+        mock_chunks = [Chunk(i, 1, 1, i%32, i//32) for i in range(1, 1001)]
         mock_repo.find_by_mapa.return_value = mock_chunks
         mapa.set_chunk_repository(mock_repo)
         
@@ -85,14 +87,14 @@ class TestMapa:
     
     def test_get_display_info_with_chunks(self):
         """Testa informações de exibição com chunks"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
         chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),  # id_bioma=1 (Deserto)
+            Chunk(2, 2, 1, 1, 0),  # id_bioma=2 (Oceano)
+            Chunk(3, 1, 1, 2, 0),  # id_bioma=1 (Deserto)
         ]
         mock_repo.find_by_mapa.return_value = chunks
         mapa.set_chunk_repository(mock_repo)
@@ -103,58 +105,54 @@ class TestMapa:
         assert info['turno'] == "Dia"
         assert info['tipo'] == "Dia"
         assert info['total_chunks'] == 3
-        assert info['distribuicao'] == {'Deserto': 2, 'Oceano': 1}
+        assert info['distribuicao'] == {1: 2, 2: 1}  # IDs numéricos agora
     
     def test_get_chunks_by_bioma(self):
         """Testa busca de chunks por bioma"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
         chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),  # id_bioma=1
+            Chunk(2, 2, 1, 1, 0),  # id_bioma=2
+            Chunk(3, 1, 1, 2, 0),  # id_bioma=1
         ]
         mock_repo.find_by_mapa.return_value = chunks
         mapa.set_chunk_repository(mock_repo)
         
-        chunks_deserto = mapa.get_chunks_by_bioma("Deserto")
-        chunks_oceano = mapa.get_chunks_by_bioma("Oceano")
-        chunks_selva = mapa.get_chunks_by_bioma("Selva")
+        chunks_bioma_1 = mapa.get_chunks_by_bioma(1)
+        chunks_bioma_2 = mapa.get_chunks_by_bioma(2)
+        chunks_bioma_3 = mapa.get_chunks_by_bioma(3)
         
-        assert len(chunks_deserto) == 2
-        assert len(chunks_oceano) == 1
-        assert len(chunks_selva) == 0
-        
-        # Verifica case insensitive
-        chunks_deserto_upper = mapa.get_chunks_by_bioma("DESERTO")
-        assert len(chunks_deserto_upper) == 2
+        assert len(chunks_bioma_1) == 2
+        assert len(chunks_bioma_2) == 1
+        assert len(chunks_bioma_3) == 0
     
     def test_get_bioma_distribution(self):
         """Testa distribuição de biomas"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
         chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
-            Chunk(3, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(4, "Selva", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),  # id_bioma=1
+            Chunk(2, 2, 1, 1, 0),  # id_bioma=2
+            Chunk(3, 1, 1, 2, 0),  # id_bioma=1
+            Chunk(4, 3, 1, 3, 0),  # id_bioma=3
         ]
         mock_repo.find_by_mapa.return_value = chunks
         mapa.set_chunk_repository(mock_repo)
         
         distribuicao = mapa.get_bioma_distribution()
         
-        assert distribuicao['Deserto'] == 2
-        assert distribuicao['Oceano'] == 1
-        assert distribuicao['Selva'] == 1
+        assert distribuicao[1] == 2  # bioma ID 1
+        assert distribuicao[2] == 1  # bioma ID 2
+        assert distribuicao[3] == 1  # bioma ID 3
     
     def test_get_bioma_distribution_empty(self):
         """Testa distribuição de biomas sem chunks"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
@@ -166,13 +164,13 @@ class TestMapa:
     
     def test_get_chunk_by_id(self):
         """Testa busca de chunk por ID"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
         chunks = [
-            Chunk(1, "Deserto", "Mapa_Principal", "Dia"),
-            Chunk(2, "Oceano", "Mapa_Principal", "Dia"),
+            Chunk(1, 1, 1, 0, 0),
+            Chunk(2, 2, 1, 1, 0),
         ]
         mock_repo.find_by_mapa.return_value = chunks
         mapa.set_chunk_repository(mock_repo)
@@ -181,12 +179,12 @@ class TestMapa:
         chunk_nao_encontrado = mapa.get_chunk_by_id(999)
         
         assert chunk_encontrado is not None
-        assert chunk_encontrado.numero_chunk == 1
+        assert chunk_encontrado.id_chunk == 1
         assert chunk_nao_encontrado is None
     
     def test_get_chunk_by_id_empty(self):
         """Testa busca de chunk por ID sem chunks"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Mock do repository
         mock_repo = Mock()
@@ -207,7 +205,7 @@ class TestMapa:
     
     def test_repository_not_configured_error(self):
         """Testa erro quando repository não está configurado"""
-        mapa = Mapa("Mapa_Principal", TurnoType.DIA)
+        mapa = Mapa(1, "Mapa_Principal", TurnoType.DIA)
         
         # Testa métodos que requerem repository
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
@@ -217,7 +215,7 @@ class TestMapa:
             mapa.get_display_info()
         
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
-            mapa.get_chunks_by_bioma("Deserto")
+            mapa.get_chunks_by_bioma(1)
         
         with pytest.raises(ValueError, match="Chunk repository não foi configurado"):
             mapa.get_bioma_distribution()

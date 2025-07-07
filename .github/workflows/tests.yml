@@ -1,61 +1,108 @@
-name: Run Tests
+name: Tests and Coverage
 
 on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     
+    strategy:
+      matrix:
+        python-version: ['3.10']
+    
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      
-    - name: Build and test with Docker Compose
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('app/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
       run: |
-        # Try docker compose first, fallback to docker-compose
-        if command -v docker compose &> /dev/null; then
-          echo "Using docker compose"
-          docker compose build
-          docker compose up -d
-          sleep 15
-          docker compose exec -T app python -m pytest tests/ -v --tb=short
-        else
-          echo "Using docker-compose"
-          docker-compose build
-          docker-compose up -d db
-          sleep 15
-          docker-compose exec -T app python -m pytest tests/ -v --tb=short
-        fi
-        
+        cd app
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
     - name: Run tests with coverage
       run: |
-        # Try docker compose first, fallback to docker-compose
-        if command -v docker compose &> /dev/null; then
-          docker compose exec -T app python -m pytest tests/ --cov=src --cov-report=xml --cov-report=term-missing
-        else
-          docker-compose exec -T app python -m pytest tests/ --cov=src --cov-report=xml --cov-report=term-missing
-        fi
-        
+        cd app
+        python run_tests_ci.py
+    
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}  # Configurar este secret!
         file: ./app/coverage.xml
         flags: unittests
         name: codecov-umbrella
-        
-    - name: Upload test results
+        fail_ci_if_error: false  # Não falhar CI se Codecov der problema
+        verbose: true
+    
+    - name: Upload test artifacts
       uses: actions/upload-artifact@v4
-      if: always()
+      if: always()  # Upload mesmo se os testes falharem
       with:
-        name: test-results
+        name: test-results-${{ matrix.python-version }}
         path: |
           app/.pytest_cache/
           app/htmlcov/
-        retention-days: 30 
+          app/coverage.xml
+          app/test-results.xml
+        retention-days: 30
+        compression-level: 6
+    
+    - name: Comment PR with coverage
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs');
+          if (fs.existsSync('app/coverage.xml')) {
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '📊 Coverage report uploaded to Codecov! Check the details in the PR checks.'
+            });
+          }
+
+  # Job separado para build do Docker (opcional)
+  docker-test:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Build test Docker image
+      run: |
+        cd app
+        docker build -f Dockerfile.test -t minecraft-test .
+    
+    - name: Run tests in Docker
+      run: |
+        docker run --rm -v $(pwd)/app:/workspace minecraft-test
+        
+    - name: Upload Docker test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: docker-test-results
+        path: |
+          app/coverage.xml
+          app/test-results.xml

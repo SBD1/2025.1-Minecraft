@@ -17,6 +17,15 @@ from ..repositories import (
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
 from ..models.chunk import Chunk
+
+# Imports adicionais para funcionalidade do mundo
+try:
+    from ..repositories.mundo_repository import MundoRepositoryImpl
+    from ..models.mundo import Mundo
+    MUNDO_AVAILABLE = True
+except ImportError:
+    MUNDO_AVAILABLE = False
+
 from ..models.fantasma import Fantasma
 from ..models.totem import Totem 
 from ..models.ponte import Ponte
@@ -38,7 +47,7 @@ class GameService(ABC):
         pass
 
     @abstractmethod
-    def get_players_in_bioma(self, bioma_id: str) -> List[Dict[str, Any]]:
+    def get_players_in_bioma(self, bioma_id: int) -> List[Dict[str, Any]]:
         pass
 
     @abstractmethod
@@ -47,6 +56,17 @@ class GameService(ABC):
 
     @abstractmethod
     def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
+        pass
+
+    # Métodos adicionais para funcionalidade do mundo
+    @abstractmethod
+    def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
+        """Retorna o estado atual do mundo (turno, ticks)"""
+        pass
+
+    @abstractmethod
+    def avancar_tempo(self) -> Dict[str, Any]:
+        """Avança o tempo do mundo e retorna o novo estado"""
         pass
 
     @abstractmethod
@@ -71,9 +91,18 @@ class GameServiceImpl(GameService):
 
     def __init__(self):
         if not GameServiceImpl._initialized:
+            self.bioma_repository = BiomaRepositoryImpl()
             self.chunk_repository = ChunkRepositoryImpl()
             self.mapa_repository = MapaRepositoryImpl()
             self.player_repository = PlayerRepositoryImpl()
+            
+            # Inicializa repositório do mundo se disponível
+            if MUNDO_AVAILABLE:
+                self.mundo_repository = MundoRepositoryImpl()
+                self.TEMPO_MAX_TURNO = 20  # Turno dura 20 ações
+            else:
+                self.mundo_repository = None
+                
             self.fantasma_repository = FantasmaRepositoryImpl()
             self.totem_repository = TotemRepositoryImpl()  
             self.ponte_repository = PonteRepositoryImpl()
@@ -94,8 +123,10 @@ class GameServiceImpl(GameService):
         mapa = self.mapa_repository.find_by_id(mapa_nome, turno)
         if not mapa:
             return {"error": "Mapa não encontrado"}
+        
         chunks = self.chunk_repository.find_by_mapa(mapa_nome, turno.value)
         bioma_distribution = {}
+        
         for chunk in chunks:
             bioma = chunk.id_bioma
             bioma_distribution[bioma] = bioma_distribution.get(bioma, 0) + 1
@@ -104,16 +135,17 @@ class GameServiceImpl(GameService):
             "turno": mapa.turno.value,
             "total_chunks": len(chunks),
             "distribuicao_biomas": bioma_distribution,
-            "chunks": [chunk.numero_chunk for chunk in chunks[:10]]
+            "chunks": [chunk.id_chunk for chunk in chunks[:10]]
         }
 
     def get_player_status(self, player_id: int) -> Dict[str, Any]:
         player = self.player_repository.find_by_id(player_id)
         if not player:
             return {"error": "Jogador não encontrado"}
+
         vida_percentual = (player.vida_atual / player.vida_maxima) * 100 if player.vida_maxima > 0 else 0
         return {
-            "id": player.id_jogador,
+            "id": player.id_player,
             "nome": player.nome,
             "vida_atual": player.vida_atual,
             "vida_maxima": player.vida_maxima,
@@ -127,38 +159,42 @@ class GameServiceImpl(GameService):
 
     def move_player_to_chunk(self, player_id: int, chunk_id: int) -> Dict[str, Any]:
         player = self.player_repository.find_by_id(player_id)
+        chunk = self.chunk_repository.find_by_id(chunk_id)
+
         if not player:
             return {"error": "Jogador não encontrado"}
-        chunk = self.chunk_repository.find_by_id(chunk_id)
+        
         if not chunk:
             return {"error": "Chunk não encontrado"}
-        player.localizacao = f"{chunk.id_mapa_nome} - Chunk {chunk.numero_chunk}"
+
+        player.localizacao = f"Mapa {chunk.id_mapa} - Chunk {chunk.id_chunk}"
         updated_player = self.player_repository.save(player)
         return {
             "success": True,
             "message": f"Jogador {player.nome} movido para {player.localizacao}",
             "player": {
-                "id": updated_player.id_jogador,
+                "id": updated_player.id_player,
                 "nome": updated_player.nome,
                 "localizacao": updated_player.localizacao
             },
             "chunk": {
-                "id": chunk.numero_chunk,
+                "id": chunk.id_chunk,
                 "bioma": chunk.id_bioma,
-                "mapa": chunk.id_mapa_nome,
-                "turno": chunk.id_mapa_turno
+                "mapa": chunk.id_mapa,
+                "turno": "N/A"  # Turno agora vem do mapa, não do chunk
             }
         }
 
-    def get_players_in_bioma(self, bioma_id: str) -> List[Dict[str, Any]]:
+    def get_players_in_bioma(self, bioma_id: int) -> List[Dict[str, Any]]:
+        players_in_bioma = []
         chunks = self.chunk_repository.find_by_bioma(bioma_id)
         players = self.player_repository.find_all()
-        players_in_bioma = []
+
         for player in players:
             for chunk in chunks:
-                if f"Chunk {chunk.numero_chunk}" in player.localizacao:
+                if f"Chunk {chunk.id_chunk}" in player.localizacao:
                     players_in_bioma.append({
-                        "id": player.id_jogador,
+                        "id": player.id_player,
                         "nome": player.nome,
                         "localizacao": player.localizacao,
                         "vida_atual": player.vida_atual,
@@ -171,13 +207,18 @@ class GameServiceImpl(GameService):
         mapas = self.mapa_repository.find_all()
         chunks = self.chunk_repository.find_all()
         players = self.player_repository.find_all()
+
         total_chunks = len(chunks)
         total_players = len(players)
         active_players = len([p for p in players if p.vida_atual > 0])
+
         chunks_por_turno = {}
         for chunk in chunks:
-            turno = chunk.id_mapa_turno
-            chunks_por_turno[turno] = chunks_por_turno.get(turno, 0) + 1
+            # Como não temos mais id_mapa_turno, vamos buscar o turno do mapa
+            mapa = next((m for m in mapas if m.id_mapa == chunk.id_mapa), None)
+            if mapa:
+                turno = mapa.turno.value
+                chunks_por_turno[turno] = chunks_por_turno.get(turno, 0) + 1
         return {
             "total_mapas": len(mapas),
             "total_chunks": total_chunks,
@@ -187,17 +228,23 @@ class GameServiceImpl(GameService):
             "chunks_por_turno": chunks_por_turno
         }
 
-    def create_new_player(self, nome: str, localizacao: str = "Spawn") -> Dict[str, Any]:
+    def create_new_player(self, nome: str, localizacao: str = "1") -> Dict[str, Any]:
+        # O chunk 1 é o inicial do deserto (ver docs/database.rst)
         existing = [p for p in self.player_repository.find_all() if p.nome == nome]
         if existing:
             return {"error": "Nome de jogador já existe"}
+        
+        # Get the chunk to format the location properly
+        chunk = self.chunk_repository.find_by_id(1)  # Chunk 1 (Deserto)
+        initial_location = f"Mapa {chunk.id_mapa} - Chunk {chunk.id_chunk}" if chunk else "1"
+        
         player = Player(
-            id_jogador=None,
+            id_player=0,  # Será definido pelo repository
             nome=nome,
             vida_maxima=100,
             vida_atual=100,
             forca=10,
-            localizacao=localizacao,
+            localizacao=initial_location,  # Use proper format
             nivel=1,
             experiencia=0
         )
@@ -205,7 +252,7 @@ class GameServiceImpl(GameService):
         return {
             "success": True,
             "player": {
-                "id": saved.id_jogador,
+                "id": saved.id_player,
                 "nome": saved.nome,
                 "vida_atual": saved.vida_atual,
                 "vida_maxima": saved.vida_maxima,
@@ -288,32 +335,76 @@ class GameServiceImpl(GameService):
 
     
 
-
-# Exemplo de uso do service
-def exemplo_uso_service():
-    """Exemplo de como usar o GameService"""
-    
-    service = GameServiceImpl.get_instance()
-    
-    # 1. Obter informações de um mapa
-    mapa_info = service.get_map_info("Mapa_Principal", TurnoType.DIA)
-    print(f"Informações do mapa: {mapa_info}")
-    
-    # 2. Obter estatísticas gerais
-    stats = service.get_map_statistics()
-    print(f"Estatísticas: {stats}")
-    
-    # 3. Criar novo jogador
-    novo_jogador = service.create_new_player("NovoJogador")
-    print(f"Novo jogador: {novo_jogador}")
-    
-    # 4. Buscar jogadores em um bioma
-    if novo_jogador.get("success"):
-        player_id = novo_jogador["player"]["id"]
-        # Move jogador para um chunk
-        move_result = service.move_player_to_chunk(player_id, 1)
-        print(f"Movimento: {move_result}")
+    def get_mundo_estado(self) -> Optional[Dict[str, Any]]:
+        """Retorna o estado atual do mundo (turno, ticks)"""
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return {"error": "Funcionalidade do mundo não disponível"}
         
+        mundo = self.mundo_repository.get_estado()
+        if not mundo:
+            return {"error": "Estado do mundo não encontrado"}
+        
+        return {
+            "turno_atual": mundo.turno_atual,
+            "ticks_no_turno": mundo.ticks_no_turno,
+            "tempo_max_turno": self.TEMPO_MAX_TURNO,
+            "progresso": f"{mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO}"
+        }
+
+    def avancar_tempo(self) -> Dict[str, Any]:
+        """Avança o tempo do mundo e retorna o novo estado"""
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return {"error": "Funcionalidade do mundo não disponível"}
+        
+        mundo = self.mundo_repository.get_estado()
+        if not mundo:
+            return {"error": "Estado do mundo não encontrado"}
+        
+        # Incrementa o contador de tempo
+        mundo.ticks_no_turno += 1
+        turno_mudou = False
+
+        # Verifica se o tempo do turno acabou
+        if mundo.ticks_no_turno >= self.TEMPO_MAX_TURNO:
+            turno_mudou = True
+            # Muda o turno
+            if mundo.turno_atual == 'Dia':
+                mundo.turno_atual = 'Noite'
+                mensagem = "O sol se pôs. A noite chegou trazendo perigos..."
+            else:
+                mundo.turno_atual = 'Dia'
+                mensagem = "O sol nasce em um novo dia."
+            
+            # Reseta o contador
+            mundo.ticks_no_turno = 0
+        else:
+            mensagem = f"Tempo avança... ({mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO})"
+
+        # Salva o novo estado do mundo no banco
+        if self.mundo_repository.update_estado(mundo):
+            return {
+                "success": True,
+                "turno_atual": mundo.turno_atual,
+                "ticks_no_turno": mundo.ticks_no_turno,
+                "turno_mudou": turno_mudou,
+                "mensagem": mensagem,
+                "progresso": f"{mundo.ticks_no_turno}/{self.TEMPO_MAX_TURNO}"
+            }
+        else:
+            return {"error": "Falha ao atualizar estado do mundo"}
+
+    def _avancar_relogio_mundo(self) -> Optional['Mundo']:
+        """
+        Método privado para incrementar o tempo automaticamente em ações que consomem tempo.
+        É chamado por ações como mover-se.
+        """
+        if not MUNDO_AVAILABLE or not self.mundo_repository:
+            return None
+        
+        resultado = self.avancar_tempo()
+        if resultado.get("success"):
+            return self.mundo_repository.get_estado()
+        return None
         # Busca jogadores no bioma
         players_in_bioma = service.get_players_in_bioma("Deserto")
         print(f"Jogadores no deserto: {players_in_bioma}")

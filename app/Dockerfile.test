@@ -1,0 +1,47 @@
+FROM python:3.10-slim
+
+# Labels para identificação
+LABEL purpose="testing"
+LABEL description="Container otimizado para execução de testes e geração de relatórios de cobertura"
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Instalar dependências do sistema necessárias para testes
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copiar requirements primeiro para cache de camadas
+COPY requirements.txt ./
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+# Copiar código fonte
+COPY . .
+
+# Criar diretórios necessários para artefatos de teste
+RUN mkdir -p .pytest_cache htmlcov reports
+
+# Criar usuário não-root para segurança
+RUN useradd --create-home --shell /bin/bash testuser \
+    && chown -R testuser:testuser /app
+USER testuser
+
+# Definir variáveis de ambiente para testes
+ENV PYTEST_CURRENT_TEST=""
+ENV COVERAGE_FILE=".coverage"
+
+# Comando padrão para executar testes com cobertura
+CMD ["python", "run_tests_ci.py"]
+
+# Para executar apenas testes específicos:
+# docker run --rm -it minecraft-tests python -m pytest tests/models/ -v
+
+# Para executar com shell interativo:
+# docker run --rm -it minecraft-tests /bin/bash

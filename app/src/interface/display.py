@@ -10,6 +10,7 @@ from src.utils.player_manager import (
     delete_player, confirm_player_deletion, get_adjacent_chunks,
     move_player_to_chunk, ensure_player_location
 )
+import re
 
 init(autoreset=True)
 
@@ -140,7 +141,7 @@ def exibir_localizacao_atual():
         
         # Buscar informações do chunk usando InterfaceService Singleton
         interface_service = InterfaceService.get_instance()
-        chunk = interface_service.chunk_repository.find_by_id(int(current_player.localizacao))
+        chunk = interface_service.get_chunk_by_id(extract_chunk_id_from_location(current_player.localizacao))
         
         if chunk:
             bioma_emoji = {
@@ -150,11 +151,34 @@ def exibir_localizacao_atual():
                 'Floresta': '🌲'
             }
             
-            emoji = bioma_emoji.get(chunk.id_bioma, '📍')
-            turno_emoji = '☀️' if chunk.id_mapa_turno == 'Dia' else '🌙'
+            # Get bioma name by ID
+            bioma_name = str(chunk.id_bioma)  # Default to ID if name not found
+            try:
+                bioma = interface_service.get_bioma_by_id(chunk.id_bioma)
+                if bioma:
+                    bioma_name = bioma.nome
+            except Exception:
+                # If we can't get bioma info, use the ID
+                pass
             
-            print(f"{emoji} BIOMA: {Fore.YELLOW}{chunk.id_bioma}{Fore.RESET}")
-            print(f"{turno_emoji} TURNO: {chunk.id_mapa_turno}")
+            emoji = bioma_emoji.get(bioma_name, '📍')
+            
+            # Get turno information from the map
+            turno_display = 'Dia'  # Default
+            turno_emoji = '☀️'  # Default
+            
+            try:
+                # Get map information using the chunk's id_mapa
+                mapa = interface_service.get_map_by_id(chunk.id_mapa)
+                if mapa:
+                    turno_display = mapa.turno.value
+                    turno_emoji = '☀️' if mapa.turno.value == 'Dia' else '🌙'
+            except Exception:
+                # If we can't get map info, use defaults
+                pass
+            
+            print(f"{emoji} BIOMA: {Fore.YELLOW}{bioma_name}{Fore.RESET}")
+            print(f"{turno_emoji} TURNO: {turno_display}")
         else:
             print(f"{Fore.YELLOW}⚠️  Informações do chunk não disponíveis{Fore.RESET}")
     else:
@@ -198,7 +222,7 @@ def exibir_opcoes_movimento():
     
     # Usar InterfaceService Singleton
     interface_service = InterfaceService.get_instance()
-    adjacent_chunks = interface_service.get_adjacent_chunks(int(current_player.localizacao), 'Dia')
+    adjacent_chunks = interface_service.get_adjacent_chunks(extract_chunk_id_from_location(current_player.localizacao), 'Dia')
     
     if not adjacent_chunks:
         print(f"{Fore.YELLOW}⚠️  Nenhuma direção disponível para movimento{Fore.RESET}")
@@ -208,7 +232,7 @@ def exibir_opcoes_movimento():
     print("-" * 40)
     
     # Determinar direções baseado na diferença de chunk_id
-    current_chunk = int(current_player.localizacao)
+    current_chunk = extract_chunk_id_from_location(current_player.localizacao)
     directions = []
     
     for chunk_id, bioma in adjacent_chunks:
@@ -227,8 +251,18 @@ def exibir_opcoes_movimento():
     }
     
     for i, (chunk_id, bioma, direction) in enumerate(directions, 1):
-        emoji = bioma_emoji.get(bioma, '📍')
-        print(f"{i}. {direction} - {emoji} {bioma} (Chunk {chunk_id})")
+        # Get bioma name by ID if bioma is a number
+        bioma_name = bioma
+        if isinstance(bioma, int):
+            try:
+                bioma_obj = interface_service.get_bioma_by_id(bioma)
+                if bioma_obj:
+                    bioma_name = bioma_obj.nome
+            except Exception:
+                bioma_name = str(bioma)
+        
+        emoji = bioma_emoji.get(bioma_name, '📍')
+        print(f"{i}. {direction} - {emoji} {bioma_name} (Chunk {chunk_id})")
     
     return [(chunk_id, bioma) for chunk_id, bioma, _ in directions]
 
@@ -283,7 +317,7 @@ def iniciar_jogo():
                         current_bioma = None
                         try:
                             # Buscar o bioma atual do chunk onde o jogador está
-                            current_chunk = interface_service.chunk_repository.find_by_id(int(current_player.localizacao))
+                            current_chunk = interface_service.get_chunk_by_id(extract_chunk_id_from_location(current_player.localizacao))
                             if current_chunk:
                                 current_bioma = current_chunk.id_bioma
                         except Exception:
@@ -321,7 +355,7 @@ def iniciar_jogo():
             elif opcao == "5":
                 # Salvar progresso
                 if interface_service.save_player(current_player):
-                    current_player = interface_service.get_player_by_id(current_player.id_jogador)
+                    current_player = interface_service.get_player_by_id(current_player.id_player)
                     set_current_player(current_player)
                     print(f"{Fore.GREEN}✅ Progresso salvo com sucesso!{Fore.RESET}")
                 else:
@@ -412,9 +446,9 @@ def selecionar_jogador():
             
             # Verificar se é o personagem atual
             current_player = get_current_player()
-            current_id = current_player.id_jogador if current_player else None
+            current_id = current_player.id_player if current_player else None
             
-            if current_id and player.id_jogador == current_id:
+            if current_id and player.id_player == current_id:
                 print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                 input("⏳ Pressione Enter para continuar...")
                 return
@@ -511,11 +545,11 @@ def listar_jogadores():
                 print()
                 
                 current_player = get_current_player()
-                current_id = current_player.id_jogador if current_player else None
+                current_id = current_player.id_player if current_player else None
                 
                 print("Personagens disponíveis:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    status_icon = "🎮" if player.id_player == current_id else "👤"
                     print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
@@ -533,7 +567,7 @@ def listar_jogadores():
                             player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player.id_jogador == current_id:
+                            if current_id and player.id_player == current_id:
                                 print(f"{Fore.YELLOW}⚠️  '{player.nome}' já é o personagem ativo!{Fore.RESET}")
                                 input("⏳ Pressione Enter para continuar...")
                                 return
@@ -560,11 +594,11 @@ def listar_jogadores():
                 print()
                 
                 current_player = get_current_player()
-                current_id = current_player.id_jogador if current_player else None
+                current_id = current_player.id_player if current_player else None
                 
                 print("Personagens disponíveis para deletar:")
                 for i, player in enumerate(players, 1):
-                    status_icon = "🎮" if player.id_jogador == current_id else "👤"
+                    status_icon = "🎮" if player.id_player == current_id else "👤"
                     print(f"{i}. {status_icon} {player.nome} (Vida: {player.vida_atual}/{player.vida_maxima} | XP: {player.experiencia} | Força: {player.forca})")
                 
                 print()
@@ -582,7 +616,7 @@ def listar_jogadores():
                             player = players[indice]
                             
                             # Verificar se é o personagem atual
-                            if current_id and player.id_jogador == current_id:
+                            if current_id and player.id_player == current_id:
                                 print(f"{Fore.RED}❌ Não é possível deletar o personagem ativo '{player.nome}'!{Fore.RESET}")
                                 print("💡 Dica: Troque de personagem primeiro ou saia da sessão.")
                                 input("⏳ Pressione Enter para continuar...")
@@ -591,7 +625,7 @@ def listar_jogadores():
                             # Confirmar deleção
                             if confirm_player_deletion(player.nome):
                                 # Deletar personagem
-                                if interface_service.delete_player(player.id_jogador):
+                                if interface_service.delete_player(player.id_player):
                                     print(f"{Fore.GREEN}✅ Personagem '{player.nome}' deletado com sucesso!{Fore.RESET}")
                                     input("⏳ Pressione Enter para continuar...")
                                     return  # Sair da função e voltar ao menu principal
@@ -635,3 +669,30 @@ def sair_jogo():
     
     print("🚪 Saindo do Minecraft")
     print("Até a próxima! 🎮")
+
+def extract_chunk_id_from_location(location: str) -> int:
+    """
+    Extract chunk ID from location string like 'Mapa 1 - Chunk 364'
+    
+    Args:
+        location: Location string in format 'Mapa X - Chunk Y'
+        
+    Returns:
+        Chunk ID as integer
+        
+    Raises:
+        ValueError: If location format is invalid
+    """
+    if not location:
+        raise ValueError("Location is empty")
+        
+    # Try to extract chunk ID using regex
+    match = re.search(r'Chunk (\d+)', location)
+    if match:
+        return int(match.group(1))
+    
+    # If no match found, try to convert the entire string to int (backwards compatibility)
+    try:
+        return int(location)
+    except ValueError:
+        raise ValueError(f"Cannot extract chunk ID from location: {location}")
