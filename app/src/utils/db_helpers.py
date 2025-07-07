@@ -216,7 +216,7 @@ def initialize_database():
             "db/init/02_schema/01_drop_tables.sql",
             "db/init/02_schema/02_base_tables.sql",
             "db/init/02_schema/03_dependent_tables.sql",
-            "db/init/02_schema/03_5_aldeao_table.sql",
+            "db/init/02_schema/03_9_aldeao_table.sql",
             "db/init/02_schema/04_relationship_tables.sql",
             "db/init/02_schema/05_game_tables.sql",
             "db/init/02_schema/06_indexes.sql",
