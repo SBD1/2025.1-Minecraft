@@ -42,6 +42,28 @@ CREATE TABLE IF NOT EXISTS Inventario (
     FOREIGN KEY (id_jogador) REFERENCES Jogador(Id_Jogador) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS fantasmas_construtores (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    chunk TEXT NOT NULL,
+    tipo_obra TEXT CHECK (tipo_obra IN ('totem', 'ponte')),
+    ativo BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS fantasmas_mineradores (
+    id SERIAL PRIMARY KEY,
+    nome TEXT NOT NULL,
+    chunk TEXT NOT NULL,
+    ativo BOOLEAN DEFAULT TRUE
+);
+
+CREATE TABLE IF NOT EXISTS pontes (
+    id SERIAL PRIMARY KEY,
+    chunk_origem TEXT NOT NULL,
+    chunk_destino TEXT NOT NULL,
+    construida BOOLEAN DEFAULT FALSE
+);
+
 -- Garante que a coluna e a constraint só sejam adicionadas se não existirem.
 DO $$
 BEGIN

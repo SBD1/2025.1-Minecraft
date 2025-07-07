@@ -30,3 +30,15 @@ VALUES
     (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
     (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo')
 ON CONFLICT (id_jogador, id_inventario) DO NOTHING; 
+
+-- Fantasmas construtores
+INSERT INTO fantasmas_construtores (nome, chunk, tipo_obra)
+VALUES 
+  ('Construtor1', 'floresta_sul', 'totem'),
+  ('Construtor2', 'pantano_norte', 'ponte');
+
+-- Fantasmas mineradores
+INSERT INTO fantasmas_mineradores (nome, chunk)
+VALUES 
+  ('Minerador1', 'caverna_leste'),
+  ('Minerador2', 'montanha_central');

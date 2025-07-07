@@ -9,12 +9,16 @@ from ..models.bioma import Bioma
 from ..models.chunk import Chunk
 from ..models.mapa import Mapa, TurnoType
 from ..models.player import Player
+from ..models.fantasma import Fantasma
+from ..models.totem import Totem
+from ..models.ponte import Ponte
 from .bioma_repository import BiomaRepository, BiomaRepositoryImpl
 from .chunk_repository import ChunkRepository, ChunkRepositoryImpl
 from .mapa_repository import MapaRepository, MapaRepositoryImpl
 from .player_repository import PlayerRepository, PlayerRepositoryImpl
-
-
+from .totem_repository import TotemRepository, TotemRepositoryImpl
+from .ponte_repository import PonteRepository, PonteRepositoryImpl
+from .fatasma_repository import FantasmaRepository, FantasmaRepositoryImpl
 class BaseRepository(ABC):
     """Interface base para todos os repositories"""
     
@@ -137,3 +141,69 @@ class PlayerRepository(BaseRepository):
     def find_active_players(self) -> List[Player]:
         """Busca jogadores ativos"""
         pass 
+
+class FantasmaRepository(BaseRepository):
+    """Repository para entidade Fantasma"""
+    
+    def find_all(self) -> List[Fantasma]:
+        """Retorna todos os fantasmas"""
+        pass
+    
+    def find_by_id(self, id: int) -> Optional[Fantasma]:
+        """Busca fantasma por ID"""
+        pass
+    
+    def save(self, fantasma: Fantasma) -> Fantasma:
+        """Salva um fantasma"""
+        pass
+    
+    def delete(self, id: int) -> bool:
+        """Deleta um fantasma por ID"""
+        pass
+    
+    def find_by_tipo(self, tipo: str) -> List[Fantasma]:
+        """Busca fantasmas por tipo (minerador/construtor)"""
+        pass
+    
+    def find_by_chunk(self, chunk_nome: str) -> List[Fantasma]:
+        """Busca fantasmas de um chunk específico"""
+        pass
+
+
+class TotemRepository(BaseRepository):
+    """Repository para entidade Totem"""
+    
+    def find_all(self) -> List[Totem]:
+        """Retorna todos os totems ativos"""
+        pass
+    
+    def find_by_id(self, id: int) -> Optional[Totem]:
+        """Busca totem por ID"""
+        pass
+    
+    def save(self, totem: Totem) -> Totem:
+        """Salva um totem"""
+        pass
+    
+    def delete(self, id: int) -> bool:
+        """Deleta um totem por ID"""
+        pass
+
+class PonteRepository(BaseRepository):
+    """Repository para entidade Ponte"""
+    
+    def find_all(self) -> List[Ponte]:
+        """Retorna todas as pontes ativas"""
+        pass
+    
+    def find_by_id(self, id: int) -> Optional[Ponte]:
+        """Busca ponte por ID"""
+        pass
+    
+    def save(self, ponte: Ponte) -> Ponte:
+        """Salva uma ponte"""
+        pass
+    
+    def delete(self, id: int) -> bool:
+        """Deleta uma ponte por ID"""
+        pass
