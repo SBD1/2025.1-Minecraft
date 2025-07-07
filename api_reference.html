@@ -482,6 +482,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.check_map_with_1000_chunks"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.check_new_structure_tables"><code class="docutils literal notranslate"><span class="pre">check_new_structure_tables()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
@@ -519,37 +520,38 @@
 <li class="toctree-l3"><a class="reference internal" href="#id77"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id78"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id79"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id80"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id81"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id82"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id83"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id84"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id85">7.8.1. Conexão com Banco</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id86"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id80"><code class="docutils literal notranslate"><span class="pre">check_new_structure_tables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id81"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id82"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id83"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id84"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id85"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id86">7.8.1. Conexão com Banco</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id87"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id87">7.8.2. Execução de SQL</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id88"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id88">7.8.2. Execução de SQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id89"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id89">7.8.3. Verificações</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id90"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id91"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id92"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id90">7.8.3. Verificações</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id91"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id92"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id93"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id93">7.8.4. Inicialização</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id94"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id95"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id94">7.8.4. Inicialização</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id95"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id96"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#estrutura-de-dados">7.9. Estrutura de Dados</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id96">7.9.1. Player</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id97">7.9.2. Chunk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id98">7.9.3. Mapa</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id99">7.9.4. Bioma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id97">7.9.1. Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id98">7.9.2. Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id99">7.9.3. Mapa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id100">7.9.4. Bioma</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#padroes-de-uso">7.10. Padrões de Uso</a><ul>
@@ -2428,7 +2430,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.db_helpers.check_data_seeded">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_data_seeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_data_seeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.db_helpers.check_data_seeded" title="Link to this definition"></a></dt>
-<dd><p>Verifica se os dados iniciais foram inseridos</p>
+<dd><p>Verifica se os dados iniciais foram inseridos (incluindo novas tabelas)</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2441,6 +2443,12 @@ Baseado na lógica de grid do mapa</p>
 <dt class="sig sig-object py" id="utils.db_helpers.check_map_with_1000_chunks">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_map_with_1000_chunks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_map_with_1000_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.db_helpers.check_map_with_1000_chunks" title="Link to this definition"></a></dt>
 <dd><p>Verifica se o mapa com 1000 chunks já foi criado</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.db_helpers.check_new_structure_tables">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_new_structure_tables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_new_structure_tables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.db_helpers.check_new_structure_tables" title="Link to this definition"></a></dt>
+<dd><p>Verifica se todas as tabelas da nova estrutura existem</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2463,7 +2471,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.db_helpers.initialize_database">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.db_helpers.initialize_database" title="Link to this definition"></a></dt>
-<dd><p>Inicializa o banco de dados com dados básicos</p>
+<dd><p>Inicializa o banco de dados com a nova estrutura organizada</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2506,7 +2514,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="id74">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_data_seeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_data_seeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id74" title="Link to this definition"></a></dt>
-<dd><p>Verifica se os dados iniciais foram inseridos</p>
+<dd><p>Verifica se os dados iniciais foram inseridos (incluindo novas tabelas)</p>
 </dd></dl>
 
 </section>
@@ -2515,7 +2523,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="id75">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id75" title="Link to this definition"></a></dt>
-<dd><p>Inicializa o banco de dados com dados básicos</p>
+<dd><p>Inicializa o banco de dados com a nova estrutura organizada</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2546,7 +2554,7 @@ Baseado na lógica de grid do mapa</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="id77">
 <span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_data_seeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_data_seeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id77" title="Link to this definition"></a></dt>
-<dd><p>Verifica se os dados iniciais foram inseridos</p>
+<dd><p>Verifica se os dados iniciais foram inseridos (incluindo novas tabelas)</p>
 </dd></dl>
 
 <dl class="py function">
@@ -2563,82 +2571,88 @@ Baseado na lógica de grid do mapa</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="id80">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_tables_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_tables_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id80" title="Link to this definition"></a></dt>
-<dd><p>Verifica se as tabelas principais existem no banco usando repositórios</p>
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_new_structure_tables</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_new_structure_tables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id80" title="Link to this definition"></a></dt>
+<dd><p>Verifica se todas as tabelas da nova estrutura existem</p>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="id81">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">connection_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#connection_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id81" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="id82">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">execute_sql_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#execute_sql_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id82" title="Link to this definition"></a></dt>
-<dd><p>Executa um arquivo SQL no banco de dados</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="id83">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id83" title="Link to this definition"></a></dt>
-<dd><p>Inicializa o banco de dados com dados básicos</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="id84">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">setup_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#setup_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id84" title="Link to this definition"></a></dt>
-<dd><p>Configura o banco de dados antes da execução da aplicação</p>
-</dd></dl>
-
-<section id="id85">
-<h3><span class="section-number">7.8.1. </span>Conexão com Banco<a class="headerlink" href="#id85" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="id86">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">connection_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#connection_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id86" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-<section id="id87">
-<h3><span class="section-number">7.8.2. </span>Execução de SQL<a class="headerlink" href="#id87" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="id88">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">execute_sql_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#execute_sql_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id88" title="Link to this definition"></a></dt>
-<dd><p>Executa um arquivo SQL no banco de dados</p>
-</dd></dl>
-
-</section>
-<section id="id89">
-<h3><span class="section-number">7.8.3. </span>Verificações<a class="headerlink" href="#id89" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="id90">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_database_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_database_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id90" title="Link to this definition"></a></dt>
-<dd><p>Verifica se é possível conectar ao banco de dados</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="id91">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_tables_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_tables_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id91" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_tables_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_tables_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id81" title="Link to this definition"></a></dt>
 <dd><p>Verifica se as tabelas principais existem no banco usando repositórios</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="id92">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_data_seeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_data_seeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id92" title="Link to this definition"></a></dt>
-<dd><p>Verifica se os dados iniciais foram inseridos</p>
+<dt class="sig sig-object py" id="id82">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">connection_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#connection_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id82" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id83">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">execute_sql_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#execute_sql_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id83" title="Link to this definition"></a></dt>
+<dd><p>Executa um arquivo SQL no banco de dados</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id84">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id84" title="Link to this definition"></a></dt>
+<dd><p>Inicializa o banco de dados com a nova estrutura organizada</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id85">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">setup_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#setup_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id85" title="Link to this definition"></a></dt>
+<dd><p>Configura o banco de dados antes da execução da aplicação</p>
+</dd></dl>
+
+<section id="id86">
+<h3><span class="section-number">7.8.1. </span>Conexão com Banco<a class="headerlink" href="#id86" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="id87">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">connection_db</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#connection_db"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id87" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="id88">
+<h3><span class="section-number">7.8.2. </span>Execução de SQL<a class="headerlink" href="#id88" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="id89">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">execute_sql_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#execute_sql_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id89" title="Link to this definition"></a></dt>
+<dd><p>Executa um arquivo SQL no banco de dados</p>
 </dd></dl>
 
 </section>
-<section id="id93">
-<h3><span class="section-number">7.8.4. </span>Inicialização<a class="headerlink" href="#id93" title="Link to this heading"></a></h3>
+<section id="id90">
+<h3><span class="section-number">7.8.3. </span>Verificações<a class="headerlink" href="#id90" title="Link to this heading"></a></h3>
 <dl class="py function">
-<dt class="sig sig-object py" id="id94">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id94" title="Link to this definition"></a></dt>
-<dd><p>Inicializa o banco de dados com dados básicos</p>
+<dt class="sig sig-object py" id="id91">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_database_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_database_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id91" title="Link to this definition"></a></dt>
+<dd><p>Verifica se é possível conectar ao banco de dados</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="id92">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_tables_exist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_tables_exist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id92" title="Link to this definition"></a></dt>
+<dd><p>Verifica se as tabelas principais existem no banco usando repositórios</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id93">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">check_data_seeded</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#check_data_seeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id93" title="Link to this definition"></a></dt>
+<dd><p>Verifica se os dados iniciais foram inseridos (incluindo novas tabelas)</p>
+</dd></dl>
+
+</section>
+<section id="id94">
+<h3><span class="section-number">7.8.4. </span>Inicialização<a class="headerlink" href="#id94" title="Link to this heading"></a></h3>
+<dl class="py function">
 <dt class="sig sig-object py" id="id95">
-<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">setup_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#setup_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id95" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">initialize_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#initialize_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id95" title="Link to this definition"></a></dt>
+<dd><p>Inicializa o banco de dados com a nova estrutura organizada</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="id96">
+<span class="sig-prename descclassname"><span class="pre">utils.db_helpers.</span></span><span class="sig-name descname"><span class="pre">setup_database</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/db_helpers.html#setup_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id96" title="Link to this definition"></a></dt>
 <dd><p>Configura o banco de dados antes da execução da aplicação</p>
 </dd></dl>
 
@@ -2646,8 +2660,8 @@ Baseado na lógica de grid do mapa</p>
 </section>
 <section id="estrutura-de-dados">
 <h2><span class="section-number">7.9. </span>Estrutura de Dados<a class="headerlink" href="#estrutura-de-dados" title="Link to this heading"></a></h2>
-<section id="id96">
-<h3><span class="section-number">7.9.1. </span>Player<a class="headerlink" href="#id96" title="Link to this heading"></a></h3>
+<section id="id97">
+<h3><span class="section-number">7.9.1. </span>Player<a class="headerlink" href="#id97" title="Link to this heading"></a></h3>
 <p>A classe <code class="docutils literal notranslate"><span class="pre">Player</span></code> representa um jogador no jogo:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_jogador</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">vida_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
@@ -2676,8 +2690,8 @@ Baseado na lógica de grid do mapa</p>
 * <code class="docutils literal notranslate"><span class="pre">heal(amount)</span></code>: Cura o personagem
 * <code class="docutils literal notranslate"><span class="pre">gain_xp(amount)</span></code>: Adiciona experiência</p>
 </section>
-<section id="id97">
-<h3><span class="section-number">7.9.2. </span>Chunk<a class="headerlink" href="#id97" title="Link to this heading"></a></h3>
+<section id="id98">
+<h3><span class="section-number">7.9.2. </span>Chunk<a class="headerlink" href="#id98" title="Link to this heading"></a></h3>
 <p>A classe <code class="docutils literal notranslate"><span class="pre">Chunk</span></code> representa uma divisão do mundo:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Chunk</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">numero_chunk</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">id_bioma</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -2689,8 +2703,8 @@ Baseado na lógica de grid do mapa</p>
 </pre></div>
 </div>
 </section>
-<section id="id98">
-<h3><span class="section-number">7.9.3. </span>Mapa<a class="headerlink" href="#id98" title="Link to this heading"></a></h3>
+<section id="id99">
+<h3><span class="section-number">7.9.3. </span>Mapa<a class="headerlink" href="#id99" title="Link to this heading"></a></h3>
 <p>A classe <code class="docutils literal notranslate"><span class="pre">Mapa</span></code> representa um mapa do jogo:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Mapa</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nome</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">turno</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
@@ -2699,8 +2713,8 @@ Baseado na lógica de grid do mapa</p>
 </pre></div>
 </div>
 </section>
-<section id="id99">
-<h3><span class="section-number">7.9.4. </span>Bioma<a class="headerlink" href="#id99" title="Link to this heading"></a></h3>
+<section id="id100">
+<h3><span class="section-number">7.9.4. </span>Bioma<a class="headerlink" href="#id100" title="Link to this heading"></a></h3>
 <p>A classe <code class="docutils literal notranslate"><span class="pre">Bioma</span></code> representa um tipo de bioma:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">Bioma</span><span class="p">:</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nome_bioma</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
