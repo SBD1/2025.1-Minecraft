@@ -1,5 +1,5 @@
 -- Drop das tabelas existentes (para recriação limpa)
-DROP TABLE IF EXISTS Inventario, Item, Player, Chunk, Mapa, Bioma CASCADE;
+DROP TABLE IF EXISTS Inventario, Item, Player, Chunk, Mapa, Bioma, aldeao, bob_mago, bob_construtor, vila, casa_aldeao CASCADE;
 
 -- Bioma
 CREATE TABLE Bioma (
@@ -56,9 +56,59 @@ CREATE TABLE Inventario (
     CONSTRAINT uk_inventario_player_item UNIQUE(player_id, item_id)
 );
 
+-- Vila
+CREATE TABLE IF NOT EXISTS Vila (
+    id_vila INTEGER PRIMARY KEY NOT NULL,
+    nome_vila VARCHAR(100),
+    descricao_vila TEXT,
+    id_chunk INTEGER NOT NULL UNIQUE,
+    CONSTRAINT fk_vila_chunk FOREIGN KEY (id_chunk) REFERENCES chunk(id_chunk) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE TABLE IF NOT EXISTS Casa_aldeao (
+    id_casa SERIAL PRIMARY KEY,
+    descricao_casa TEXT,
+    vila INTEGER NOT NULL,
+    CONSTRAINT fk_casa_vila FOREIGN KEY (vila) REFERENCES vila(id_vila) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+-- Aldeao
+CREATE TABLE IF NOT EXISTS Aldeao (
+    id_aldeao SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    descricao VARCHAR(500),
+    id_casa INTEGER,
+    CONSTRAINT chk_tipo_aldeao CHECK (tipo IN ('Normal', 'Mago', 'Construtor')),
+    CONSTRAINT fk_aldeao_casa FOREIGN KEY (id_casa) REFERENCES casa_aldeao(id_casa) ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE TABLE IF NOT EXISTS Bob_mago (
+    id_aldeao_mago INTEGER PRIMARY KEY,
+    habilidade_mago VARCHAR(100),
+    nivel INTEGER NOT NULL,
+    CONSTRAINT fk_mago_aldeao FOREIGN KEY (id_aldeao_mago) REFERENCES aldeao(id_aldeao) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+CREATE TABLE IF NOT EXISTS Bob_construtor (
+    id_aldeao_construtor INTEGER PRIMARY KEY,
+    habilidades_construtor TEXT,
+    nivel INTEGER NOT NULL,
+    CONSTRAINT fk_construtor_aldeao FOREIGN KEY (id_aldeao_construtor) REFERENCES aldeao(id_aldeao) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+
 -- Índices de performance
-CREATE INDEX idx_chunk_bioma    ON Chunk (id_bioma);
-CREATE INDEX idx_chunk_mapa     ON Chunk (id_mapa);
-CREATE INDEX idx_player_chunk   ON Player (current_chunk_id);
-CREATE INDEX idx_inventario_plr ON Inventario (player_id);
-CREATE INDEX idx_inventario_itm ON Inventario (item_id);
+CREATE INDEX IF NOT EXISTS idx_chunk_id_bioma ON chunk (id_bioma);
+CREATE INDEX IF NOT EXISTS idx_chunk_id_mapa ON chunk (id_mapa);
+
+CREATE INDEX IF NOT EXISTS idx_inventario_player_id ON inventario (player_id);
+CREATE INDEX IF NOT EXISTS idx_inventario_item_id ON inventario (item_id);
+
+CREATE INDEX IF NOT EXISTS idx_player_current_chunk_id ON player (current_chunk_id);
+
+CREATE INDEX IF NOT EXISTS idx_vila_id_chunk ON vila (id_chunk);
+
+CREATE INDEX IF NOT EXISTS idx_casa_aldeao_vila ON casa_aldeao (vila);
+
+CREATE INDEX IF NOT EXISTS idx_aldeao_id_casa ON aldeao (id_casa);

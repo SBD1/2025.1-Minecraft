@@ -17,6 +17,8 @@ services:
       - ./db/dml_1000_chunks.sql:/docker-entrypoint-initdb.d/6_dml_1000_chunks.sql
       - ./db/dml_inst.sql:/docker-entrypoint-initdb.d/4_dml_inst.sql
       - ./db/create_user.sql:/docker-entrypoint-initdb.d/5_create_user.sql
+      - ./db/trigger.sql:/docker-entrypoint-initdb.d/2_trigger.sql
+     
       - db_data:/var/lib/postgresql/data
 
   app:
