@@ -10,7 +10,6 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    :caption: Conteúdo:
    :numbered:
 
-   modulo_1
    modulo_2
    modulo_3
    minecraft_legends
@@ -20,7 +19,7 @@ Este projeto recria o MINECRAFT - FGA - 2025/1 utilizando SQL e Python, com ambi
    models
    api_reference
    database
-   relational_algebra 
+   relational_algebra
    development
    contributing
    changelog
