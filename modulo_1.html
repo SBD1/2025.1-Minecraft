@@ -6,12 +6,12 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. 1 Módulo 3 &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
+  <title>1. Módulo 1 &mdash; MINECRAFT - FGA - 2025/1 - Python Edition 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
-    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/modulo_3.html" />
+    <link rel="canonical" href="https://sbd1.github.io/2025.1-Minecraft/modulo_1.html" />
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=8d563738"></script>
@@ -20,8 +20,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="3. Minecraft Legends" href="minecraft_legends.html" />
-    <link rel="prev" title="1. 1 Módulo 2" href="modulo_2.html" /> 
+    <link rel="next" title="2. 1 Módulo 2" href="modulo_2.html" />
+    <link rel="prev" title="🟩 MINECRAFT - FGA - 2025/1 - Python Edition" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,19 +45,58 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Conteúdo:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="modulo_2.html">1. <span class="sectnum">1 </span>Módulo 2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#esquema-do-banco-de-dados-ddl">1.1. <span class="sectnum">1.1 </span>Esquema do Banco de Dados (DDL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#manipulacao-de-dados-dml">1.2. <span class="sectnum">1.2 </span>Manipulação de Dados (DML)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#linguagem-de-consulta-de-dados-dql">1.3. <span class="sectnum">1.3 </span>Linguagem de Consulta de Dados (DQL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#dml-geracao-de-1000-chunks">1.4. <span class="sectnum">1.4 </span>DML: Geração de 1000 Chunks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#video-de-demonstracao">1.5. <span class="sectnum">1.5 </span>Vídeo de Demonstração</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Módulo 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#diagrama-entidade-relacionamento-der">1.1. Diagrama Entidade-Relacionamento (DER)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modelo-relacional">1.2. Modelo Relacional</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dicionario-de-dados-completo">1.3. Dicionário de Dados Completo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-personagens-e-entidades-vivas">1.3.1. Tabelas de Personagens e Entidades Vivas</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. <span class="sectnum">1 </span>Módulo 3</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#triggers-e-procedures-t-sql">2.1. <span class="sectnum">1.1 </span>Triggers e Procedures (T-SQL)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trigger-de-verificacao-de-especializacao-de-aldeao">2.2. <span class="sectnum">1.2 </span>Trigger de Verificação de Especialização de Aldeão</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#trigger-de-limpeza-de-especializacao-antiga">2.3. <span class="sectnum">1.3 </span>Trigger de Limpeza de Especialização Antiga</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#video-de-demonstracao">2.4. <span class="sectnum">1.4 </span>Vídeo de Demonstração</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-heroi">1.4. Tabela: Heroi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-aldeao">1.5. Tabela: Aldeao</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-chefao">1.6. Tabela: Chefao</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-tropa">1.7. Tabela: Tropa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-instancia-tropa">1.8. Tabela: Instancia_tropa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-piglin">1.9. Tabela: Piglin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-fantasma-construtor-e-fantasma-minerador">1.10. Tabela: Fantasma_construtor e Fantasma_minerador</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-anfitriao">1.11. Tabela: Anfitriao</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-mundo-e-ambiente">1.11.1. Tabelas de Mundo e Ambiente</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-mapa">1.12. Tabela: Mapa</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-chunk">1.13. Tabela: Chunk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-bioma">1.14. Tabela: Bioma</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-estruturas-e-construcoes">1.14.1. Tabelas de Estruturas e Construções</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-vila-aldeao">1.15. Tabela: Vila_aldeao</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-casa-aldeao">1.16. Tabela: Casa_aldeao</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-fortaleza">1.17. Tabela: Fortaleza</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-estrutura">1.18. Tabela: Estrutura</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabelas-de-construcoes-especificas">1.19. Tabelas de Construções Específicas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-itens-e-interacao">1.19.1. Tabelas de Itens e Interação</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-inventario">1.20. Tabela: Inventario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-bau">1.21. Tabela: Bau</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-item">1.22. Tabela: Item</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-instancia-item">1.23. Tabela: instancia_item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-jogo-e-missoes">1.23.1. Tabelas de Jogo e Missões</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-missao">1.24. Tabela: Missao</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tabela-dialogo">1.25. Tabela: Dialogo</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tabelas-de-especializacao-heranca">1.25.1. Tabelas de Especialização (Herança)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modulo_2.html">2. <span class="sectnum">1 </span>Módulo 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#video-de-demonstracao">2.1. <span class="sectnum">1.1 </span>Vídeo de Demonstração</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#esquema-do-banco-de-dados-ddl">2.2. <span class="sectnum">1.2 </span>Esquema do Banco de Dados (DDL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#manipulacao-de-dados-dml">2.3. <span class="sectnum">1.3 </span>Manipulação de Dados (DML)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#linguagem-de-consulta-de-dados-dql">2.4. <span class="sectnum">1.4 </span>Linguagem de Consulta de Dados (DQL)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modulo_2.html#dml-geracao-de-1000-chunks">2.5. <span class="sectnum">1.5 </span>DML: Geração de 1000 Chunks</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="minecraft_legends.html">3. Minecraft Legends</a><ul>
@@ -489,6 +528,7 @@
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_data_seeded"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_database_connection"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_map_with_1000_chunks"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_new_structure_tables"><code class="docutils literal notranslate"><span class="pre">check_new_structure_tables()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.check_tables_exist"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.connection_db"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#utils.db_helpers.execute_sql_file"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
@@ -526,37 +566,38 @@
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#id77"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#id78"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="api_reference.html#id79"><code class="docutils literal notranslate"><span class="pre">check_map_with_1000_chunks()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id80"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id81"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id82"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id83"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id84"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id85">8.8.1. Conexão com Banco</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id86"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id80"><code class="docutils literal notranslate"><span class="pre">check_new_structure_tables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id81"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id82"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id83"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id84"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id85"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id86">8.8.1. Conexão com Banco</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id87"><code class="docutils literal notranslate"><span class="pre">connection_db()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id87">8.8.2. Execução de SQL</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id88"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id88">8.8.2. Execução de SQL</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id89"><code class="docutils literal notranslate"><span class="pre">execute_sql_file()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id89">8.8.3. Verificações</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id90"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id91"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id92"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id90">8.8.3. Verificações</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id91"><code class="docutils literal notranslate"><span class="pre">check_database_connection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id92"><code class="docutils literal notranslate"><span class="pre">check_tables_exist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id93"><code class="docutils literal notranslate"><span class="pre">check_data_seeded()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id93">8.8.4. Inicialização</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id94"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id95"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id94">8.8.4. Inicialização</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id95"><code class="docutils literal notranslate"><span class="pre">initialize_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api_reference.html#id96"><code class="docutils literal notranslate"><span class="pre">setup_database()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference.html#estrutura-de-dados">8.9. Estrutura de Dados</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id96">8.9.1. Player</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id97">8.9.2. Chunk</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id98">8.9.3. Mapa</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id99">8.9.4. Bioma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id97">8.9.1. Player</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id98">8.9.2. Chunk</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id99">8.9.3. Mapa</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_reference.html#id100">8.9.4. Bioma</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api_reference.html#padroes-de-uso">8.10. Padrões de Uso</a><ul>
@@ -836,9 +877,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active"><span class="section-number">2. </span><span class="sectnum">1 </span>Módulo 3</li>
+      <li class="breadcrumb-item active"><span class="section-number">1. </span>Módulo 1</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/modulo_3.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/modulo_1.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -846,99 +887,945 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="modulo-3">
-<h1><span class="section-number">2. </span><span class="sectnum">1 </span>Módulo 3<a class="headerlink" href="#modulo-3" title="Link to this heading"></a></h1>
-<p>Triggers e Procedures do Projeto</p>
-<nav class="contents local" id="sumario">
-<p class="topic-title">Sumário</p>
-<ul class="auto-toc simple">
-<li><p><a class="reference internal" href="#triggers-e-procedures-t-sql" id="id1"><span class="sectnum">1.1 </span>Triggers e Procedures (T-SQL)</a></p></li>
-<li><p><a class="reference internal" href="#trigger-de-verificacao-de-especializacao-de-aldeao" id="id2"><span class="sectnum">1.2 </span>Trigger de Verificação de Especialização de Aldeão</a></p></li>
-<li><p><a class="reference internal" href="#trigger-de-limpeza-de-especializacao-antiga" id="id3"><span class="sectnum">1.3 </span>Trigger de Limpeza de Especialização Antiga</a></p></li>
-<li><p><a class="reference internal" href="#video-de-demonstracao" id="id4"><span class="sectnum">1.4 </span>Vídeo de Demonstração</a></p></li>
+  <section id="modulo-1">
+<span id="id1"></span><h1><span class="section-number">1. </span>Módulo 1<a class="headerlink" href="#modulo-1" title="Link to this heading"></a></h1>
+<p>Assista aos vídeos explicativos do Módulo 1 para aprofundar seus conhecimentos:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.youtube.com/embed/RdbeW6n8fk0">Link para o primeiro vídeo do Módulo 1</a></p></li>
+<li><p><a class="reference external" href="https://www.youtube.com/watch?v=jHNbsm4IbuQ">Link para o segundo vídeo do Módulo 1</a></p></li>
 </ul>
-</nav>
-<section id="triggers-e-procedures-t-sql">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink"><span class="section-number">2.1. </span><span class="sectnum">1.1 </span>Triggers e Procedures (T-SQL)</a><a class="headerlink" href="#triggers-e-procedures-t-sql" title="Link to this heading"></a></h2>
-<p>Esta seção detalha os Triggers e Procedures desenvolvidos em T-SQL para garantir a integridade dos dados e automatizar lógicas complexas no banco de dados do projeto.</p>
+<section id="diagrama-entidade-relacionamento-der">
+<span id="id2"></span><h2><span class="section-number">1.1. </span>Diagrama Entidade-Relacionamento (DER)<a class="headerlink" href="#diagrama-entidade-relacionamento-der" title="Link to this heading"></a></h2>
+<p>Este documento detalha o <strong>Diagrama Entidade-Relacionamento (DER)</strong>, uma ferramenta essencial para a modelagem e compreensão da estrutura de bancos de dados.</p>
+<p>O <strong>Diagrama Entidade-Relacionamento (DER)</strong> é uma representação gráfica utilizada para modelar a estrutura lógica de bancos de dados, permitindo visualizar como os dados se organizam e se conectam. Por meio de <strong>entidades</strong>, que representam elementos do mundo real como pessoas, objetos ou conceitos, e de <strong>atributos</strong>, que descrevem as propriedades dessas entidades, o DER torna-se essencial para o planejamento e entendimento de sistemas de informação.</p>
+<p>Além disso, os <strong>relacionamentos</strong> entre as entidades são representados por linhas e símbolos que indicam como os dados se associam entre si, evidenciando <strong>cardinalidades</strong>, como “um para muitos” ou “muitos para muitos”. Com isso, é possível compreender de forma clara as dependências e conexões entre os elementos do banco de dados, favorecendo tanto a criação quanto a manutenção de estruturas coerentes e funcionais.</p>
+<img alt="Diagrama Entidade-Relacionamento (DER) versão 2.0" class="align-center" src="_images/minecraft_legends_4.png" />
 </section>
-<section id="trigger-de-verificacao-de-especializacao-de-aldeao">
-<h2><a class="toc-backref" href="#id2" role="doc-backlink"><span class="section-number">2.2. </span><span class="sectnum">1.2 </span>Trigger de Verificação de Especialização de Aldeão</a><a class="headerlink" href="#trigger-de-verificacao-de-especializacao-de-aldeao" title="Link to this heading"></a></h2>
-<p>Este trigger garante que um aldeão só possa ser inserido em uma tabela de especialização (como <cite>bob_mago</cite> ou <cite>bob_construtor</cite>) se o seu tipo na tabela <cite>aldeao</cite> for compatível.</p>
-<p><strong>Função Principal: `fn_verifica_tipo_para_especializacao()`</strong></p>
-<p>A função verifica o tipo do aldeão antes de uma inserção nas tabelas de especialização. Se o tipo não for compatível, a operação é cancelada e um erro é retornado.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_verifica_tipo_para_especializacao</span><span class="p">()</span>
-<span class="k">RETURNS</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
-<span class="k">DECLARE</span>
-<span class="w">    </span><span class="n">tipo_pai</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span>
-<span class="k">BEGIN</span>
-<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="n">TG_TABLE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;bob_mago&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">tipo</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tipo_pai</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">aldeao</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_aldeao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">id_aldeao_mago</span><span class="p">;</span>
-<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">tipo_pai</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s1">&#39;Mago&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">            </span><span class="n">RAISE</span><span class="w"> </span><span class="k">EXCEPTION</span><span class="w"> </span><span class="s1">&#39;ERRO: Não é possível criar um Bob_mago. O Aldeão (ID: %) não é do tipo &quot;Mago&quot;, mas sim &quot;%&quot;.&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">id_aldeao_mago</span><span class="p">,</span><span class="w"> </span><span class="n">tipo_pai</span><span class="p">;</span>
-<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">ELSIF</span><span class="w"> </span><span class="n">TG_TABLE_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;bob_construtor&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w"> </span><span class="n">tipo</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">tipo_pai</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">aldeao</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_aldeao</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">id_aldeao_construtor</span><span class="p">;</span>
-<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="n">tipo_pai</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="s1">&#39;Construtor&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">            </span><span class="n">RAISE</span><span class="w"> </span><span class="k">EXCEPTION</span><span class="w"> </span><span class="s1">&#39;ERRO: Não é possível criar um Bob_construtor. O Aldeão (ID: %) não é do tipo &quot;Construtor&quot;, mas sim &quot;%&quot;.&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">id_aldeao_construtor</span><span class="p">,</span><span class="w"> </span><span class="n">tipo_pai</span><span class="p">;</span>
-<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
-<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
-
-<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="k">NEW</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">plpgsql</span><span class="p">;</span>
-</pre></div>
-</div>
-<p><strong>Triggers Associados</strong></p>
-<p>Dois triggers são criados para executar a função <cite>fn_verifica_tipo_para_especializacao()</cite> antes de qualquer inserção nas tabelas <cite>bob_mago</cite> and <cite>bob_construtor</cite>.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">tg_valida_insert_mago</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">bob_mago</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">tg_valida_insert_mago</span>
-<span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">bob_mago</span>
-<span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span>
-<span class="k">EXECUTE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_verifica_tipo_para_especializacao</span><span class="p">();</span>
-
-<span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">tg_valida_insert_construtor</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">bob_construtor</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">tg_valida_insert_construtor</span>
-<span class="k">BEFORE</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">bob_construtor</span>
-<span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span>
-<span class="k">EXECUTE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_verifica_tipo_para_especializacao</span><span class="p">();</span>
-</pre></div>
-</div>
+<section id="modelo-relacional">
+<span id="id3"></span><h2><span class="section-number">1.2. </span>Modelo Relacional<a class="headerlink" href="#modelo-relacional" title="Link to this heading"></a></h2>
+<p>O modelo relacional organiza os dados em <strong>tabelas</strong> (relações) compostas por linhas e colunas, onde cada coluna representa um <strong>atributo</strong> e cada linha representa um <strong>registro</strong>. A estrutura é baseada em <strong>chaves primárias (PK)</strong> para identificar registros de forma única e <strong>chaves estrangeiras (FK)</strong> para conectar diferentes tabelas, garantindo a <strong>integridade dos dados</strong>.</p>
+<p>Além disso, o modelo permite a manipulação eficiente das informações por meio da linguagem <strong>SQL</strong>, facilitando consultas, inserções e atualizações. Sua flexibilidade e clareza na estruturação fazem com que seja amplamente utilizado em sistemas de banco de dados, promovendo a organização, consistência e escalabilidade das informações armazenadas.</p>
+<img alt="Modelo Relacional 2.0" class="align-center" src="_images/modelorelaciona.png" />
 </section>
-<section id="trigger-de-limpeza-de-especializacao-antiga">
-<h2><a class="toc-backref" href="#id3" role="doc-backlink"><span class="section-number">2.3. </span><span class="sectnum">1.3 </span>Trigger de Limpeza de Especialização Antiga</a><a class="headerlink" href="#trigger-de-limpeza-de-especializacao-antiga" title="Link to this heading"></a></h2>
-<p>Este trigger é acionado quando o campo <cite>tipo</cite> de um aldeão é atualizado. Se o tipo for alterado, o trigger remove automaticamente o registro correspondente da tabela de especialização antiga, mantendo a consistência dos dados.</p>
-<p><strong>Função Principal: `fn_limpa_especializacao_antiga()`</strong></p>
-<p>A função verifica se o tipo do aldeão foi alterado. Em caso afirmativo, ela deleta a entrada da tabela de especialização anterior (<cite>bob_mago</cite> ou <cite>bob_construtor</cite>).</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">REPLACE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_limpa_especializacao_antiga</span><span class="p">()</span>
-<span class="k">RETURNS</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="err">$$</span>
-<span class="k">BEGIN</span>
-<span class="w">    </span><span class="k">IF</span><span class="w"> </span><span class="k">NEW</span><span class="p">.</span><span class="n">tipo</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">OLD</span><span class="p">.</span><span class="n">tipo</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">        </span><span class="k">IF</span><span class="w"> </span><span class="k">OLD</span><span class="p">.</span><span class="n">tipo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Mago&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">            </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">bob_mago</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_aldeao_mago</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OLD</span><span class="p">.</span><span class="n">id_aldeao</span><span class="p">;</span>
-<span class="w">        </span><span class="k">ELSIF</span><span class="w"> </span><span class="k">OLD</span><span class="p">.</span><span class="n">tipo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Construtor&#39;</span><span class="w"> </span><span class="k">THEN</span>
-<span class="w">            </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">bob_construtor</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id_aldeao_construtor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">OLD</span><span class="p">.</span><span class="n">id_aldeao</span><span class="p">;</span>
-<span class="w">        </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
-<span class="w">    </span><span class="k">END</span><span class="w"> </span><span class="k">IF</span><span class="p">;</span>
-<span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="k">NEW</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span><span class="w"> </span><span class="k">LANGUAGE</span><span class="w"> </span><span class="n">plpgsql</span><span class="p">;</span>
-</pre></div>
-</div>
-<p><strong>Trigger Associado</strong></p>
-<p>O trigger <cite>tg_atualiza_tipo_aldeao</cite> executa a função <cite>fn_limpa_especializacao_antiga()</cite> após a coluna <cite>tipo</cite> na tabela <cite>aldeao</cite> ser atualizada.</p>
-<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">tg_atualiza_tipo_aldeao</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">aldeao</span><span class="p">;</span>
-<span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">tg_atualiza_tipo_aldeao</span>
-<span class="k">AFTER</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">OF</span><span class="w"> </span><span class="n">tipo</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">aldeao</span>
-<span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span>
-<span class="k">EXECUTE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">fn_limpa_especializacao_antiga</span><span class="p">();</span>
-</pre></div>
-</div>
+<section id="dicionario-de-dados-completo">
+<span id="dicionario-de-dados"></span><h2><span class="section-number">1.3. </span>Dicionário de Dados Completo<a class="headerlink" href="#dicionario-de-dados-completo" title="Link to this heading"></a></h2>
+<p>Este dicionário detalha a estrutura do banco de dados, incluindo todas as tabelas, seus atributos, tipos de dados, chaves e descrições baseadas no diagrama relacional.</p>
+<section id="tabelas-de-personagens-e-entidades-vivas">
+<h3><span class="section-number">1.3.1. </span>Tabelas de Personagens e Entidades Vivas<a class="headerlink" href="#tabelas-de-personagens-e-entidades-vivas" title="Link to this heading"></a></h3>
 </section>
-<section id="video-de-demonstracao">
-<h2><a class="toc-backref" href="#id4" role="doc-backlink"><span class="section-number">2.4. </span><span class="sectnum">1.4 </span>Vídeo de Demonstração</a><a class="headerlink" href="#video-de-demonstracao" title="Link to this heading"></a></h2>
-<p>Assista ao nosso vídeo de demonstração aqui: <a class="reference external" href="...">Vídeo do módulo 3 no YouTube</a></p>
+</section>
+<section id="tabela-heroi">
+<h2><span class="section-number">1.4. </span>Tabela: Heroi<a class="headerlink" href="#tabela-heroi" title="Link to this heading"></a></h2>
+<p>Armazena os dados principais do jogador/herói.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_jogador</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único para cada herói.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nome</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome do herói.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vida_max</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida máximos do herói.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">vida_atual</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida atuais do herói.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">XP</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de experiência do herói.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">forca</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Atributo de força do herói.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a href="#id4"><span class="problematic" id="id5">``</span></a>numero_chunk`</p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador do chunk onde o herói se
+encontra.</p></td>
+<td><p>Refere-se  <code class="docutils literal notranslate"><span class="pre">Chunk.Numero_chunk</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-aldeao">
+<h2><span class="section-number">1.5. </span>Tabela: Aldeao<a class="headerlink" href="#tabela-aldeao" title="Link to this heading"></a></h2>
+<p>Armazena dados sobre os personagens aldeões (NPCs).</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_aldeao</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único do aldeão.</p></td>
+<td><p>Chave Primária</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome do aldeão.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Tipo</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(50)</p></td>
+<td><p>Tipo ou profissão do aldeão.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_casa</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Casa onde o aldeão vive.</p></td>
+<td><p>Refere-se  <code class="docutils literal notranslate"><span class="pre">Casa_aldeao.ID_casa</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-chefao">
+<h2><span class="section-number">1.6. </span>Tabela: Chefao<a class="headerlink" href="#tabela-chefao" title="Link to this heading"></a></h2>
+<p>Informações sobre os chefões (Bosses) do jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único do chefão.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição e lore do chefão.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-tropa">
+<h2><span class="section-number">1.7. </span>Tabela: Tropa<a class="headerlink" href="#tabela-tropa" title="Link to this heading"></a></h2>
+<p>Define os arquétipos de tropas que podem existir no jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único do tipo de tropa.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Forca</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Atributo de força base da tropa.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Especialidade</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Habilidade ou característica especial da tropa.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Max_alvos</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Número máximo de alvos que a tropa pode atingir.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vida_max</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td colspan="2"><p>Pontos de vida máximos padrão para este tipo de tropa.|</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição da tropa.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_instancia_tropa</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Chave estrangeira para a tabela de instâncias.</p></td>
+<td><p>Refere-se  Instancia_tropa.ID_instancia_tropa</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-instancia-tropa">
+<h2><span class="section-number">1.8. </span>Tabela: Instancia_tropa<a class="headerlink" href="#tabela-instancia-tropa" title="Link to this heading"></a></h2>
+<p>Representa uma unidade ou grupo específico de uma tropa no mapa.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_instancia_tropa</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da instância da tropa.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nome_tropa</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome do tipo de tropa.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Tropa.Nome</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vida_max</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida máximos desta instância.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vida_atual</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida atuais desta instância.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Numero_chunk</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Chunk onde a instância da tropa está
+localizada.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Chunk.Numero_chunk</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-piglin">
+<h2><span class="section-number">1.9. </span>Tabela: Piglin<a class="headerlink" href="#tabela-piglin" title="Link to this heading"></a></h2>
+<p>Representa um tipo de inimigo ou NPC específico do jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_piglin</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único do Piglin.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Forca</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Atributo de força do Piglin.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vida_max</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida máximos do Piglin.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Vida_atual</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Pontos de vida atuais do Piglin.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a href="#id6"><span class="problematic" id="id7">``</span></a>Nome_fortaleza`</p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Fortaleza à qual o Piglin está associado.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Fortaleza.Nome</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Nome_chefao</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Chefão que comanda o Piglin.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Chefao.Nome</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numero_chunk</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Chunk onde o Piglin se encontra.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Chunk.Numero_chunk</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-fantasma-construtor-e-fantasma-minerador">
+<h2><span class="section-number">1.10. </span>Tabela: Fantasma_construtor e Fantasma_minerador<a class="headerlink" href="#tabela-fantasma-construtor-e-fantasma-minerador" title="Link to this heading"></a></h2>
+<p>Representam papéis ou habilidades especiais que o jogador pode assumir.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_construtor</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da entidad construtora</p></td>
+<td><p>Chave Primária da tabela <code class="docutils literal notranslate"><span class="pre">Fantasma_construtor</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_minerador</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da entidad mineradora</p></td>
+<td><p>Chave Primária da tabela <code class="docutils literal notranslate"><span class="pre">Fantasma_minerador</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_jogador</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Jogador que assume este papel.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Heroi.ID_jogador</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-anfitriao">
+<h2><span class="section-number">1.11. </span>Tabela: Anfitriao<a class="headerlink" href="#tabela-anfitriao" title="Link to this heading"></a></h2>
+<p>Provavelmente representa uma entidade que hospeda ou inicia um evento ou missão.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único do anfitrião.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição do papel do anfitrião.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="tabelas-de-mundo-e-ambiente">
+<h3><span class="section-number">1.11.1. </span>Tabelas de Mundo e Ambiente<a class="headerlink" href="#tabelas-de-mundo-e-ambiente" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="tabela-mapa">
+<h2><span class="section-number">1.12. </span>Tabela: Mapa<a class="headerlink" href="#tabela-mapa" title="Link to this heading"></a></h2>
+<p>Define os mapas do jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador do mapa.</p></td>
+<td><p>Chave Primária Composta.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tumo</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Turno ou estado específico do mapa.</p></td>
+<td><p>Chave Primária Composta.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numero_chunk</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Chave estrangeira para a tabela de chunks</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Chunk.Numero_chunk</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-chunk">
+<h2><span class="section-number">1.13. </span>Tabela: Chunk<a class="headerlink" href="#tabela-chunk" title="Link to this heading"></a></h2>
+<p>Representa uma porção ou área do mapa do jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Numero_chunk</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único para cada chunk.</p></td>
+<td><p>Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">id_mapa_nome</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome do mapa ao qual o chunk pertence.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Mapa.Nome</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id_mapa_tumo</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Turno do mapa ao qual o chunk pertence.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Mapa.Tumo</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">id_bioma</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Bioma predominante no chunk.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Bioma.Nome_bioma</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Acessivel</span></code></p></td>
+<td></td>
+<td><p>BOOLEAN</p></td>
+<td><p>Indica se o chunk é acessível ao jogador.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-bioma">
+<h2><span class="section-number">1.14. </span>Tabela: Bioma<a class="headerlink" href="#tabela-bioma" title="Link to this heading"></a></h2>
+<p>Armazena os diferentes tipos de biomas do mundo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome_bioma</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único do bioma.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição do bioma.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="tabelas-de-estruturas-e-construcoes">
+<h3><span class="section-number">1.14.1. </span>Tabelas de Estruturas e Construções<a class="headerlink" href="#tabelas-de-estruturas-e-construcoes" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="tabela-vila-aldeao">
+<h2><span class="section-number">1.15. </span>Tabela: Vila_aldeao<a class="headerlink" href="#tabela-vila-aldeao" title="Link to this heading"></a></h2>
+<p>Armazena informações sobre as vilas de aldeões.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único da vila.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao_vila</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição da vila.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numero_chunk</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Chunk onde a vila está localizada.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Chunk.Numero_chunk</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-casa-aldeao">
+<h2><span class="section-number">1.16. </span>Tabela: Casa_aldeao<a class="headerlink" href="#tabela-casa-aldeao" title="Link to this heading"></a></h2>
+<p>Representa as casas dentro de uma vila.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_casa</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da casa.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao_casa</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição da casa.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome_vila</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Vila à qual a casa pertence.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Vila_aldeao.Nome</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-fortaleza">
+<h2><span class="section-number">1.17. </span>Tabela: Fortaleza<a class="headerlink" href="#tabela-fortaleza" title="Link to this heading"></a></h2>
+<p>Armazena informações sobre fortalezas.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador único da fortaleza.</p></td>
+<td><p>Chave Primária Composta.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Cla</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Clã ou facção que controla a fortaleza.</p></td>
+<td><p>Chave Primária Composta.</p></td>
+</tr>
+<tr class="row-even"><td colspan="2"><p><code class="docutils literal notranslate"><span class="pre">Nome_chefao</span></code> | FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Chefão que comanda a fortaleza.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Chefao.Nome</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-estrutura">
+<h2><span class="section-number">1.18. </span>Tabela: Estrutura<a class="headerlink" href="#tabela-estrutura" title="Link to this heading"></a></h2>
+<p>Tabela genérica para diferentes tipos de estruturas construídas no jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome e identificador da estrutura.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Cla</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Clã ou facção proprietária da estrutura.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome_fortaleza</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>VARCHAR(100)</p></td>
+<td colspan="2"><p>Fortaleza à qual a estrutura pode estar associada. | Refere-se a <code class="docutils literal notranslate"><span class="pre">Fortaleza.Nome</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabelas-de-construcoes-especificas">
+<h2><span class="section-number">1.19. </span>Tabelas de Construções Específicas<a class="headerlink" href="#tabelas-de-construcoes-especificas" title="Link to this heading"></a></h2>
+<p>Estas tabelas herdam ou se relacionam com a tabela Estrutura.</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt><strong>Muros</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_muro</span></code> (PK): Identificador do muro.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Material</span></code>: Material de que o muro é feito.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Fraqueza</span></code>: Fraqueza do muro.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Torre_Arqueira</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_torre_arqueiro</span></code> (PK): Identificador da torre.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dano</span></code>: Dano causado pela torre.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Max_alvos</span></code>: Número máximo de alvos.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Alcance</span></code>: Alcance dos ataques.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Ponte</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_construcao</span></code> (PK): Identificador da ponte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code>: Descrição da ponte.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Numero_chunk</span></code> (FK): Chunk onde se localiza.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Totem_tropa</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_construcao</span></code> (PK): Identificador do totem.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code>: Descrição do totem.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Fornalha</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_fornalha</span></code> (PK): Identificador da fornalha.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Piglins_por_rodada</span></code>: Capacidade de processamento.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Portal</strong></dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">ID_portal</span></code> (PK): Identificador do portal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Status</span></code>: Status atual do portal (e.g., Ativo, Inativo).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<section id="tabelas-de-itens-e-interacao">
+<h3><span class="section-number">1.19.1. </span>Tabelas de Itens e Interação<a class="headerlink" href="#tabelas-de-itens-e-interacao" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="tabela-inventario">
+<h2><span class="section-number">1.20. </span>Tabela: Inventario<a class="headerlink" href="#tabela-inventario" title="Link to this heading"></a></h2>
+<p>Representa o inventário, que pode ser de um herói ou de um baú.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_inventario</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único do inventário.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_heroi</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Herói proprietário do inventário (se aplicável).</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Heroi.ID_jogador</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_bau</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Baú proprietário do inventário (se aplicável).</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Bau.ID_bau</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-bau">
+<h2><span class="section-number">1.21. </span>Tabela: Bau<a class="headerlink" href="#tabela-bau" title="Link to this heading"></a></h2>
+<p>Representa um baú que pode conter itens.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_bau</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único do baú.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-item">
+<h2><span class="section-number">1.22. </span>Tabela: Item<a class="headerlink" href="#tabela-item" title="Link to this heading"></a></h2>
+<p>Define os arquétipos de itens que podem existir no jogo.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_item</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único do tipo de item.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Tipo</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(50)</p></td>
+<td><p>Categoria do item (e.g., Arma, Poção)</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Nome</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(100)</p></td>
+<td><p>Nome do item.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_instancia_item</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Relaciona-se com a instância específica do item.</p></td>
+<td><p>Refere-se a``instancia_item.ID_instancia_item``</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-instancia-item">
+<h2><span class="section-number">1.23. </span>Tabela: instancia_item<a class="headerlink" href="#tabela-instancia-item" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_instancia_item</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da instância do item.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Uso</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Quantidade de usos restantes ou durabilidade.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição específica desta instância.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_inventario</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Inventário onde o item está guardado.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Inventario.ID_inventario</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_bau</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Baú onde o item pode estar guardado.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Bau.ID_bau</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="tabelas-de-jogo-e-missoes">
+<h3><span class="section-number">1.23.1. </span>Tabelas de Jogo e Missões<a class="headerlink" href="#tabelas-de-jogo-e-missoes" title="Link to this heading"></a></h3>
+</section>
+</section>
+<section id="tabela-missao">
+<h2><span class="section-number">1.24. </span>Tabela: Missao<a class="headerlink" href="#tabela-missao" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_missao</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único da missão.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Prioridade</span></code></p></td>
+<td></td>
+<td><p>VARCHAR(50)</p></td>
+<td><p>Nível de prioridade da missão.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Descricao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Descrição detalhada dos objetivos da missão.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Criterios_conclusao</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>Condições para que a missão seja concluída.</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">XP</span></code></p></td>
+<td></td>
+<td><p>INTEGER</p></td>
+<td><p>Experiência ganha ao completar a missão.</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_jogador</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador do jogador associado à missão.</p></td>
+<td><p>Refere-se a <code class="docutils literal notranslate"><span class="pre">Heroi.ID_jogador</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tabela-dialogo">
+<h2><span class="section-number">1.25. </span>Tabela: Dialogo<a class="headerlink" href="#tabela-dialogo" title="Link to this heading"></a></h2>
+<p>Armazena os textos de diálogo dos personagens.</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome do Campo</p></th>
+<th class="head"><p>Chave/Restrição</p></th>
+<th class="head"><p>Tipo de Dado (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+<th class="head"><p>Observações</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ID_dialogo</span></code></p></td>
+<td><p>PK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador único para cada fala ou diálogo.</p></td>
+<td><p>Chave Primária.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ID_personagem</span></code></p></td>
+<td><p>FK</p></td>
+<td><p>INTEGER</p></td>
+<td><p>Identificador do personagem que fala.</p></td>
+<td><p>refere-se a <code class="docutils literal notranslate"><span class="pre">Aldeao</span></code>, <code class="docutils literal notranslate"><span class="pre">Chefao</span></code>, etc.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Texto</span></code></p></td>
+<td></td>
+<td><p>TEXT</p></td>
+<td><p>O conteúdo do diálogo.</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<section id="tabelas-de-especializacao-heranca">
+<h3><span class="section-number">1.25.1. </span>Tabelas de Especialização (Herança)<a class="headerlink" href="#tabelas-de-especializacao-heranca" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Nome da Tabela</p></th>
+<th class="head"><p>Atributo</p></th>
+<th class="head"><p>Tipo (Sugerido)</p></th>
+<th class="head"><p>Descrição</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Bob_mago</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Habilidade_mago</span> <span class="pre">/</span> <span class="pre">Nivel</span></code></p></td>
+<td><p>INTEGER</p></td>
+<td><p>Nível da habilidade de mago do personagem.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Bob_construtor</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Habilidade_construtor</span> <span class="pre">/</span> <span class="pre">Nivel</span></code></p></td>
+<td><p>INTEGER</p></td>
+<td><p>Nível da habilidade de construtor do personagem.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 
@@ -946,8 +1833,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modulo_2.html" class="btn btn-neutral float-left" title="1. 1 Módulo 2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="minecraft_legends.html" class="btn btn-neutral float-right" title="3. Minecraft Legends" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="🟩 MINECRAFT - FGA - 2025/1 - Python Edition" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modulo_2.html" class="btn btn-neutral float-right" title="2. 1 Módulo 2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
