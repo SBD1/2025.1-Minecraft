@@ -11,29 +11,25 @@ Assista aos vídeos explicativos do Módulo 1 para aprofundar seus conhecimentos
 .. _diagrama-entidade-relacionamento-der:
 
 Diagrama Entidade-Relacionamento (DER)
-======================================
+--------------------------------------
 
 Este documento detalha o **Diagrama Entidade-Relacionamento (DER)**, uma ferramenta essencial para a modelagem e compreensão da estrutura de bancos de dados.
 
-Introdução
-----------
 
 O **Diagrama Entidade-Relacionamento (DER)** é uma representação gráfica utilizada para modelar a estrutura lógica de bancos de dados, permitindo visualizar como os dados se organizam e se conectam. Por meio de **entidades**, que representam elementos do mundo real como pessoas, objetos ou conceitos, e de **atributos**, que descrevem as propriedades dessas entidades, o DER torna-se essencial para o planejamento e entendimento de sistemas de informação.
 
 Além disso, os **relacionamentos** entre as entidades são representados por linhas e símbolos que indicam como os dados se associam entre si, evidenciando **cardinalidades**, como "um para muitos" ou "muitos para muitos". Com isso, é possível compreender de forma clara as dependências e conexões entre os elementos do banco de dados, favorecendo tanto a criação quanto a manutenção de estruturas coerentes e funcionais.
 
-Diagrama
---------
 
 .. image:: ../images/minecraft_legends_4.png
    :alt: Diagrama Entidade-Relacionamento (DER) versão 2.0
    :align: center
 
-###########
+
+.. _Modelo-Relacional:
 
 Modelo Relacional
-
-###########
+-----------------
 
 
 
@@ -45,9 +41,6 @@ Além disso, o modelo permite a manipulação eficiente das informações por me
 
 
 
-Modelo Relacional
------------------
-
 .. image:: ../images/modelorelaciona.png
    :alt: Modelo Relacional 2.0
    :align: center
@@ -55,16 +48,16 @@ Modelo Relacional
 .. _dicionario-de-dados:
 
 Dicionário de Dados Completo
-============================
+----------------------------
 
-[cite_start]Este dicionário detalha a estrutura do banco de dados, incluindo todas as tabelas, seus atributos, tipos de dados, chaves e descrições baseadas no diagrama relacional. [cite: 2]
+Este dicionário detalha a estrutura do banco de dados, incluindo todas as tabelas, seus atributos, tipos de dados, chaves e descrições baseadas no diagrama relacional.
 
-[cite_start]Tabelas de Personagens e Entidades Vivas [cite: 3]
+Tabelas de Personagens e Entidades Vivas
 ****************************************
 
-[cite_start]Tabela: Heroi [cite: 4]
+Tabela: Heroi
 -----------------
-[cite_start]Armazena os dados principais do jogador/herói. [cite: 5]
+Armazena os dados principais do jogador/herói.
 
 +----------------+-----------------+-------------------------+-----------------------------------------+-----------------------------------+
 | Nome do Campo  | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                               | Observações                       |
@@ -85,9 +78,9 @@ Dicionário de Dados Completo
 |                |                 |                         | encontra.                               |                                   |
 +----------------+-----------------+-------------------------+-----------------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Aldeao [cite: 21]
+Tabela: Aldeao
 ------------------
-[cite_start]Armazena dados sobre os personagens aldeões (NPCs). [cite: 22]
+Armazena dados sobre os personagens aldeões (NPCs).
 
 +---------------+-----------------+-------------------------+----------------------------------+-----------------------------------+
 | Nome do Campo | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                        | Observações                       |
@@ -101,9 +94,9 @@ Dicionário de Dados Completo
 | ``ID_casa``   | FK              | INTEGER                 | Casa onde o aldeão vive.         | Refere-se a ``Casa_aldeao.ID_casa`` |
 +---------------+-----------------+-------------------------+----------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Chefao [cite: 24]
+Tabela: Chefao
 ------------------
-[cite_start]Informações sobre os chefões (Bosses) do jogo. [cite: 25]
+Informações sobre os chefões (Bosses) do jogo.
 
 +---------------+-----------------+-------------------------+------------------------------------------+-------------------+
 | Nome do Campo | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                | Observações       |
@@ -113,9 +106,9 @@ Dicionário de Dados Completo
 | ``Descricao`` |                 | TEXT                    | Descrição e lore do chefão.              |                   |
 +---------------+-----------------+-------------------------+------------------------------------------+-------------------+
 
-[cite_start]Tabela: Tropa [cite: 27]
+Tabela: Tropa
 -----------------
-[cite_start]Define os arquétipos de tropas que podem existir no jogo. [cite: 28]
+Define os arquétipos de tropas que podem existir no jogo.
 
 +------------------------+-----------------+-------------------------+------------------------------------------------------+----------------------------------------------+
 | Nome do Campo          | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                            | Observações                                  |
@@ -135,9 +128,9 @@ Dicionário de Dados Completo
 | ``ID_instancia_tropa`` | FK              | INTEGER                 | Chave estrangeira para a tabela de instâncias.       | Refere-se a ``Instancia_tropa.ID_instancia_tropa`` |
 +------------------------+-----------------+-------------------------+------------------------------------------------------+----------------------------------------------+
 
-[cite_start]Tabela: Instancia_tropa [cite: 31]
+Tabela: Instancia_tropa
 ---------------------------
-[cite_start]Representa uma unidade ou grupo específico de uma tropa no mapa. [cite: 32]
+Representa uma unidade ou grupo específico de uma tropa no mapa.
 
 +------------------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | Nome do Campo          | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                   | Observações                        |
@@ -154,9 +147,9 @@ Dicionário de Dados Completo
 |                        |                 |                         | localizada.                                 |                                    |
 +------------------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 
-[cite_start]Tabela: Piglin [cite: 35]
+Tabela: Piglin
 ------------------
-[cite_start]Representa um tipo de inimigo ou NPC específico do jogo. [cite: 36]
+Representa um tipo de inimigo ou NPC específico do jogo.
 
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | Nome do Campo   | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                   | Observações                        |
@@ -176,9 +169,9 @@ Dicionário de Dados Completo
 | ``numero_chunk``| FK              | INTEGER                 | Chunk onde o Piglin se encontra.            | Refere-se a ``Chunk.Numero_chunk`` |
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 
-[cite_start]Tabela: Fantasma_construtor e Fantasma_minerador [cite: 39]
+Tabela: Fantasma_construtor e Fantasma_minerador
 ------------------------------------------------------
-[cite_start]Representam papéis ou habilidades especiais que o jogador pode assumir. [cite: 40]
+Representam papéis ou habilidades especiais que o jogador pode assumir.
 
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
 | Nome do Campo     | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                 | Observações                                         |
@@ -190,9 +183,9 @@ Dicionário de Dados Completo
 | ``ID_jogador``    | FK              | INTEGER                 | Jogador que assume este papel.            | Refere-se a ``Heroi.ID_jogador``.                   |
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
 
-[cite_start]Tabela: Anfitriao [cite: 42]
+Tabela: Anfitriao
 -------------------
-[cite_start]Provavelmente representa uma entidade que hospeda ou inicia um evento ou missão. [cite: 43]
+Provavelmente representa uma entidade que hospeda ou inicia um evento ou missão.
 
 +---------------+-----------------+-------------------------+------------------------------------------+-------------------+
 | Nome do Campo | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                | Observações       |
@@ -202,12 +195,12 @@ Dicionário de Dados Completo
 | ``Descricao`` |                 | TEXT                    | Descrição do papel do anfitrião.         |                   |
 +---------------+-----------------+-------------------------+------------------------------------------+-------------------+
 
-[cite_start]Tabelas de Mundo e Ambiente [cite: 45]
+Tabelas de Mundo e Ambiente
 ***************************
 
-[cite_start]Tabela: Mapa [cite: 46]
+Tabela: Mapa
 ----------------
-[cite_start]Define os mapas do jogo. [cite: 47]
+Define os mapas do jogo.
 
 +----------------+-----------------+-------------------------+------------------------------------------+--------------------------+
 | Nome do Campo  | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                | Observações              |
@@ -219,9 +212,9 @@ Dicionário de Dados Completo
 |``numero_chunk``| FK              | INTEGER                 | Chave estrangeira para a tabela de chunks.| Refere-se a ``Chunk.Numero_chunk``. |
 +----------------+-----------------+-------------------------+------------------------------------------+--------------------------+
 
-[cite_start]Tabela: Chunk [cite: 50]
+Tabela: Chunk
 -----------------
-[cite_start]Representa uma porção ou área do mapa do jogo. [cite: 51]
+Representa uma porção ou área do mapa do jogo.
 
 +----------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------+
 | Nome do Campo  | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                 | Observações                       |
@@ -237,9 +230,9 @@ Dicionário de Dados Completo
 | ``Acessivel``  |                 | BOOLEAN                 | Indica se o chunk é acessível ao jogador. |                                   |
 +----------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Bioma [cite: 58]
+Tabela: Bioma
 -----------------
-[cite_start]Armazena os diferentes tipos de biomas do mundo. [cite: 59]
+Armazena os diferentes tipos de biomas do mundo.
 
 +--------------+-----------------+-------------------------+-----------------------------------------+------------------+
 | Nome do Campo| Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                               | Observações      |
@@ -249,12 +242,12 @@ Dicionário de Dados Completo
 | ``Descricao``|                 | TEXT                    | Descrição do bioma.                     |                  |
 +--------------+-----------------+-------------------------+-----------------------------------------+------------------+
 
-[cite_start]Tabelas de Estruturas e Construções [cite: 61]
+Tabelas de Estruturas e Construções
 ***********************************
 
-[cite_start]Tabela: Vila_aldeao [cite: 62]
+Tabela: Vila_aldeao
 -----------------------
-[cite_start]Armazena informações sobre as vilas de aldeões. [cite: 63]
+Armazena informações sobre as vilas de aldeões.
 
 +------------------+-----------------+-------------------------+------------------------------------------+-----------------------------------+
 | Nome do Campo    | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                | Observações                       |
@@ -266,9 +259,9 @@ Dicionário de Dados Completo
 | ``numero_chunk`` | FK              | INTEGER                 | Chunk onde a vila está localizada.       | Refere-se a ``Chunk.Numero_chunk``|
 +------------------+-----------------+-------------------------+------------------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Casa_aldeao [cite: 73]
+Tabela: Casa_aldeao
 -----------------------
-[cite_start]Representa as casas dentro de uma vila. [cite: 74]
+Representa as casas dentro de uma vila.
 
 +------------------+-----------------+-------------------------+-----------------------------------+-----------------------------------+
 | Nome do Campo    | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                         | Observações                       |
@@ -280,9 +273,9 @@ Dicionário de Dados Completo
 | ``Nome_vila``    | FK              | VARCHAR(100)            | Vila à qual a casa pertence.      | Refere-se a ``Vila_aldeao.Nome``. |
 +------------------+-----------------+-------------------------+-----------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Fortaleza [cite: 76]
+Tabela: Fortaleza
 -------------------
-[cite_start]Armazena informações sobre fortalezas. [cite: 77]
+Armazena informações sobre fortalezas.
 
 +---------------+-----------------+-------------------------+---------------------------------------------+-----------------------------+
 | Nome do Campo | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                   | Observações                 |
@@ -294,9 +287,9 @@ Dicionário de Dados Completo
 | ``Nome_chefao`` | FK            | VARCHAR(100)            | Chefão que comanda a fortaleza.             | Refere-se a ``Chefao.Nome``. |
 +---------------+-----------------+-------------------------+---------------------------------------------+-----------------------------+
 
-[cite_start]Tabela: Estrutura [cite: 79]
+Tabela: Estrutura
 -------------------
-[cite_start]Tabela genérica para diferentes tipos de estruturas construídas no jogo. [cite: 80]
+Tabela genérica para diferentes tipos de estruturas construídas no jogo.
 
 +-------------------+-----------------+-------------------------+--------------------------------------------------+---------------------------------+
 | Nome do Campo     | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                        | Observações                     |
@@ -308,44 +301,44 @@ Dicionário de Dados Completo
 |``Nome_fortaleza`` | FK              | VARCHAR(100)            | Fortaleza à qual a estrutura pode estar associada. | Refere-se a ``Fortaleza.Nome``. |
 +-------------------+-----------------+-------------------------+--------------------------------------------------+---------------------------------+
 
-[cite_start]Tabelas de Construções Específicas [cite: 83]
+Tabelas de Construções Específicas
 ----------------------------------
-[cite_start]Estas tabelas herdam ou se relacionam com a tabela Estrutura. [cite: 84]
+Estas tabelas herdam ou se relacionam com a tabela Estrutura.
 
-* [cite_start]**Muros** [cite: 86]
-    * [cite_start]``ID_muro`` (PK): Identificador do muro. [cite: 87]
-    * [cite_start]``Material``: Material de que o muro é feito. [cite: 88]
-    * [cite_start]``Fraqueza``: Fraqueza do muro. [cite: 89]
+* **Muros**
+    * ``ID_muro`` (PK): Identificador do muro.
+    * ``Material``: Material de que o muro é feito.
+    * ``Fraqueza``: Fraqueza do muro.
 
-* [cite_start]**Torre_Arqueira** [cite: 90]
-    * [cite_start]``ID_torre_arqueiro`` (PK): Identificador da torre. [cite: 91]
-    * [cite_start]``Dano``: Dano causado pela torre. [cite: 93]
-    * [cite_start]``Max_alvos``: Número máximo de alvos. [cite: 95]
-    * [cite_start]``Alcance``: Alcance dos ataques. [cite: 94]
+* **Torre_Arqueira**
+    * ``ID_torre_arqueiro`` (PK): Identificador da torre.
+    * ``Dano``: Dano causado pela torre.
+    * ``Max_alvos``: Número máximo de alvos.
+    * ``Alcance``: Alcance dos ataques.
 
-* [cite_start]**Ponte** [cite: 96]
-    * [cite_start]``ID_construcao`` (PK): Identificador da ponte. [cite: 97]
-    * [cite_start]``Descricao``: Descrição da ponte. [cite: 97]
-    * [cite_start]``Numero_chunk`` (FK): Chunk onde se localiza. [cite: 98]
+* **Ponte**
+    * ``ID_construcao`` (PK): Identificador da ponte.
+    * ``Descricao``: Descrição da ponte.
+    * ``Numero_chunk`` (FK): Chunk onde se localiza.
 
-* [cite_start]**Totem_tropa** [cite: 99]
-    * [cite_start]``ID_construcao`` (PK): Identificador do totem. [cite: 100]
-    * [cite_start]``Descricao``: Descrição do totem. [cite: 100]
+* **Totem_tropa**
+    * ``ID_construcao`` (PK): Identificador do totem.
+    * ``Descricao``: Descrição do totem.
 
-* [cite_start]**Fornalha** [cite: 101]
-    * [cite_start]``ID_fornalha`` (PK): Identificador da fornalha. [cite: 102]
-    * [cite_start]``Piglins_por_rodada``: Capacidade de processamento. [cite: 104]
+* **Fornalha**
+    * ``ID_fornalha`` (PK): Identificador da fornalha.
+    * ``Piglins_por_rodada``: Capacidade de processamento.
 
-* [cite_start]**Portal** [cite: 103]
-    * [cite_start]``ID_portal`` (PK): Identificador do portal. [cite: 105]
-    * [cite_start]``Status``: Status atual do portal (e.g., Ativo, Inativo). [cite: 106]
+* **Portal**
+    * ``ID_portal`` (PK): Identificador do portal.
+    * ``Status``: Status atual do portal (e.g., Ativo, Inativo).
 
-[cite_start]Tabelas de Itens e Interação [cite: 107]
+Tabelas de Itens e Interação
 *****************************
 
-[cite_start]Tabela: Inventario [cite: 108]
+Tabela: Inventario
 --------------------
-[cite_start]Representa o inventário, que pode ser de um herói ou de um baú. [cite: 109]
+Representa o inventário, que pode ser de um herói ou de um baú.
 
 +-----------------+-----------------+-------------------------+---------------------------------------------------+-----------------------------------+
 | Nome do Campo   | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                         | Observações                       |
@@ -357,9 +350,9 @@ Dicionário de Dados Completo
 | ``ID_bau``      | FK              | INTEGER                 | Baú proprietário do inventário (se aplicável).    | Refere-se a ``Bau.ID_bau``.       |
 +-----------------+-----------------+-------------------------+---------------------------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Bau [cite: 111]
+Tabela: Bau
 ---------------
-[cite_start]Representa um baú que pode conter itens. [cite: 112]
+Representa um baú que pode conter itens.
 
 +---------------+-----------------+-------------------------+----------------------------------+-------------------+
 | Nome do Campo | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                        | Observações       |
@@ -367,9 +360,9 @@ Dicionário de Dados Completo
 | ``ID_bau``    | PK              | INTEGER                 | Identificador único do baú.      | Chave Primária.   |
 +---------------+-----------------+-------------------------+----------------------------------+===================+
 
-[cite_start]Tabela: Item [cite: 114]
+Tabela: Item
 ----------------
-[cite_start]Define os arquétipos de itens que podem existir no jogo. [cite: 115]
+Define os arquétipos de itens que podem existir no jogo.
 
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------------+
 | Nome do Campo         | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                        | Observações                                    |
@@ -383,12 +376,12 @@ Dicionário de Dados Completo
 |``ID_instancia_item``  | FK              | INTEGER                 | Relaciona-se com a instância específica do item. | Refere-se a ``instancia_item.ID_instancia_item`` |
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------------+
 
-[cite_start]Tabela: instancia_item [cite: 117]
+Tabela: instancia_item
 --------------------------
 
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------+
 | Nome do Campo         | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                        | Observações                              |
-+=======================+=================+=========================+==================================================+==========================================+
++=======================+=================+=========================+==================================================+================================----------+
 | ``ID_instancia_item`` | PK              | INTEGER                 | Identificador único da instância do item.        | Chave Primária.                          |
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------+
 | ``Uso``               |                 | INTEGER                 | Quantidade de usos restantes ou durabilidade.    |                                          |
@@ -400,10 +393,10 @@ Dicionário de Dados Completo
 | ``ID_bau``            | FK              | INTEGER                 | Baú onde o item pode estar guardado.             | Refere-se a ``Bau.ID_bau``.              |
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------+
 
-[cite_start]Tabelas de Jogo e Missões [cite: 120]
+Tabelas de Jogo e Missões
 **************************
 
-[cite_start]Tabela: Missao [cite: 121]
+Tabela: Missao
 ------------------
 
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+-----------------------------------+
@@ -422,9 +415,9 @@ Dicionário de Dados Completo
 | ``ID_jogador``        | FK              | INTEGER                 | Identificador do jogador associado à missão.     | Refere-se a ``Heroi.ID_jogador``. |
 +-----------------------+-----------------+-------------------------+--------------------------------------------------+-----------------------------------+
 
-[cite_start]Tabela: Dialogo [cite: 123]
+Tabela: Dialogo
 -------------------
-[cite_start]Armazena os textos de diálogo dos personagens. [cite: 124]
+Armazena os textos de diálogo dos personagens.
 
 +-----------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------+
 | Nome do Campo   | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                        | Observações                              |
@@ -436,7 +429,7 @@ Dicionário de Dados Completo
 | ``Texto``       |                 | TEXT                    | O conteúdo do diálogo.                           |                                          |
 +-----------------+-----------------+-------------------------+--------------------------------------------------+------------------------------------------+
 
-[cite_start]Tabelas de Especialização (Herança) [cite: 127]
+Tabelas de Especialização (Herança)
 *************************************
 
 +------------------+------------------------------------+-------------------------+-------------------------------------------------+
