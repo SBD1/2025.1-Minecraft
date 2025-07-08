@@ -3,12 +3,7 @@ Módulo 3
 
 Triggers e Procedures do Projeto
 
-.. sectnum::
-   :depth: 2
 
-.. contents:: Sumário
-   :depth: 2
-   :local:
 
 Triggers e Procedures (T-SQL)
 -----------------------------
