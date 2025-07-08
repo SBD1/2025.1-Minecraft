@@ -74,7 +74,7 @@ Armazena os dados principais do jogador/herói.
 +----------------+-----------------+-------------------------+-----------------------------------------+-----------------------------------+
 | ``forca``      |                 | INTEGER                 | Atributo de força do herói.             |                                   |
 +----------------+-----------------+-------------------------+-----------------------------------------+-----------------------------------+
-| ``numero_chunk``| FK              | INTEGER                 | Identificador do chunk onde o herói se  | Refere-se  ``Chunk.Numero_chunk``|
+| ``numero_chunk`| FK              | INTEGER                 | Identificador do chunk onde o herói se  | Refere-se  ``Chunk.Numero_chunk`` |
 |                |                 |                         | encontra.                               |                                   |
 +----------------+-----------------+-------------------------+-----------------------------------------+-----------------------------------+
 
@@ -136,7 +136,7 @@ Representa uma unidade ou grupo específico de uma tropa no mapa.
 | Nome do Campo          | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                   | Observações                        |
 +========================+=================+=========================+=============================================+====================================+
 | ``ID_instancia_tropa`` | PK              | INTEGER                 | Identificador único da instância da tropa.  | Chave Primária.                    |
-+------------------------+-----------------+-------------------------+---------------------------------------------+====================================+
++------------------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | ``Nome_tropa``         | FK              | VARCHAR(100)            | Nome do tipo de tropa.                      | Refere-se a ``Tropa.Nome``.        |
 +------------------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | ``Vida_max``           |                 | INTEGER                 | Pontos de vida máximos desta instância.     |                                    |
@@ -162,7 +162,7 @@ Representa um tipo de inimigo ou NPC específico do jogo.
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | ``Vida_atual``  |                 | INTEGER                 | Pontos de vida atuais do Piglin.            |                                    |
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
-|``Nome_fortaleza``| FK              | VARCHAR(100)            | Fortaleza à qual o Piglin está associado.   | Refere-se a ``Fortaleza.Nome``.   |
+|``Nome_fortaleza`| FK              | VARCHAR(100)            | Fortaleza à qual o Piglin está associado.   | Refere-se a ``Fortaleza.Nome``.    |
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
 | ``Nome_chefao`` | FK              | VARCHAR(100)            | Chefão que comanda o Piglin.                | Refere-se a ``Chefao.Nome``.       |
 +-----------------+-----------------+-------------------------+---------------------------------------------+------------------------------------+
@@ -176,9 +176,9 @@ Representam papéis ou habilidades especiais que o jogador pode assumir.
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
 | Nome do Campo     | Chave/Restrição | Tipo de Dado (Sugerido) | Descrição                                 | Observações                                         |
 +===================+=================+=========================+===========================================+=====================================================+
-| ``ID_construtor`` | PK              | INTEGER                 | Identificador único da entidade construtora.| Chave Primária da tabela ``Fantasma_construtor``. |
+| ``ID_construtor`` | PK              | INTEGER                 | Identificador único da entidad construtora| Chave Primária da tabela ``Fantasma_construtor``.   |
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
-| ``ID_minerador``  | PK              | INTEGER                 | Identificador único da entidade mineradora. | Chave Primária da tabela ``Fantasma_minerador``.  |
+| ``ID_minerador``  | PK              | INTEGER                 | Identificador único da entidad mineradora | Chave Primária da tabela ``Fantasma_minerador``.    |
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
 | ``ID_jogador``    | FK              | INTEGER                 | Jogador que assume este papel.            | Refere-se a ``Heroi.ID_jogador``.                   |
 +-------------------+-----------------+-------------------------+-------------------------------------------+-----------------------------------------------------+
@@ -209,7 +209,7 @@ Define os mapas do jogo.
 +----------------+-----------------+-------------------------+------------------------------------------+--------------------------+
 | ``Tumo``       | PK              | VARCHAR(100)            | Turno ou estado específico do mapa.      | Chave Primária Composta. |
 +----------------+-----------------+-------------------------+------------------------------------------+--------------------------+
-|``numero_chunk``| FK              | INTEGER                 | Chave estrangeira para a tabela de chunks.|   ``Chunk.Numero_chunk``|
+|``numero_chunk``| FK              | INTEGER                 | Chave estrangeira para a tabela de chunks|   ``Chunk.Numero_chunk`` |
 +----------------+-----------------+-------------------------+------------------------------------------+--------------------------+
 
 Tabela: Chunk
@@ -437,5 +437,5 @@ Tabelas de Especialização (Herança)
 +==================+====================================+=========================+=================================================+
 | ``Bob_mago``     | ``Habilidade_mago / Nivel``        | INTEGER                 | Nível da habilidade de mago do personagem.      |
 +------------------+------------------------------------+-------------------------+-------------------------------------------------+
-| ``Bob_construtor`` | ``Habilidade_construtor / Nivel``| INTEGER                 | Nível da habilidade de construtor do personagem.|
+|``Bob_construtor``| ``Habilidade_construtor / Nivel``  | INTEGER                 | Nível da habilidade de construtor do personagem.|
 +------------------+------------------------------------+-------------------------+-------------------------------------------------+
