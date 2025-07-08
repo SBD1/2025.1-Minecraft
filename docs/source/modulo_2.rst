@@ -3,12 +3,7 @@ Módulo 2
 
 Documentação do Esquema e Dados do Projeto
 
-.. sectnum::
-   :depth: 2
 
-.. contents:: Sumário
-   :depth: 2
-   :local:
    
 Vídeo de Demonstração
 ---------------------
