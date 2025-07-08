@@ -9,11 +9,6 @@ Documentação do Esquema e Dados do Projeto
 .. contents:: Sumário
    :depth: 2
    :local:
-   
-Vídeo de Demonstração
----------------------
-
-Assista ao nosso vídeo de demonstração aqui: `Vídeo do módulo 2 no YouTube <https://youtu.be/Qz7BXkqUX40>`_
 
 Esquema do Banco de Dados (DDL)
 --------------------------------
@@ -343,3 +338,7 @@ Este script DML avançado preenche o banco de dados com 1000 "chunks" para simul
         ('Player3', 110, 110, 25, 11, 3)
     ON CONFLICT (Id_Jogador) DO NOTHING;
 
+Vídeo de Demonstração
+---------------------
+
+Assista ao nosso vídeo de demonstração aqui: `Vídeo do módulo 2 no YouTube <https://youtu.be/Qz7BXkqUX40>`_
