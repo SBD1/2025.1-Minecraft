@@ -23,7 +23,21 @@ CREATE INDEX idx_pontes_destino ON pontes(chunk_destino);
 CREATE INDEX idx_totem_localizacao ON totem(localizacao);
 CREATE INDEX idx_totem_tipo ON totem(tipo);
 
+-- Índices para tabela Vila
+CREATE INDEX idx_vila_nome ON Vila(nome_vila);
+CREATE INDEX idx_vila_chunk ON Vila(id_chunk);
+
+-- Índices para tabela Casa_aldeao
+CREATE INDEX idx_casa_vila ON Casa_aldeao(vila);
+
 -- Índices para tabela Aldeao
-CREATE INDEX idx_aldeao_chunk ON Aldeao(id_chunk);
+CREATE INDEX idx_aldeao_nome ON Aldeao(nome);
 CREATE INDEX idx_aldeao_profissao ON Aldeao(profissao);
+CREATE INDEX idx_aldeao_id_casa ON Aldeao(id_casa);
 CREATE INDEX idx_aldeao_ativo ON Aldeao(ativo);
+
+-- Índices para tabela Bob_mago
+CREATE INDEX idx_bobmago_habilidade ON Bob_mago(habilidade_mago);
+
+-- Índices para tabela Bob_construtor
+CREATE INDEX idx_bobconstrutor_habilidades ON Bob_construtor(habilidades_construtor);

@@ -21,6 +21,9 @@ SELECT * FROM Inventario;
 -- Seleciona todos os aldeões
 SELECT * FROM Aldeao;
 
+-- Seleciona todos os itens
+SELECT * FROM Item;
+
 -- Consulta 1: Jogadores e sua Localização Atual
 -- Mostra em qual chunk, bioma, mapa e turno cada jogador está.
 SELECT
@@ -55,36 +58,45 @@ JOIN
     Item i ON inv.item_id = i.id_item;
 
 
--- Consulta 3: Aldeões por Chunk
--- Lista aldeões e suas localizações
+-- Consulta 3: Aldeões por Chunk (via Casa_aldeao e Vila)
+-- Lista aldeões, suas casas, vilas e localização do chunk
 SELECT
     a.nome AS Nome_Aldeao,
     a.profissao AS Profissao,
     a.nivel_profissao AS Nivel,
     a.vida_atual AS Vida,
+    ca.descricao_casa AS Casa,
+    v.nome_vila AS Vila,
+    c.id_chunk AS Chunk,
     c.x AS Chunk_X,
     c.y AS Chunk_Y,
     b.nome AS Bioma
 FROM
     Aldeao a
 JOIN
-    Chunk c ON a.id_chunk = c.id_chunk
+    Casa_aldeao ca ON a.id_casa = ca.id_casa
+JOIN
+    Vila v ON ca.vila = v.id_vila
+JOIN
+    Chunk c ON v.id_chunk = c.id_chunk
 JOIN
     Bioma b ON c.id_bioma = b.id_bioma
 WHERE
     a.ativo = TRUE;
 
 
--- Consulta 3: Detalhes Completos dos Chunks
+-- Consulta 4: Detalhes Completos dos Chunks
 -- Visualiza os detalhes de cada chunk, incluindo o nome do bioma e as informações do mapa.
 SELECT
-    c.Numero_chunk,
-    b.NomeBioma,
-    m.Nome AS Nome_Mapa,
-    m.Turno
+    c.id_chunk,
+    c.x,
+    c.y,
+    b.nome AS NomeBioma,
+    m.nome AS Nome_Mapa,
+    m.turno AS Turno
 FROM
     Chunk c
 JOIN
-    Bioma b ON c.Id_bioma = b.NomeBioma
+    Bioma b ON c.id_bioma = b.id_bioma
 JOIN
-    Mapa m ON c.Id_mapa_nome = m.Nome AND c.Id_mapa_turno = m.Turno;
+    Mapa m ON c.id_mapa = m.id_mapa;

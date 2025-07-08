@@ -16,7 +16,7 @@ CREATE TABLE Player (
     vida_maxima      INT    NOT NULL,
     vida_atual       INT    NOT NULL,
     forca            INT    NOT NULL,
-    localizacao      VARCHAR(100),
+    localizacao      VARCHAR(100), -- Localização inicial do jogador
     nivel            INT    NOT NULL,
     experiencia      INT    NOT NULL,
     current_chunk_id INT    REFERENCES Chunk(id_chunk) ON DELETE SET NULL ON UPDATE CASCADE

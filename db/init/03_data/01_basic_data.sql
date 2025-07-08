@@ -25,5 +25,12 @@ VALUES
   ('Capacete de Ferro', 'Armadura', 5, 150),
   ('Espada de Diamante', 'Arma', 15, 500),
   ('Armadura de Couro', 'Armadura', 3, 100),
-  ('Arco Longo', 'Arma', 10, 300)
+  ('Arco Longo', 'Arma', 10, 300),
+  ('Pedra', 'Construção', NULL, NULL),
+  ('Madeira', 'Construção', NULL, NULL),
+  ('Redstone', 'Minério', NULL, NULL),
+  ('Pedra', 'Construção', NULL, NULL),
+  ('Ferro', 'Minério', NULL, NULL),
+  ('Carvão', 'Minério', NULL, NULL),
+  ('Diamante', 'Minério', NULL, NULL)
 ON CONFLICT (nome) DO NOTHING;

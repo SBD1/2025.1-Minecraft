@@ -74,7 +74,8 @@ def check_new_structure_tables():
         # Lista de tabelas esperadas na nova estrutura
         expected_tables = [
             'bioma', 'mapa', 'item', 'chunk', 'player', 
-            'inventario', 'fantasma', 'pontes', 'totem', 'aldeao'
+            'inventario', 'fantasma', 'pontes', 'totem', 'aldeao', 'bob_construtor',
+            'bob_mago', 'vila', 'casa_aldeao'
         ]
         
         for table in expected_tables:
