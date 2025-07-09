@@ -86,6 +86,45 @@ Este é o DDL (Data Definition Language) para criar a estrutura do banco de dado
     CREATE INDEX IF NOT EXISTS idx_inventario_id_jogador ON Inventario (id_jogador);
     CREATE INDEX IF NOT EXISTS idx_jogador_id_chunk_atual ON Jogador (Id_Chunk_Atual);
 
+    CREATE TABLE Vila (
+    id_vila SERIAL PRIMARY KEY,
+    nome_vila VARCHAR(100),
+    descricao_vila TEXT,
+    id_chunk INTEGER NOT NULL UNIQUE,
+    CONSTRAINT fk_vila_chunk FOREIGN KEY (id_chunk) REFERENCES chunk(id_chunk) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+   );
+   
+   CREATE TABLE Casa_aldeao (
+       id_casa SERIAL PRIMARY KEY,
+       descricao_casa TEXT,
+       vila INTEGER NOT NULL,
+       CONSTRAINT fk_casa_vila FOREIGN KEY (vila) REFERENCES vila(id_vila) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+   );
+   
+   CREATE TABLE Aldeao (
+       id_aldeao SERIAL PRIMARY KEY,
+       nome VARCHAR(100) NOT NULL UNIQUE,
+       profissao VARCHAR(50) NOT NULL,
+       nivel_profissao INT NOT NULL DEFAULT 1,
+       vida_maxima INT NOT NULL DEFAULT 20,
+       vida_atual INT NOT NULL DEFAULT 20,
+       id_casa INT REFERENCES Casa_aldeao(id_casa) ON DELETE SET NULL ON UPDATE CASCADE,
+       ativo BOOLEAN NOT NULL DEFAULT TRUE,
+       data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+   
+   CREATE TABLE Bob_mago (
+       id_aldeao_mago INTEGER PRIMARY KEY,
+       habilidade_mago VARCHAR(100),
+       CONSTRAINT fk_mago_aldeao FOREIGN KEY (id_aldeao_mago) REFERENCES aldeao(id_aldeao) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+   );
+   
+   CREATE TABLE Bob_construtor (
+       id_aldeao_construtor INTEGER PRIMARY KEY,
+       habilidades_construtor TEXT,
+       CONSTRAINT fk_construtor_aldeao FOREIGN KEY (id_aldeao_construtor) REFERENCES aldeao(id_aldeao) ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY DEFERRED
+   );
+
 Manipulação de Dados (DML)
 ---------------------------
 
@@ -93,38 +132,74 @@ Este script DML (Data Manipulation Language) insere alguns dados iniciais nas ta
 
 .. code-block:: sql
 
-    INSERT INTO Mapa (Nome, Turno)
-    VALUES
-        ('Mapa_Principal', 'Dia'),
-        ('Mapa_Principal', 'Noite')
-    ON CONFLICT (Nome, Turno) DO NOTHING; 
-
-    INSERT INTO Bioma (NomeBioma)
-    VALUES
-        ('Deserto'),
-        ('Oceano'),
-        ('Selva'),
-        ('Floresta')
-    ON CONFLICT (NomeBioma) DO NOTHING; 
-
-    INSERT INTO Chunk (Numero_chunk, Id_bioma, Id_mapa_nome, Id_mapa_turno)
-    VALUES
-        (1, 'Deserto', 'Mapa_Principal', 'Dia'),
-        (2, 'Oceano', 'Mapa_Principal', 'Dia'),
-        (3, 'Selva', 'Mapa_Principal', 'Noite'),
-        (4, 'Floresta', 'Mapa_Principal', 'Noite')
-    ON CONFLICT (Numero_chunk) DO NOTHING;
-
-    INSERT INTO Jogador (Nome, Vida_max, Vida_atual, xp, forca, Id_Chunk_Atual)
-    VALUES
-        ('Player1', 100, 100, 0, 10, 1), 
-        ('Player2', 120, 120, 50, 12, 2); 
-
-    INSERT INTO Inventario (id_jogador, id_inventario, Instancia_Item, ArmaduraEquipada, ArmaEquipada)
-    VALUES
-        (1, 1, '{"item_id": 101, "quantidade": 5}', 'Capacete de Ferro', 'Espada de Diamante'),
-        (2, 1, '{"item_id": 201, "quantidade": 1}', 'Armadura de Couro', 'Arco Longo')
-    ON CONFLICT (id_jogador, id_inventario) DO NOTHING; 
+    -- Mapas
+   INSERT INTO Mapa (nome, turno)
+   VALUES
+     ('Mapa_Principal', 'Dia'),
+     ('Mapa_Principal', 'Noite')
+   ON CONFLICT ON CONSTRAINT uk_mapa_nome_turno DO NOTHING;
+   
+   -- Biomas
+   INSERT INTO Bioma (nome, descricao)
+   VALUES
+     ('Deserto',   'Bioma árido com pouca vegetação.'),
+     ('Oceano',    'Bioma de água salgada.'),
+     ('Selva',     'Bioma tropical úmido.'),
+     ('Floresta',  'Bioma temperado com muita vegetação.')
+   ON CONFLICT (nome) DO NOTHING;
+   
+   -- Itens de exemplo
+   INSERT INTO Item (nome, tipo, poder, durabilidade)
+   VALUES
+     ('Espada de Ferro', 'Arma', 8, 200),
+     ('Poção de Vida',   'Poção', 50, NULL),
+     ('Maçã',            'Comida', NULL, NULL)
+   ON CONFLICT (nome) DO NOTHING;
+   
+   -- Jogadores (sem current_chunk_id para evitar conflito de FK com chunks)
+   INSERT INTO Player (
+     nome, vida_maxima, vida_atual, forca,
+     localizacao, nivel, experiencia, current_chunk_id
+   )
+   VALUES
+     ('Player1', 100, 100, 10, NULL, 1, 0, NULL),
+     ('Player2', 120, 120, 12, NULL, 1, 50, NULL)
+   ON CONFLICT (nome) DO NOTHING;
+   
+   -- Inventário de exemplo (corrigido)
+   INSERT INTO Inventario (player_id, item_id, quantidade)
+   VALUES
+     (1, (SELECT id_item FROM Item WHERE nome='Espada de Ferro'), 1),
+     (1, (SELECT id_item FROM Item WHERE nome='Maçã'), 5)
+   ON CONFLICT ON CONSTRAINT uk_inventario_player_item DO NOTHING; 
+   
+   -- Fantasmas construtores (máx 5)
+   INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
+   ('Construtor 1', 'construtor', 'Chunk-001', TRUE),
+   ('Construtor 2', 'construtor', 'Chunk-002', TRUE),
+   ('Construtor 3', 'construtor', 'Chunk-003', TRUE),
+   ('Construtor 4', 'construtor', 'Chunk-004', TRUE),
+   ('Construtor 5', 'construtor', 'Chunk-005', TRUE);
+   
+   -- Fantasmas mineradores (máx 5)
+   INSERT INTO fantasma (nome, tipo, chunk, ativo) VALUES
+   ('Minerador 1', 'minerador', 'Chunk-001', TRUE),
+   ('Minerador 2', 'minerador', 'Chunk-002', TRUE),
+   ('Minerador 3', 'minerador', 'Chunk-003', TRUE),
+   ('Minerador 4', 'minerador', 'Chunk-004', TRUE),
+   ('Minerador 5', 'minerador', 'Chunk-005', TRUE);
+   
+   -- Inserindo pontes
+   INSERT INTO pontes (chunk_origem, chunk_destino, durabilidade) VALUES
+   ('Chunk-001', 'Chunk-002', 100),
+   ('Chunk-002', 'Chunk-003', 80),
+   ('Chunk-004', 'Chunk-005', 90);
+   
+   -- Inserindo totens
+   INSERT INTO totem (nome, localizacao, tipo, ativo) VALUES
+   ('Totem do Norte', 'Chunk-001', 'ancestral', TRUE),
+   ('Totem do Sul', 'Chunk-004', 'protetor', TRUE),
+   ('Totem Central', 'Chunk-003', 'ancestral', TRUE);
 
 Linguagem de Consulta de Dados (DQL)
 ------------------------------------
