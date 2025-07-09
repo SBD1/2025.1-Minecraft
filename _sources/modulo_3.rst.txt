@@ -102,4 +102,4 @@ O trigger `tg_atualiza_tipo_aldeao` executa a função `fn_limpa_especializacao_
 Vídeo de Demonstração
 ---------------------
 
-Assista ao nosso vídeo de demonstração aqui: `Vídeo do módulo 3 no YouTube <...>`_
+Assista ao nosso vídeo de demonstração aqui: `Vídeo do módulo 3 no YouTube <https://youtu.be/wt3_RqkVgO4>`_
